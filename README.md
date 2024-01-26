@@ -1,1 +1,1 @@
-# EU-wide-Registry-of-Semantic-Assets
+# EU-wide-Registry-of-Semantic-Models

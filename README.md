@@ -1,4 +1,4 @@
-![Registry timeline](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/assets/148065862/6353f1d3-6508-4ae4-9495-eb5d8abf0116)
+![Registry timeline](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/assets/148065862/b5732763-e9a6-4828-9b42-edcfc3dc777c)
 
 # EU-wide-Registry-of-Semantic-Models
 

@@ -1,5 +1,3 @@
-![Registry timeline](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/assets/148065862/b5732763-e9a6-4828-9b42-edcfc3dc777c)
-
 # EU-wide-Registry-of-Semantic-Models
 
 This is the GitHub repository for the EU-wide registry for semantic assets.

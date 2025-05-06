@@ -23,3 +23,8 @@ lovrank_update_query: |
   INSERT DATA {{
     <{ontology_uri}> <http://example.org/LOVRank> "{lovrank_value}"^^xsd:decimal .
   }}
+
+requires_update_query: |
+  INSERT DATA {{
+    <{subject_uri}> <http://purl.org/dc/terms/requires> <{object_uri}> .
+  }}

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # Import libraries
 import os
 import yaml
@@ -25,6 +23,7 @@ LOVRANK_UPDATE_QUERY = config['lovrank_update_query']
 USE_PREFIXCC = config.get('prefixcc', {}).get('enabled', False)  # Optional prefix.cc lookup
 
 LOVRANK_PROPERTY = "http://example.org/LOVRank"  # Replace with your actual property URI
+DCT_REQUIRES = "http://purl.org/dc/terms/requires"
 
 def download_and_parse(url):
     """Download RDF data from a URL and parse it into an rdflib Graph."""
@@ -207,6 +206,26 @@ def write_lovrank_to_endpoint(ontology_uri, lovrank_value, update_query_template
     except Exception as e:
         print(f"Failed to write LOVRank for {ontology_uri}: {e}")
 
+def write_requires_to_endpoint(subject_uri, object_uri, update_query_template):
+    update_query = update_query_template.format(
+        subject_uri=subject_uri,
+        object_uri=object_uri
+    )
+    headers = {"Content-Type": "application/sparql-update"}
+    try:
+        response = requests.post(
+            SPARQL_UPDATE_ENDPOINT,
+            data=update_query.encode('utf-8'),
+            headers=headers,
+            verify=not BYPASS_SSL
+        )
+        if response.status_code in (200, 204):
+            print(f"{subject_uri} dct:requires {object_uri} written.")
+        else:
+            print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {response.status_code} {response.text}")
+    except Exception as e:
+        print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {e}")
+
 def main():
     start_time = time.time()
     print("=== Semantic Registry Metrics Analysis ===\n")
@@ -238,6 +257,11 @@ def main():
         for ns in ns_set:
             ns_to_ontologies.setdefault(ns, set()).add(onto)
 
+    # Build a mapping from main namespace to ontology URI
+    ns_to_ontology_uri = {ns: uri for uri, ns in ontology_main_ns.items() if ns}
+
+    requires_update_query = config['requires_update_query']
+
     # Calculate backlinks and LOVRank for each ontology
     print("\n=== LOVRank Metrics Table ===")
     print(f"{'Ontology':60} {'Backlinks':>10} {'LOVRank':>10}")
@@ -252,6 +276,15 @@ def main():
         write_lovrank_to_endpoint(ontology_uri, f"{lovrank:.6f}", LOVRANK_UPDATE_QUERY)
     print("-" * 85)
     print(f"Total ontologies: {total_ontologies}")
+
+    # For each ontology, check which other ontologies' namespaces it uses
+    for ontology_uri, used_namespaces in ontology_namespaces.items():
+        for ns in used_namespaces:
+            # If this namespace is the main namespace of another ontology (not itself)
+            if ns in ns_to_ontology_uri and ns_to_ontology_uri[ns] != ontology_uri:
+                target_ontology = ns_to_ontology_uri[ns]
+                # Write dct:requires triple
+                write_requires_to_endpoint(ontology_uri, target_ontology, requires_update_query)
 
     elapsed = time.time() - start_time
     print(f"\nScript execution time: {elapsed:.2f} seconds")

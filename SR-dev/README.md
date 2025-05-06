@@ -6,7 +6,7 @@ This directory contains scripts and configuration for analyzing semantic registr
 
 1. Install the required dependencies:
 ```bash
-pip install -r requirements.txt
+cd srt
 ```
 
 2. Configure the settings:

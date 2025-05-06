@@ -1,6 +1,7 @@
 # SPARQL endpoint configuration
 sparql:
-  endpoint: "http://63.32.50.253:81/sparql"
+  sparql_query_endpoint: "http://BEPF388C13:7200/repositories/semantic-registry"
+  sparql_update_endpoint: "http://BEPF388C13:7200/repositories/semantic-registry/statements" 
   graph_uri: "http://semic.registry.eu"
   bypass_ssl: true
 
@@ -15,4 +16,10 @@ sparql_query: |
     ?s prof:hasResource ?resource .
     ?resource dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> .
     ?resource dcat:downloadURL ?download .
-  } 
+  }
+
+lovrank_update_query: |
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+  INSERT DATA {{
+    <{ontology_uri}> <http://example.org/LOVRank> "{lovrank_value}"^^xsd:decimal .
+  }}

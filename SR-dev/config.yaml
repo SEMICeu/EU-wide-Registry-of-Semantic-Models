@@ -19,12 +19,9 @@ sparql_query: |
   }
 
 lovrank_update_query: |
-  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-  INSERT DATA {{
-    <{ontology_uri}> <http://example.org/LOVRank> "{lovrank_value}"^^xsd:decimal .
-  }}
+  DELETE WHERE {{ <{ontology_uri}> <http://example.org/LOVRank> ?o }} ;
+  INSERT DATA {{ <{ontology_uri}> <http://example.org/LOVRank> "{lovrank_value}"^^xsd:decimal }}
 
 requires_update_query: |
-  INSERT DATA {{
-    <{subject_uri}> <http://purl.org/dc/terms/requires> <{object_uri}> .
-  }}
+  DELETE WHERE {{ <{subject_uri}> <http://purl.org/dc/terms/requires> ?o }} ;
+  INSERT DATA {{ <{subject_uri}> <http://purl.org/dc/terms/requires> <{object_uri}> }}

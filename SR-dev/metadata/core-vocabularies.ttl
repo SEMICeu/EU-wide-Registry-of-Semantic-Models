@@ -1,0 +1,255 @@
+@prefix schema: <http://schema.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skosthes: <http://purl.org/iso25964/skos-thes#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix legal: <http://www.w3.org/ns/legal#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix euvoc: <http://publications.europa.eu/ontology/euvoc#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix cb: <http://publications.europa.eu/resource/authority/corporate-body/> .
+@prefix ad: <http://inspire.ec.europa.eu/ont/ad#> .
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix xls2rdf: <https://xls2rdf.sparna.fr/vocabulary#> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix cv: <http://data.europa.eu/m8g/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
+
+<https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>
+  a prof:ResourceDescriptor;
+  dcat:downloadURL "https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person-ap.ttl"^^xsd:anyURI;
+  dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+  prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
+  dct:title "RDF Turtle file of Core Person Vocabulary"@en .
+
+<https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location>
+  a prof:ResourceDescriptor;
+  dcat:downloadURL "https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location.ttl"^^xsd:anyURI;
+  dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+  prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
+  dct:title "RDF Turtle file of Core Location Vocabulary"@en .
+
+<https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business>
+  a prof:ResourceDescriptor;
+  dcat:downloadURL "https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business-ap.ttl"^^xsd:anyURI;
+  dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+  prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
+  dct:title "RDF Turtle file of Core Business Vocabulary"@en .
+
+<https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> a prof:ResourceDescriptor;
+  dcat:downloadURL "https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev.ttl"^^xsd:anyURI;
+  dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+  prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
+  dct:title "RDF Turtle file of Core Criterion and Core Evidence Vocabulary"@en .
+
+<https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation> a prof:ResourceDescriptor;
+  dcat:downloadURL "https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation-ap.ttl"^^xsd:anyURI;
+  dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+  prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
+  dct:title "RDF Turtle file of Core Public Organisation"@en .
+
+<https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event>
+  a prof:ResourceDescriptor;
+  dcat:downloadURL "https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event.ttl"^^xsd:anyURI;
+  dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
+  prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
+  dct:title "RDF Turtle file of Core Public Event"@en .
+
+cb:DIGIT a foaf:Agent, cv:ContactPoint;
+  dct:title "DIGIT"@en;
+  dct:spatial <http://publications.europa.eu/resource/authority/country/EUR>;
+  cv:hasMail "DIGIT-SEMIC-TEAM@ec.europa.eu" .
+
+<http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> a skos:Concept;
+  skos:inScheme <http://publications.europa.eu/resource/authority/file-type/>, skos:Concept;
+  skos:topConceptOf <http://publications.europa.eu/resource/authority/file-type/>, skos:Concept .
+
+<http://www.w3.org/ns/dx/prof/role/vocabulary> a skos:Concept;
+  skos:inScheme <http://www.w3.org/ns/dx/prof/role/>, skos:Concept;
+  skos:topConceptOf <http://www.w3.org/ns/dx/prof/role/>, skos:Concept .
+
+<http://publications.europa.eu/resource/authority/language/ENG> a skos:Concept;
+  skos:inScheme <http://publications.europa.eu/resource/authority/language/>, skos:Concept;
+  skos:topConceptOf <http://publications.europa.eu/resource/authority/language/>, skos:Concept .
+
+skos:Concept a skos:ConceptScheme;
+  skos:hasTopConcept <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>,
+    <http://www.w3.org/ns/dx/prof/role/vocabulary>, <http://publications.europa.eu/resource/authority/language/ENG> .
+
+<https://semiceu.github.io/Core-Person-Vocabulary/> a dct:Standard;
+  cv:contactPoint cb:DIGIT;
+  dct:creator cb:DIGIT;
+  dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
+  dct:description "The Core Person Vocabulary is a simplified, reusable and extensible data model that captures the fundamental characteristics of a Person."@en;
+  dct:hasPart locn:Address, cv:ContactPoint, adms:Identifier, dct:Location, person:Person;
+  prof:hasResource <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>;
+  foaf:homepage <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/>;
+  dct:identifier "CPV";
+  dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  dct:publisher cb:DIGIT;
+  dct:title "Core Person Vocabulary"@en;
+  owl:versionInfo "2.1.1" .
+
+<https://semiceu.github.io/Core-Location-Vocabulary/> a dct:Standard;
+  cv:contactPoint cb:DIGIT;
+  dct:creator cb:DIGIT;
+  dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
+  dct:description "The Core Location Vocabulary is a simplified, reusable and extensible data model that captures the fundamental characteristics of a location, represented as an address, a geographic name, or a geometry."@en;
+  dct:hasPart locn:Address, cv:AdminUnit, locn:Geometry, dct:Location, ad:LocatorDesignator;
+  prof:hasResource <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location>;
+  foaf:homepage <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/>;
+  dct:identifier "CLV";
+  dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  dct:publisher cb:DIGIT;
+  dct:title "Core Location Vocabulary"@en;
+  owl:versionInfo "2.1.0" .
+
+<https://semiceu.github.io/Core-Business-Vocabulary/> a dct:Standard;
+  cv:contactPoint cb:DIGIT;
+  dct:creator cb:DIGIT;
+  dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
+  dct:description "The Core Business Vocabulary is a simplified, reusable and extensible data model that provides a minimum set of classes and properties for legal entities, that is, trading bodies that are formally registered with the relevant authority and that appear in business registers."@en;
+  dct:hasPart cv:AccountingDocument, locn:Address, cv:ContactPoint, adms:Identifier,
+    legal:LegalEntity;
+  prof:hasResource <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business>;
+  foaf:homepage <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/>;
+  dct:identifier "CBV";
+  dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  dct:publisher cb:DIGIT;
+  dct:title "Core Business Vocabulary"@en;
+  owl:versionInfo "2.2.0" .
+
+<https://semiceu.github.io/CCCEV/> a dct:Standard;
+  cv:contactPoint cb:DIGIT;
+  dct:creator cb:DIGIT;
+  dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
+  dct:description "The Core Criterion an Core Evidence Vocabulary is a simplified, reusable and extensible data model that captures the fundamental characteristics of criterion and Evidence."@en;
+  dct:hasPart cv:Constraint, cv:Criterion, cv:Evidence, cv:EvidenceType, cv:EvidenceTypeList,
+    cv:InformationConcept, cv:InformationRequirement, cv:ReferenceFramework, cv:Requirement;
+  prof:hasResource <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev>;
+  foaf:homepage <https://semiceu.github.io/CCCEV/releases/2.1.0/>;
+  dct:identifier "CCCEV";
+  dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  dct:publisher cb:DIGIT;
+  dct:title "Core Criterion and Core Evidence Vocabulary"@en;
+  owl:versionInfo "2.1.0" .
+
+<https://semiceu.github.io/CPOV> a dct:Standard;
+  cv:contactPoint cb:DIGIT;
+  dct:creator cb:DIGIT;
+  dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
+  dct:description "The Core Public Organisation Vocabulary is a simplified, reusable and extensible data model that captures the fundamental characteristics of a public organisation."@en;
+  dct:hasPart locn:Address, cv:ContactPoint, adms:Identifier, cv:PublicOrganisation;
+  prof:hasResource <https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation>;
+  foaf:homepage <https://semiceu.github.io/CPOV/releases/2.1.1/>;
+  dct:identifier "CPOV";
+  dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  dct:publisher cb:DIGIT;
+  dct:title "Core Public Organisation Vocabulary"@en;
+  owl:versionInfo "2.1.1" .
+
+<https://semiceu.github.io/Core-Public-Event-Vocabulary/> a dct:Standard;
+  cv:contactPoint cb:DIGIT;
+  dct:creator cb:DIGIT;
+  dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
+  dct:description "The Core Public Event Vocabulary is a simplified, reusable and extensible data model that captures the fundamental characteristics of a public event."@en;
+  dct:hasPart locn:Address, cv:ContactPoint, cv:Participation, cv:PublicEvent;
+  prof:hasResource <https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event>;
+  foaf:homepage <https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/>;
+  dct:identifier "CPEV";
+  dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  dct:publisher cb:DIGIT;
+  dct:title "Core Public Event Vocabulary"@en;
+  owl:versionInfo "1.1.0" .
+
+locn:Address a rdfs:Class;
+  rdfs:label "Address"@en .
+
+cv:ContactPoint a rdfs:Class;
+  rdfs:label "Contact Point"@en .
+
+adms:Identifier a rdfs:Class;
+  rdfs:label "Identifier"@en .
+
+dct:Location a rdfs:Class;
+  rdfs:label "Location"@en .
+
+person:Person a rdfs:Class;
+  rdfs:label "Person"@en .
+
+cv:AdminUnit a rdfs:Class;
+  rdfs:label "Administrative Unit"@en .
+
+locn:Geometry a rdfs:Class;
+  rdfs:label "Geometry"@en .
+
+ad:LocatorDesignator a rdfs:Class;
+  rdfs:label "Locator Designator"@en .
+
+cv:AccountingDocument a rdfs:Class;
+  rdfs:label "Accounting Document"@en .
+
+legal:LegalEntity a rdfs:Class;
+  rdfs:label "Legal Entity"@en .
+
+cv:Constraint a rdfs:Class;
+  rdfs:label "Constraint"@en .
+
+cv:Criterion a rdfs:Class;
+  rdfs:label "Criterion"@en .
+
+cv:Evidence a rdfs:Class;
+  rdfs:label "Evidence"@en .
+
+cv:EvidenceType a rdfs:Class;
+  rdfs:label "Evidence Type"@en .
+
+cv:EvidenceTypeList a rdfs:Class;
+  rdfs:label "Evidence Type List"@en .
+
+cv:InformationConcept a rdfs:Class;
+  rdfs:label "Information Concept"@en .
+
+cv:InformationRequirement a rdfs:Class;
+  rdfs:label "Information Requirement"@en .
+
+cv:ReferenceFramework a rdfs:Class;
+  rdfs:label "Reference Framework"@en .
+
+cv:Requirement a rdfs:Class;
+  rdfs:label "Requirement"@en .
+
+cv:PublicOrganisation a rdfs:Class;
+  rdfs:label "Public Organisation"@en .
+
+cv:Participation a rdfs:Class;
+  rdfs:label "Participation"@en .
+
+cv:PublicEvent a rdfs:Class;
+  rdfs:label "Public Event"@en .
+
+<https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/> a foaf:Document .
+
+<https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/> a foaf:Document .
+
+<https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/> a foaf:Document .
+
+<https://semiceu.github.io/CCCEV/releases/2.1.0/> a foaf:Document .
+
+<https://semiceu.github.io/CPOV/releases/2.1.1/> a foaf:Document .
+
+<https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/> a foaf:Document .
+
+<http://publications.europa.eu/resource/authority/country/EUR> a dct:Location .

@@ -160,10 +160,11 @@ def write_requires_to_endpoint(subject_uri, object_uri, update_query_template):
             headers=headers,
             verify=not BYPASS_SSL
         )
-        if response.status_code in (200, 204):
+        """if response.status_code in (200, 204):
             print(f"{subject_uri} dct:requires {object_uri} written.")
         else:
             print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {response.status_code} {response.text}")
+        """
     except Exception as e:
         print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {e}")
 
@@ -222,7 +223,8 @@ def main():
         if not main_ns:
             backlinks = 0
         else:
-            backlinks = len(ns_to_ontologies.get(main_ns, set()) - {ontology_uri})
+            list_backlinks = ns_to_ontologies.get(main_ns, set())
+            backlinks = len(list_backlinks - {ontology_uri})
         lovrank = backlinks / total_ontologies if total_ontologies > 0 else 0
         print(f"{ontology_uri:60} {backlinks:10} {lovrank:10.3f}")
         write_lovrank_to_endpoint(ontology_uri, f"{lovrank:.6f}", LOVRANK_UPDATE_QUERY)

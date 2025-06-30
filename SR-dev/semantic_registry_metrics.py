@@ -9,6 +9,8 @@ from urllib.parse import urlparse
 import time
 from collections import Counter
 from rdflib.namespace import XSD
+import logging
+import sys
 
 # Load configuration
 with open('config.yaml', 'r') as f:
@@ -20,8 +22,45 @@ SPARQL_UPDATE_ENDPOINT = config['sparql']['sparql_update_endpoint']
 BYPASS_SSL = config['sparql']['bypass_ssl']
 LOVRANK_UPDATE_QUERY = config['lovrank_update_query']
 
-LOVRANK_PROPERTY = "http://example.org/LOVRank"  # Replace with your actual property URI
+LOVRANK_PROPERTY = "http://example.org/LOVRank"
 DCT_REQUIRES = "http://purl.org/dc/terms/requires"
+DCT_STANDARD = "http://purl.org/dc/terms/Standard"
+
+# Setup logging to file and console
+LOG_FILE = "semantic_registry_analysis.log"
+
+def setup_logging():
+    """Setup logging to both file and console."""
+    # Create logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    
+    # Clear existing handlers
+    logger.handlers.clear()
+    
+    # Create formatter
+    formatter = logging.Formatter('%(asctime)s - %(message)s')
+    
+    # File handler (overwrites file each run)
+    file_handler = logging.FileHandler(LOG_FILE, mode='w')
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(logging.Formatter('%(message)s'))
+    logger.addHandler(console_handler)
+    
+    return logger
+
+# Initialize logging
+logger = setup_logging()
+
+def log_print(message):
+    """Print and log a message."""
+    logger.info(message)
 
 # Suppress SSL warnings if bypassing verification
 if BYPASS_SSL:
@@ -39,19 +78,19 @@ def download_and_parse(url):
         if response.status_code == 200:
             graph = Graph()
             graph.parse(data=response.text, format="turtle")
-            print(f"Parsed RDF from: {url}")
+            log_print(f"Parsed RDF from: {url}")
             return graph
         else:
-            print(f"Failed to download {url}: Status code {response.status_code}")
+            log_print(f"Failed to download {url}: Status code {response.status_code}")
             return None
     except requests.exceptions.SSLError as ssl_err:
-        print(f"SSL error downloading {url}: {str(ssl_err)}")
+        log_print(f"SSL error downloading {url}: {str(ssl_err)}")
         return None
     except requests.exceptions.RequestException as e:
-        print(f"Error downloading {url}: {str(e)}")
+        log_print(f"Error downloading {url}: {str(e)}")
         return None
     except Exception as e:
-        print(f"Error parsing RDF from {url}: {str(e)}")
+        log_print(f"Error parsing RDF from {url}: {str(e)}")
         return None
 
 def get_download_urls():
@@ -62,11 +101,67 @@ def get_download_urls():
     
     try:
         results = sparql.query().convert()
+        # Return tuples of (dct:Standard URI, download URL)
         return [(result['s']['value'], result['download']['value']) 
                 for result in results['results']['bindings']]
     except Exception as e:
-        print(f"Error querying SPARQL endpoint: {str(e)}")
+        log_print(f"Error querying SPARQL endpoint: {str(e)}")
         return []
+
+def normalize_uri(uri):
+    """Remove trailing / or # from URI for comparison purposes."""
+    uri_str = str(uri).rstrip('/#')
+    return uri_str
+
+def get_dct_standard_mappings(download_urls, ontology_namespaces):
+    """
+    Create dct:Standard mappings by matching dct:Standard URIs to actual namespaces
+    found in the RDF data, handling trailing / and # variations.
+    """
+    mappings = {}
+    
+    # Create a set of all actual namespaces found in RDF data
+    all_actual_namespaces = set()
+    for standard_uri, ns_set in ontology_namespaces.items():
+        all_actual_namespaces.update(ns_set)
+    
+    for standard_uri, download_url in download_urls:
+        # Get the namespaces actually used in this ontology's RDF
+        actual_namespaces = ontology_namespaces.get(standard_uri, set())
+        
+        log_print(f"DEBUG: Processing {standard_uri}")
+        log_print(f"DEBUG: Available namespaces: {sorted(actual_namespaces)}")
+        
+        # Try to find the best matching namespace for this dct:Standard URI
+        best_match = None
+        
+        # First, try exact match
+        if standard_uri in actual_namespaces:
+            best_match = standard_uri
+            log_print(f"DEBUG: Exact match found: {standard_uri}")
+        else:
+            # Look for actual namespaces that match the dct:Standard URI 
+            # when we remove trailing / or # from the actual namespace
+            best_match = None
+            for actual_ns in actual_namespaces:
+                # Remove trailing / or # from the actual namespace and compare
+                normalized_actual = normalize_uri(actual_ns)
+                if normalized_actual == standard_uri:
+                    # Found a match! Use the full actual namespace (with trailing char)
+                    best_match = actual_ns
+                    log_print(f"DEBUG: Found match by removing trailing char: {standard_uri} -> {actual_ns}")
+                    break
+        
+        if best_match:
+            mappings[standard_uri] = best_match
+            log_print(f"dct:Standard {standard_uri} -> matched namespace: {best_match}")
+        else:
+            # If no match found, maybe this ontology doesn't define its own namespace
+            # but only uses external ones. Map to None or the standard_uri itself.
+            mappings[standard_uri] = None
+            log_print(f"dct:Standard {standard_uri} -> no matching namespace found in RDF data")
+    
+    return mappings
 
 def extract_namespace(uri):
     """
@@ -98,7 +193,7 @@ def extract_namespace(uri):
         return f"{parsed.scheme}://{parsed.netloc}/"
         
     except Exception as e:
-        print(f"Error parsing URI {uri}: {str(e)}")
+        log_print(f"Error parsing URI {uri}: {str(e)}")
         return str(uri)  # Fallback to the full URI
 
 def get_unique_namespaces(graph):
@@ -113,17 +208,6 @@ def get_unique_namespaces(graph):
                 namespaces.add(ns)
                     
     return namespaces
-
-def guess_main_namespace(graph):
-    """Guess the main namespace of an ontology by finding the most common namespace in subjects."""
-    ns_counter = Counter()
-    for s, p, o in graph:
-        if isinstance(s, URIRef):
-            ns = extract_namespace(s)
-            ns_counter[ns] += 1
-    if ns_counter:
-        return ns_counter.most_common(1)[0][0]
-    return None
 
 def write_lovrank_to_endpoint(ontology_uri, lovrank_value, update_query_template):
     """Write the LOVRank value as a property to the dct:Standard resource in the SPARQL endpoint."""
@@ -140,11 +224,11 @@ def write_lovrank_to_endpoint(ontology_uri, lovrank_value, update_query_template
             verify=not BYPASS_SSL
         )
         if response.status_code in (200, 204):
-            print(f"LOVRank {lovrank_value} written to {ontology_uri}")
+            log_print(f"LOVRank {lovrank_value} written to {ontology_uri}")
         else:
-            print(f"Failed to write LOVRank for {ontology_uri}: {response.status_code} {response.text}")
+            log_print(f"Failed to write LOVRank for {ontology_uri}: {response.status_code} {response.text}")
     except Exception as e:
-        print(f"Failed to write LOVRank for {ontology_uri}: {e}")
+        log_print(f"Failed to write LOVRank for {ontology_uri}: {e}")
 
 def write_requires_to_endpoint(subject_uri, object_uri, update_query_template):
     """Write a dct:requires relationship between two ontologies to the SPARQL endpoint."""
@@ -161,47 +245,55 @@ def write_requires_to_endpoint(subject_uri, object_uri, update_query_template):
             verify=not BYPASS_SSL
         )
         """if response.status_code in (200, 204):
-            print(f"{subject_uri} dct:requires {object_uri} written.")
+            log_print(f"{subject_uri} dct:requires {object_uri} written.")
         else:
-            print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {response.status_code} {response.text}")
+            log_print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {response.status_code} {response.text}")
         """
     except Exception as e:
-        print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {e}")
+        log_print(f"Failed to write dct:requires for {subject_uri} -> {object_uri}: {e}")
 
-def print_namespace_analysis(model_uri, filename, namespaces):
-    """Print the namespace analysis for a model."""
-    print(f"\nUnique namespaces in Model {model_uri} (filename: {filename}):")
+def print_namespace_analysis(standard_uri, filename, namespaces):
+    """Print the namespace analysis for a dct:Standard ontology."""
+    log_print(f"\nUnique namespaces in dct:Standard {standard_uri} (filename: {filename}):")
     for ns in sorted(namespaces):
-        print(f"  {ns}")
-    print(f"Unique namespace count: {len(namespaces)}")
+        log_print(f"  {ns}")
+    log_print(f"Unique namespace count: {len(namespaces)}")
 
 def main():
     start_time = time.time()
-    print("=== Semantic Registry Metrics Analysis ===\n")
+    log_print("=== Semantic Registry Metrics Analysis ===\n")
     
     # Get download URLs from SPARQL endpoint
-    print("Fetching download URLs from SPARQL endpoint...")
+    log_print("Fetching download URLs from SPARQL endpoint...")
     download_urls = get_download_urls()
-    print(f"Found {len(download_urls)} models to analyze\n")
+    log_print(f"Found {len(download_urls)} dct:Standard ontologies to analyze\n")
 
     # Store per-ontology data
-    ontology_namespaces = {}  # model_uri -> set of namespaces used
-    ontology_main_ns = {}     # model_uri -> guessed main namespace
+    ontology_namespaces = {}  # standard_uri -> set of namespaces used in the RDF
+    ontology_main_ns = {}     # standard_uri -> main namespace from dct:Standard URI
 
-    # Process each model
-    for model_uri, download_url in download_urls:
+    # Process each dct:Standard ontology first to collect all namespace data
+    log_print("Processing ontologies and collecting namespace data...")
+    for standard_uri, download_url in download_urls:
         filename = os.path.basename(urlparse(download_url).path)
         graph = download_and_parse(download_url)
         if graph:
             unique_ns = get_unique_namespaces(graph)
-            main_ns = guess_main_namespace(graph)
-            ontology_namespaces[model_uri] = unique_ns
-            ontology_main_ns[model_uri] = main_ns
-            print_namespace_analysis(model_uri, filename, unique_ns)
+            ontology_namespaces[standard_uri] = unique_ns
+            print_namespace_analysis(standard_uri, filename, unique_ns)
+
+    # Now create dct:Standard mappings based on actual namespace data
+    log_print("\nCreating dct:Standard namespace mappings based on actual RDF data...")
+    dct_standard_mappings = get_dct_standard_mappings(download_urls, ontology_namespaces)
+    log_print(f"Created {len(dct_standard_mappings)} dct:Standard mappings\n")
+
+    # Update ontology_main_ns with the correct mappings
+    for standard_uri in ontology_namespaces.keys():
+        ontology_main_ns[standard_uri] = dct_standard_mappings.get(standard_uri)
 
     total_ontologies = len(ontology_namespaces)
     if total_ontologies == 0:
-        print("No ontologies found or processed. Exiting.")
+        log_print("No ontologies found or processed. Exiting.")
         return
 
     # Build a reverse index: namespace -> set of ontologies that use it
@@ -210,41 +302,50 @@ def main():
         for ns in ns_set:
             ns_to_ontologies.setdefault(ns, set()).add(onto)
 
-    # Build a mapping from main namespace to ontology URI
+    # Build a mapping from main namespace to dct:Standard URI
     ns_to_ontology_uri = {ns: uri for uri, ns in ontology_main_ns.items() if ns}
 
     requires_update_query = config['requires_update_query']
 
     # Calculate backlinks and LOVRank for each ontology
-    print("\n=== LOVRank Metrics Table ===")
-    print(f"{'Ontology':60} {'Backlinks':>10} {'LOVRank':>10}")
-    print("-" * 85)
-    for ontology_uri, main_ns in ontology_main_ns.items():
+    log_print("\n=== LOVRank Metrics Table ===")
+    log_print(f"{'dct:Standard URI':60} {'Backlinks':>10} {'LOVRank':>10}")
+    log_print("-" * 85)
+    
+    for standard_uri, main_ns in ontology_main_ns.items():
         if not main_ns:
             backlinks = 0
+            log_print(f"DEBUG: {standard_uri} has no matching namespace")
         else:
-            list_backlinks = ns_to_ontologies.get(main_ns, set())
-            backlinks = len(list_backlinks - {ontology_uri})
+            # Get all ontologies that use this namespace
+            using_ontologies = ns_to_ontologies.get(main_ns, set())
+            # Exclude self-references
+            backlinks = len(using_ontologies - {standard_uri})
+            if backlinks > 0:
+                log_print(f"DEBUG: {standard_uri} (ns: {main_ns}) is used by {backlinks} other ontologies")
+        
         lovrank = backlinks / total_ontologies if total_ontologies > 0 else 0
-        print(f"{ontology_uri:60} {backlinks:10} {lovrank:10.3f}")
-        write_lovrank_to_endpoint(ontology_uri, f"{lovrank:.6f}", LOVRANK_UPDATE_QUERY)
-    print("-" * 85)
-    print(f"Total ontologies: {total_ontologies}")
+        log_print(f"{standard_uri:60} {backlinks:10} {lovrank:10.3f}")
+        write_lovrank_to_endpoint(standard_uri, f"{lovrank:.6f}", LOVRANK_UPDATE_QUERY)
+    
+    log_print("-" * 85)
+    log_print(f"Total ontologies: {total_ontologies}")
 
     # For each ontology, check which other ontologies' namespaces it uses
     dependency_count = 0
-    for ontology_uri, used_namespaces in ontology_namespaces.items():
+    for standard_uri, used_namespaces in ontology_namespaces.items():
         for ns in used_namespaces:
             # If this namespace is the main namespace of another ontology (not itself)
-            if ns in ns_to_ontology_uri and ns_to_ontology_uri[ns] != ontology_uri:
+            if ns in ns_to_ontology_uri and ns_to_ontology_uri[ns] != standard_uri:
                 target_ontology = ns_to_ontology_uri[ns]
                 # Write dct:requires triple
-                write_requires_to_endpoint(ontology_uri, target_ontology, requires_update_query)
+                write_requires_to_endpoint(standard_uri, target_ontology, requires_update_query)
                 dependency_count += 1
     
-    print(f"\nTotal dependencies established: {dependency_count}")
+    log_print(f"\nTotal dependencies established: {dependency_count}")
     elapsed = time.time() - start_time
-    print(f"\nScript execution time: {elapsed:.2f} seconds")
+    log_print(f"\nScript execution time: {elapsed:.2f} seconds")
+    log_print(f"Log saved to: {LOG_FILE}")
 
 if __name__ == "__main__":
     main()

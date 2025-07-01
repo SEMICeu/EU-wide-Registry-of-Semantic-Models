@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+PyYAML
+SPARQLWrapper
+rdflib
+httpx

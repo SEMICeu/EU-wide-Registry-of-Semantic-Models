@@ -1,0 +1,1801 @@
+2025-07-01 09:05:08,771 - === Semantic Registry Metrics Analysis ===
+
+2025-07-01 09:05:08,771 - Fetching download URLs from SPARQL endpoint...
+2025-07-01 09:05:08,983 - Found 47 dct:Standard ontologies to analyze
+
+2025-07-01 09:05:08,983 - Processing ontologies and collecting namespace data...
+2025-07-01 09:05:09,438 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AccessCondition/latest/AccessCondition-AP_IT.ttl
+2025-07-01 09:05:09,439 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/AccessCondition (filename: AccessCondition-AP_IT.ttl):
+2025-07-01 09:05:09,439 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:09,439 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:09,439 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:09,439 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:09,439 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:09,439 -   http://purl.org/dc/terms/
+2025-07-01 09:05:09,439 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:09,439 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:09,439 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:09,439 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:09,439 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:09,439 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:09,439 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:09,439 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:09,439 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:09,439 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/AccessCondition/
+2025-07-01 09:05:09,439 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AccessCondition/latest/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/onto/AccessCondition/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:09,439 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:09,439 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:09,439 - Unique namespace count: 29
+2025-07-01 09:05:09,812 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/l0/latest/l0-AP_IT.ttl
+2025-07-01 09:05:09,817 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/l0 (filename: l0-AP_IT.ttl):
+2025-07-01 09:05:09,817 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:09,817 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:09,821 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:09,821 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:09,821 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:09,821 -   http://purl.org/dc/terms/
+2025-07-01 09:05:09,821 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:09,821 -   http://www.ontologydesignpatterns.org/ont/
+2025-07-01 09:05:09,821 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:09,821 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:09,821 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:09,821 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:09,821 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:09,821 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:09,821 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:09,821 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:09,821 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/l0/
+2025-07-01 09:05:09,821 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/l0/latest/
+2025-07-01 09:05:09,821 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:09,821 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:09,821 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:09,825 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:09,826 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:09,826 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:09,826 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:09,826 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:09,826 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:09,826 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:09,827 - Unique namespace count: 28
+2025-07-01 09:05:10,377 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/TI/latest/TI-AP_IT.ttl
+2025-07-01 09:05:10,382 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/TI (filename: TI-AP_IT.ttl):
+2025-07-01 09:05:10,382 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:10,382 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:10,383 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:10,383 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:10,383 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:10,383 -   http://purl.org/dc/terms/
+2025-07-01 09:05:10,383 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:10,384 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:10,384 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:10,384 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:10,384 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:10,384 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:10,385 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:10,385 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:10,385 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/TI/
+2025-07-01 09:05:10,385 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/TI/latest/
+2025-07-01 09:05:10,385 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:10,386 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:10,386 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:10,386 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:10,386 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:10,386 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:10,387 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:10,387 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:10,387 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:10,387 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:10,387 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:10,387 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:10,388 - Unique namespace count: 28
+2025-07-01 09:05:10,734 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/ACCO/latest/ACCO-AP_IT.ttl
+2025-07-01 09:05:10,749 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/ACCO (filename: ACCO-AP_IT.ttl):
+2025-07-01 09:05:10,749 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:10,749 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:10,758 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:10,758 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:10,758 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:10,758 -   http://purl.org/acco/ns#
+2025-07-01 09:05:10,759 -   http://purl.org/dc/terms/
+2025-07-01 09:05:10,759 -   http://schema.org/
+2025-07-01 09:05:10,759 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:10,759 -   http://www.ontologydesignpatterns.org/cp/owl/
+2025-07-01 09:05:10,759 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:10,759 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:10,760 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:10,760 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:10,760 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:10,760 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:10,760 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:10,762 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:10,762 -   https://creativecommons.org/licenses/by/4.0/
+2025-07-01 09:05:10,763 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/ACCO/
+2025-07-01 09:05:10,763 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/ACCO/latest/
+2025-07-01 09:05:10,763 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-accommodation-facilities/
+2025-07-01 09:05:10,763 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:10,763 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:10,764 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:10,764 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:10,764 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:10,764 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/ACCO/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/POT/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/SM#
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:10,765 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:10,765 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:10,765 - Unique namespace count: 39
+2025-07-01 09:05:11,102 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/POT/latest/POT-AP_IT.ttl
+2025-07-01 09:05:11,119 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/POT (filename: POT-AP_IT.ttl):
+2025-07-01 09:05:11,119 -   http://dati.beniculturali.it/cis/img/
+2025-07-01 09:05:11,123 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:11,123 -   http://dati.gov.it/onto/potapit/
+2025-07-01 09:05:11,123 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:11,123 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:11,124 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:11,124 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:11,124 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:11,124 -   http://purl.org/dc/terms/
+2025-07-01 09:05:11,124 -   http://purl.org/goodrelations/v1#
+2025-07-01 09:05:11,124 -   http://schema.org/
+2025-07-01 09:05:11,124 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:11,125 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:11,125 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:11,125 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:11,125 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:11,125 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:11,126 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:11,126 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:11,126 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:11,126 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/POT/
+2025-07-01 09:05:11,127 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/POT/latest/
+2025-07-01 09:05:11,127 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:11,127 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:11,127 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:11,127 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:11,128 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:11,128 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:11,128 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:11,129 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:11,129 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:11,129 -   https://w3id.org/italia/onto/POT/
+2025-07-01 09:05:11,129 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:11,129 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:11,129 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:11,130 - Unique namespace count: 35
+2025-07-01 09:05:11,496 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/COV/latest/COV-AP_IT.ttl
+2025-07-01 09:05:11,516 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/COV (filename: COV-AP_IT.ttl):
+2025-07-01 09:05:11,517 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:11,517 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:11,517 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:11,517 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:11,518 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:11,518 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:11,518 -   http://purl.org/dc/terms/
+2025-07-01 09:05:11,518 -   http://schema.org/
+2025-07-01 09:05:11,518 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:11,518 -   http://www.ontologydesignpatterns.org/cp/owl/
+2025-07-01 09:05:11,519 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:11,519 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:11,519 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:11,519 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:11,519 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:11,520 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:11,520 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:11,520 -   http://www.w3.org/ns/org#
+2025-07-01 09:05:11,520 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:11,520 -   http://www.w3.org/ns/regorg#
+2025-07-01 09:05:11,520 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:11,521 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/COV/
+2025-07-01 09:05:11,522 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/COV/latest/
+2025-07-01 09:05:11,522 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-organizations/
+2025-07-01 09:05:11,522 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:11,522 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:11,522 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:11,523 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:11,523 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:11,523 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:11,523 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:11,523 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:11,523 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:11,523 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:11,524 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:11,524 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:11,524 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:11,524 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:11,524 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:11,524 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:11,525 - Unique namespace count: 40
+2025-07-01 09:05:11,881 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/POI/latest/POI-AP_IT.ttl
+2025-07-01 09:05:11,887 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/POI (filename: POI-AP_IT.ttl):
+2025-07-01 09:05:11,887 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:11,887 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:11,888 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:11,888 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:11,888 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:11,888 -   http://purl.org/dc/terms/
+2025-07-01 09:05:11,888 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:11,888 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:11,890 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:11,890 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:11,890 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:11,890 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:11,890 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:11,890 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/POI/
+2025-07-01 09:05:11,891 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/POI/latest/
+2025-07-01 09:05:11,891 -   https://w3id.org/italia/controlled-vocabulary/
+2025-07-01 09:05:11,891 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:11,891 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:11,891 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:11,891 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:11,891 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:11,891 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:11,892 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:11,892 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:11,892 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:11,892 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:11,892 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:11,892 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:11,893 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:11,893 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:11,893 - Unique namespace count: 30
+2025-07-01 09:05:12,259 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/SM/latest/SM-AP_IT.ttl
+2025-07-01 09:05:12,269 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/SM (filename: SM-AP_IT.ttl):
+2025-07-01 09:05:12,269 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:12,269 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:12,271 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:12,271 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:12,271 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:12,271 -   http://purl.org/dc/terms/
+2025-07-01 09:05:12,271 -   http://rdfs.org/sioc/
+2025-07-01 09:05:12,271 -   http://rdfs.org/sioc/ns#
+2025-07-01 09:05:12,272 -   http://schema.org/
+2025-07-01 09:05:12,272 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:12,272 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:12,272 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:12,272 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:12,274 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:12,274 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:12,274 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:12,274 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:12,275 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:12,275 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/SM/
+2025-07-01 09:05:12,275 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/SM/latest/
+2025-07-01 09:05:12,275 -   https://schema.org/
+2025-07-01 09:05:12,275 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:12,276 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:12,276 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:12,276 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:12,276 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:12,276 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:12,277 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:12,277 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:12,277 -   https://w3id.org/italia/onto/AccessCondition/
+2025-07-01 09:05:12,277 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:12,279 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:12,279 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:12,279 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:12,279 - Unique namespace count: 34
+2025-07-01 09:05:12,713 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/ADMS/latest/ADMS-AP_IT.ttl
+2025-07-01 09:05:12,737 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/ADMS (filename: ADMS-AP_IT.ttl):
+2025-07-01 09:05:12,737 -   http://dati.gov.it/onto/
+2025-07-01 09:05:12,739 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:12,739 -   http://omv.ontoware.org/2005/05/
+2025-07-01 09:05:12,739 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:12,739 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:12,740 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:12,740 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:12,740 -   http://purl.org/adms/interoperabilitylevel/
+2025-07-01 09:05:12,740 -   http://purl.org/dc/terms/
+2025-07-01 09:05:12,741 -   http://purl.org/vocommons/
+2025-07-01 09:05:12,741 -   http://spcdata.digitpa.gov.it/UfficioProtocolloAOO/
+2025-07-01 09:05:12,741 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:12,741 -   http://www.isibang.ac.in/ns/
+2025-07-01 09:05:12,741 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:12,742 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:12,742 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:12,742 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:12,742 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:12,742 -   http://www.w3.org/ns/
+2025-07-01 09:05:12,743 -   http://www.w3.org/ns/adms#
+2025-07-01 09:05:12,743 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:12,743 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:12,743 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:12,745 -   https://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:12,745 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/ADMS/
+2025-07-01 09:05:12,745 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/ADMS/latest/
+2025-07-01 09:05:12,745 -   https://w3id.org/italia/SM/
+2025-07-01 09:05:12,746 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:12,746 -   https://w3id.org/italia/data/resource/Distribution/
+2025-07-01 09:05:12,747 -   https://w3id.org/italia/data/resource/contact-point/
+2025-07-01 09:05:12,747 -   https://w3id.org/italia/data/resource/organization/public-organization/
+2025-07-01 09:05:12,747 -   https://w3id.org/italia/data/resource/project/
+2025-07-01 09:05:12,747 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:12,749 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:12,749 -   https://w3id.org/italia/onto/ADMS/#
+2025-07-01 09:05:12,749 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:12,749 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:12,749 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:12,749 - Unique namespace count: 38
+2025-07-01 09:05:13,187 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/DCAT/latest/DCAT-AP_IT.ttl
+2025-07-01 09:05:13,200 - 
+Unique namespaces in dct:Standard http://dati.gov.it/onto/dcatapit (filename: DCAT-AP_IT.ttl):
+2025-07-01 09:05:13,215 -   http://dati.gov.it/onto/
+2025-07-01 09:05:13,234 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:13,250 -   http://dati.gov.it/onto/dcatapit/
+2025-07-01 09:05:13,254 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:13,268 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:13,269 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:13,271 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:13,271 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:13,273 -   http://purl.org/dc/terms/
+2025-07-01 09:05:13,276 -   http://purl.org/dc/terms//
+2025-07-01 09:05:13,277 -   http://schema.org/
+2025-07-01 09:05:13,278 -   http://sdati.gov.it/onto/dcatapit#
+2025-07-01 09:05:13,278 -   http://www.dati.gov.it/sites/default/files/
+2025-07-01 09:05:13,279 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:13,279 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:13,279 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:13,280 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:13,281 -   http://www.w3.org/2004/02/skos/
+2025-07-01 09:05:13,282 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:13,285 -   http://www.w3.org/2006/vcard/
+2025-07-01 09:05:13,285 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:13,286 -   http://www.w3.org/ns/
+2025-07-01 09:05:13,287 -   http://www.w3.org/ns/adms#
+2025-07-01 09:05:13,287 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:13,287 -   http://www.w3.org/ns/locn#
+2025-07-01 09:05:13,287 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:13,287 -   https://dati.gov.it/onto/
+2025-07-01 09:05:13,287 -   https://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:13,287 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/DCAT/
+2025-07-01 09:05:13,287 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/DCAT/latest/
+2025-07-01 09:05:13,287 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:13,291 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:13,291 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:13,291 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:13,291 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:13,291 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:13,291 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:13,291 -   https://www.w3.org/ns/
+2025-07-01 09:05:13,291 -   https://www.w3.org/ns/dcat#
+2025-07-01 09:05:13,299 -   https://www.w3.org/ns/locn#
+2025-07-01 09:05:13,302 -   ttp://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:13,303 - Unique namespace count: 41
+2025-07-01 09:05:13,855 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AtlasOfPaths/latest/AtlasOfPaths-AP_IT.ttl
+2025-07-01 09:05:13,868 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/AtlasOfPaths (filename: AtlasOfPaths-AP_IT.ttl):
+2025-07-01 09:05:13,868 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:13,868 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:13,877 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:13,877 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:13,877 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:13,877 -   http://purl.org/dc/terms/
+2025-07-01 09:05:13,877 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:13,878 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:13,878 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:13,878 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:13,878 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:13,878 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:13,878 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:13,878 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:13,880 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/AtlasOfPaths/
+2025-07-01 09:05:13,880 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AtlasOfPaths/latest/
+2025-07-01 09:05:13,880 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AtlasOfPaths/v0.1/
+2025-07-01 09:05:13,880 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:13,881 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:13,883 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:13,884 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:13,885 -   https://w3id.org/italia/data/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:13,885 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:13,885 -   https://w3id.org/italia/onto/ACCO/
+2025-07-01 09:05:13,886 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:13,886 -   https://w3id.org/italia/onto/AtlasOfPaths/
+2025-07-01 09:05:13,886 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:13,887 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:13,888 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:13,888 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:13,888 -   https://w3id.org/italia/onto/Route/
+2025-07-01 09:05:13,888 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:13,889 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:13,889 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:13,889 -   mailto://dg-t@beniculturali.it/
+2025-07-01 09:05:13,889 - Unique namespace count: 35
+2025-07-01 09:05:14,774 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Route/latest/Route-AP_IT.ttl
+2025-07-01 09:05:14,783 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/Route (filename: Route-AP_IT.ttl):
+2025-07-01 09:05:14,784 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:14,784 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:14,785 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:14,785 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:14,786 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:14,786 -   http://purl.org/dc/terms/
+2025-07-01 09:05:14,786 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:14,786 -   http://vocab.gtfs.org/terms#
+2025-07-01 09:05:14,787 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:14,787 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:14,787 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:14,787 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:14,787 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:14,787 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:14,787 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:14,789 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:14,789 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Route/
+2025-07-01 09:05:14,789 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Route/latest/
+2025-07-01 09:05:14,790 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Route/v0.1/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-routes/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/data/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:14,790 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:14,792 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:14,792 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:14,792 -   https://w3id.org/italia/onto/Route/
+2025-07-01 09:05:14,792 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:14,792 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:14,792 -   mailto://dg-t@beniculturali.it/
+2025-07-01 09:05:14,792 - Unique namespace count: 34
+2025-07-01 09:05:15,736 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CLV/latest/CLV-AP_IT.ttl
+2025-07-01 09:05:15,765 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/CLV (filename: CLV-AP_IT.ttl):
+2025-07-01 09:05:15,768 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:15,769 -   http://https://www.w3.org/ns/locn#
+2025-07-01 09:05:15,770 -   http://inspire.ec.europa.eu/featureconcept/
+2025-07-01 09:05:15,770 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:15,770 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:15,770 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:15,772 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:15,772 -   http://purl.org/dc/terms/
+2025-07-01 09:05:15,773 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:15,774 -   http://www.geonames.org/ontology#
+2025-07-01 09:05:15,775 -   http://www.opengis.net/ont/geosparql#
+2025-07-01 09:05:15,776 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:15,778 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:15,780 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:15,782 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:15,782 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:15,783 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:15,784 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:15,785 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:15,785 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:15,786 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CLV/
+2025-07-01 09:05:15,786 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CLV/latest/
+2025-07-01 09:05:15,786 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:15,786 -   https://w3id.org/italia/controlled-vocabulary/territorial-classifications/
+2025-07-01 09:05:15,787 -   https://w3id.org/italia/controlled-vocabulary/territorial-classifications/countries/
+2025-07-01 09:05:15,787 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:15,787 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:15,788 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:15,788 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:15,789 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:15,791 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:15,791 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:15,792 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:15,793 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:15,794 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:15,795 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:15,795 -   https://www.w3.org/ns/locn#
+2025-07-01 09:05:15,796 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:15,796 - Unique namespace count: 38
+2025-07-01 09:05:16,160 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/MU/latest/MU-AP_IT.ttl
+2025-07-01 09:05:16,177 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/MU (filename: MU-AP_IT.ttl):
+2025-07-01 09:05:16,177 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:16,177 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:16,179 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:16,179 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:16,179 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:16,179 -   http://purl.org/dc/terms/
+2025-07-01 09:05:16,179 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:16,179 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:16,179 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:16,180 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:16,180 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:16,180 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:16,180 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:16,180 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:16,181 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/MU/
+2025-07-01 09:05:16,181 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/MU/latest/
+2025-07-01 09:05:16,181 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:16,181 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:16,181 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:16,181 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:16,183 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:16,183 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:16,183 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:16,183 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:16,183 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:16,183 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:16,183 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:16,184 - Unique namespace count: 27
+2025-07-01 09:05:16,550 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/RO/latest/RO-AP_IT.ttl
+2025-07-01 09:05:16,556 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/RO (filename: RO-AP_IT.ttl):
+2025-07-01 09:05:16,556 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:16,557 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:16,557 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:16,557 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:16,558 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:16,558 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:16,558 -   http://purl.org/dc/terms/
+2025-07-01 09:05:16,558 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:16,559 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:16,559 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:16,559 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:16,559 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:16,559 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:16,559 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:16,560 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/RO/
+2025-07-01 09:05:16,560 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/RO/latest/
+2025-07-01 09:05:16,560 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:16,560 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:16,561 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:16,561 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:16,561 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:16,561 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:16,561 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:16,563 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:16,563 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:16,563 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:16,563 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:16,563 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:16,564 - Unique namespace count: 28
+2025-07-01 09:05:17,070 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPEV/latest/CPEV-AP_IT.ttl
+2025-07-01 09:05:17,080 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/CPEV (filename: CPEV-AP_IT.ttl):
+2025-07-01 09:05:17,081 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:17,081 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:17,081 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:17,081 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:17,081 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:17,082 -   http://purl.org/dc/terms/
+2025-07-01 09:05:17,082 -   http://schema.org/
+2025-07-01 09:05:17,082 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:17,082 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:17,082 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:17,083 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:17,083 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:17,083 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:17,083 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:17,085 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:17,085 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:17,085 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:17,086 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CPEV/
+2025-07-01 09:05:17,086 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPEV/latest/
+2025-07-01 09:05:17,086 -   https://w3id.org/italia/controlled-vocabulary/
+2025-07-01 09:05:17,087 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:17,087 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:17,088 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:17,088 -   https://w3id.org/italia/data/organization/private-organization/
+2025-07-01 09:05:17,089 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:17,089 -   https://w3id.org/italia/data/organization/public-organization/support-unit/
+2025-07-01 09:05:17,089 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:17,089 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:17,090 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:17,090 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:17,090 -   https://w3id.org/italia/onto/AccessCondition/
+2025-07-01 09:05:17,090 -   https://w3id.org/italia/onto/CPEV/
+2025-07-01 09:05:17,090 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:17,091 -   https://w3id.org/italia/onto/POT/
+2025-07-01 09:05:17,091 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:17,091 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:17,091 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:17,092 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:17,092 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:17,092 - Unique namespace count: 39
+2025-07-01 09:05:17,513 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPSV/latest/CPSV-AP_IT.ttl
+2025-07-01 09:05:17,536 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/CPSV (filename: CPSV-AP_IT.ttl):
+2025-07-01 09:05:17,537 -   http://data.europa.eu/eli/ontology#
+2025-07-01 09:05:17,537 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:17,537 -   http://dati.gov.it/onto#
+2025-07-01 09:05:17,537 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:17,538 -   http://publications.europa.eu/resource/authority/
+2025-07-01 09:05:17,538 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:17,538 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:17,538 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:17,538 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:17,539 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:17,539 -   http://purl.org/dc/terms/
+2025-07-01 09:05:17,539 -   http://purl.org/vocab/cpsv#
+2025-07-01 09:05:17,540 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:17,540 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:17,540 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:17,540 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:17,540 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:17,541 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:17,541 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:17,541 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:17,541 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:17,542 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:17,542 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CPSV/
+2025-07-01 09:05:17,542 -   https://github.com/italia/servizi-gov/raw/master/ontology/
+2025-07-01 09:05:17,543 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPSV/latest/
+2025-07-01 09:05:17,543 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-public-services/
+2025-07-01 09:05:17,543 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-public-services/life-business-event/
+2025-07-01 09:05:17,543 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:17,543 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:17,545 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:17,545 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:17,546 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:17,547 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:17,548 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:17,548 -   https://w3id.org/italia/onto/AccessCondition/
+2025-07-01 09:05:17,550 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:17,550 -   https://w3id.org/italia/onto/CPSV/
+2025-07-01 09:05:17,550 -   https://w3id.org/italia/onto/Language/
+2025-07-01 09:05:17,551 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:17,552 -   https://w3id.org/italia/onto/PublicContract/
+2025-07-01 09:05:17,552 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:17,553 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:17,553 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:17,553 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:17,553 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:17,554 - Unique namespace count: 45
+2025-07-01 09:05:17,871 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Language/latest/Language-AP_IT.ttl
+2025-07-01 09:05:17,871 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/Language (filename: Language-AP_IT.ttl):
+2025-07-01 09:05:17,884 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:17,885 -   http://publications.europa.eu/resource/authority/
+2025-07-01 09:05:17,885 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:17,885 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:17,885 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:17,886 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:17,886 -   http://purl.org/dc/terms/
+2025-07-01 09:05:17,887 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:17,887 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:17,887 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:17,887 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:17,887 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:17,888 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:17,888 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:17,888 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:17,889 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:17,889 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Language/
+2025-07-01 09:05:17,889 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Language/latest/
+2025-07-01 09:05:17,889 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:17,889 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:17,890 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:17,890 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:17,890 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:17,890 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:17,890 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:17,891 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:17,891 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:17,891 -   https://w3id.org/italia/onto/Language/
+2025-07-01 09:05:17,891 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:17,891 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:17,891 - Unique namespace count: 30
+2025-07-01 09:05:18,201 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPV/latest/CPV-AP_IT.ttl
+2025-07-01 09:05:18,210 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/CPV (filename: CPV-AP_IT.ttl):
+2025-07-01 09:05:18,211 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:18,211 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:18,211 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:18,211 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:18,213 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:18,213 -   http://purl.org/dc/terms/
+2025-07-01 09:05:18,213 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:18,213 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:18,213 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:18,214 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:18,214 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:18,214 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:18,214 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:18,215 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:18,215 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CPV/
+2025-07-01 09:05:18,215 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPV/latest/
+2025-07-01 09:05:18,215 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-people/
+2025-07-01 09:05:18,217 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:18,217 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:18,217 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:18,217 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:18,218 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:18,218 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:18,218 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:18,218 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:18,218 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:18,218 -   https://w3id.org/italia/onto/CPV/
+2025-07-01 09:05:18,218 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:18,220 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:18,220 -   mailto://ndc-segr-tec@istat.it/
+2025-07-01 09:05:18,220 - Unique namespace count: 30
+2025-07-01 09:05:19,218 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/HER/latest/HER-AP_IT.ttl
+2025-07-01 09:05:19,333 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/HER (filename: HER-AP_IT.ttl):
+2025-07-01 09:05:19,334 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:19,334 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:19,334 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:19,335 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:19,335 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:19,335 -   http://purl.org/dc/terms/
+2025-07-01 09:05:19,336 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:19,336 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:19,336 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:19,336 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:19,337 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:19,337 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:19,337 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:19,339 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:19,340 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:19,340 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/HER/
+2025-07-01 09:05:19,340 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/HER/latest/
+2025-07-01 09:05:19,340 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-her/
+2025-07-01 09:05:19,341 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-universities/
+2025-07-01 09:05:19,341 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-universitites/
+2025-07-01 09:05:19,341 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:19,341 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:19,341 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:19,342 -   https://w3id.org/italia/data/private-organization/
+2025-07-01 09:05:19,342 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:19,342 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:19,342 -   https://w3id.org/italia/datq/private-organization/
+2025-07-01 09:05:19,342 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:19,344 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:19,344 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:19,344 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:19,344 -   https://w3id.org/italia/onto/CPV/
+2025-07-01 09:05:19,345 -   https://w3id.org/italia/onto/HER/
+2025-07-01 09:05:19,345 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:19,345 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:19,345 -   https://w3id.org/italia/onto/Project/
+2025-07-01 09:05:19,346 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:19,346 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:19,346 -   https://w3id.org/italia/onto/TI#
+2025-07-01 09:05:19,346 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:19,346 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:19,347 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:19,347 - Unique namespace count: 42
+2025-07-01 09:05:19,668 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/IoT/latest/IoT-AP_IT.ttl
+2025-07-01 09:05:19,684 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/IoT (filename: IoT-AP_IT.ttl):
+2025-07-01 09:05:19,684 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:19,684 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:19,684 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:19,689 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:19,689 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:19,689 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:19,689 -   http://purl.org/dc/terms/
+2025-07-01 09:05:19,689 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:19,690 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:19,690 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:19,690 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:19,690 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:19,690 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:19,691 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:19,691 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:19,691 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:19,691 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/IoT/
+2025-07-01 09:05:19,691 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/IoT/latest/
+2025-07-01 09:05:19,692 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:19,692 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:19,692 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:19,693 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:19,693 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:19,693 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:19,693 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:19,693 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:19,694 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:19,694 -   https://w3id.org/italia/onto/IoT/
+2025-07-01 09:05:19,694 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:19,694 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:19,694 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:19,694 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:19,694 - Unique namespace count: 32
+2025-07-01 09:05:20,055 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/PARK/latest/PARK-AP_IT.ttl
+2025-07-01 09:05:20,061 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/PARK (filename: PARK-AP_IT.ttl):
+2025-07-01 09:05:20,061 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:20,061 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:20,062 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:20,062 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:20,070 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:20,093 -   http://purl.org/dc/terms/
+2025-07-01 09:05:20,104 -   http://schema.org/
+2025-07-01 09:05:20,114 -   http://spcdata.digitpa.gov.it/browse/page/Amministrazione/
+2025-07-01 09:05:20,115 -   http://www.productontology.org/id/
+2025-07-01 09:05:20,118 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:20,119 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:20,121 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:20,121 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:20,122 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:20,122 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:20,122 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:20,122 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:20,123 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/PARK/
+2025-07-01 09:05:20,123 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/PARK/latest/
+2025-07-01 09:05:20,123 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:20,123 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:20,139 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:20,139 -   https://w3id.org/italia/data/organization/public-organization/
+2025-07-01 09:05:20,141 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:20,141 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:20,142 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:20,143 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:20,143 -   https://w3id.org/italia/onto/AccessCondition/
+2025-07-01 09:05:20,143 -   https://w3id.org/italia/onto/PARK/
+2025-07-01 09:05:20,143 -   https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:20,144 -   https://w3id.org/italia/onto/POT/
+2025-07-01 09:05:20,144 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:20,144 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:20,146 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:20,148 - Unique namespace count: 34
+2025-07-01 09:05:20,631 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/PublicContract/latest/PublicContract-AP_IT.ttl
+2025-07-01 09:05:20,660 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/PublicContract (filename: PublicContract-AP_IT.ttl):
+2025-07-01 09:05:20,661 -   http://contsem.unizar.es/def/sector-publico/pproc#
+2025-07-01 09:05:20,662 -   http://data.europa.eu/eproc/ontology#
+2025-07-01 09:05:20,662 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:20,662 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:20,663 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:20,663 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:20,663 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:20,663 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:20,663 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:20,665 -   http://purl.org/dc/terms/
+2025-07-01 09:05:20,665 -   http://w3id.org/ocds/ns#
+2025-07-01 09:05:20,665 -   http://www.omg.org/spec/EDMC-FIBO/FND/Agreements/Contracts/
+2025-07-01 09:05:20,665 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:20,666 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:20,666 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:20,666 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:20,667 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:20,667 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:20,668 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:20,671 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:20,672 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:20,672 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/PublicContract/
+2025-07-01 09:05:20,674 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/PublicContract/latest/
+2025-07-01 09:05:20,674 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:20,674 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:20,674 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:20,674 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:20,675 -   https://w3id.org/italia/data/private-organization/
+2025-07-01 09:05:20,675 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:20,675 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:20,676 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:20,676 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:20,679 -   https://w3id.org/italia/onto/PublicContract/
+2025-07-01 09:05:20,679 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:20,680 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:20,681 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:20,681 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:20,681 - Unique namespace count: 37
+2025-07-01 09:05:21,038 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Project/latest/Project-AP_IT.ttl
+2025-07-01 09:05:21,046 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/Project (filename: Project-AP_IT.ttl):
+2025-07-01 09:05:21,046 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:21,046 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:21,046 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:21,047 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:21,047 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:21,047 -   http://purl.org/dc/terms/
+2025-07-01 09:05:21,047 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:21,047 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:21,047 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:21,047 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:21,048 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:21,048 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:21,048 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:21,048 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Project/
+2025-07-01 09:05:21,048 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Project/latest/
+2025-07-01 09:05:21,048 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:21,049 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:21,049 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:21,049 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:21,049 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:21,051 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:21,051 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:21,051 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:21,051 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:21,051 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:21,052 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:21,052 -   https://w3id.org/italia/onto/Project/
+2025-07-01 09:05:21,052 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:21,052 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:21,053 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:21,053 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:21,053 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:21,054 - Unique namespace count: 32
+2025-07-01 09:05:21,416 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Indicator/latest/Indicator-AP_IT.ttl
+2025-07-01 09:05:21,424 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/Indicator (filename: Indicator-AP_IT.ttl):
+2025-07-01 09:05:21,425 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:21,425 -   http://publications.europa.eu/resource/authority/
+2025-07-01 09:05:21,426 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:21,426 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:21,426 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:21,427 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:21,427 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:21,427 -   http://purl.org/dc/terms/
+2025-07-01 09:05:21,427 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:21,427 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:21,428 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:21,428 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:21,428 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:21,428 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:21,428 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:21,428 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:21,430 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:21,430 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Indicator/
+2025-07-01 09:05:21,430 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Indicator/latest/
+2025-07-01 09:05:21,430 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:21,431 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:21,431 -   https://w3id.org/italia/data/department/
+2025-07-01 09:05:21,431 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:21,431 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:21,431 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:21,431 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:21,431 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:21,433 -   https://w3id.org/italia/onto/Indicator/
+2025-07-01 09:05:21,433 -   https://w3id.org/italia/onto/IoT/
+2025-07-01 09:05:21,433 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:21,433 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:21,433 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:21,433 -   mailto://info@dati.gov.it/
+2025-07-01 09:05:21,434 - Unique namespace count: 33
+2025-07-01 09:05:21,820 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Transparency/latest/Transparency-AP_IT.ttl
+2025-07-01 09:05:21,829 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/Transparency (filename: Transparency-AP_IT.ttl):
+2025-07-01 09:05:21,830 -   http://dati.gov.it/data/resource/ContactPoint/
+2025-07-01 09:05:21,830 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:21,830 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:21,831 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:21,831 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:21,831 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:21,831 -   http://purl.org/dc/terms/
+2025-07-01 09:05:21,832 -   http://spcdata.digitpa.gov.it/Amministrazione/
+2025-07-01 09:05:21,832 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:21,832 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:21,832 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:21,832 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:21,834 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:21,834 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:21,834 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:21,834 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:21,835 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Transparency/
+2025-07-01 09:05:21,835 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Transparency/latest/
+2025-07-01 09:05:21,835 -   https://w3id.org/italia/controlled-vocabulary/classifications-for-transparency/
+2025-07-01 09:05:21,836 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:21,836 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:21,837 -   https://w3id.org/italia/data/organization/private-organization/
+2025-07-01 09:05:21,837 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:21,837 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:21,837 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:21,838 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:21,838 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:21,838 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:21,838 -   https://w3id.org/italia/onto/Transparency/
+2025-07-01 09:05:21,839 -   https://w3id.org/italia/onto/Transparency/latest/img/
+2025-07-01 09:05:21,839 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:21,840 - Unique namespace count: 31
+2025-07-01 09:05:22,241 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Learning/latest/Learning-AP_IT.ttl
+2025-07-01 09:05:22,260 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/Learning (filename: Learning-AP_IT.ttl):
+2025-07-01 09:05:22,261 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:22,261 -   http://data.europa.eu/snb/model/elm/
+2025-07-01 09:05:22,261 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:22,261 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:22,261 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:22,262 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:22,262 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:22,263 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:22,263 -   http://purl.org/dc/terms/
+2025-07-01 09:05:22,263 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:22,263 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:22,264 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:22,264 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:22,264 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:22,264 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:22,264 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:22,265 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:22,265 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Learning/
+2025-07-01 09:05:22,265 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Learning/latest/
+2025-07-01 09:05:22,265 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:22,265 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:22,265 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:22,266 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:22,266 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:22,266 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:22,266 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:22,267 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:22,267 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:22,267 -   https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:22,267 -   https://w3id.org/italia/onto/CPV/
+2025-07-01 09:05:22,268 -   https://w3id.org/italia/onto/HER/
+2025-07-01 09:05:22,268 -   https://w3id.org/italia/onto/Language/
+2025-07-01 09:05:22,268 -   https://w3id.org/italia/onto/Learning/
+2025-07-01 09:05:22,268 -   https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:22,268 -   https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:22,270 -   https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:22,270 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:22,270 -   https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:22,270 - Unique namespace count: 38
+2025-07-01 09:05:22,595 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/NDC/latest/NDC-AP_IT.ttl
+2025-07-01 09:05:22,595 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/NDC (filename: NDC-AP_IT.ttl):
+2025-07-01 09:05:22,595 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:22,595 -   http://dati.gov.it/onto/dcatapit/
+2025-07-01 09:05:22,595 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:22,595 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:22,595 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:22,595 -   http://publications.europa.eu/resource/authority/language/
+2025-07-01 09:05:22,595 -   http://purl.org/dc/terms/
+2025-07-01 09:05:22,595 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:22,602 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:22,602 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:22,602 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:22,602 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:22,602 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:22,602 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:22,603 -   https://dw3id.org/italia/onto/l0/
+2025-07-01 09:05:22,603 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/NDC/
+2025-07-01 09:05:22,604 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/NDC/latest/
+2025-07-01 09:05:22,604 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:22,604 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:22,605 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:22,605 -   https://w3id.org/italia/data/organization/support-unit/
+2025-07-01 09:05:22,605 -   https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/
+2025-07-01 09:05:22,606 -   https://w3id.org/italia/data/project/
+2025-07-01 09:05:22,606 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:22,607 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:22,607 -   https://w3id.org/italia/onto/NDC/
+2025-07-01 09:05:22,607 -   mailto://segreteria.trasformazionedigitale@governo.it/
+2025-07-01 09:05:22,607 -   ttp://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:22,608 - Unique namespace count: 28
+2025-07-01 09:05:22,930 - Parsed RDF from: https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/RPO/latest/RPO-AP_IT.ttl
+2025-07-01 09:05:22,962 - 
+Unique namespaces in dct:Standard https://w3id.org/italia/onto/RPO (filename: RPO-AP_IT.ttl):
+2025-07-01 09:05:22,962 -   http://dati.gov.it/onto/dcatapit#
+2025-07-01 09:05:22,963 -   http://publications.europa.eu/resource/authority/data-theme/
+2025-07-01 09:05:22,964 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:22,964 -   http://publications.europa.eu/resource/authority/frequency/
+2025-07-01 09:05:22,964 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:22,965 -   http://purl.org/dc/terms/
+2025-07-01 09:05:22,965 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:22,965 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:22,965 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:22,967 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:22,967 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:22,967 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:22,967 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:22,967 -   https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/RPO/
+2025-07-01 09:05:22,968 -   https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/RPO/latest/
+2025-07-01 09:05:22,968 -   https://schema.gov.it/lodview/data/contact-point/
+2025-07-01 09:05:22,968 -   https://w3id.org/italia/controlled-vocabulary/licences/
+2025-07-01 09:05:22,968 -   https://w3id.org/italia/data/contact-point/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/data/distribution/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/data/public-organization/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/onto/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/onto/ADMS/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/onto/CPV/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/onto/RPO/
+2025-07-01 09:05:22,970 -   https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:22,970 -   mailto://ndc-segr-tec@istat.it/
+2025-07-01 09:05:22,972 - Unique namespace count: 27
+2025-07-01 09:05:23,266 - Parsed RDF from: https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person-ap.ttl
+2025-07-01 09:05:23,269 - 
+Unique namespaces in dct:Standard https://semiceu.github.io/Core-Person-Vocabulary/ (filename: core-person-ap.ttl):
+2025-07-01 09:05:23,270 -   http://data.europa.eu/
+2025-07-01 09:05:23,270 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:23,270 -   http://purl.org/dc/terms/
+2025-07-01 09:05:23,270 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:23,271 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:23,271 -   http://www.w3.org/2001/02pd/rec54#
+2025-07-01 09:05:23,271 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:23,271 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:23,271 -   http://www.w3.org/ns/person#
+2025-07-01 09:05:23,271 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:23,271 -   https://creativecommons.org/licenses/by/4.0/
+2025-07-01 09:05:23,271 -   https://schema.org/
+2025-07-01 09:05:23,272 -   https://semic.eu/
+2025-07-01 09:05:23,272 - Unique namespace count: 13
+2025-07-01 09:05:23,543 - Parsed RDF from: https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location.ttl
+2025-07-01 09:05:23,543 - 
+Unique namespaces in dct:Standard https://semiceu.github.io/Core-Location-Vocabulary/ (filename: core-location.ttl):
+2025-07-01 09:05:23,559 -   http://data.europa.eu/
+2025-07-01 09:05:23,559 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:23,559 -   http://purl.org/dc/terms/
+2025-07-01 09:05:23,559 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:23,559 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:23,559 -   http://www.w3.org/2001/02pd/rec54#
+2025-07-01 09:05:23,559 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:23,559 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:23,559 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:23,559 -   http://www.w3.org/ns/locn#
+2025-07-01 09:05:23,559 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:23,559 -   https://creativecommons.org/licenses/by/
+2025-07-01 09:05:23,559 -   https://schema.org/
+2025-07-01 09:05:23,562 -   https://semic.eu/
+2025-07-01 09:05:23,562 - Unique namespace count: 14
+2025-07-01 09:05:23,825 - Parsed RDF from: https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business-ap.ttl
+2025-07-01 09:05:23,825 - 
+Unique namespaces in dct:Standard https://semiceu.github.io/Core-Business-Vocabulary/ (filename: core-business-ap.ttl):
+2025-07-01 09:05:23,825 -   http://data.europa.eu/
+2025-07-01 09:05:23,825 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:23,825 -   http://purl.org/dc/terms/
+2025-07-01 09:05:23,825 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:23,825 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:23,825 -   http://www.w3.org/2001/02pd/rec54#
+2025-07-01 09:05:23,825 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:23,825 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:23,825 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:23,835 -   http://www.w3.org/ns/legal#
+2025-07-01 09:05:23,835 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:23,835 -   https://creativecommons.org/licenses/by/4.0/
+2025-07-01 09:05:23,835 -   https://schema.org/
+2025-07-01 09:05:23,836 -   https://semic.eu/
+2025-07-01 09:05:23,836 - Unique namespace count: 14
+2025-07-01 09:05:24,111 - Parsed RDF from: https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev.ttl
+2025-07-01 09:05:24,120 - 
+Unique namespaces in dct:Standard https://semiceu.github.io/CCCEV/ (filename: cccev.ttl):
+2025-07-01 09:05:24,120 -   http://data.europa.eu/
+2025-07-01 09:05:24,122 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:24,122 -   http://purl.org/dc/terms/
+2025-07-01 09:05:24,122 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:24,122 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:24,123 -   http://www.w3.org/2001/02pd/rec54#
+2025-07-01 09:05:24,123 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:24,123 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:24,123 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:24,123 -   http://www.w3.org/2006/time#
+2025-07-01 09:05:24,124 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:24,124 -   https://creativecommons.org/licenses/by/4.0/
+2025-07-01 09:05:24,124 -   https://schema.org/
+2025-07-01 09:05:24,124 -   https://semic.eu/
+2025-07-01 09:05:24,125 - Unique namespace count: 14
+2025-07-01 09:05:24,391 - Parsed RDF from: https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation-ap.ttl
+2025-07-01 09:05:24,394 - 
+Unique namespaces in dct:Standard https://semiceu.github.io/CPOV (filename: core-public-organisation-ap.ttl):
+2025-07-01 09:05:24,394 -   http://data.europa.eu/
+2025-07-01 09:05:24,395 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:24,395 -   http://purl.org/dc/terms/
+2025-07-01 09:05:24,395 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:24,395 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:24,395 -   http://www.w3.org/2001/02pd/rec54#
+2025-07-01 09:05:24,395 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:24,396 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:24,396 -   http://www.w3.org/2006/time#
+2025-07-01 09:05:24,396 -   http://www.w3.org/ns/org#
+2025-07-01 09:05:24,396 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:24,396 -   https://creativecommons.org/licenses/by/4.0/
+2025-07-01 09:05:24,396 -   https://schema.org/
+2025-07-01 09:05:24,396 -   https://semic.eu/
+2025-07-01 09:05:24,397 - Unique namespace count: 14
+2025-07-01 09:05:24,705 - Parsed RDF from: https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event.ttl
+2025-07-01 09:05:24,708 - 
+Unique namespaces in dct:Standard https://semiceu.github.io/Core-Public-Event-Vocabulary/ (filename: core-public-event.ttl):
+2025-07-01 09:05:24,709 -   http://data.europa.eu/
+2025-07-01 09:05:24,709 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:24,709 -   http://purl.org/dc/terms/
+2025-07-01 09:05:24,709 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:24,710 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:24,710 -   http://www.w3.org/2001/02pd/rec54#
+2025-07-01 09:05:24,710 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:24,710 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:24,711 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:24,711 -   http://www.w3.org/2006/time#
+2025-07-01 09:05:24,711 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:24,712 -   https://creativecommons.org/licenses/by/4.0/
+2025-07-01 09:05:24,712 -   https://schema.org/
+2025-07-01 09:05:24,712 -   https://semic.eu/
+2025-07-01 09:05:24,712 - Unique namespace count: 14
+2025-07-01 09:05:25,519 - Parsed RDF from: https://www.w3.org/ns/dcat3.ttl
+2025-07-01 09:05:25,533 - 
+Unique namespaces in dct:Standard http://www.w3.org/ns/dcat# (filename: dcat3.ttl):
+2025-07-01 09:05:25,533 -   http://ec.europa.eu/dgs/informatics/
+2025-07-01 09:05:25,533 -   http://makxdekkers.com/
+2025-07-01 09:05:25,535 -   http://makxdekkers.com/makxdekkers.rdf#
+2025-07-01 09:05:25,535 -   http://people.csiro.au/
+2025-07-01 09:05:25,535 -   http://purl.org/dc/dcmitype/
+2025-07-01 09:05:25,535 -   http://purl.org/dc/terms/
+2025-07-01 09:05:25,535 -   http://purl.org/ontology/bibo/
+2025-07-01 09:05:25,535 -   http://purl.org/pav/
+2025-07-01 09:05:25,535 -   http://purl.org/vocab/vann/
+2025-07-01 09:05:25,536 -   http://schema.org/
+2025-07-01 09:05:25,536 -   http://stfc.ac.uk/
+2025-07-01 09:05:25,536 -   http://www.asahi-net.or.jp/~ax2s-kmtn/
+2025-07-01 09:05:25,537 -   http://www.deri.ie/
+2025-07-01 09:05:25,537 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:25,537 -   http://www.w3.org/1999/xhtml/vocab#
+2025-07-01 09:05:25,537 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:25,539 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:25,539 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:25,539 -   http://www.w3.org/2004/02/skos/
+2025-07-01 09:05:25,539 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:25,539 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:25,540 -   http://www.w3.org/TR/vocab-dcat/
+2025-07-01 09:05:25,540 -   http://www.w3.org/ns/
+2025-07-01 09:05:25,540 -   http://www.w3.org/ns/adms#
+2025-07-01 09:05:25,541 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:25,541 -   http://www.w3.org/ns/org#
+2025-07-01 09:05:25,541 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:25,541 -   http://www.w3.org/ns/prov-o#
+2025-07-01 09:05:25,541 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:25,543 -   https://agbeltran.github.io/
+2025-07-01 09:05:25,543 -   https://creativecommons.org/licenses/by/4.0/
+2025-07-01 09:05:25,543 -   https://jakub.klímek.com/
+2025-07-01 09:05:25,543 -   https://jakub.klímek.com/#
+2025-07-01 09:05:25,543 -   https://orcid.org/
+2025-07-01 09:05:25,543 -   https://w3id.org/people/ralbertoni/
+2025-07-01 09:05:25,544 -   https://www.csiro.au/
+2025-07-01 09:05:25,544 -   https://www.w3.org/
+2025-07-01 09:05:25,544 -   https://www.w3.org/TR/vocab-dcat-2/
+2025-07-01 09:05:25,544 -   https://www.w3.org/TR/vocab-dcat-3/
+2025-07-01 09:05:25,544 -   https://www.w3.org/TR/vocab-dcat-3/images/
+2025-07-01 09:05:25,545 -   https://www.w3.org/groups/wg/
+2025-07-01 09:05:25,545 -   https://www.wikidata.org/entity/
+2025-07-01 09:05:25,545 - Unique namespace count: 42
+2025-07-01 09:05:25,813 - Parsed RDF from: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl
+2025-07-01 09:05:25,829 - 
+Unique namespaces in dct:Standard http://purl.org/dc/terms/ (filename: dublin_core_terms.ttl):
+2025-07-01 09:05:25,829 -   http://lcweb.loc.gov/catdir/cpso/lcco/
+2025-07-01 09:05:25,829 -   http://lcweb.loc.gov/standards/iso639-2/
+2025-07-01 09:05:25,829 -   http://purl.org/dc/aboutdcmi#
+2025-07-01 09:05:25,840 -   http://purl.org/dc/dcam/
+2025-07-01 09:05:25,840 -   http://purl.org/dc/dcmitype/
+2025-07-01 09:05:25,840 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:25,840 -   http://purl.org/dc/terms/
+2025-07-01 09:05:25,840 -   http://www.getty.edu/research/tools/vocabulary/tgn/
+2025-07-01 09:05:25,841 -   http://www.iana.org/assignments/media-types/
+2025-07-01 09:05:25,841 -   http://www.ietf.org/rfc/
+2025-07-01 09:05:25,841 -   http://www.nlm.nih.gov/mesh/
+2025-07-01 09:05:25,841 -   http://www.oclc.org/dewey/
+2025-07-01 09:05:25,841 -   http://www.sil.org/iso639-3/
+2025-07-01 09:05:25,842 -   http://www.udcc.org/
+2025-07-01 09:05:25,842 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:25,842 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:25,842 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:25,842 -   http://www.w3.org/TR/
+2025-07-01 09:05:25,842 -   http://wwwcf.nlm.nih.gov/class/
+2025-07-01 09:05:25,844 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:25,844 -   https://www.dublincore.org/specifications/dublin-core/dcmi-box/
+2025-07-01 09:05:25,844 -   https://www.dublincore.org/specifications/dublin-core/dcmi-period/
+2025-07-01 09:05:25,844 -   https://www.dublincore.org/specifications/dublin-core/dcmi-point/
+2025-07-01 09:05:25,844 -   https://www.iso.org/obp/ui/#
+2025-07-01 09:05:25,845 - Unique namespace count: 24
+2025-07-01 09:05:26,214 - Parsed RDF from: https://www.w3.org/ns/org.ttl
+2025-07-01 09:05:26,222 - 
+Unique namespaces in dct:Standard http://www.w3.org/ns/org# (filename: org.ttl):
+2025-07-01 09:05:26,222 -   http://purl.org/dc/terms/
+2025-07-01 09:05:26,222 -   http://purl.org/goodrelations/v1#
+2025-07-01 09:05:26,228 -   http://www.asahi-net.or.jp/~ax2s-kmtn/
+2025-07-01 09:05:26,228 -   http://www.opendatacommons.org/licenses/pddl/1.0/
+2025-07-01 09:05:26,228 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:26,229 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:26,229 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:26,229 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:26,230 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:26,230 -   http://www.w3.org/TR/vocab-org/
+2025-07-01 09:05:26,230 -   http://www.w3.org/ns/
+2025-07-01 09:05:26,230 -   http://www.w3.org/ns/org#
+2025-07-01 09:05:26,230 -   http://www.w3.org/ns/prov#
+2025-07-01 09:05:26,231 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:26,231 - Unique namespace count: 14
+2025-07-01 09:05:26,538 - Parsed RDF from: https://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:26,543 - 
+Unique namespaces in dct:Standard http://www.w3.org/2006/vcard/ns# (filename: ns):
+2025-07-01 09:05:26,543 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:26,548 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:26,548 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:26,548 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:26,548 -   http://www.w3.org/2006/vcard/
+2025-07-01 09:05:26,549 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:26,549 -   https://raw.githack.com/solid/contacts/refs/heads/main/
+2025-07-01 09:05:26,549 - Unique namespace count: 7
+2025-07-01 09:05:26,904 - Parsed RDF from: https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl
+2025-07-01 09:05:26,920 - 
+Unique namespaces in dct:Standard http://xmlns.com/foaf/0.1/ (filename: foaf.ttl):
+2025-07-01 09:05:26,921 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:26,921 -   http://purl.org/dc/terms/
+2025-07-01 09:05:26,922 -   http://schema.org/
+2025-07-01 09:05:26,922 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:26,922 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:26,923 -   http://www.w3.org/2000/10/swap/pim/contact#
+2025-07-01 09:05:26,923 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:26,923 -   http://www.w3.org/2003/01/geo/wgs84_pos#
+2025-07-01 09:05:26,923 -   http://www.w3.org/2003/06/sw-vocab-status/ns#
+2025-07-01 09:05:26,923 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:26,924 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:26,924 -   http://xmlns.com/wot/0.1/
+2025-07-01 09:05:26,924 - Unique namespace count: 12
+2025-07-01 09:05:27,291 - Parsed RDF from: https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/skos.ttl
+2025-07-01 09:05:27,294 - 
+Unique namespaces in dct:Standard http://www.w3.org/2004/02/skos/core (filename: skos.ttl):
+2025-07-01 09:05:27,294 -   http://purl.org/dc/terms/
+2025-07-01 09:05:27,294 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:27,294 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:27,294 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:27,296 -   http://www.w3.org/2004/02/skos/
+2025-07-01 09:05:27,296 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:27,296 -   http://www.w3.org/TR/skos-reference/
+2025-07-01 09:05:27,296 - Unique namespace count: 7
+2025-07-01 09:05:27,583 - Parsed RDF from: https://www.w3.org/2002/07/owl#
+2025-07-01 09:05:27,588 - 
+Unique namespaces in dct:Standard http://www.w3.org/2002/07/owl (filename: owl):
+2025-07-01 09:05:27,589 -   http://dev.w3.org/cvsweb/2009/owl-grddl/
+2025-07-01 09:05:27,589 -   http://purl.org/dc/elements/1.1/
+2025-07-01 09:05:27,589 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:27,590 -   http://www.w3.org/2000/01/
+2025-07-01 09:05:27,590 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:27,590 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:27,590 -   http://www.w3.org/2002/07/
+2025-07-01 09:05:27,590 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:27,591 -   http://www.w3.org/2003/g/data-view#
+2025-07-01 09:05:27,591 -   http://www.w3.org/TR/owl2-mapping-to-rdf/
+2025-07-01 09:05:27,591 -   http://www.w3.org/TR/owl2-rdf-based-semantics/
+2025-07-01 09:05:27,591 -   http://www.w3.org/TR/owl2-rdf-based-semantics/#
+2025-07-01 09:05:27,591 -   http://www.w3.org/TR/owl2-syntax/
+2025-07-01 09:05:27,591 - Unique namespace count: 13
+2025-07-01 09:05:27,869 - Parsed RDF from: https://raw.githubusercontent.com/Informasjonsforvaltning/cpsv-ap-no/refs/heads/develop/ontology/cpsvno.ttl
+2025-07-01 09:05:27,872 - 
+Unique namespaces in dct:Standard https://data.norge.no/vocabulary/cpsvno# (filename: cpsvno.ttl):
+2025-07-01 09:05:27,872 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:27,872 -   http://publications.europa.eu/resource/authority/concept-status/
+2025-07-01 09:05:27,872 -   http://purl.org/dc/terms/
+2025-07-01 09:05:27,872 -   http://purl.org/vocab/cpsv#
+2025-07-01 09:05:27,873 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:27,873 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:27,873 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:27,873 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:27,873 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:27,874 -   http://www.w3.org/ns/adms#
+2025-07-01 09:05:27,874 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:27,874 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:27,874 -   https://creativecommons.org/licenses/by/
+2025-07-01 09:05:27,875 -   https://data.norge.no/concepts/
+2025-07-01 09:05:27,875 -   https://data.norge.no/vocabulary/cpsvno#
+2025-07-01 09:05:27,875 -   https://data.norge.no/vocabulary/rule-type#
+2025-07-01 09:05:27,875 -   https://github.com/Informasjonsforvaltning/
+2025-07-01 09:05:27,875 -   https://www.digdir.no/
+2025-07-01 09:05:27,875 -   mailto://informasjonsforvaltning@digdir.no/
+2025-07-01 09:05:27,875 - Unique namespace count: 19
+2025-07-01 09:05:28,222 - Parsed RDF from: https://raw.githubusercontent.com/Informasjonsforvaltning/dcat-ap-no/refs/heads/develop/ontology/dcatno.ttl
+2025-07-01 09:05:28,222 - 
+Unique namespaces in dct:Standard https://data.norge.no/vocabulary/dcatno# (filename: dcatno.ttl):
+2025-07-01 09:05:28,222 -   dcatno://0.7/
+2025-07-01 09:05:28,222 -   http://creativecommons.org/ns#
+2025-07-01 09:05:28,222 -   http://data.europa.eu/
+2025-07-01 09:05:28,222 -   http://data.europa.eu/m8g/
+2025-07-01 09:05:28,222 -   http://data.europa.eu/r5r/
+2025-07-01 09:05:28,222 -   http://ec.europa.eu/
+2025-07-01 09:05:28,222 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:28,222 -   http://purl.org/dc/terms/
+2025-07-01 09:05:28,222 -   http://purl.org/vocab/cpsv#
+2025-07-01 09:05:28,222 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:28,222 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:28,222 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:28,222 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:28,222 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:28,222 -   https://creativecommons.org/licenses/by/
+2025-07-01 09:05:28,222 -   https://data.norge.no/specification/dcat-ap-no/
+2025-07-01 09:05:28,222 -   https://data.norge.no/vocabulary/cpsvno#
+2025-07-01 09:05:28,222 -   https://data.norge.no/vocabulary/dcatno#
+2025-07-01 09:05:28,222 -   https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/
+2025-07-01 09:05:28,222 -   https://www.digdir.no/
+2025-07-01 09:05:28,222 -   mailto://informasjonsforvaltning@digdir.no/
+2025-07-01 09:05:28,222 - Unique namespace count: 21
+2025-07-01 09:05:28,554 - Parsed RDF from: https://raw.githubusercontent.com/Informasjonsforvaltning/dqv-ap-no/refs/heads/develop/ontology/dqvno.ttl
+2025-07-01 09:05:28,557 - 
+Unique namespaces in dct:Standard https://data.norge.no/vocabulary/dqvno# (filename: dqvno.ttl):
+2025-07-01 09:05:28,557 -   dqvno://0.6/
+2025-07-01 09:05:28,557 -   http://publications.europa.eu/resource/authority/dataset-status/
+2025-07-01 09:05:28,557 -   http://purl.org/dc/terms/
+2025-07-01 09:05:28,560 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:28,560 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:28,560 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:28,560 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:28,560 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:28,561 -   http://www.w3.org/ns/adms#
+2025-07-01 09:05:28,561 -   https://data.norge.no/vocabulary/dqvno#
+2025-07-01 09:05:28,561 -   https://data.norge.no/vocabulary/quality-dimension#
+2025-07-01 09:05:28,561 -   https://data.norge.no/vocabulary/quality-metric#
+2025-07-01 09:05:28,561 -   https://www.w3.org/TR/vocab-dqv/#
+2025-07-01 09:05:28,562 -   https://www.w3.org/ns/oa#
+2025-07-01 09:05:28,562 - Unique namespace count: 14
+2025-07-01 09:05:28,988 - Parsed RDF from: https://raw.githubusercontent.com/Informasjonsforvaltning/modelldcat-ap-no/refs/heads/develop/ontology/modelldcatno.ttl
+2025-07-01 09:05:29,002 - 
+Unique namespaces in dct:Standard https://data.norge.no/vocabulary/modelldcatno# (filename: modelldcatno.ttl):
+2025-07-01 09:05:29,003 -   http://publications.europa.eu/resource/authority/dataset-status/
+2025-07-01 09:05:29,003 -   http://purl.org/dc/terms/
+2025-07-01 09:05:29,003 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:29,003 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:29,004 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:29,004 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:29,004 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:29,004 -   http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:29,005 -   http://www.w3.org/ns/adms#
+2025-07-01 09:05:29,005 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:29,005 -   http://www.w3.org/ns/dx/prof/
+2025-07-01 09:05:29,005 -   http://www.w3.org/ns/locn#
+2025-07-01 09:05:29,006 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:29,006 -   https://data.norge.no/vocabulary/
+2025-07-01 09:05:29,006 -   https://data.norge.no/vocabulary/information-model-type#
+2025-07-01 09:05:29,006 -   https://data.norge.no/vocabulary/modelldcatno#
+2025-07-01 09:05:29,006 -   https://rdf-vocabulary.ddialliance.org/xkos/
+2025-07-01 09:05:29,007 - Unique namespace count: 17
+2025-07-01 09:05:29,452 - Parsed RDF from: https://raw.githubusercontent.com/Informasjonsforvaltning/skos-ap-no-begrep/refs/heads/develop/ontology/skosno.ttl
+2025-07-01 09:05:29,457 - 
+Unique namespaces in dct:Standard https://data.norge.no/vocabulary/skosno# (filename: skosno.ttl):
+2025-07-01 09:05:29,457 -   http://publications.europa.eu/ontology/euvoc#
+2025-07-01 09:05:29,458 -   http://publications.europa.eu/resource/authority/dataset-status/
+2025-07-01 09:05:29,458 -   http://publications.europa.eu/resource/authority/file-type/
+2025-07-01 09:05:29,458 -   http://publications.europa.eu/resource/authority/licence/
+2025-07-01 09:05:29,458 -   http://purl.org/adms/status/
+2025-07-01 09:05:29,459 -   http://purl.org/dc/terms/
+2025-07-01 09:05:29,459 -   http://www.w3.org/1999/02/22-rdf-syntax-ns#
+2025-07-01 09:05:29,459 -   http://www.w3.org/2000/01/rdf-schema#
+2025-07-01 09:05:29,460 -   http://www.w3.org/2001/XMLSchema#
+2025-07-01 09:05:29,460 -   http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:29,460 -   http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:29,461 -   http://www.w3.org/2008/05/skos-xl#
+2025-07-01 09:05:29,461 -   http://www.w3.org/ns/adms#
+2025-07-01 09:05:29,462 -   http://www.w3.org/ns/dcat#
+2025-07-01 09:05:29,462 -   http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:29,463 -   https://data.norge.no/specification/forvaltningsstandard-begrepsbeskrivelser/#
+2025-07-01 09:05:29,464 -   https://data.norge.no/vocabulary/
+2025-07-01 09:05:29,466 -   https://data.norge.no/vocabulary/audience-type#
+2025-07-01 09:05:29,466 -   https://data.norge.no/vocabulary/relationship-with-source-type#
+2025-07-01 09:05:29,467 -   https://data.norge.no/vocabulary/skosno#
+2025-07-01 09:05:29,468 -   https://github.com/Informasjonsforvaltning/skos-ap-no-begrep/ontology/
+2025-07-01 09:05:29,468 -   https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/
+2025-07-01 09:05:29,468 -   https://termlex.no/term/171137526104694/
+2025-07-01 09:05:29,468 -   https://termlex.no/term/171137526403399/
+2025-07-01 09:05:29,469 -   https://termlex.no/term/171137529308815/
+2025-07-01 09:05:29,469 -   https://www.digdir.no/
+2025-07-01 09:05:29,469 -   https://www.standard.no/toppvalg/termbasen/Termpost/
+2025-07-01 09:05:29,469 -   mailto://informasjonsforvaltning@digdir.no/
+2025-07-01 09:05:29,470 - Unique namespace count: 28
+2025-07-01 09:05:29,470 - 
+Creating dct:Standard namespace mappings based on actual RDF data...
+2025-07-01 09:05:29,470 - DEBUG: Processing https://w3id.org/italia/onto/AccessCondition
+2025-07-01 09:05:29,471 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/AccessCondition/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AccessCondition/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/AccessCondition/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,472 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/AccessCondition -> https://w3id.org/italia/onto/AccessCondition/
+2025-07-01 09:05:29,472 - dct:Standard https://w3id.org/italia/onto/AccessCondition -> matched namespace: https://w3id.org/italia/onto/AccessCondition/
+2025-07-01 09:05:29,472 - DEBUG: Processing https://w3id.org/italia/onto/l0
+2025-07-01 09:05:29,474 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.ontologydesignpatterns.org/ont/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/l0/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/l0/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,476 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/l0 -> https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:29,476 - dct:Standard https://w3id.org/italia/onto/l0 -> matched namespace: https://w3id.org/italia/onto/l0/
+2025-07-01 09:05:29,478 - DEBUG: Processing https://w3id.org/italia/onto/TI
+2025-07-01 09:05:29,478 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/TI/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/TI/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,479 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/TI -> https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:29,479 - dct:Standard https://w3id.org/italia/onto/TI -> matched namespace: https://w3id.org/italia/onto/TI/
+2025-07-01 09:05:29,479 - DEBUG: Processing https://w3id.org/italia/onto/ACCO
+2025-07-01 09:05:29,480 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/acco/ns#', 'http://purl.org/dc/terms/', 'http://schema.org/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.ontologydesignpatterns.org/cp/owl/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/4.0/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/ACCO/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/ACCO/latest/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-accommodation-facilities/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ACCO/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/POT/', 'https://w3id.org/italia/onto/SM#', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,482 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/ACCO -> https://w3id.org/italia/onto/ACCO/
+2025-07-01 09:05:29,482 - dct:Standard https://w3id.org/italia/onto/ACCO -> matched namespace: https://w3id.org/italia/onto/ACCO/
+2025-07-01 09:05:29,483 - DEBUG: Processing https://w3id.org/italia/onto/POT
+2025-07-01 09:05:29,483 - DEBUG: Available namespaces: ['http://dati.beniculturali.it/cis/img/', 'http://dati.gov.it/onto/dcatapit#', 'http://dati.gov.it/onto/potapit/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://purl.org/goodrelations/v1#', 'http://schema.org/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/POT/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/POT/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/POT/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,486 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/POT -> https://w3id.org/italia/onto/POT/
+2025-07-01 09:05:29,486 - dct:Standard https://w3id.org/italia/onto/POT -> matched namespace: https://w3id.org/italia/onto/POT/
+2025-07-01 09:05:29,487 - DEBUG: Processing https://w3id.org/italia/onto/COV
+2025-07-01 09:05:29,488 - DEBUG: Available namespaces: ['http://data.europa.eu/m8g/', 'http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://schema.org/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.ontologydesignpatterns.org/cp/owl/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/org#', 'http://www.w3.org/ns/prov#', 'http://www.w3.org/ns/regorg#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/COV/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/COV/latest/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-organizations/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,489 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/COV -> https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:29,491 - dct:Standard https://w3id.org/italia/onto/COV -> matched namespace: https://w3id.org/italia/onto/COV/
+2025-07-01 09:05:29,491 - DEBUG: Processing https://w3id.org/italia/onto/POI
+2025-07-01 09:05:29,491 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/POI/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/POI/latest/', 'https://w3id.org/italia/controlled-vocabulary/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,493 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/POI -> https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:29,493 - dct:Standard https://w3id.org/italia/onto/POI -> matched namespace: https://w3id.org/italia/onto/POI/
+2025-07-01 09:05:29,493 - DEBUG: Processing https://w3id.org/italia/onto/SM
+2025-07-01 09:05:29,495 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://rdfs.org/sioc/', 'http://rdfs.org/sioc/ns#', 'http://schema.org/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/SM/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/SM/latest/', 'https://schema.org/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/AccessCondition/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,496 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/SM -> https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:29,496 - dct:Standard https://w3id.org/italia/onto/SM -> matched namespace: https://w3id.org/italia/onto/SM/
+2025-07-01 09:05:29,496 - DEBUG: Processing https://w3id.org/italia/onto/ADMS
+2025-07-01 09:05:29,497 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/', 'http://dati.gov.it/onto/dcatapit#', 'http://omv.ontoware.org/2005/05/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/adms/interoperabilitylevel/', 'http://purl.org/dc/terms/', 'http://purl.org/vocommons/', 'http://spcdata.digitpa.gov.it/UfficioProtocolloAOO/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.isibang.ac.in/ns/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/', 'http://www.w3.org/ns/adms#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://dati.gov.it/onto/dcatapit#', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/ADMS/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/ADMS/latest/', 'https://w3id.org/italia/SM/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/resource/Distribution/', 'https://w3id.org/italia/data/resource/contact-point/', 'https://w3id.org/italia/data/resource/organization/public-organization/', 'https://w3id.org/italia/data/resource/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/ADMS/#', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,498 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/ADMS -> https://w3id.org/italia/onto/ADMS/#
+2025-07-01 09:05:29,498 - dct:Standard https://w3id.org/italia/onto/ADMS -> matched namespace: https://w3id.org/italia/onto/ADMS/#
+2025-07-01 09:05:29,499 - DEBUG: Processing http://dati.gov.it/onto/dcatapit
+2025-07-01 09:05:29,499 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/', 'http://dati.gov.it/onto/dcatapit#', 'http://dati.gov.it/onto/dcatapit/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://purl.org/dc/terms//', 'http://schema.org/', 'http://sdati.gov.it/onto/dcatapit#', 'http://www.dati.gov.it/sites/default/files/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/', 'http://www.w3.org/ns/adms#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/locn#', 'http://xmlns.com/foaf/0.1/', 'https://dati.gov.it/onto/', 'https://dati.gov.it/onto/dcatapit#', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/DCAT/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/DCAT/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/l0/', 'https://www.w3.org/ns/', 'https://www.w3.org/ns/dcat#', 'https://www.w3.org/ns/locn#', 'ttp://www.w3.org/2000/01/rdf-schema#']
+2025-07-01 09:05:29,500 - DEBUG: Found match by removing trailing char: http://dati.gov.it/onto/dcatapit -> http://dati.gov.it/onto/dcatapit/
+2025-07-01 09:05:29,500 - dct:Standard http://dati.gov.it/onto/dcatapit -> matched namespace: http://dati.gov.it/onto/dcatapit/
+2025-07-01 09:05:29,501 - DEBUG: Processing https://w3id.org/italia/onto/AtlasOfPaths
+2025-07-01 09:05:29,501 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/AtlasOfPaths/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AtlasOfPaths/latest/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/AtlasOfPaths/v0.1/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ACCO/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/AtlasOfPaths/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/Route/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://dg-t@beniculturali.it/']
+2025-07-01 09:05:29,502 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/AtlasOfPaths -> https://w3id.org/italia/onto/AtlasOfPaths/
+2025-07-01 09:05:29,503 - dct:Standard https://w3id.org/italia/onto/AtlasOfPaths -> matched namespace: https://w3id.org/italia/onto/AtlasOfPaths/
+2025-07-01 09:05:29,503 - DEBUG: Processing https://w3id.org/italia/onto/Route
+2025-07-01 09:05:29,504 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://vocab.gtfs.org/terms#', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Route/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Route/latest/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Route/v0.1/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-routes/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/Route/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://dg-t@beniculturali.it/']
+2025-07-01 09:05:29,505 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/Route -> https://w3id.org/italia/onto/Route/
+2025-07-01 09:05:29,505 - dct:Standard https://w3id.org/italia/onto/Route -> matched namespace: https://w3id.org/italia/onto/Route/
+2025-07-01 09:05:29,505 - DEBUG: Processing https://w3id.org/italia/onto/CLV
+2025-07-01 09:05:29,507 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://https://www.w3.org/ns/locn#', 'http://inspire.ec.europa.eu/featureconcept/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.geonames.org/ontology#', 'http://www.opengis.net/ont/geosparql#', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CLV/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CLV/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/controlled-vocabulary/territorial-classifications/', 'https://w3id.org/italia/controlled-vocabulary/territorial-classifications/countries/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'https://www.w3.org/ns/locn#', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,511 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/CLV -> https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:29,512 - dct:Standard https://w3id.org/italia/onto/CLV -> matched namespace: https://w3id.org/italia/onto/CLV/
+2025-07-01 09:05:29,512 - DEBUG: Processing https://w3id.org/italia/onto/MU
+2025-07-01 09:05:29,514 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/MU/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/MU/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,515 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/MU -> https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:29,516 - dct:Standard https://w3id.org/italia/onto/MU -> matched namespace: https://w3id.org/italia/onto/MU/
+2025-07-01 09:05:29,516 - DEBUG: Processing https://w3id.org/italia/onto/RO
+2025-07-01 09:05:29,516 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/RO/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/RO/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,517 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/RO -> https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:29,517 - dct:Standard https://w3id.org/italia/onto/RO -> matched namespace: https://w3id.org/italia/onto/RO/
+2025-07-01 09:05:29,518 - DEBUG: Processing https://w3id.org/italia/onto/CPEV
+2025-07-01 09:05:29,520 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://schema.org/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CPEV/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPEV/latest/', 'https://w3id.org/italia/controlled-vocabulary/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/private-organization/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/public-organization/support-unit/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/AccessCondition/', 'https://w3id.org/italia/onto/CPEV/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/POT/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,523 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/CPEV -> https://w3id.org/italia/onto/CPEV/
+2025-07-01 09:05:29,523 - dct:Standard https://w3id.org/italia/onto/CPEV -> matched namespace: https://w3id.org/italia/onto/CPEV/
+2025-07-01 09:05:29,526 - DEBUG: Processing https://w3id.org/italia/onto/CPSV
+2025-07-01 09:05:29,526 - DEBUG: Available namespaces: ['http://data.europa.eu/eli/ontology#', 'http://data.europa.eu/m8g/', 'http://dati.gov.it/onto#', 'http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://purl.org/vocab/cpsv#', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CPSV/', 'https://github.com/italia/servizi-gov/raw/master/ontology/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPSV/latest/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-public-services/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-public-services/life-business-event/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/AccessCondition/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/CPSV/', 'https://w3id.org/italia/onto/Language/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/PublicContract/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,528 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/CPSV -> https://w3id.org/italia/onto/CPSV/
+2025-07-01 09:05:29,528 - dct:Standard https://w3id.org/italia/onto/CPSV -> matched namespace: https://w3id.org/italia/onto/CPSV/
+2025-07-01 09:05:29,528 - DEBUG: Processing https://w3id.org/italia/onto/Language
+2025-07-01 09:05:29,528 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Language/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Language/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/Language/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,529 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/Language -> https://w3id.org/italia/onto/Language/
+2025-07-01 09:05:29,530 - dct:Standard https://w3id.org/italia/onto/Language -> matched namespace: https://w3id.org/italia/onto/Language/
+2025-07-01 09:05:29,530 - DEBUG: Processing https://w3id.org/italia/onto/CPV
+2025-07-01 09:05:29,530 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/CPV/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/CPV/latest/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-people/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/CPV/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://ndc-segr-tec@istat.it/']
+2025-07-01 09:05:29,530 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/CPV -> https://w3id.org/italia/onto/CPV/
+2025-07-01 09:05:29,532 - dct:Standard https://w3id.org/italia/onto/CPV -> matched namespace: https://w3id.org/italia/onto/CPV/
+2025-07-01 09:05:29,532 - DEBUG: Processing https://w3id.org/italia/onto/HER
+2025-07-01 09:05:29,533 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/HER/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/HER/latest/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-her/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-universities/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-universitites/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/private-organization/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/datq/private-organization/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/CPV/', 'https://w3id.org/italia/onto/HER/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/Project/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI#', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,543 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/HER -> https://w3id.org/italia/onto/HER/
+2025-07-01 09:05:29,544 - dct:Standard https://w3id.org/italia/onto/HER -> matched namespace: https://w3id.org/italia/onto/HER/
+2025-07-01 09:05:29,545 - DEBUG: Processing https://w3id.org/italia/onto/IoT
+2025-07-01 09:05:29,547 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/IoT/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/IoT/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/IoT/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,547 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/IoT -> https://w3id.org/italia/onto/IoT/
+2025-07-01 09:05:29,547 - dct:Standard https://w3id.org/italia/onto/IoT -> matched namespace: https://w3id.org/italia/onto/IoT/
+2025-07-01 09:05:29,549 - DEBUG: Processing https://w3id.org/italia/onto/PARK
+2025-07-01 09:05:29,549 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://schema.org/', 'http://spcdata.digitpa.gov.it/browse/page/Amministrazione/', 'http://www.productontology.org/id/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/PARK/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/PARK/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/public-organization/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/AccessCondition/', 'https://w3id.org/italia/onto/PARK/', 'https://w3id.org/italia/onto/POI/', 'https://w3id.org/italia/onto/POT/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,550 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/PARK -> https://w3id.org/italia/onto/PARK/
+2025-07-01 09:05:29,554 - dct:Standard https://w3id.org/italia/onto/PARK -> matched namespace: https://w3id.org/italia/onto/PARK/
+2025-07-01 09:05:29,555 - DEBUG: Processing https://w3id.org/italia/onto/PublicContract
+2025-07-01 09:05:29,556 - DEBUG: Available namespaces: ['http://contsem.unizar.es/def/sector-publico/pproc#', 'http://data.europa.eu/eproc/ontology#', 'http://data.europa.eu/m8g/', 'http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://w3id.org/ocds/ns#', 'http://www.omg.org/spec/EDMC-FIBO/FND/Agreements/Contracts/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/PublicContract/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/PublicContract/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/private-organization/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/PublicContract/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,561 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/PublicContract -> https://w3id.org/italia/onto/PublicContract/
+2025-07-01 09:05:29,563 - dct:Standard https://w3id.org/italia/onto/PublicContract -> matched namespace: https://w3id.org/italia/onto/PublicContract/
+2025-07-01 09:05:29,564 - DEBUG: Processing https://w3id.org/italia/onto/Project
+2025-07-01 09:05:29,576 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Project/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Project/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/Project/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,580 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/Project -> https://w3id.org/italia/onto/Project/
+2025-07-01 09:05:29,580 - dct:Standard https://w3id.org/italia/onto/Project -> matched namespace: https://w3id.org/italia/onto/Project/
+2025-07-01 09:05:29,581 - DEBUG: Processing https://w3id.org/italia/onto/Indicator
+2025-07-01 09:05:29,581 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Indicator/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Indicator/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/department/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/Indicator/', 'https://w3id.org/italia/onto/IoT/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/', 'mailto://info@dati.gov.it/']
+2025-07-01 09:05:29,583 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/Indicator -> https://w3id.org/italia/onto/Indicator/
+2025-07-01 09:05:29,589 - dct:Standard https://w3id.org/italia/onto/Indicator -> matched namespace: https://w3id.org/italia/onto/Indicator/
+2025-07-01 09:05:29,591 - DEBUG: Processing https://w3id.org/italia/onto/Transparency
+2025-07-01 09:05:29,593 - DEBUG: Available namespaces: ['http://dati.gov.it/data/resource/ContactPoint/', 'http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://spcdata.digitpa.gov.it/Amministrazione/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Transparency/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Transparency/latest/', 'https://w3id.org/italia/controlled-vocabulary/classifications-for-transparency/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/private-organization/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/Transparency/', 'https://w3id.org/italia/onto/Transparency/latest/img/', 'https://w3id.org/italia/onto/l0/']
+2025-07-01 09:05:29,595 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/Transparency -> https://w3id.org/italia/onto/Transparency/
+2025-07-01 09:05:29,595 - dct:Standard https://w3id.org/italia/onto/Transparency -> matched namespace: https://w3id.org/italia/onto/Transparency/
+2025-07-01 09:05:29,595 - DEBUG: Processing https://w3id.org/italia/onto/Learning
+2025-07-01 09:05:29,595 - DEBUG: Available namespaces: ['http://data.europa.eu/m8g/', 'http://data.europa.eu/snb/model/elm/', 'http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/Learning/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/Learning/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/COV/', 'https://w3id.org/italia/onto/CPV/', 'https://w3id.org/italia/onto/HER/', 'https://w3id.org/italia/onto/Language/', 'https://w3id.org/italia/onto/Learning/', 'https://w3id.org/italia/onto/MU/', 'https://w3id.org/italia/onto/RO/', 'https://w3id.org/italia/onto/SM/', 'https://w3id.org/italia/onto/TI/', 'https://w3id.org/italia/onto/l0/']
+2025-07-01 09:05:29,596 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/Learning -> https://w3id.org/italia/onto/Learning/
+2025-07-01 09:05:29,597 - dct:Standard https://w3id.org/italia/onto/Learning -> matched namespace: https://w3id.org/italia/onto/Learning/
+2025-07-01 09:05:29,597 - DEBUG: Processing https://w3id.org/italia/onto/NDC
+2025-07-01 09:05:29,597 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://dati.gov.it/onto/dcatapit/', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://publications.europa.eu/resource/authority/language/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/', 'https://dw3id.org/italia/onto/l0/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/NDC/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/NDC/latest/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/organization/support-unit/', 'https://w3id.org/italia/data/organization/support-unit/cnr-Z6HZEH/', 'https://w3id.org/italia/data/project/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/NDC/', 'mailto://segreteria.trasformazionedigitale@governo.it/', 'ttp://dati.gov.it/onto/dcatapit#']
+2025-07-01 09:05:29,598 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/NDC -> https://w3id.org/italia/onto/NDC/
+2025-07-01 09:05:29,599 - dct:Standard https://w3id.org/italia/onto/NDC -> matched namespace: https://w3id.org/italia/onto/NDC/
+2025-07-01 09:05:29,599 - DEBUG: Processing https://w3id.org/italia/onto/RPO
+2025-07-01 09:05:29,600 - DEBUG: Available namespaces: ['http://dati.gov.it/onto/dcatapit#', 'http://publications.europa.eu/resource/authority/data-theme/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/frequency/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://github.com/italia/daf-ontologie-vocabolari-controllati/tree/master/Ontologie/RPO/', 'https://raw.githubusercontent.com/italia/daf-ontologie-vocabolari-controllati/master/Ontologie/RPO/latest/', 'https://schema.gov.it/lodview/data/contact-point/', 'https://w3id.org/italia/controlled-vocabulary/licences/', 'https://w3id.org/italia/data/contact-point/', 'https://w3id.org/italia/data/distribution/', 'https://w3id.org/italia/data/public-organization/', 'https://w3id.org/italia/onto/', 'https://w3id.org/italia/onto/ADMS/', 'https://w3id.org/italia/onto/CLV/', 'https://w3id.org/italia/onto/CPV/', 'https://w3id.org/italia/onto/RPO/', 'https://w3id.org/italia/onto/TI/', 'mailto://ndc-segr-tec@istat.it/']
+2025-07-01 09:05:29,602 - DEBUG: Found match by removing trailing char: https://w3id.org/italia/onto/RPO -> https://w3id.org/italia/onto/RPO/
+2025-07-01 09:05:29,603 - dct:Standard https://w3id.org/italia/onto/RPO -> matched namespace: https://w3id.org/italia/onto/RPO/
+2025-07-01 09:05:29,603 - DEBUG: Processing https://semiceu.github.io/Core-Person-Vocabulary/
+2025-07-01 09:05:29,604 - DEBUG: Available namespaces: ['http://data.europa.eu/', 'http://data.europa.eu/m8g/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/02pd/rec54#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/ns/person#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/4.0/', 'https://schema.org/', 'https://semic.eu/']
+2025-07-01 09:05:29,607 - dct:Standard https://semiceu.github.io/Core-Person-Vocabulary/ -> no matching namespace found in RDF data
+2025-07-01 09:05:29,608 - DEBUG: Processing https://semiceu.github.io/Core-Location-Vocabulary/
+2025-07-01 09:05:29,608 - DEBUG: Available namespaces: ['http://data.europa.eu/', 'http://data.europa.eu/m8g/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/02pd/rec54#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/ns/locn#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/', 'https://schema.org/', 'https://semic.eu/']
+2025-07-01 09:05:29,609 - dct:Standard https://semiceu.github.io/Core-Location-Vocabulary/ -> no matching namespace found in RDF data
+2025-07-01 09:05:29,609 - DEBUG: Processing https://semiceu.github.io/Core-Business-Vocabulary/
+2025-07-01 09:05:29,610 - DEBUG: Available namespaces: ['http://data.europa.eu/', 'http://data.europa.eu/m8g/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/02pd/rec54#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/ns/legal#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/4.0/', 'https://schema.org/', 'https://semic.eu/']
+2025-07-01 09:05:29,610 - dct:Standard https://semiceu.github.io/Core-Business-Vocabulary/ -> no matching namespace found in RDF data
+2025-07-01 09:05:29,610 - DEBUG: Processing https://semiceu.github.io/CCCEV/
+2025-07-01 09:05:29,611 - DEBUG: Available namespaces: ['http://data.europa.eu/', 'http://data.europa.eu/m8g/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/02pd/rec54#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/time#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/4.0/', 'https://schema.org/', 'https://semic.eu/']
+2025-07-01 09:05:29,611 - dct:Standard https://semiceu.github.io/CCCEV/ -> no matching namespace found in RDF data
+2025-07-01 09:05:29,611 - DEBUG: Processing https://semiceu.github.io/CPOV
+2025-07-01 09:05:29,611 - DEBUG: Available namespaces: ['http://data.europa.eu/', 'http://data.europa.eu/m8g/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/02pd/rec54#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/time#', 'http://www.w3.org/ns/org#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/4.0/', 'https://schema.org/', 'https://semic.eu/']
+2025-07-01 09:05:29,612 - dct:Standard https://semiceu.github.io/CPOV -> no matching namespace found in RDF data
+2025-07-01 09:05:29,612 - DEBUG: Processing https://semiceu.github.io/Core-Public-Event-Vocabulary/
+2025-07-01 09:05:29,614 - DEBUG: Available namespaces: ['http://data.europa.eu/', 'http://data.europa.eu/m8g/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/02pd/rec54#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/time#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/4.0/', 'https://schema.org/', 'https://semic.eu/']
+2025-07-01 09:05:29,615 - dct:Standard https://semiceu.github.io/Core-Public-Event-Vocabulary/ -> no matching namespace found in RDF data
+2025-07-01 09:05:29,615 - DEBUG: Processing http://www.w3.org/ns/dcat#
+2025-07-01 09:05:29,615 - DEBUG: Available namespaces: ['http://ec.europa.eu/dgs/informatics/', 'http://makxdekkers.com/', 'http://makxdekkers.com/makxdekkers.rdf#', 'http://people.csiro.au/', 'http://purl.org/dc/dcmitype/', 'http://purl.org/dc/terms/', 'http://purl.org/ontology/bibo/', 'http://purl.org/pav/', 'http://purl.org/vocab/vann/', 'http://schema.org/', 'http://stfc.ac.uk/', 'http://www.asahi-net.or.jp/~ax2s-kmtn/', 'http://www.deri.ie/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/1999/xhtml/vocab#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/TR/vocab-dcat/', 'http://www.w3.org/ns/', 'http://www.w3.org/ns/adms#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/org#', 'http://www.w3.org/ns/prov#', 'http://www.w3.org/ns/prov-o#', 'http://xmlns.com/foaf/0.1/', 'https://agbeltran.github.io/', 'https://creativecommons.org/licenses/by/4.0/', 'https://jakub.klímek.com/', 'https://jakub.klímek.com/#', 'https://orcid.org/', 'https://w3id.org/people/ralbertoni/', 'https://www.csiro.au/', 'https://www.w3.org/', 'https://www.w3.org/TR/vocab-dcat-2/', 'https://www.w3.org/TR/vocab-dcat-3/', 'https://www.w3.org/TR/vocab-dcat-3/images/', 'https://www.w3.org/groups/wg/', 'https://www.wikidata.org/entity/']
+2025-07-01 09:05:29,616 - DEBUG: Exact match found: http://www.w3.org/ns/dcat#
+2025-07-01 09:05:29,617 - dct:Standard http://www.w3.org/ns/dcat# -> matched namespace: http://www.w3.org/ns/dcat#
+2025-07-01 09:05:29,618 - DEBUG: Processing http://purl.org/dc/terms/
+2025-07-01 09:05:29,622 - DEBUG: Available namespaces: ['http://lcweb.loc.gov/catdir/cpso/lcco/', 'http://lcweb.loc.gov/standards/iso639-2/', 'http://purl.org/dc/aboutdcmi#', 'http://purl.org/dc/dcam/', 'http://purl.org/dc/dcmitype/', 'http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://www.getty.edu/research/tools/vocabulary/tgn/', 'http://www.iana.org/assignments/media-types/', 'http://www.ietf.org/rfc/', 'http://www.nlm.nih.gov/mesh/', 'http://www.oclc.org/dewey/', 'http://www.sil.org/iso639-3/', 'http://www.udcc.org/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/TR/', 'http://wwwcf.nlm.nih.gov/class/', 'http://xmlns.com/foaf/0.1/', 'https://www.dublincore.org/specifications/dublin-core/dcmi-box/', 'https://www.dublincore.org/specifications/dublin-core/dcmi-period/', 'https://www.dublincore.org/specifications/dublin-core/dcmi-point/', 'https://www.iso.org/obp/ui/#']
+2025-07-01 09:05:29,623 - DEBUG: Exact match found: http://purl.org/dc/terms/
+2025-07-01 09:05:29,624 - dct:Standard http://purl.org/dc/terms/ -> matched namespace: http://purl.org/dc/terms/
+2025-07-01 09:05:29,624 - DEBUG: Processing http://www.w3.org/ns/org#
+2025-07-01 09:05:29,625 - DEBUG: Available namespaces: ['http://purl.org/dc/terms/', 'http://purl.org/goodrelations/v1#', 'http://www.asahi-net.or.jp/~ax2s-kmtn/', 'http://www.opendatacommons.org/licenses/pddl/1.0/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/TR/vocab-org/', 'http://www.w3.org/ns/', 'http://www.w3.org/ns/org#', 'http://www.w3.org/ns/prov#', 'http://xmlns.com/foaf/0.1/']
+2025-07-01 09:05:29,625 - DEBUG: Exact match found: http://www.w3.org/ns/org#
+2025-07-01 09:05:29,626 - dct:Standard http://www.w3.org/ns/org# -> matched namespace: http://www.w3.org/ns/org#
+2025-07-01 09:05:29,627 - DEBUG: Processing http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:29,627 - DEBUG: Available namespaces: ['http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2006/vcard/', 'http://www.w3.org/2006/vcard/ns#', 'https://raw.githack.com/solid/contacts/refs/heads/main/']
+2025-07-01 09:05:29,628 - DEBUG: Exact match found: http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:29,628 - dct:Standard http://www.w3.org/2006/vcard/ns# -> matched namespace: http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:29,628 - DEBUG: Processing http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:29,628 - DEBUG: Available namespaces: ['http://purl.org/dc/elements/1.1/', 'http://purl.org/dc/terms/', 'http://schema.org/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2000/10/swap/pim/contact#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2003/01/geo/wgs84_pos#', 'http://www.w3.org/2003/06/sw-vocab-status/ns#', 'http://www.w3.org/2004/02/skos/core#', 'http://xmlns.com/foaf/0.1/', 'http://xmlns.com/wot/0.1/']
+2025-07-01 09:05:29,629 - DEBUG: Exact match found: http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:29,629 - dct:Standard http://xmlns.com/foaf/0.1/ -> matched namespace: http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:29,629 - DEBUG: Processing http://www.w3.org/2004/02/skos/core
+2025-07-01 09:05:29,629 - DEBUG: Available namespaces: ['http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/TR/skos-reference/']
+2025-07-01 09:05:29,630 - DEBUG: Found match by removing trailing char: http://www.w3.org/2004/02/skos/core -> http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:29,630 - dct:Standard http://www.w3.org/2004/02/skos/core -> matched namespace: http://www.w3.org/2004/02/skos/core#
+2025-07-01 09:05:29,630 - DEBUG: Processing http://www.w3.org/2002/07/owl
+2025-07-01 09:05:29,630 - DEBUG: Available namespaces: ['http://dev.w3.org/cvsweb/2009/owl-grddl/', 'http://purl.org/dc/elements/1.1/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2003/g/data-view#', 'http://www.w3.org/TR/owl2-mapping-to-rdf/', 'http://www.w3.org/TR/owl2-rdf-based-semantics/', 'http://www.w3.org/TR/owl2-rdf-based-semantics/#', 'http://www.w3.org/TR/owl2-syntax/']
+2025-07-01 09:05:29,632 - DEBUG: Found match by removing trailing char: http://www.w3.org/2002/07/owl -> http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:29,632 - dct:Standard http://www.w3.org/2002/07/owl -> matched namespace: http://www.w3.org/2002/07/owl#
+2025-07-01 09:05:29,633 - DEBUG: Processing https://data.norge.no/vocabulary/cpsvno#
+2025-07-01 09:05:29,637 - DEBUG: Available namespaces: ['http://data.europa.eu/m8g/', 'http://publications.europa.eu/resource/authority/concept-status/', 'http://purl.org/dc/terms/', 'http://purl.org/vocab/cpsv#', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/ns/adms#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/', 'https://data.norge.no/concepts/', 'https://data.norge.no/vocabulary/cpsvno#', 'https://data.norge.no/vocabulary/rule-type#', 'https://github.com/Informasjonsforvaltning/', 'https://www.digdir.no/', 'mailto://informasjonsforvaltning@digdir.no/']
+2025-07-01 09:05:29,640 - DEBUG: Exact match found: https://data.norge.no/vocabulary/cpsvno#
+2025-07-01 09:05:29,641 - dct:Standard https://data.norge.no/vocabulary/cpsvno# -> matched namespace: https://data.norge.no/vocabulary/cpsvno#
+2025-07-01 09:05:29,642 - DEBUG: Processing https://data.norge.no/vocabulary/dcatno#
+2025-07-01 09:05:29,642 - DEBUG: Available namespaces: ['dcatno://0.7/', 'http://creativecommons.org/ns#', 'http://data.europa.eu/', 'http://data.europa.eu/m8g/', 'http://data.europa.eu/r5r/', 'http://ec.europa.eu/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://purl.org/dc/terms/', 'http://purl.org/vocab/cpsv#', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://creativecommons.org/licenses/by/', 'https://data.norge.no/specification/dcat-ap-no/', 'https://data.norge.no/vocabulary/cpsvno#', 'https://data.norge.no/vocabulary/dcatno#', 'https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/', 'https://www.digdir.no/', 'mailto://informasjonsforvaltning@digdir.no/']
+2025-07-01 09:05:29,642 - DEBUG: Exact match found: https://data.norge.no/vocabulary/dcatno#
+2025-07-01 09:05:29,643 - dct:Standard https://data.norge.no/vocabulary/dcatno# -> matched namespace: https://data.norge.no/vocabulary/dcatno#
+2025-07-01 09:05:29,643 - DEBUG: Processing https://data.norge.no/vocabulary/dqvno#
+2025-07-01 09:05:29,643 - DEBUG: Available namespaces: ['dqvno://0.6/', 'http://publications.europa.eu/resource/authority/dataset-status/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/ns/adms#', 'https://data.norge.no/vocabulary/dqvno#', 'https://data.norge.no/vocabulary/quality-dimension#', 'https://data.norge.no/vocabulary/quality-metric#', 'https://www.w3.org/TR/vocab-dqv/#', 'https://www.w3.org/ns/oa#']
+2025-07-01 09:05:29,644 - DEBUG: Exact match found: https://data.norge.no/vocabulary/dqvno#
+2025-07-01 09:05:29,644 - dct:Standard https://data.norge.no/vocabulary/dqvno# -> matched namespace: https://data.norge.no/vocabulary/dqvno#
+2025-07-01 09:05:29,644 - DEBUG: Processing https://data.norge.no/vocabulary/modelldcatno#
+2025-07-01 09:05:29,644 - DEBUG: Available namespaces: ['http://publications.europa.eu/resource/authority/dataset-status/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2006/vcard/ns#', 'http://www.w3.org/ns/adms#', 'http://www.w3.org/ns/dcat#', 'http://www.w3.org/ns/dx/prof/', 'http://www.w3.org/ns/locn#', 'http://xmlns.com/foaf/0.1/', 'https://data.norge.no/vocabulary/', 'https://data.norge.no/vocabulary/information-model-type#', 'https://data.norge.no/vocabulary/modelldcatno#', 'https://rdf-vocabulary.ddialliance.org/xkos/']
+2025-07-01 09:05:29,645 - DEBUG: Exact match found: https://data.norge.no/vocabulary/modelldcatno#
+2025-07-01 09:05:29,645 - dct:Standard https://data.norge.no/vocabulary/modelldcatno# -> matched namespace: https://data.norge.no/vocabulary/modelldcatno#
+2025-07-01 09:05:29,645 - DEBUG: Processing https://data.norge.no/vocabulary/skosno#
+2025-07-01 09:05:29,647 - DEBUG: Available namespaces: ['http://publications.europa.eu/ontology/euvoc#', 'http://publications.europa.eu/resource/authority/dataset-status/', 'http://publications.europa.eu/resource/authority/file-type/', 'http://publications.europa.eu/resource/authority/licence/', 'http://purl.org/adms/status/', 'http://purl.org/dc/terms/', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'http://www.w3.org/2000/01/rdf-schema#', 'http://www.w3.org/2001/XMLSchema#', 'http://www.w3.org/2002/07/owl#', 'http://www.w3.org/2004/02/skos/core#', 'http://www.w3.org/2008/05/skos-xl#', 'http://www.w3.org/ns/adms#', 'http://www.w3.org/ns/dcat#', 'http://xmlns.com/foaf/0.1/', 'https://data.norge.no/specification/forvaltningsstandard-begrepsbeskrivelser/#', 'https://data.norge.no/vocabulary/', 'https://data.norge.no/vocabulary/audience-type#', 'https://data.norge.no/vocabulary/relationship-with-source-type#', 'https://data.norge.no/vocabulary/skosno#', 'https://github.com/Informasjonsforvaltning/skos-ap-no-begrep/ontology/', 'https://organization-catalogue.fellesdatakatalog.digdir.no/organizations/', 'https://termlex.no/term/171137526104694/', 'https://termlex.no/term/171137526403399/', 'https://termlex.no/term/171137529308815/', 'https://www.digdir.no/', 'https://www.standard.no/toppvalg/termbasen/Termpost/', 'mailto://informasjonsforvaltning@digdir.no/']
+2025-07-01 09:05:29,648 - DEBUG: Exact match found: https://data.norge.no/vocabulary/skosno#
+2025-07-01 09:05:29,648 - dct:Standard https://data.norge.no/vocabulary/skosno# -> matched namespace: https://data.norge.no/vocabulary/skosno#
+2025-07-01 09:05:29,648 - Created 47 dct:Standard mappings
+
+2025-07-01 09:05:29,657 - 
+=== LOVRank Metrics Table ===
+2025-07-01 09:05:29,659 - dct:Standard URI                                              Backlinks    LOVRank
+2025-07-01 09:05:29,659 - -------------------------------------------------------------------------------------
+2025-07-01 09:05:29,662 - DEBUG: https://w3id.org/italia/onto/AccessCondition (ns: https://w3id.org/italia/onto/AccessCondition/) is used by 4 other ontologies
+2025-07-01 09:05:29,662 - https://w3id.org/italia/onto/AccessCondition                          4      0.085
+2025-07-01 09:05:30,077 - LOVRank 0.085106 written to https://w3id.org/italia/onto/AccessCondition
+2025-07-01 09:05:30,078 - DEBUG: https://w3id.org/italia/onto/l0 (ns: https://w3id.org/italia/onto/l0/) is used by 26 other ontologies
+2025-07-01 09:05:30,078 - https://w3id.org/italia/onto/l0                                      26      0.553
+2025-07-01 09:05:30,529 - LOVRank 0.553191 written to https://w3id.org/italia/onto/l0
+2025-07-01 09:05:30,530 - DEBUG: https://w3id.org/italia/onto/TI (ns: https://w3id.org/italia/onto/TI/) is used by 20 other ontologies
+2025-07-01 09:05:30,531 - https://w3id.org/italia/onto/TI                                      20      0.426
+2025-07-01 09:05:31,032 - LOVRank 0.425532 written to https://w3id.org/italia/onto/TI
+2025-07-01 09:05:31,033 - DEBUG: https://w3id.org/italia/onto/ACCO (ns: https://w3id.org/italia/onto/ACCO/) is used by 1 other ontologies
+2025-07-01 09:05:31,033 - https://w3id.org/italia/onto/ACCO                                     1      0.021
+2025-07-01 09:05:31,358 - LOVRank 0.021277 written to https://w3id.org/italia/onto/ACCO
+2025-07-01 09:05:31,358 - DEBUG: https://w3id.org/italia/onto/POT (ns: https://w3id.org/italia/onto/POT/) is used by 3 other ontologies
+2025-07-01 09:05:31,358 - https://w3id.org/italia/onto/POT                                      3      0.064
+2025-07-01 09:05:31,890 - LOVRank 0.063830 written to https://w3id.org/italia/onto/POT
+2025-07-01 09:05:31,890 - DEBUG: https://w3id.org/italia/onto/COV (ns: https://w3id.org/italia/onto/COV/) is used by 7 other ontologies
+2025-07-01 09:05:31,892 - https://w3id.org/italia/onto/COV                                      7      0.149
+2025-07-01 09:05:32,329 - LOVRank 0.148936 written to https://w3id.org/italia/onto/COV
+2025-07-01 09:05:32,348 - DEBUG: https://w3id.org/italia/onto/POI (ns: https://w3id.org/italia/onto/POI/) is used by 7 other ontologies
+2025-07-01 09:05:32,348 - https://w3id.org/italia/onto/POI                                      7      0.149
+2025-07-01 09:05:32,718 - LOVRank 0.148936 written to https://w3id.org/italia/onto/POI
+2025-07-01 09:05:32,719 - DEBUG: https://w3id.org/italia/onto/SM (ns: https://w3id.org/italia/onto/SM/) is used by 12 other ontologies
+2025-07-01 09:05:32,720 - https://w3id.org/italia/onto/SM                                      12      0.255
+2025-07-01 09:05:33,506 - LOVRank 0.255319 written to https://w3id.org/italia/onto/SM
+2025-07-01 09:05:33,509 - https://w3id.org/italia/onto/ADMS                                     0      0.000
+2025-07-01 09:05:33,962 - LOVRank 0.000000 written to https://w3id.org/italia/onto/ADMS
+2025-07-01 09:05:33,963 - DEBUG: http://dati.gov.it/onto/dcatapit (ns: http://dati.gov.it/onto/dcatapit/) is used by 1 other ontologies
+2025-07-01 09:05:33,964 - http://dati.gov.it/onto/dcatapit                                      1      0.021
+2025-07-01 09:05:34,285 - LOVRank 0.021277 written to http://dati.gov.it/onto/dcatapit
+2025-07-01 09:05:34,285 - https://w3id.org/italia/onto/AtlasOfPaths                             0      0.000
+2025-07-01 09:05:34,625 - LOVRank 0.000000 written to https://w3id.org/italia/onto/AtlasOfPaths
+2025-07-01 09:05:34,625 - DEBUG: https://w3id.org/italia/onto/Route (ns: https://w3id.org/italia/onto/Route/) is used by 1 other ontologies
+2025-07-01 09:05:34,626 - https://w3id.org/italia/onto/Route                                    1      0.021
+2025-07-01 09:05:35,060 - LOVRank 0.021277 written to https://w3id.org/italia/onto/Route
+2025-07-01 09:05:35,061 - DEBUG: https://w3id.org/italia/onto/CLV (ns: https://w3id.org/italia/onto/CLV/) is used by 12 other ontologies
+2025-07-01 09:05:35,064 - https://w3id.org/italia/onto/CLV                                     12      0.255
+2025-07-01 09:05:35,511 - LOVRank 0.255319 written to https://w3id.org/italia/onto/CLV
+2025-07-01 09:05:35,513 - DEBUG: https://w3id.org/italia/onto/MU (ns: https://w3id.org/italia/onto/MU/) is used by 11 other ontologies
+2025-07-01 09:05:35,514 - https://w3id.org/italia/onto/MU                                      11      0.234
+2025-07-01 09:05:35,844 - LOVRank 0.234043 written to https://w3id.org/italia/onto/MU
+2025-07-01 09:05:35,847 - DEBUG: https://w3id.org/italia/onto/RO (ns: https://w3id.org/italia/onto/RO/) is used by 7 other ontologies
+2025-07-01 09:05:35,848 - https://w3id.org/italia/onto/RO                                       7      0.149
+2025-07-01 09:05:36,198 - LOVRank 0.148936 written to https://w3id.org/italia/onto/RO
+2025-07-01 09:05:36,200 - https://w3id.org/italia/onto/CPEV                                     0      0.000
+2025-07-01 09:05:36,552 - LOVRank 0.000000 written to https://w3id.org/italia/onto/CPEV
+2025-07-01 09:05:36,562 - https://w3id.org/italia/onto/CPSV                                     0      0.000
+2025-07-01 09:05:37,092 - LOVRank 0.000000 written to https://w3id.org/italia/onto/CPSV
+2025-07-01 09:05:37,095 - DEBUG: https://w3id.org/italia/onto/Language (ns: https://w3id.org/italia/onto/Language/) is used by 2 other ontologies
+2025-07-01 09:05:37,100 - https://w3id.org/italia/onto/Language                                 2      0.043
+2025-07-01 09:05:37,493 - LOVRank 0.042553 written to https://w3id.org/italia/onto/Language
+2025-07-01 09:05:37,493 - DEBUG: https://w3id.org/italia/onto/CPV (ns: https://w3id.org/italia/onto/CPV/) is used by 3 other ontologies
+2025-07-01 09:05:37,493 - https://w3id.org/italia/onto/CPV                                      3      0.064
+2025-07-01 09:05:37,878 - LOVRank 0.063830 written to https://w3id.org/italia/onto/CPV
+2025-07-01 09:05:37,878 - DEBUG: https://w3id.org/italia/onto/HER (ns: https://w3id.org/italia/onto/HER/) is used by 1 other ontologies
+2025-07-01 09:05:37,885 - https://w3id.org/italia/onto/HER                                      1      0.021
+2025-07-01 09:05:38,282 - LOVRank 0.021277 written to https://w3id.org/italia/onto/HER
+2025-07-01 09:05:38,282 - DEBUG: https://w3id.org/italia/onto/IoT (ns: https://w3id.org/italia/onto/IoT/) is used by 1 other ontologies
+2025-07-01 09:05:38,284 - https://w3id.org/italia/onto/IoT                                      1      0.021
+2025-07-01 09:05:38,701 - LOVRank 0.021277 written to https://w3id.org/italia/onto/IoT
+2025-07-01 09:05:38,702 - https://w3id.org/italia/onto/PARK                                     0      0.000
+2025-07-01 09:05:39,027 - LOVRank 0.000000 written to https://w3id.org/italia/onto/PARK
+2025-07-01 09:05:39,050 - DEBUG: https://w3id.org/italia/onto/PublicContract (ns: https://w3id.org/italia/onto/PublicContract/) is used by 1 other ontologies
+2025-07-01 09:05:39,051 - https://w3id.org/italia/onto/PublicContract                           1      0.021
+2025-07-01 09:05:39,361 - LOVRank 0.021277 written to https://w3id.org/italia/onto/PublicContract
+2025-07-01 09:05:39,362 - DEBUG: https://w3id.org/italia/onto/Project (ns: https://w3id.org/italia/onto/Project/) is used by 1 other ontologies
+2025-07-01 09:05:39,362 - https://w3id.org/italia/onto/Project                                  1      0.021
+2025-07-01 09:05:39,927 - LOVRank 0.021277 written to https://w3id.org/italia/onto/Project
+2025-07-01 09:05:39,927 - https://w3id.org/italia/onto/Indicator                                0      0.000
+2025-07-01 09:05:40,325 - LOVRank 0.000000 written to https://w3id.org/italia/onto/Indicator
+2025-07-01 09:05:40,325 - https://w3id.org/italia/onto/Transparency                             0      0.000
+2025-07-01 09:05:40,637 - LOVRank 0.000000 written to https://w3id.org/italia/onto/Transparency
+2025-07-01 09:05:40,637 - https://w3id.org/italia/onto/Learning                                 0      0.000
+2025-07-01 09:05:40,948 - LOVRank 0.000000 written to https://w3id.org/italia/onto/Learning
+2025-07-01 09:05:40,948 - https://w3id.org/italia/onto/NDC                                      0      0.000
+2025-07-01 09:05:41,266 - LOVRank 0.000000 written to https://w3id.org/italia/onto/NDC
+2025-07-01 09:05:41,267 - https://w3id.org/italia/onto/RPO                                      0      0.000
+2025-07-01 09:05:41,586 - LOVRank 0.000000 written to https://w3id.org/italia/onto/RPO
+2025-07-01 09:05:41,587 - DEBUG: https://semiceu.github.io/Core-Person-Vocabulary/ has no matching namespace
+2025-07-01 09:05:41,587 - https://semiceu.github.io/Core-Person-Vocabulary/                     0      0.000
+2025-07-01 09:05:41,943 - LOVRank 0.000000 written to https://semiceu.github.io/Core-Person-Vocabulary/
+2025-07-01 09:05:41,944 - DEBUG: https://semiceu.github.io/Core-Location-Vocabulary/ has no matching namespace
+2025-07-01 09:05:41,944 - https://semiceu.github.io/Core-Location-Vocabulary/                   0      0.000
+2025-07-01 09:05:42,246 - LOVRank 0.000000 written to https://semiceu.github.io/Core-Location-Vocabulary/
+2025-07-01 09:05:42,246 - DEBUG: https://semiceu.github.io/Core-Business-Vocabulary/ has no matching namespace
+2025-07-01 09:05:42,246 - https://semiceu.github.io/Core-Business-Vocabulary/                   0      0.000
+2025-07-01 09:05:42,512 - LOVRank 0.000000 written to https://semiceu.github.io/Core-Business-Vocabulary/
+2025-07-01 09:05:42,512 - DEBUG: https://semiceu.github.io/CCCEV/ has no matching namespace
+2025-07-01 09:05:42,512 - https://semiceu.github.io/CCCEV/                                      0      0.000
+2025-07-01 09:05:42,765 - LOVRank 0.000000 written to https://semiceu.github.io/CCCEV/
+2025-07-01 09:05:42,766 - DEBUG: https://semiceu.github.io/CPOV has no matching namespace
+2025-07-01 09:05:42,766 - https://semiceu.github.io/CPOV                                        0      0.000
+2025-07-01 09:05:43,035 - LOVRank 0.000000 written to https://semiceu.github.io/CPOV
+2025-07-01 09:05:43,035 - DEBUG: https://semiceu.github.io/Core-Public-Event-Vocabulary/ has no matching namespace
+2025-07-01 09:05:43,035 - https://semiceu.github.io/Core-Public-Event-Vocabulary/               0      0.000
+2025-07-01 09:05:43,286 - LOVRank 0.000000 written to https://semiceu.github.io/Core-Public-Event-Vocabulary/
+2025-07-01 09:05:43,287 - DEBUG: http://www.w3.org/ns/dcat# (ns: http://www.w3.org/ns/dcat#) is used by 33 other ontologies
+2025-07-01 09:05:43,287 - http://www.w3.org/ns/dcat#                                           33      0.702
+2025-07-01 09:05:43,579 - LOVRank 0.702128 written to http://www.w3.org/ns/dcat#
+2025-07-01 09:05:43,580 - DEBUG: http://purl.org/dc/terms/ (ns: http://purl.org/dc/terms/) is used by 44 other ontologies
+2025-07-01 09:05:43,580 - http://purl.org/dc/terms/                                            44      0.936
+2025-07-01 09:05:43,858 - LOVRank 0.936170 written to http://purl.org/dc/terms/
+2025-07-01 09:05:43,858 - DEBUG: http://www.w3.org/ns/org# (ns: http://www.w3.org/ns/org#) is used by 3 other ontologies
+2025-07-01 09:05:43,858 - http://www.w3.org/ns/org#                                             3      0.064
+2025-07-01 09:05:44,130 - LOVRank 0.063830 written to http://www.w3.org/ns/org#
+2025-07-01 09:05:44,130 - DEBUG: http://www.w3.org/2006/vcard/ns# (ns: http://www.w3.org/2006/vcard/ns#) is used by 29 other ontologies
+2025-07-01 09:05:44,131 - http://www.w3.org/2006/vcard/ns#                                     29      0.617
+2025-07-01 09:05:44,459 - LOVRank 0.617021 written to http://www.w3.org/2006/vcard/ns#
+2025-07-01 09:05:44,459 - DEBUG: http://xmlns.com/foaf/0.1/ (ns: http://xmlns.com/foaf/0.1/) is used by 42 other ontologies
+2025-07-01 09:05:44,459 - http://xmlns.com/foaf/0.1/                                           42      0.894
+2025-07-01 09:05:44,861 - LOVRank 0.893617 written to http://xmlns.com/foaf/0.1/
+2025-07-01 09:05:44,861 - DEBUG: http://www.w3.org/2004/02/skos/core (ns: http://www.w3.org/2004/02/skos/core#) is used by 24 other ontologies
+2025-07-01 09:05:44,861 - http://www.w3.org/2004/02/skos/core                                  24      0.511
+2025-07-01 09:05:45,116 - LOVRank 0.510638 written to http://www.w3.org/2004/02/skos/core
+2025-07-01 09:05:45,117 - DEBUG: http://www.w3.org/2002/07/owl (ns: http://www.w3.org/2002/07/owl#) is used by 46 other ontologies
+2025-07-01 09:05:45,117 - http://www.w3.org/2002/07/owl                                        46      0.979
+2025-07-01 09:05:45,541 - LOVRank 0.978723 written to http://www.w3.org/2002/07/owl
+2025-07-01 09:05:45,546 - DEBUG: https://data.norge.no/vocabulary/cpsvno# (ns: https://data.norge.no/vocabulary/cpsvno#) is used by 1 other ontologies
+2025-07-01 09:05:45,546 - https://data.norge.no/vocabulary/cpsvno#                              1      0.021
+2025-07-01 09:05:45,912 - LOVRank 0.021277 written to https://data.norge.no/vocabulary/cpsvno#
+2025-07-01 09:05:45,913 - https://data.norge.no/vocabulary/dcatno#                              0      0.000
+2025-07-01 09:05:46,306 - LOVRank 0.000000 written to https://data.norge.no/vocabulary/dcatno#
+2025-07-01 09:05:46,306 - https://data.norge.no/vocabulary/dqvno#                               0      0.000
+2025-07-01 09:05:46,745 - LOVRank 0.000000 written to https://data.norge.no/vocabulary/dqvno#
+2025-07-01 09:05:46,772 - https://data.norge.no/vocabulary/modelldcatno#                        0      0.000
+2025-07-01 09:05:47,158 - LOVRank 0.000000 written to https://data.norge.no/vocabulary/modelldcatno#
+2025-07-01 09:05:47,161 - https://data.norge.no/vocabulary/skosno#                              0      0.000
+2025-07-01 09:05:47,547 - LOVRank 0.000000 written to https://data.norge.no/vocabulary/skosno#
+2025-07-01 09:05:47,566 - -------------------------------------------------------------------------------------
+2025-07-01 09:05:47,567 - Total ontologies: 47
+2025-07-01 09:06:50,411 - 
+Total dependencies established: 343
+2025-07-01 09:06:50,411 - 
+Script execution time: 101.64 seconds
+2025-07-01 09:06:50,411 - Log saved to: semantic_registry_analysis.log

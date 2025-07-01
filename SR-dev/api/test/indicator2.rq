@@ -1,0 +1,55 @@
+  PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+  PREFIX m8g: <http://data.europa.eu/m8g/>
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+  SELECT distinct ?procedure ?procedureType ?cpvcode2 ?countryBuyer ?nutsCodeBuyer ?countryWinner ?countries ?year ?month  ?lots ?hasLots 
+  
+  WHERE {
+
+    ?notice epo:refersToProcedure ?procedure .
+    ?notice epo:hasPublicationDate ?date .
+    ?notice epo:announcesRole ?buyer .
+    ?buyer a epo:Buyer .
+      ?buyer epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?countryBuyer ;
+              epo:hasNutsCode/skos:notation ?nutsCodeBuyer
+    ] .
+  
+   ?notice epo:announcesRole ?winner .
+    ?procedure epo:hasProcedureType/<http://publications.europa.eu/ontology/authority/op-code> ?procedureType .
+     ?procedure epo:hasPurpose/epo:hasMainClassification/skos:notation ?classification .
+
+    ?winner a epo:Winner .
+    ?winner epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?countryWinner ;
+    ] .
+
+    { 
+        SELECT ?notice (COUNT(DISTINCT(?country)) AS ?countries) {
+          ?notice a epo:ResultNotice .
+          ?notice epo:announcesRole ?winner .
+          ?winner a epo:Winner .
+          ?winner epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?country ;
+          ] .
+        } 
+    }
+  
+        { 
+        SELECT ?procedure (COUNT(?lot) AS ?lots) {
+          ?procedure a epo:Procedure .
+          OPTIONAL {
+        ?procedure epo:hasProcurementScopeDividedIntoLot ?lot
+      }
+        } 
+    }
+    BIND(if(?lots > 1, "yes", "no") AS ?hasLots)
+    BIND(substr(?classification, 1, 2) AS ?cpvcode2) 
+
+    BIND(if(strlen(str(?date)) = 8, concat(substr(str(?date), 1, 4), "-", substr(str(?date), 5, 2), "-", substr(str(?date), 7, 2)), str(?date)) AS ?fixedDate) 
+    BIND(strdt(substr(?fixedDate, 1, 4), xsd:integer) AS ?year) 
+    BIND(strdt(substr(?fixedDate, 6, 2), xsd:integer) AS ?month) 
+  FILTER (?notice = <http://data.europa.eu/a4g/resource/id_2023-S-193-602838_Notice>)
+}
+LIMIT 50

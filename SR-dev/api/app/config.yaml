@@ -1,7 +1,7 @@
 # SPARQL endpoint configuration
 sparql:
-  sparql_query_endpoint: "http://BEPF388C13:7200/repositories/semantic-registry"
-  sparql_update_endpoint: "http://BEPF388C13:7200/repositories/semantic-registry/statements" 
+  sparql_query_endpoint: "http://63.32.50.253:81/sparql"
+  sparql_update_endpoint: "http://63.32.50.253:81/sparql" 
   graph_uri: "http://semic.registry.eu"
   bypass_ssl: true
 
@@ -11,16 +11,20 @@ sparql_query: |
   prefix dcat: <http://www.w3.org/ns/dcat#>
   prefix prof: <http://www.w3.org/ns/dx/prof/>
   SELECT ?s ?download
-  WHERE {
-    ?s a dct:Standard .
-    ?s prof:hasResource ?resource .
-    ?resource dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> .
-    ?resource dcat:downloadURL ?download .
-  }
+  WHERE {{
+    GRAPH <http://semic.registry.eu> {{
+      ?s a dct:Standard .
+      ?s prof:hasResource ?resource .
+      ?resource dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> .
+      ?resource dcat:downloadURL ?download .
+    }}
+  }}
 
 lovrank_update_query: |
+  WITH <http://semic.registry.eu>
   DELETE WHERE {{ <{ontology_uri}> <http://example.org/LOVRank> ?o }} ;
   INSERT DATA {{ <{ontology_uri}> <http://example.org/LOVRank> "{lovrank_value}"^^xsd:decimal }}
 
 requires_update_query: |
+  WITH <http://semic.registry.eu>
   INSERT DATA {{ <{subject_uri}> <http://purl.org/dc/terms/requires> <{object_uri}> }}

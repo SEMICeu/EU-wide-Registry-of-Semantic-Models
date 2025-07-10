@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
-from app.ranking_logic import run_ranking_process
+from app.ranking_logic import AsyncSemanticRegistryAnalyzer
 from app.api.v1.models import RankingResponse, ErrorResponse
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -36,13 +37,8 @@ async def calculate_ranking(request: Request, background_tasks: BackgroundTasks)
             "requires_update_query": config["requires_update_query"]
         }
 
-        background_tasks.add_task(
-            run_ranking_process, 
-            sparql_query_endpoint, 
-            sparql_update_endpoint, 
-            bypass_ssl, 
-            queries
-        )
+        analyzer = AsyncSemanticRegistryAnalyzer()
+        result = await analyzer.run_analysis(analysis_id)
 
         return RankingResponse(
             status="accepted",

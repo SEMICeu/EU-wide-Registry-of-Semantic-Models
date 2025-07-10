@@ -18,7 +18,8 @@ with open('config.yaml', 'r') as f:
 
 # Set configuration variables
 SPARQL_QUERY_ENDPOINT = config['sparql']['sparql_query_endpoint']
-SPARQL_UPDATE_ENDPOINT = config['sparql']['sparql_update_endpoint']
+SPARQL_UPDATE_ENDPOINT = config['sparql']['sparql_update_endpoint']  # Virtuoso uses the same endpoint for updates
+GRAPH_URI = config['sparql']['graph_uri']
 BYPASS_SSL = config['sparql']['bypass_ssl']
 LOVRANK_UPDATE_QUERY = config['lovrank_update_query']
 

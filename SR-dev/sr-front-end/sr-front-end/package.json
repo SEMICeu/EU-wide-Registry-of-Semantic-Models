@@ -11,12 +11,13 @@
     "start-backend": "node backend.js"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "body-parser": "^1.20.2",
     "sparql-http-client": "^3.0.1"
   },
   "browserslist": {
@@ -31,4 +32,4 @@
       "last 1 safari version"
     ]
   }
-} 
+}

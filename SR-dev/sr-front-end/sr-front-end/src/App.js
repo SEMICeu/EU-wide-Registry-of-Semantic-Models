@@ -162,7 +162,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       <div className="intro-section">
         <h2>Welcome to the Semantic Registry</h2>
         <p>
-          The Semantic Registry contains semantic models from well known publishers, Member States, European Agencies and more. It uses ranking metrics to recommend semantic models that are the most commonly used and interconnected with other models, making you more interoperable!
+          The Semantic Registry contains semantic models from well known publishers, Member States, European Agencies and more. It uses ranking metrics to recommend semantic models that are the most commonly used and interconnected with other models, allowing you to make the best decision for your use case!
         </p>
       </div>
       <div className="search-bar">

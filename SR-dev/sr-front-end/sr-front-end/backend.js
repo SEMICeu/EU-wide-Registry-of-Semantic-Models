@@ -23,7 +23,27 @@ app.post('/api/search', async (req, res) => {
     SELECT ?title ?description ?publisher ?publisherName ?lovRank (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses) (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies)
     FROM <http://semic.registry.eu>
     WHERE {
-      ?standard a dct:Standard .
+      {
+        SELECT DISTINCT ?standard
+        WHERE {
+          ?standard a dct:Standard .
+          ?standard dct:title ?title .
+          ?standard dct:description ?description .
+          OPTIONAL {
+            ?standard dct:hasPart ?class .
+            ?class a rdfs:Class ;
+                   rdfs:label ?classLabel .
+            FILTER(lang(?classLabel) = "en")
+          }
+          FILTER (lang(?title) = "en")
+          FILTER (lang(?description) = "en")
+          FILTER(
+            CONTAINS(LCASE(?title), LCASE("${query}")) ||
+            CONTAINS(LCASE(?description), LCASE("${query}")) ||
+            CONTAINS(LCASE(?classLabel), LCASE("${query}"))
+          )
+        }
+      }
       ?standard dct:title ?title .
       ?standard dct:description ?description .
       ?standard dct:publisher ?publisher .
@@ -34,7 +54,7 @@ app.post('/api/search', async (req, res) => {
       }
       OPTIONAL {
         ?standard dct:hasPart ?class .
-        ?class a <http://www.w3.org/2000/01/rdf-schema#Class> ;
+        ?class a rdfs:Class ;
                rdfs:label ?classLabel .
         FILTER(lang(?classLabel) = "en")
       }
@@ -45,8 +65,6 @@ app.post('/api/search', async (req, res) => {
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
       FILTER (lang(?description) = "en")
-      FILTER(CONTAINS(LCASE(?title), LCASE("${query}")) || 
-             CONTAINS(LCASE(?description), LCASE("${query}")))
     }
     GROUP BY ?title ?description ?publisher ?publisherName ?lovRank
     LIMIT 50

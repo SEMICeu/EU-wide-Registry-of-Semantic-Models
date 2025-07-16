@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1>The Smeantic Registry</h1>
+        <h1>The Semantic Registry</h1>
         <p>Search for semantic ontologies</p>
       </header>
       <div className="search-bar">

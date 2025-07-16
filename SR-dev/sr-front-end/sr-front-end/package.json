@@ -1,5 +1,5 @@
 {
-  "name": "the-smeantic-registry",
+  "name": "the-semantic-registry",
   "version": "1.0.0",
   "private": true,
   "description": "A React.js frontend for searching semantic ontologies.",

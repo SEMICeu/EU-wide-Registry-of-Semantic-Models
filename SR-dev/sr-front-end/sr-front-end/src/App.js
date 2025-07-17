@@ -93,19 +93,23 @@ function OntologyDetail({ ontologies }) {
         </div>
         <div className="ontology-detail-section">
           <h3>Keywords</h3>
-          <ul className="ontology-detail-keywords">
-            <li>ontology</li>
-            <li>example</li>
-            <li>data</li>
-          </ul>
+          {ontology.keywords && ontology.keywords.length > 0 ? (
+            <ul className="ontology-detail-keywords">
+              {ontology.keywords.map((kw, idx) => (
+                <li key={idx}>{kw}</li>
+              ))}
+            </ul>
+          ) : (
+            <span style={{ color: '#7eb6ff' }}>No keywords listed.</span>
+          )}
         </div>
       </div>
       <aside className="ontology-detail-meta">
         <div className="ontology-detail-meta-box">
           <div><b>Ranking:</b> {ontology.ranking}</div>
-          <div><b>Created:</b> 31.01.2025</div>
-          <div><b>Landing Page:</b> <a href="#" target="_blank" rel="noopener noreferrer">example.com</a></div>
-          <div><b>Languages:</b> Dutch</div>
+          <div><b>Created:</b> {ontology.created ? new Date(ontology.created).toLocaleDateString() : <span style={{color:'#7eb6ff'}}>Unknown</span>}</div>
+          <div><b>Landing Page:</b> {ontology.homepage ? <a href={ontology.homepage} target="_blank" rel="noopener noreferrer">{ontology.homepage}</a> : <span style={{color:'#7eb6ff'}}>None</span>}</div>
+          <div><b>Languages:</b> {ontology.languages && ontology.languages.length > 0 ? ontology.languages.join(', ') : <span style={{color:'#7eb6ff'}}>Unknown</span>}</div>
         </div>
         {ontology.reusedOntologies && ontology.reusedOntologies.length > 0 && (
           <div className="ontology-detail-reuses-box">

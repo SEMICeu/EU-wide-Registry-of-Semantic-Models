@@ -20,7 +20,8 @@ app.post('/api/search', async (req, res) => {
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT ?title ?description ?publisher ?publisherName ?lovRank (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses) (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies)
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    SELECT ?title ?description ?publisher ?publisherName ?lovRank (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses) (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies) (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords) ?created ?homepage (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
     FROM <http://semic.registry.eu>
     WHERE {
       {
@@ -62,11 +63,15 @@ app.post('/api/search', async (req, res) => {
         ?standard dct:requires ?reused .
         OPTIONAL { ?reused dct:title ?reusedTitle . FILTER(lang(?reusedTitle) = "en") }
       }
+      OPTIONAL { ?standard dcat:keyword ?keyword }
+      OPTIONAL { ?standard dct:created ?created }
+      OPTIONAL { ?standard foaf:homepage ?homepage }
+      OPTIONAL { ?standard dct:language ?language }
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
       FILTER (lang(?description) = "en")
     }
-    GROUP BY ?title ?description ?publisher ?publisherName ?lovRank
+    GROUP BY ?title ?description ?publisher ?publisherName ?lovRank ?created ?homepage
     LIMIT 50
   `;
 
@@ -86,7 +91,11 @@ app.post('/api/search', async (req, res) => {
         reusedOntologies: row.reusedOntologies ? row.reusedOntologies.value.split('||').filter(Boolean).map(str => {
           const [uri, title] = str.split('|');
           return { uri, title };
-        }) : []
+        }) : [],
+        keywords: row.keywords ? row.keywords.value.split('||') : [],
+        created: row.created ? row.created.value : null,
+        homepage: row.homepage ? row.homepage.value : null,
+        languages: row.languages ? row.languages.value.split('||') : []
       });
     });
     stream.on('end', () => res.json(results));
@@ -110,7 +119,7 @@ app.post('/api/ontology', async (req, res) => {
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT ?title ?description ?publisher ?publisherName ?lovRank (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses) (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies)
+    SELECT ?title ?description ?publisher ?publisherName ?lovRank (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses) (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies) (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords) ?created ?homepage (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
     FROM <http://semic.registry.eu>
     WHERE {
       ?standard a dct:Standard .
@@ -132,12 +141,16 @@ app.post('/api/ontology', async (req, res) => {
         ?standard dct:requires ?reused .
         OPTIONAL { ?reused dct:title ?reusedTitle . FILTER(lang(?reusedTitle) = "en") }
       }
+      OPTIONAL { ?standard dcat:keyword ?keyword }
+      OPTIONAL { ?standard dct:created ?created }
+      OPTIONAL { ?standard foaf:homepage ?homepage }
+      OPTIONAL { ?standard dct:language ?language }
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
       FILTER (lang(?description) = "en")
       FILTER(REPLACE(LCASE(?title), "[^a-z0-9]+", "-", "g") = "${slug}")
     }
-    GROUP BY ?title ?description ?publisher ?publisherName ?lovRank
+    GROUP BY ?title ?description ?publisher ?publisherName ?lovRank ?created ?homepage
     LIMIT 1
   `;
 
@@ -157,7 +170,11 @@ app.post('/api/ontology', async (req, res) => {
         reusedOntologies: row.reusedOntologies ? row.reusedOntologies.value.split('||').filter(Boolean).map(str => {
           const [uri, title] = str.split('|');
           return { uri, title };
-        }) : []
+        }) : [],
+        keywords: row.keywords ? row.keywords.value.split('||') : [],
+        created: row.created ? row.created.value : null,
+        homepage: row.homepage ? row.homepage.value : null,
+        languages: row.languages ? row.languages.value.split('||') : []
       };
     });
     stream.on('end', () => {

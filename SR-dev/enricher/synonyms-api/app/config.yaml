@@ -1,0 +1,199 @@
+endpoint: "https://publications.europa.eu/webapi/rdf/sparql"
+
+query1: |
+  PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+  PREFIX m8g: <http://data.europa.eu/m8g/>
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+  SELECT distinct ?procedure ?procedureType ?cpvcode2 ?country ?nutsCode ?year ?month ?lots ?hasLots 
+  
+  WHERE {
+
+    ?notice a epo:ResultNotice .
+    ?notice epo:refersToProcedure ?procedure .
+    ?notice epo:hasPublicationDate ?date .
+    ?notice epo:announcesRole ?buyer .
+    
+
+    ?procedure epo:hasProcedureType/<http://publications.europa.eu/ontology/authority/op-code> ?procedureType .
+    ?procedure epo:hasPurpose/epo:hasMainClassification/skos:notation ?classification .
+
+
+    ?buyer a epo:Buyer .
+        FILTER (contains(str(?buyer), "_Buyer_"))
+    ?buyer epo:playedBy/m8g:registeredAddress [ 
+        epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?country ;
+        epo:hasNutsCode/skos:notation ?nutsCode 
+    ] .
+
+    { 
+        SELECT ?procedure (COUNT(?lot) AS ?lots) {
+          ?procedure a epo:Procedure .
+          OPTIONAL {
+        ?procedure epo:hasProcurementScopeDividedIntoLot ?lot
+      }
+        } 
+    }
+
+
+
+    BIND(substr(?classification, 1, 2) AS ?cpvcode2) 
+
+    BIND(if(strlen(str(?date)) = 8, concat(substr(str(?date), 1, 4), "-", substr(str(?date), 5, 2), "-", substr(str(?date), 7, 2)), str(?date)) AS ?fixedDate) 
+    BIND(strdt(substr(?fixedDate, 1, 4), xsd:integer) AS ?year) 
+    BIND(strdt(substr(?fixedDate, 6, 2), xsd:integer) AS ?month) 
+
+    BIND(if(?lots > 1, "yes", "no") AS ?hasLots)
+
+query1-filter-year: "FILTER (?year = {year})\n"
+query1-filter-month: "FILTER (?month = {month})\n"
+query1-filter-country: "FILTER (?country = \"{country}\")\n"
+query1-filter-nutscode: "FILTER (?nutsCode = \"{nutsCode}\")\n"
+query1-filter-proceduretype: "FILTER (?procedureType = \"{procedureType}\")\n"
+query1-filter-cpvcode: "FILTER (?cpvcode2 = \"{cpvCode}\")\n"
+query1-filter-lots: "FILTER (?lots = {lots})\n"
+query1-filter-haslots: "FILTER (?hasLots = \"{haslots}\")\n"
+
+query1-close-where: "}\n"
+query1-filter-limit: "LIMIT {limit}\n"
+
+query2: |
+  PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+  PREFIX m8g: <http://data.europa.eu/m8g/>
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+  SELECT distinct ?procedure ?procedureType ?cpvcode2 ?countryBuyer ?nutsCodeBuyer ?countryWinner ?countries ?year ?month  ?lots ?hasLots 
+  
+  WHERE {
+
+    ?notice epo:refersToProcedure ?procedure .
+    ?notice epo:hasPublicationDate ?date .
+    ?notice epo:announcesRole ?buyer .
+    ?buyer a epo:Buyer .
+      ?buyer epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?countryBuyer ;
+              epo:hasNutsCode/skos:notation ?nutsCodeBuyer
+    ] .
+  
+    ?notice epo:announcesRole ?winner .
+    ?procedure epo:hasProcedureType/<http://publications.europa.eu/ontology/authority/op-code> ?procedureType .
+    ?procedure epo:hasPurpose/epo:hasMainClassification/skos:notation ?classification .
+
+    ?winner a epo:Winner .
+    ?winner epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?countryWinner ;
+    ] .
+
+    { 
+        SELECT ?notice (COUNT(DISTINCT(?country)) AS ?countries) {
+          ?notice a epo:ResultNotice .
+          ?notice epo:announcesRole ?winner .
+          ?winner a epo:Winner .
+          ?winner epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?country ;
+          ] .
+        } 
+    }
+  
+    { 
+        SELECT ?procedure (COUNT(?lot) AS ?lots) {
+          ?procedure a epo:Procedure .
+          OPTIONAL {
+            ?procedure epo:hasProcurementScopeDividedIntoLot ?lot
+          }
+        } 
+    }
+    BIND(if(?lots > 1, "yes", "no") AS ?hasLots)
+    BIND(substr(?classification, 1, 2) AS ?cpvcode2) 
+
+    BIND(if(strlen(str(?date)) = 8, concat(substr(str(?date), 1, 4), "-", substr(str(?date), 5, 2), "-", substr(str(?date), 7, 2)), str(?date)) AS ?fixedDate) 
+    BIND(strdt(substr(?fixedDate, 1, 4), xsd:integer) AS ?year) 
+    BIND(strdt(substr(?fixedDate, 6, 2), xsd:integer) AS ?month) 
+
+query2-filter-proceduretype: "FILTER (?procedureType = \"{procedureType}\")\n"
+query2-filter-cpvcode: "FILTER (?cpvcode2 = \"{cpvCode}\")\n"
+query2-filter-country-buyer: "FILTER (?countryBuyer = \"{countryBuyer}\")\n"
+query2-filter-nutscode-buyer: "FILTER (?nutsCodeBuyer = \"{nutsCodeBuyer}\")\n"
+query2-filter-country-winner: "FILTER (?countryWinner = \"{countryWinner}\")\n"
+query2-filter-countries: "FILTER (?countries = {countries})\n"
+query2-filter-year: "FILTER (?year = {year})\n"
+query2-filter-month: "FILTER (?month = {month})\n"
+query2-filter-lots: "FILTER (?lots = {lots})\n"
+query2-filter-haslots: "FILTER (?hasLots = \"{haslots}\")\n"
+
+query2-close-where: "}\n"
+query2-filter-limit: "LIMIT {limit}\n"
+
+query3: |
+  PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+  PREFIX m8g: <http://data.europa.eu/m8g/>
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+  SELECT distinct ?procedure ?procedureType ?cpvcode2 ?countryBuyer ?nutsCodeBuyer ?winnerCountries ?diffCountry ?year ?month  ?lots ?hasLots 
+  
+  WHERE {
+
+    ?notice epo:refersToProcedure ?procedure .
+    ?notice epo:hasPublicationDate ?date .
+    ?notice epo:announcesRole ?buyer .
+    ?buyer a epo:Buyer .
+      ?buyer epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?countryBuyer ;
+              epo:hasNutsCode/skos:notation ?nutsCodeBuyer
+    ] .
+  
+    ?notice epo:announcesRole ?winner .
+    ?procedure epo:hasProcedureType/<http://publications.europa.eu/ontology/authority/op-code> ?procedureType .
+    ?procedure epo:hasPurpose/epo:hasMainClassification/skos:notation ?classification .
+
+    ?winner a epo:Winner .
+    ?winner epo:playedBy/m8g:registeredAddress [ 
+              epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?countryWinner ;
+    ] .
+
+    {
+          SELECT ?notice (GROUP_CONCAT(DISTINCT?winnerCountry;separator="|") AS ?winnerCountries) {
+            ?notice a epo:ResultNotice .
+            OPTIONAL {
+                ?notice epo:announcesRole ?winner .
+                ?winner a epo:Winner .
+                ?winner epo:playedBy/m8g:registeredAddress [
+                  epo:hasCountryCode/<http://publications.europa.eu/ontology/authority/op-code> ?winnerCountry ;
+                ] .
+            }
+          }
+      }
+      
+     BIND(if(strlen(?winnerCountries) = 0 || ?winnerCountries = ?countryBuyer, strdt("false", xsd:boolean), strdt("true", xsd:boolean)) AS ?diffCountry)
+  
+    { 
+        SELECT ?procedure (COUNT(?lot) AS ?lots) {
+          ?procedure a epo:Procedure .
+          OPTIONAL {
+            ?procedure epo:hasProcurementScopeDividedIntoLot ?lot
+          }
+        } 
+    }
+    BIND(if(?lots > 1, "yes", "no") AS ?hasLots)
+    BIND(substr(?classification, 1, 2) AS ?cpvcode2) 
+
+    BIND(if(strlen(str(?date)) = 8, concat(substr(str(?date), 1, 4), "-", substr(str(?date), 5, 2), "-", substr(str(?date), 7, 2)), str(?date)) AS ?fixedDate) 
+    BIND(strdt(substr(?fixedDate, 1, 4), xsd:integer) AS ?year) 
+    BIND(strdt(substr(?fixedDate, 6, 2), xsd:integer) AS ?month) 
+
+query3-filter-proceduretype: "FILTER (?procedureType = \"{procedureType}\")\n"
+query3-filter-cpvcode: "FILTER (?cpvcode2 = \"{cpvCode}\")\n"
+query3-filter-country-buyer: "FILTER (?countryBuyer = \"{countryBuyer}\")\n"
+query3-filter-nutscode-buyer: "FILTER (?nutsCodeBuyer = \"{nutsCodeBuyer}\")\n"
+query3-filter-winner-countries: "BIND(IF(BOUND(?winnerCountries) && CONTAINS(?winnerCountries, \"{winnerCountries}\"), true, false) AS ?ContainsWinner)\nFILTER(?ContainsWinner = true)\n"
+query3-filter-diff-country: "FILTER (?diffCountry = {diffCountry})\n"
+query3-filter-year: "FILTER (?year = {year})\n"
+query3-filter-month: "FILTER (?month = {month})\n"
+query3-filter-lots: "FILTER (?lots = {lots})\n"
+query3-filter-haslots: "FILTER (?hasLots = \"{haslots}\")\n"
+
+query3-close-where: "}\n"
+query3-filter-limit: "LIMIT {limit}\n"

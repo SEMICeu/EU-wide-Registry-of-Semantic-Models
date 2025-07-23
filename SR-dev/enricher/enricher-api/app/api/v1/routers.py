@@ -38,7 +38,7 @@ async def synonyms(
         datamuse_endpoint = config['datamuse_endpoint']
 
         resultList =[]
-        if(sources == "nltk" or sources is None):
+        if(sources == "nltk" or sources is None or sources =="all"):
             synonyms = get_nltk_synonyms(term)
             for syn,score in synonyms.items():
                 synonym = Synonym(
@@ -48,7 +48,7 @@ async def synonyms(
                 )
                 resultList.append(synonym)
         # Check each item in the set
-        if(sources == "datamuse" or ((sources is None) and len(synonyms) == 0)):
+        if(sources == "datamuse" or ((sources is None) and len(synonyms) == 0)) or sources=="all":
             synonyms = get_datamuse_synonyms(datamuse_endpoint, term)
             for syn,score in synonyms.items():
                 synonym = Synonym(
@@ -79,7 +79,7 @@ def get_nltk_synonyms(term):
                 frequency = lemma.count()  # Get the frequency count
                 logger.info(f"adding {lemma.name()} with frequency {frequency}")
                 synonyms[lemma.name()] = frequency  # Set score to 1
-    return synonyms
+    return dict(sorted(synonyms.items(), key=lambda x: x[1], reverse=True))
 
 def get_datamuse_synonyms(datamuse_endpoint, term):
     synonyms = {}

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { getLanguageLabel } from './languageMapping';
+import { getFormatLabel } from './formatMapping';
+import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
 
 function slugifyTitle(titleOrUri) {
   return (titleOrUri || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -53,7 +56,14 @@ function OntologyDetail({ ontologies }) {
           <h2>{ontology.title}</h2>
         </div>
         <div className="ontology-detail-publisher">
-          <span className="ontology-detail-publisher-label">Publisher:</span> {ontology.publisherName || ontology.publisher}
+          <span className="ontology-detail-publisher-label">Publisher:</span>
+          <div className="publisher-list">
+            {ontology.publishers?.map((publisher, index) => (
+              <span key={index} className="publisher-tag">
+                {publisher}
+              </span>
+            ))}
+          </div>
         </div>
         <div className="ontology-detail-description">
           {ontology.description}
@@ -72,24 +82,48 @@ function OntologyDetail({ ontologies }) {
         </div>
         <div className="ontology-detail-section">
           <h3>Distributions</h3>
-          <table className="ontology-detail-table">
-            <thead>
-              <tr>
-                <th>Link to the data</th>
-                <th>Format</th>
-                <th>Updated</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ontology</td>
-                <td>HTML</td>
-                <td>UNKNOWN</td>
-                <td>Access</td>
-              </tr>
-            </tbody>
-          </table>
+          {ontology.distributions && ontology.distributions.length > 0 ? (
+            <table className="ontology-detail-table">
+              <thead>
+                <tr>
+                  <th>Link to the distribution</th>
+                  <th>Format</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ontology.distributions.map((dist, idx) => (
+                  <tr key={idx}>
+                    <td>
+                      <a
+                        href={dist.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {`Distribution ${idx + 1}`}
+                      </a>
+                    </td>
+                    <td>
+                      {getFormatLabel(dist.format)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <span style={{ color: '#7eb6ff' }}>No distributions listed.</span>
+          )}
+        </div>
+        <div className="ontology-detail-section">
+          <h3>Data Themes</h3>
+          {ontology.dataThemes && ontology.dataThemes.length > 0 ? (
+            <ul className="ontology-detail-keywords">
+              {ontology.dataThemes.map((theme, idx) => (
+                <li key={idx}>{getDataThemeLabel(theme)}</li>
+              ))}
+            </ul>
+          ) : (
+            <span style={{ color: '#7eb6ff' }}>No data themes listed.</span>
+          )}
         </div>
         <div className="ontology-detail-section">
           <h3>Keywords</h3>
@@ -109,19 +143,29 @@ function OntologyDetail({ ontologies }) {
           <div><b>Ranking:</b> {ontology.ranking}</div>
           <div><b>Created:</b> {ontology.created ? new Date(ontology.created).toLocaleDateString() : <span style={{color:'#7eb6ff'}}>Unknown</span>}</div>
           <div><b>Landing Page:</b> {ontology.homepage ? <a href={ontology.homepage} target="_blank" rel="noopener noreferrer">{ontology.homepage}</a> : <span style={{color:'#7eb6ff'}}>None</span>}</div>
-          <div><b>Languages:</b> {ontology.languages && ontology.languages.length > 0 ? ontology.languages.join(', ') : <span style={{color:'#7eb6ff'}}>Unknown</span>}</div>
+          <div>
+          <b>Languages:</b>{" "}
+          {ontology.languages && ontology.languages.length > 0 ? (
+            ontology.languages.map((lang, idx) => (
+              <span key={idx}>
+                {getLanguageLabel(lang)}
+                {idx < ontology.languages.length - 1 ? ', ' : ''}
+              </span>
+            ))
+          ) : (
+            <span style={{ color: '#7eb6ff' }}>Unknown</span>
+          )}
+        </div>
         </div>
         {ontology.reusedOntologies && ontology.reusedOntologies.length > 0 && (
           <div className="ontology-detail-reuses-box">
             <div className="ontology-detail-reuses-title">This ontology reuses:</div>
             <ul className="ontology-detail-reuses-list">
               {ontology.reusedOntologies.map((onto, idx) => {
-                const reusedIdx = ontologies.findIndex(o => o.publisher === onto.uri);
-                const reusedSlug = onto.title ? slugifyTitle(onto.title) : slugifyTitle(onto.uri);
                 return (
                   <li key={idx}>
                     <button style={{ background: 'none', border: 'none', color: '#7eb6ff', textDecoration: 'underline', cursor: 'pointer', padding: 0 }}
-                      onClick={() => navigate(`/ontology/${reusedSlug}`)}>
+                      onClick={() => navigate(`/ontology/${encodeURIComponent(onto.uri)}`)}>
                       {onto.title ? onto.title : onto.uri}
                     </button>
                   </li>
@@ -137,6 +181,7 @@ function OntologyDetail({ ontologies }) {
 
 function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, results, setResults, loading, setLoading, error, setError }) {
   const navigate = useNavigate();
+  const [selectedTheme, setSelectedTheme] = useState('');
   const handleKeyDown = async (e) => {
     if (e.key === 'Enter') {
       setSubmittedQuery(search);
@@ -147,7 +192,10 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
         const response = await fetch('http://localhost:4000/api/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query: search })
+          body: JSON.stringify({ 
+            query: search,
+            theme: selectedTheme || null
+          })
         });
         if (!response.ok) {
           throw new Error('Failed to fetch results');
@@ -178,6 +226,21 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
           onKeyDown={handleKeyDown}
         />
       </div>
+      <div className="filter-bar">
+        <label htmlFor="theme-select">Filter by data theme: </label>
+        <select
+          id="theme-select"
+          value={selectedTheme}
+          onChange={e => setSelectedTheme(e.target.value)}
+        >
+          <option value="">All Themes</option>
+          {allDataThemes.map(theme => (
+            <option key={theme.iri} value={theme.iri}>
+              {theme.label}
+            </option>
+          ))}
+        </select>
+      </div>
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
       {submittedQuery && !loading && !error && (
@@ -199,9 +262,26 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                     <span className="ontology-card-ranking">{onto.ranking}</span>
                   </div>
                   <div className="ontology-card-meta">
-                    <span className="publisher">Publisher: {onto.publisherName || onto.publisher}</span>
+                    <span className="publisher-label">Publisher:</span>
+                    <div className="publisher-list">
+                      {onto.publishers?.map((publisher, index) => (
+                        <span key={index} className="publisher-tag">
+                          {publisher}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                   <div className="ontology-card-description">{onto.description}</div>
+                  {onto.dataThemes && onto.dataThemes.length > 0 && (
+                    <div className="ontology-card-themes">
+                      <span className="ontology-card-themes-title">Data Themes:</span>
+                      {onto.dataThemes.map((theme, i) => (
+                        <span className="ontology-card-theme-tag" key={i}>
+                          {getDataThemeLabel(theme)}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   {onto.mainClasses && onto.mainClasses.length > 0 && (
                     <div className="ontology-card-main-classes">
                       <span className="ontology-card-main-classes-title">Main classes:</span>

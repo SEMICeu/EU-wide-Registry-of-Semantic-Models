@@ -11,17 +11,35 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/api/search', async (req, res) => {
-  const { query } = req.body;
+  const { query, theme } = req.body;
+
   if (!query || typeof query !== 'string') {
     return res.status(400).json({ error: 'Missing or invalid search query' });
   }
+
+  // Check if query is a URI
+  const isUri = query.startsWith('http://') || query.startsWith('https://');
+
+  // Add theme filter dynamically if provided
+  const themeFilter = theme
+    ? `FILTER(?dataTheme = <${theme}>)`
+    : '';
 
   const sparqlQuery = `
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    SELECT ?title ?description ?publisher ?publisherName ?lovRank (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses) (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies) (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords) ?created ?homepage (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
+    PREFIX prof: <http://www.w3.org/ns/dx/prof/>
+    SELECT ?title ?description ?lovRank
+      (GROUP_CONCAT(DISTINCT COALESCE(?publisherName, STR(?publisher)); SEPARATOR="||") AS ?publishers)
+      (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses)
+      (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies)
+      (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords)
+      ?created ?homepage
+      (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
+      (GROUP_CONCAT(DISTINCT CONCAT(STR(?downloadURL), "|", COALESCE(STR(?format), "")); SEPARATOR="||") AS ?distributions)
+      (GROUP_CONCAT(DISTINCT ?dataTheme; SEPARATOR="||") AS ?dataThemes)
     FROM <http://semic.registry.eu>
     WHERE {
       {
@@ -33,16 +51,19 @@ app.post('/api/search', async (req, res) => {
           OPTIONAL {
             ?standard dct:hasPart ?class .
             ?class a rdfs:Class ;
-                   rdfs:label ?classLabel .
+                  rdfs:label ?classLabel .
             FILTER(lang(?classLabel) = "en")
           }
           FILTER (lang(?title) = "en")
           FILTER (lang(?description) = "en")
-          FILTER(
-            CONTAINS(LCASE(?title), LCASE("${query}")) ||
-            CONTAINS(LCASE(?description), LCASE("${query}")) ||
-            CONTAINS(LCASE(?classLabel), LCASE("${query}"))
-          )
+          ${isUri ?
+            `FILTER(?standard = <${query}>)` :
+            `FILTER(
+              CONTAINS(LCASE(?title), LCASE("${query}")) ||
+              CONTAINS(LCASE(?description), LCASE("${query}")) ||
+              CONTAINS(LCASE(?classLabel), LCASE("${query}"))
+            )`
+          }
         }
       }
       ?standard dct:title ?title .
@@ -56,7 +77,7 @@ app.post('/api/search', async (req, res) => {
       OPTIONAL {
         ?standard dct:hasPart ?class .
         ?class a rdfs:Class ;
-               rdfs:label ?classLabel .
+              rdfs:label ?classLabel .
         FILTER(lang(?classLabel) = "en")
       }
       OPTIONAL {
@@ -67,11 +88,18 @@ app.post('/api/search', async (req, res) => {
       OPTIONAL { ?standard dct:created ?created }
       OPTIONAL { ?standard foaf:homepage ?homepage }
       OPTIONAL { ?standard dct:language ?language }
+      OPTIONAL {
+        ?standard prof:hasResource ?resourceDescriptor .
+        ?resourceDescriptor dcat:downloadURL ?downloadURL .
+        OPTIONAL { ?resourceDescriptor dct:format ?format }
+      }
+      OPTIONAL { ?standard dcat:theme ?dataTheme }  # <-- added
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
       FILTER (lang(?description) = "en")
+      ${themeFilter}  # <-- added
     }
-    GROUP BY ?title ?description ?publisher ?publisherName ?lovRank ?created ?homepage
+    GROUP BY ?title ?description ?lovRank ?created ?homepage
     LIMIT 50
   `;
 
@@ -84,18 +112,26 @@ app.post('/api/search', async (req, res) => {
       results.push({
         title: row.title.value,
         description: row.description.value,
-        publisher: row.publisher.value,
-        publisherName: row.publisherName ? row.publisherName.value : row.publisher.value,
+        publishers: row.publishers ? row.publishers.value.split('||') : [],
         ranking: row.lovRank.value,
         mainClasses: row.mainClasses ? row.mainClasses.value.split('||') : [],
-        reusedOntologies: row.reusedOntologies ? row.reusedOntologies.value.split('||').filter(Boolean).map(str => {
-          const [uri, title] = str.split('|');
-          return { uri, title };
-        }) : [],
+        reusedOntologies: row.reusedOntologies
+          ? row.reusedOntologies.value.split('||').filter(Boolean).map(str => {
+              const [uri, title] = str.split('|');
+              return { uri, title };
+            })
+          : [],
         keywords: row.keywords ? row.keywords.value.split('||') : [],
         created: row.created ? row.created.value : null,
         homepage: row.homepage ? row.homepage.value : null,
-        languages: row.languages ? row.languages.value.split('||') : []
+        languages: row.languages ? row.languages.value.split('||') : [],
+        distributions: row.distributions
+          ? row.distributions.value.split('||').filter(Boolean).map(str => {
+              const [url, format] = str.split('|');
+              return { url, format };
+            })
+          : [],
+        dataThemes: row.dataThemes ? row.dataThemes.value.split('||') : []
       });
     });
     stream.on('end', () => res.json(results));
@@ -115,11 +151,24 @@ app.post('/api/ontology', async (req, res) => {
     return res.status(400).json({ error: 'Missing or invalid slug' });
   }
 
+  // Check if slug is actually a URI
+  const isUri = slug.startsWith('http://') || slug.startsWith('https://');
+
   const sparqlQuery = `
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT ?title ?description ?publisher ?publisherName ?lovRank (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses) (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies) (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords) ?created ?homepage (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    PREFIX prof: <http://www.w3.org/ns/dx/prof/>
+    SELECT ?title ?description ?lovRank
+      (GROUP_CONCAT(DISTINCT COALESCE(?publisherName, STR(?publisher)); SEPARATOR="||") AS ?publishers)
+      (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses)
+      (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies)
+      (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords)
+      ?created ?homepage
+      (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
+      (GROUP_CONCAT(DISTINCT CONCAT(STR(?downloadURL), "|", COALESCE(STR(?format), "")); SEPARATOR="||") AS ?distributions)
+      (GROUP_CONCAT(DISTINCT ?dataTheme; SEPARATOR="||") AS ?dataThemes)
     FROM <http://semic.registry.eu>
     WHERE {
       ?standard a dct:Standard .
@@ -133,8 +182,8 @@ app.post('/api/ontology', async (req, res) => {
       }
       OPTIONAL {
         ?standard dct:hasPart ?class .
-        ?class a <http://www.w3.org/2000/01/rdf-schema#Class> ;
-               rdfs:label ?classLabel .
+        ?class a rdfs:Class ;
+              rdfs:label ?classLabel .
         FILTER(lang(?classLabel) = "en")
       }
       OPTIONAL {
@@ -145,12 +194,21 @@ app.post('/api/ontology', async (req, res) => {
       OPTIONAL { ?standard dct:created ?created }
       OPTIONAL { ?standard foaf:homepage ?homepage }
       OPTIONAL { ?standard dct:language ?language }
+      OPTIONAL {
+        ?standard prof:hasResource ?resourceDescriptor .
+        ?resourceDescriptor dcat:downloadURL ?downloadURL .
+        OPTIONAL { ?resourceDescriptor dct:format ?format }
+      }
+      OPTIONAL { ?standard dcat:theme ?dataTheme }
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
       FILTER (lang(?description) = "en")
-      FILTER(REPLACE(LCASE(?title), "[^a-z0-9]+", "-", "g") = "${slug}")
+      ${isUri ?
+        `FILTER(?standard = <${slug}>)` :
+        `FILTER(REPLACE(LCASE(?title), "[^a-z0-9]+", "-", "g") = "${slug}")`
+      }
     }
-    GROUP BY ?title ?description ?publisher ?publisherName ?lovRank ?created ?homepage
+    GROUP BY ?title ?description ?lovRank ?created ?homepage
     LIMIT 1
   `;
 
@@ -163,18 +221,26 @@ app.post('/api/ontology', async (req, res) => {
       found = {
         title: row.title.value,
         description: row.description.value,
-        publisher: row.publisher.value,
-        publisherName: row.publisherName ? row.publisherName.value : row.publisher.value,
+        publishers: row.publishers ? row.publishers.value.split('||') : [],
         ranking: row.lovRank.value,
         mainClasses: row.mainClasses ? row.mainClasses.value.split('||') : [],
-        reusedOntologies: row.reusedOntologies ? row.reusedOntologies.value.split('||').filter(Boolean).map(str => {
-          const [uri, title] = str.split('|');
-          return { uri, title };
-        }) : [],
+        reusedOntologies: row.reusedOntologies
+          ? row.reusedOntologies.value.split('||').filter(Boolean).map(str => {
+              const [uri, title] = str.split('|');
+              return { uri, title };
+            })
+          : [],
         keywords: row.keywords ? row.keywords.value.split('||') : [],
         created: row.created ? row.created.value : null,
         homepage: row.homepage ? row.homepage.value : null,
-        languages: row.languages ? row.languages.value.split('||') : []
+        languages: row.languages ? row.languages.value.split('||') : [],
+        distributions: row.distributions
+          ? row.distributions.value.split('||').filter(Boolean).map(str => {
+              const [url, format] = str.split('|');
+              return { url, format };
+            })
+          : [],
+        dataThemes: row.dataThemes ? row.dataThemes.value.split('||') : []
       };
     });
     stream.on('end', () => {
@@ -196,4 +262,4 @@ app.post('/api/ontology', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Backend server running on http://localhost:${PORT}`);
-}); 
+});

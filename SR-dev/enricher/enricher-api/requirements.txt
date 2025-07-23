@@ -7,3 +7,5 @@ transformers
 sentencepiece
 torch
 sacremoses
+fasttext-wheel
+numpy==1.26.4

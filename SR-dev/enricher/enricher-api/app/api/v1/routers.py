@@ -7,7 +7,7 @@ import logging
 import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app.api.v1.models import ErrorResponse, Synonym, TranslationItem, TranslationResponse, load_model
+from app.api.v1.models import ErrorResponse, Synonym, TranslationItem, TranslationResponse, DetectedLanguage, load_model, get_fasttext_model
 from nltk.corpus import wordnet
 import requests
 
@@ -28,7 +28,8 @@ v1_router = APIRouter(prefix="/v1")
 async def synonyms(
     request: Request,
     term: str = Query(default=...),
-    sources : str = Query(default=None)
+    sources : str = Query(default=None),
+    max: int = Query(default=None, min=1)
     ):
 
     try:
@@ -39,21 +40,25 @@ async def synonyms(
         resultList =[]
         if(sources == "nltk" or sources is None):
             synonyms = get_nltk_synonyms(term)
-            for syn in synonyms:
+            for syn,score in synonyms.items():
                 synonym = Synonym(
                     term=syn,
-                    source="nltk"
+                    source="nltk",
+                    score=score
                 )
                 resultList.append(synonym)
         # Check each item in the set
         if(sources == "datamuse" or ((sources is None) and len(synonyms) == 0)):
             synonyms = get_datamuse_synonyms(datamuse_endpoint, term)
-            for syn in synonyms:
+            for syn,score in synonyms.items():
                 synonym = Synonym(
                     term=syn,
-                    source="datamuse"
+                    source="datamuse",
+                    score=score
                 )
-                resultList.append(synonym) 
+                resultList.append(synonym)
+        if max is not None:
+            resultList = resultList[:max] 
         return resultList
     except ValueError as e:
         raise HTTPException(
@@ -67,21 +72,23 @@ async def synonyms(
         )
 
 def get_nltk_synonyms(term):
-    synonyms = set()
+    synonyms = {}
     for syn in wordnet.synsets(term):
         for lemma in syn.lemmas():
             if lemma.name() != term:
-                logger.info("adding " + lemma.name())
-                synonyms.add(lemma.name())
+                frequency = lemma.count()  # Get the frequency count
+                logger.info(f"adding {lemma.name()} with frequency {frequency}")
+                synonyms[lemma.name()] = frequency  # Set score to 1
     return synonyms
 
 def get_datamuse_synonyms(datamuse_endpoint, term):
-    synonyms = set()
+    synonyms = {}
     response = requests.get(datamuse_endpoint+term)
     for word in response.json():
         found = word['word']
-        logger.info("adding " + found)
-        synonyms.add(found )
+        score = word.get('score', 0)
+        logger.info(f"adding {found} with score {score}")
+        synonyms[found] = score
     return synonyms
 
 @v1_router.get("/translate",
@@ -96,12 +103,20 @@ def get_datamuse_synonyms(datamuse_endpoint, term):
     response_description="The response is a JSON object including list of translations with their target language.")
 async def translates(
     request: Request,
-    term: str = Query(default=..., min_length=1),
-    source: str = Query(default=...),
-    target: List[str] = Query(default=...)
+    term: str = Query(default=..., min_length=1, description="the text to be translated"),
+    source: Optional[str] = Query(default=None, description="Optional source language code; auto-detect if omitted"),
+    target: List[str] = Query(default=..., description="one or more languages")
     ):
 
     try:
+        lang_code, confidence = detect_language(term)
+        detected = DetectedLanguage(
+            language=lang_code,
+            score=confidence
+        )
+        logger.info("detected " + lang_code)
+        if source is None:
+            source = lang_code
         resultList =[]
         for tgt in target:
             tokenizer, model = load_model(source, tgt)
@@ -115,6 +130,7 @@ async def translates(
             resultList.append(translation)
         
         response = TranslationResponse(
+            detectedLanguage=detected,
             translations=resultList
         )
 
@@ -129,3 +145,10 @@ async def translates(
             status_code=500,
             detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()
         )
+    
+def detect_language(text: str):
+    model = get_fasttext_model()
+    predictions = model.predict(text)
+    lang_code = predictions[0][0].replace("__label__", "")
+    confidence = predictions[1][0]
+    return lang_code, confidence

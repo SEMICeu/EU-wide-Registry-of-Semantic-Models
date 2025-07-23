@@ -98,20 +98,21 @@ async def translates(
     request: Request,
     term: str = Query(default=..., min_length=1),
     source: str = Query(default=...),
-    target: str = Query(default=...)
+    target: List[str] = Query(default=...)
     ):
 
     try:
-        tokenizer, model = load_model(source, target)
-        inputs = tokenizer(term, return_tensors="pt", padding=True)
-        translated = model.generate(**inputs)
-        output = tokenizer.decode(translated[0], skip_special_tokens=True)
-        translation = Translate(
-                    term=output,
-                    lang=target
-                )
         resultList =[]
-        resultList.append(translation)
+        for tgt in target:
+            tokenizer, model = load_model(source, tgt)
+            inputs = tokenizer(term, return_tensors="pt", padding=True)
+            translated = model.generate(**inputs)
+            output = tokenizer.decode(translated[0], skip_special_tokens=True)
+            translation = Translate(
+                        term=output,
+                        lang=tgt
+                    )
+            resultList.append(translation)
 
 
         return resultList

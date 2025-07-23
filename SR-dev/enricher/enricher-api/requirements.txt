@@ -3,3 +3,7 @@ uvicorn[standard]
 pyyaml
 nltk
 requests
+transformers 
+sentencepiece
+torch
+sacremoses

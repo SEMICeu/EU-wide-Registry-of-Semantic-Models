@@ -5,7 +5,10 @@ import yaml
 import os
 import logging
 import nltk
+from transformers import MarianMTModel, MarianTokenizer
+from functools import lru_cache
 
+os.environ['HF_HUB_DISABLE_SSL_VERIFY'] = '1'
 # Configure logging globally
 logging.basicConfig(
     level=logging.INFO,
@@ -35,6 +38,7 @@ app = FastAPI(
     redoc_url="/redoc",     # ReDoc path
     openapi_url="/openapi.json",  # Raw OpenAPI JSON path
     lifespan=lifespan)
+
 
 api_router= APIRouter(prefix="/api")
 api_router.include_router(v1_router)

@@ -7,7 +7,7 @@ import logging
 import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app.api.v1.models import ErrorResponse, Synonym, Translate, load_model
+from app.api.v1.models import ErrorResponse, Synonym, TranslationItem, TranslationResponse, load_model
 from nltk.corpus import wordnet
 import requests
 
@@ -85,9 +85,9 @@ def get_datamuse_synonyms(datamuse_endpoint, term):
     return synonyms
 
 @v1_router.get("/translate",
-    response_model=List[Translate],
+    response_model=List[TranslationResponse],
     responses={
-        200: {"description": "Successful response", "model": List[Translate]},
+        200: {"description": "Successful response", "model": List[TranslationResponse]},
         400: {"description": "Bad Request", "model": ErrorResponse},
         500: {"description": "Internal Server Error", "model": ErrorResponse},
     },
@@ -108,14 +108,17 @@ async def translates(
             inputs = tokenizer(term, return_tensors="pt", padding=True)
             translated = model.generate(**inputs)
             output = tokenizer.decode(translated[0], skip_special_tokens=True)
-            translation = Translate(
+            translation = TranslationItem(
                         term=output,
                         lang=tgt
-                    )
+            )
             resultList.append(translation)
+        
+        response = TranslationResponse(
+            translations=resultList
+        )
 
-
-        return resultList
+        return [response]
     except ValueError as e:
         raise HTTPException(
             status_code=400,

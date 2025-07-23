@@ -5,9 +5,12 @@ class Synonym(BaseModel):
     term: str
     source: str
 
-class Translate(BaseModel):
+class TranslationItem(BaseModel):
     term: str
     lang: str
+
+class TranslationResponse(BaseModel):
+    translations: List[TranslationItem]
 
 class ErrorResponse(BaseModel):
     error: str

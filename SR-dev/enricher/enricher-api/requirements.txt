@@ -1,4 +1,5 @@
 fastapi
 uvicorn[standard]
 pyyaml
-SPARQLWrapper
+nltk
+requests

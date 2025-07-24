@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, useLoca
 import { getLanguageLabel } from './languageMapping';
 import { getFormatLabel } from './formatMapping';
 import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
+import { allPublishers, getPublisherLabel } from './publisherMapping';
 
 function slugifyTitle(titleOrUri) {
   return (titleOrUri || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -182,6 +183,36 @@ function OntologyDetail({ ontologies }) {
 function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, results, setResults, loading, setLoading, error, setError }) {
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState('');
+  const [selectedPublisher, setSelectedPublisher] = useState('');
+  useEffect(() => {
+    const loadAllOntologies = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch('http://localhost:4000/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            query: '*',
+            theme: null,
+            publisher: null
+          })
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch results');
+        }
+        const data = await response.json();
+        setResults(data);
+        setSubmittedQuery('*'); // Set this so results will display
+      } catch (err) {
+        setError(err.message || 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    loadAllOntologies();
+  }, []); // Empty dependency array means this runs once on component mount
   const handleKeyDown = async (e) => {
     if (e.key === 'Enter') {
       setSubmittedQuery(search);
@@ -194,7 +225,8 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             query: search,
-            theme: selectedTheme || null
+            theme: selectedTheme || null,
+            publisher: selectedPublisher || null
           })
         });
         if (!response.ok) {
@@ -209,6 +241,34 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       }
     }
   };
+  const handleFilterChange = async (newTheme = selectedTheme, newPublisher = selectedPublisher) => {
+    if (!search.trim()) return; // Don't search if search box is empty
+    
+    setSubmittedQuery(search);
+    setLoading(true);
+    setError(null);
+    setResults([]);
+    try {
+      const response = await fetch('http://localhost:4000/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          query: search,
+          theme: newTheme || null,
+          publisher: newPublisher || null
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch results');
+      }
+      const data = await response.json();
+      setResults(data);
+    } catch (err) {
+      setError(err.message || 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="main-content">
       <div className="intro-section">
@@ -217,29 +277,63 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
           The Semantic Registry contains semantic models from well known publishers, Member States, European Agencies and more. It uses ranking metrics to recommend semantic models that are the most commonly used and interconnected with other models, allowing you to make the best decision for your use case!
         </p>
       </div>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search ontologies..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-      </div>
-      <div className="filter-bar">
-        <label htmlFor="theme-select">Filter by data theme: </label>
-        <select
-          id="theme-select"
-          value={selectedTheme}
-          onChange={e => setSelectedTheme(e.target.value)}
-        >
-          <option value="">All Themes</option>
-          {allDataThemes.map(theme => (
-            <option key={theme.iri} value={theme.iri}>
-              {theme.label}
-            </option>
-          ))}
-        </select>
+      <div className="search-filter-container">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search ontologies..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+        <div className="filter-bar">
+          {/* Data Theme Filter */}
+          <label htmlFor="theme-select" className="sr-only">
+            Filter by data theme
+          </label>
+          <select
+            id="theme-select"
+            value={selectedTheme}
+            onChange={e => {
+              const newTheme = e.target.value;
+              setSelectedTheme(newTheme);
+              if (search.trim()) {
+                handleFilterChange(newTheme, selectedPublisher);
+              }
+            }}
+          >
+            <option value="">All Themes</option>
+            {allDataThemes.map(theme => (
+              <option key={theme.iri} value={theme.iri}>
+                {theme.label}
+              </option>
+            ))}
+          </select>
+
+          {/* Publisher Filter */}
+          <label htmlFor="publisher-select" className="sr-only">
+            Filter by publisher
+          </label>
+          <select
+          id="publisher-select"
+          value={selectedPublisher}
+          onChange={e => {
+            const newPublisher = e.target.value;
+            setSelectedPublisher(newPublisher);
+            if (search.trim()) {
+              handleFilterChange(selectedTheme, newPublisher);
+            }
+          }}
+          >
+            <option value="">All Publishers</option>
+            {allPublishers.map(publisher => (
+              <option key={publisher.iri} value={publisher.iri}>
+                {publisher.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
@@ -321,7 +415,14 @@ function App() {
     <>
       <nav className="navbar">
         <div className="navbar-content">
-          <h1 onClick={handleTitleClick}>The Semantic Registry</h1>
+          <div className="logo-title-container">
+            <img
+              src="/semic-logo.png"
+              alt="Semantic Registry Logo"
+              className="navbar-logo"
+            />
+            <h1 onClick={handleTitleClick}>The Semantic Registry</h1>
+          </div>
           <p>Search for semantic ontologies</p>
         </div>
       </nav>

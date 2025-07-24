@@ -46,21 +46,21 @@ async def translates(
 
         sorted_pairs = list_pairs()
         found = 0
-        for tgt2 in target:
-            for src, tgt in sorted_pairs:
-                if tgt2 == tgt and source == src:
-                    logger.info("valid pair:" + src + "-" + tgt)
-                    found +=1
+        for tgt in target:
+            target_value = tgt.value
+            if (source,target_value) in sorted_pairs:
+                logger.info("valid pair:" + source + "-" + target_value)
+                found +=1
 
-                    tokenizer, model = load_model_translate(source, tgt2.value)
-                    inputs = tokenizer(term, return_tensors="pt", padding=True)
-                    translated = model.generate(**inputs)
-                    output = tokenizer.decode(translated[0], skip_special_tokens=True)
-                    translation = TranslationItem(
-                                term=output,
-                                lang=tgt
-                    )
-                    resultList.append(translation)
+                tokenizer, model = load_model_translate(source, target_value)
+                inputs = tokenizer(term, return_tensors="pt", padding=True)
+                translated = model.generate(**inputs)
+                output = tokenizer.decode(translated[0], skip_special_tokens=True)
+                translation = TranslationItem(
+                            term=output,
+                            lang=target_value
+                )
+                resultList.append(translation)
         logger.info("found " + str(found))
 
         response = TranslationResponse(

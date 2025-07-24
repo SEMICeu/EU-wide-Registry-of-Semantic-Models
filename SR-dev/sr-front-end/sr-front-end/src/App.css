@@ -39,6 +39,11 @@ body {
   font-weight: 700;
   cursor: pointer;
   line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.navbar h1:hover {
+  color: #ccc; /* lighter color on hover */
 }
 
 .logo-title-container {
@@ -57,6 +62,98 @@ body {
   margin: 0 0 0 18px;
   font-size: 1.08rem;
   font-weight: 500;
+}
+
+.about-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 1000;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.about-button:hover {
+  color: #ccc; /* lighter on hover */
+}
+
+.about-container {
+  background-color: white; /* PAGE BACKGROUND */
+  color: black; /* Default text color */
+  min-height: 100vh;
+  padding: 2rem 3rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.about-heading {
+  color: #1a237e; /* MAIN DARK BLUE */
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.about-subheading {
+  color: #1976d2; /* ACCENT BLUE */
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-paragraph {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: black; /* Ensure paragraphs are black */
+}
+
+.rating-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.rating-button {
+  background-color: #1976d2; /* Light blue accent */
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  color: white;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.rating-stars {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.rating-title {
+  font-weight: 700;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+}
+
+.rating-description {
+  flex: 1;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: black; /* Ensure explanation text is black */
 }
 
 .main-content {
@@ -173,16 +270,15 @@ body {
   margin: 0;
 }
 .ontology-card-ranking {
-  color: #fff;
-  background: #1976d2;
+  color: #1976d2;
+  background: #ffffff;
   border-radius: 6px;
-  font-size: 1.01rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 600;
   padding: 4px 14px;
   margin-left: 16px;
   min-width: 60px;
   text-align: center;
-  box-shadow: 0 1px 6px #00339922;
 }
 .ontology-card-meta {
   display: flex;

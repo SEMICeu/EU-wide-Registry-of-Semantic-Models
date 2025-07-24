@@ -1,13 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getLanguageLabel } from './languageMapping';
 import { getFormatLabel } from './formatMapping';
 import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
 import { allPublishers, getPublisherLabel } from './publisherMapping';
 
+// Helper to map ranking (0-1) to stars and meaning
+function getRankingDisplay(ranking) {
+  if (ranking >= 0.85) return { stars: "⭐⭐⭐⭐⭐", label: "Highly Interoperable" };
+  if (ranking >= 0.65) return { stars: "⭐⭐⭐⭐", label: "Widely Reused" };
+  if (ranking >= 0.35) return { stars: "⭐⭐⭐", label: "Commonly Reused" };
+  if (ranking >= 0.1) return { stars: "⭐⭐", label: "Occasionally Reused" };
+  return { stars: "⭐", label: "Rarely Reused" };
+}
+
 function slugifyTitle(titleOrUri) {
   return (titleOrUri || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function About() {
+  const ratings = [
+    { stars: '⭐⭐⭐⭐⭐', title: 'Highly Interoperable', description: 'This ontology is among the most reused within the graph and adoption of this ontology or its elements will ensure the highest level of interoperability.' },
+    { stars: '⭐⭐⭐⭐', title: 'Widely Reused', description: 'This ontology is widely reused within the graph and adoption of this ontology or its elements will ensure a strong level of interoperability.' },
+    { stars: '⭐⭐⭐', title: 'Commonly Reused', description: 'This ontology is commonly reused within the graph and adoption of this ontology or its elements will ensure a good level of interoperability.' },
+    { stars: '⭐⭐', title: 'Occasionally Reused', description: 'This ontology is occasionally reused within the graph and adoption of this ontology or its elements will ensure a modest level of interoperability.' },
+    { stars: '⭐', title: 'Rarely Reused', description: 'This ontology is rarely reused within the graph and adoption of this ontology or its elements will ensure the lowest level of interoperability.' },
+  ];
+  return (
+    <div className="about-container">
+      <h1 className="about-heading">About the Ranking System</h1>
+      <p className="about-paragraph">
+        Our ranking system evaluates semantic ontologies based on their reuse within the graph of the Semantic Registry.
+      </p>
+      <p className="about-paragraph">
+        It does so by calculating a score for each ontology by counting the number of times it is reused by other ontologies. To make the interpretation of these scores more intuitive each score is assigned a number of starts between 1 and 5.
+      </p>
+      <p className="about-paragraph">
+        For example, if elements of an ontology are reused in half of all the ontologies in the graph it will receive a score of 0.5.
+      </p>
+      <h2 className="about-subheading">Five-Star Rating Explained</h2>
+
+      <div className="rating-list">
+        {ratings.map(({ stars, title, description }) => (
+          <div className="rating-row" key={title}>
+            <button className="rating-button" type="button" aria-label={`${title} rating`}>
+              <span className="rating-stars">{stars}</span>
+              <span className="rating-title">{title}</span>
+            </button>
+            <p className="rating-description">{description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function OntologyDetail({ ontologies }) {
@@ -141,7 +188,17 @@ function OntologyDetail({ ontologies }) {
       </div>
       <aside className="ontology-detail-meta">
         <div className="ontology-detail-meta-box">
-          <div><b>Ranking:</b> {ontology.ranking}</div>
+            {(() => {
+              const { stars, label } = getRankingDisplay(ontology.ranking);
+              return (
+                <div className="ontology-card-ranking">
+                  <div className="stars">{stars}</div>
+                  <div className="ranking-label">{label}</div>
+                </div>
+              );
+            })()}
+        </div>
+        <div className="ontology-detail-meta-box">
           <div><b>Created:</b> {ontology.created ? new Date(ontology.created).toLocaleDateString() : <span style={{color:'#7eb6ff'}}>Unknown</span>}</div>
           <div><b>Landing Page:</b> {ontology.homepage ? <a href={ontology.homepage} target="_blank" rel="noopener noreferrer">{ontology.homepage}</a> : <span style={{color:'#7eb6ff'}}>None</span>}</div>
           <div>
@@ -184,35 +241,6 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState('');
   const [selectedPublisher, setSelectedPublisher] = useState('');
-  useEffect(() => {
-    const loadAllOntologies = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await fetch('http://localhost:4000/api/search', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            query: '*',
-            theme: null,
-            publisher: null
-          })
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch results');
-        }
-        const data = await response.json();
-        setResults(data);
-        setSubmittedQuery('*'); // Set this so results will display
-      } catch (err) {
-        setError(err.message || 'Unknown error');
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    loadAllOntologies();
-  }, []); // Empty dependency array means this runs once on component mount
   const handleKeyDown = async (e) => {
     if (e.key === 'Enter') {
       setSubmittedQuery(search);
@@ -353,7 +381,16 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                 >
                   <div className="ontology-card-header">
                     <span className="ontology-card-title">{onto.title}</span>
-                    <span className="ontology-card-ranking">{onto.ranking}</span>
+                    <span className="ontology-card-ranking">{(() => {
+                      const { stars, label } = getRankingDisplay(onto.ranking);
+                      return (
+                        <div className="ontology-card-ranking">
+                          <div className="stars">{stars}</div>
+                          <div className="ranking-label">{label}</div>
+                        </div>
+                      );
+                    })()}
+                    </span>
                   </div>
                   <div className="ontology-card-meta">
                     <span className="publisher-label">Publisher:</span>
@@ -423,7 +460,11 @@ function App() {
             />
             <h1 onClick={handleTitleClick}>The Semantic Registry</h1>
           </div>
-          <p>Search for semantic ontologies</p>
+
+          {/* Replace paragraph with button */}
+          <Link to="/about">
+            <button className="about-button">Click here to learn more about the ranking.</button>
+          </Link>
         </div>
       </nav>
       <Routes>
@@ -442,6 +483,7 @@ function App() {
           />
         } />
         <Route path="/ontology/:slug" element={<OntologyDetail ontologies={results} />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </>
   );

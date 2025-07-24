@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/api/search', async (req, res) => {
-  const { query, theme } = req.body;
+  const { query, theme, publisher } = req.body;
 
   if (!query || typeof query !== 'string') {
     return res.status(400).json({ error: 'Missing or invalid search query' });
@@ -23,6 +23,11 @@ app.post('/api/search', async (req, res) => {
   // Add theme filter dynamically if provided
   const themeFilter = theme
     ? `FILTER(?dataTheme = <${theme}>)`
+    : '';
+
+  // Add publisher filter dynamically if provided
+  const publisherFilter = publisher
+    ? `FILTER(?publisher = <${publisher}>)`
     : '';
 
   const sparqlQuery = `
@@ -58,11 +63,12 @@ app.post('/api/search', async (req, res) => {
           FILTER (lang(?description) = "en")
           ${isUri ?
             `FILTER(?standard = <${query}>)` :
+            query && query !== '*' ?
             `FILTER(
               CONTAINS(LCASE(?title), LCASE("${query}")) ||
               CONTAINS(LCASE(?description), LCASE("${query}")) ||
               CONTAINS(LCASE(?classLabel), LCASE("${query}"))
-            )`
+            )` : ''
           }
         }
       }
@@ -97,7 +103,8 @@ app.post('/api/search', async (req, res) => {
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
       FILTER (lang(?description) = "en")
-      ${themeFilter}  # <-- added
+      ${themeFilter}
+      ${publisherFilter}
     }
     GROUP BY ?title ?description ?lovRank ?created ?homepage
     LIMIT 50

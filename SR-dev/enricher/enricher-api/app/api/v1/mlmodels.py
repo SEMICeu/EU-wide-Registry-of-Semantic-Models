@@ -126,6 +126,7 @@ def load_model_mini():
             repo_id=f"sentence-transformers/all-MiniLM-L6-v2",
             local_dir=f"./models/all-MiniLM-L6-v2",
             local_dir_use_symlinks=False,
+            local_files_only=True
         )
         print(f"Model downloaded to: {local_model_path}")
 
@@ -205,3 +206,46 @@ def list_pairs():
             lang_pairs.add((src, tgt))
 
     return lang_pairs
+
+def rank_theme_codes_by_context(context: str, themes: dict, return_all=False):
+    """
+    Ranks dataset theme codes by semantic similarity to a given context sentence.
+    
+    Parameters:
+        context (str): A sentence providing context.
+        themes (dict): A dictionary of theme codes -> {code, label, definition}.
+        return_all (bool): If True, returns all codes ranked by similarity.
+        
+    Returns:
+        list | str: Best-matching theme code or list of (code, score) tuples if return_all=True
+    """
+    model = load_model_mini()
+    context_embedding = model.encode(context, convert_to_tensor=True)
+
+    # Prepare descriptive texts from themes
+    theme_texts = []
+    codes = []
+    for code, data in themes.items():
+        text = f"{data['label']}. {data['definition']}"
+        theme_texts.append(text)
+        codes.append(code)
+
+    # Embed the theme descriptions
+    theme_embeddings = model.encode(theme_texts, convert_to_tensor=True)
+
+    # Compute cosine similarity
+    cos_scores = util.cos_sim(context_embedding, theme_embeddings)[0]
+
+    # Pair scores with codes and scale to 0–100
+    scored_codes = [
+        (code, int((score + 1) * 50))
+        for code, score in zip(codes, cos_scores.tolist())
+    ]
+
+    # Sort descending
+    scored_codes.sort(key=lambda x: x[1], reverse=True)
+
+    if return_all:
+        return scored_codes
+    else:
+        return scored_codes[0][0]

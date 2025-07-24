@@ -21,3 +21,7 @@ class TranslationResponse(BaseModel):
 class ErrorResponse(BaseModel):
     error: str
     detail: str
+
+class Theme(BaseModel):
+    term: str
+    score: int

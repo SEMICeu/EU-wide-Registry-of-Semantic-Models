@@ -6,8 +6,12 @@ import ssl
 import os
 import requests
 import fasttext
+import traceback
+import logging
 
+from huggingface_hub import configure_http_backend
 
+logger = logging.getLogger(__name__)
 
 # Disable SSL warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -24,19 +28,41 @@ class NoVerifySession(requests.Session):
         super().__init__()
         self.verify = False
 
+def backend_factory() -> requests.Session:
+    session = requests.Session()
+    session.verify = False
+    return session
+
+configure_http_backend(backend_factory=backend_factory)
+
 @lru_cache(maxsize=10)
-def load_model(source: str, target: str):
+def load_model_translate(source: str, target: str):
     try:
         # Monkey-patch requests.Session temporarily
         original_session = requests.Session
-        requests.Session = NoVerifySession
+        #requests.Session = NoVerifySession
 
-        local_model_path = snapshot_download(
-            repo_id=f"Helsinki-NLP/opus-mt-{source}-{target}",
-            local_dir=f"./models/opus-mt-{source}-{target}",
-            local_dir_use_symlinks=False,
-        )
-        print(f"Model downloaded to: {local_model_path}")
+        repo_id="Helsinki-NLP/opus-mt-" +source + "-" + target
+        local_dir="./models/opus-mt-" + source + "-" + target
+
+        try:
+            local_model_path = snapshot_download(
+                repo_id=repo_id,
+                local_dir=local_dir,
+                local_dir_use_symlinks=False,
+                local_files_only=True
+            )
+            logger.info("Model " + repo_id + " found locally:" + local_model_path)
+        except Exception as e:
+            print(f"Local model not found, attempting download from hub... ({e})")
+            # Retry with network access
+            local_model_path = snapshot_download(
+                repo_id=repo_id,
+                local_dir=local_dir,
+                local_dir_use_symlinks=False,
+                local_files_only=False,  # Allow download
+            )
+            print("Model " + repo_id + " downloaded to:" + local_model_path)
 
         tokenizer = MarianTokenizer.from_pretrained(local_model_path)
         model = MarianMTModel.from_pretrained(local_model_path)
@@ -45,7 +71,8 @@ def load_model(source: str, target: str):
         return tokenizer, model
 
     except Exception as e:
-        print(f"Error loading model: {e}")
+        logger.info(f"Error loading model: {e}")
+        logger.info(traceback.print_exc())
 
     finally:
         # Restore the original requests.Session to avoid side effects
@@ -153,3 +180,28 @@ def best_synonym_for_context(context: str, synonyms: list[str], return_all=False
         return scored_synonyms
     else:
         return scored_synonyms[0][0]  # Just the best synonym
+
+from huggingface_hub import list_models
+import re
+import time
+
+def list_pairs():
+    pattern = re.compile(r"^Helsinki-NLP/opus-mt-([a-z\-]+)-([a-z\-]+)$")
+
+    lang_pairs = set()
+
+    try:
+        print("Fetching models from Hugging Face Hub...")
+        models = list_models(author="Helsinki-NLP")
+    except Exception as e:
+        print(f"Error fetching models: {e}")
+        exit(1)
+
+    for model in models:
+        model_id = model.modelId
+        match = pattern.match(model_id)
+        if match:
+            src, tgt = match.groups()
+            lang_pairs.add((src, tgt))
+
+    return lang_pairs

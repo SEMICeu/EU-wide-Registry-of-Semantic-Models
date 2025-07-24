@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-from app.api.v1.routers import v1_router
+from app.api.v1.routers.routers import v1_router
 from contextlib import asynccontextmanager
 import yaml
 import os

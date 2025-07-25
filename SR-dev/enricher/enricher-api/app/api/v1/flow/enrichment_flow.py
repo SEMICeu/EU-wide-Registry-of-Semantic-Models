@@ -10,7 +10,7 @@ def fetch_data(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri
     query = f"""
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    SELECT ?standard ?description
+    SELECT distinct ?standard ?description
     FROM <{graph_uri}>
     WHERE {{
       ?standard a dct:Standard .
@@ -28,8 +28,8 @@ def fetch_data(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri
         s = result["standard"]["value"]
         description = result["description"]["value"]
         data[s] = {
-        "description": description
-    }
+            "description": description
+        }
 
     print("Fetched data:", data)  # <-- This prints the fetched dictionary to stdou
     return data
@@ -45,7 +45,6 @@ def enrich_graph(source_endpoint, graph_uri, data):
         if not description:
             print(f"No description for {standard_uri}, skipping.")
             continue
-
         params = {
             "context": description,
             "max": 1

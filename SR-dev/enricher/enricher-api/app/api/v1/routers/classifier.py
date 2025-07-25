@@ -37,7 +37,7 @@ async def classify(
         data_themes = config['themes']
 
         resultList =[]
-
+        logger.info("context:" + context)
         all_scores = rank_theme_codes_by_context(context, data_themes, return_all=True)
         for code,score in all_scores:
                 theme = Theme(

@@ -10,9 +10,10 @@ os.environ['HF_HUB_DISABLE_SSL_VERIFY'] = '1'
 # Configure logging globally
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    force=True
 )
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

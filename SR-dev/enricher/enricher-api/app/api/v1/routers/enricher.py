@@ -5,12 +5,15 @@ import logging
 import uuid
 from sqlalchemy.orm import Session
 import sys
+from pathlib import Path
+import asyncio
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.api.v1.models import ErrorResponse
 from app.api.v1.db.dbmodels import EnrichmentJob
 from app.api.v1.models import EnrichmentJobResponse, EnrichmentJobPost
 from app.api.v1.db.db import get_db
+from app.api.v1.flow.enrichment_flow import enrichment_flow
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +46,11 @@ async def submitjob(
         db.add(job)
         db.commit()
 
+        print(f"enrichment_flow is {enrichment_flow}")
+        print(f"callable? {callable(enrichment_flow)}")
+
+        asyncio.create_task(asyncio.to_thread(enrichment_flow, graph_uri, source_endpoint, job_id))
+        
         response = EnrichmentJobPost(
             id = job_id,
             graph_uri=graph_uri,

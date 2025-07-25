@@ -59,23 +59,3 @@ async def classify(
             status_code=500,
             detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()
         )
-
-def get_nltk_synonyms(term):
-    synonyms = {}
-    for syn in wordnet.synsets(term):
-        for lemma in syn.lemmas():
-            if lemma.name() != term:
-                frequency = lemma.count()  # Get the frequency count
-                logger.info(f"adding {lemma.name()} with frequency {frequency}")
-                synonyms[lemma.name()] = frequency  # Set score to 1
-    return dict(sorted(synonyms.items(), key=lambda x: x[1], reverse=True))
-
-def get_datamuse_synonyms(datamuse_endpoint, term):
-    synonyms = {}
-    response = requests.get(datamuse_endpoint+term)
-    for word in response.json():
-        found = word['word']
-        score = word.get('score', 0)
-        logger.info(f"adding {found} with score {score}")
-        synonyms[found] = score
-    return synonyms

@@ -5,8 +5,6 @@ import yaml
 import os
 import logging
 import nltk
-from transformers import MarianMTModel, MarianTokenizer
-from functools import lru_cache
 
 os.environ['HF_HUB_DISABLE_SSL_VERIFY'] = '1'
 # Configure logging globally

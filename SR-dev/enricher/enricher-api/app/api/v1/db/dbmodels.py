@@ -9,7 +9,7 @@ Base = declarative_base()
 class JobStatus(str, enum.Enum):
     pending = "pending"
     running = "running"
-    success = "success"
+    completed = "completed"
     failed = "failed"
 
 class EnrichmentJob(Base):
@@ -23,3 +23,4 @@ class EnrichmentJob(Base):
     completed_at = Column(DateTime, nullable=True)
     status = Column(Enum(JobStatus), default=JobStatus.pending)
     error_log = Column(Text, nullable=True)
+    flow_run_id = Column(String, nullable=True) 

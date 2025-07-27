@@ -54,7 +54,7 @@ def load_model_translate(source: str, target: str):
             )
             logger.info("Model " + repo_id + " found locally:" + local_model_path)
         except Exception as e:
-            print(f"Local model not found, attempting download from hub... ({e})")
+            logger.warning(f"Local model not found, attempting download from hub... ({e})")
             # Retry with network access
             local_model_path = snapshot_download(
                 repo_id=repo_id,
@@ -62,12 +62,12 @@ def load_model_translate(source: str, target: str):
                 local_dir_use_symlinks=False,
                 local_files_only=False,  # Allow download
             )
-            print("Model " + repo_id + " downloaded to:" + local_model_path)
+            logger.info("Model " + repo_id + " downloaded to:" + local_model_path)
 
         tokenizer = MarianTokenizer.from_pretrained(local_model_path)
         model = MarianMTModel.from_pretrained(local_model_path)
 
-        print("Model and tokenizer loaded from local directory!")
+        logger.info("Model and tokenizer loaded from local directory!")
         return tokenizer, model
 
     except Exception as e:
@@ -87,7 +87,7 @@ def download_fasttext_model():
     
     MODEL_URL = "https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.ftz"
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
-    print("🔽 Downloading FastText model...")
+    logger.info("🔽 Downloading FastText model...")
 
     response = requests.get(MODEL_URL, stream=True)
     if not response.ok:
@@ -101,7 +101,7 @@ def download_fasttext_model():
     if MODEL_PATH.stat().st_size < 1_000_000:
         raise RuntimeError("Downloaded model file is too small — likely corrupted or incomplete.")
     
-    print("✅ FastText model downloaded and validated.")
+    logger.info("✅ FastText model downloaded and validated.")
 
 @lru_cache(maxsize=1)
 def get_fasttext_model() -> fasttext.FastText._FastText:
@@ -128,15 +128,15 @@ def load_model_mini():
             local_dir_use_symlinks=False,
             local_files_only=True
         )
-        print(f"Model downloaded to: {local_model_path}")
+        logger.info(f"Model downloaded to: {local_model_path}")
 
         model = SentenceTransformer(local_model_path)
 
-        print("Model mini loaded from local directory!")
+        logger.info("Model mini loaded from local directory!")
         return model
 
     except Exception as e:
-        print(f"Error loading model: {e}")
+        logger.error(f"Error loading model: {e}")
 
     finally:
         # Restore the original requests.Session to avoid side effects
@@ -192,10 +192,10 @@ def list_pairs():
     lang_pairs = set()
 
     try:
-        print("Fetching models from Hugging Face Hub...")
+        logger.info("Fetching models from Hugging Face Hub...")
         models = list_models(author="Helsinki-NLP")
     except Exception as e:
-        print(f"Error fetching models: {e}")
+        logger.error(f"Error fetching models: {e}")
         exit(1)
 
     for model in models:

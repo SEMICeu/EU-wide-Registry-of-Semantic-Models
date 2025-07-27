@@ -39,6 +39,6 @@ app = FastAPI(
     lifespan=lifespan)
 
 
-api_router= APIRouter(prefix="/api")
+api_router= APIRouter(prefix="/enricher-api")
 api_router.include_router(v1_router)
 app.include_router(api_router)

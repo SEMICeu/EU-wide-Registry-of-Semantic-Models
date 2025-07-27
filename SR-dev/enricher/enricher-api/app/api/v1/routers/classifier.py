@@ -7,9 +7,8 @@ import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.api.v1.models import ErrorResponse, Theme
+from app.schemas.classification import Classification
 from app.api.v1.mlmodels import rank_theme_codes_by_context
-from nltk.corpus import wordnet
-import requests
 
 logger = logging.getLogger(__name__)
 
@@ -28,17 +27,21 @@ classify_router = APIRouter()
 async def classify(
     request: Request,
     context: str = Query(default=..., description="A sentence that can be used to give a context and reorder the results."),
+    classification: Classification = Query(..., description="the classification list"),
     max: int = Query(default=None, min=1, description="The maximum number of results.")
     ):
 
     try:
         config = request.app.state.config
         # Process and print results
-        data_themes = config['themes']
+        listofterms = config[classification]
 
         resultList =[]
         logger.info("context:" + context)
-        all_scores = rank_theme_codes_by_context(context, data_themes, return_all=True)
+        #for code, data in listofterms.items():
+        #    logger.info(f"{data['label']}. {data['definition']}")
+
+        all_scores = rank_theme_codes_by_context(context, listofterms, return_all=True)
         for code,score in all_scores:
                 theme = Theme(
                     term=code,

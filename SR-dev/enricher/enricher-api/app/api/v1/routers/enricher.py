@@ -9,7 +9,7 @@ from pathlib import Path
 import asyncio
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app.api.v1.models import ErrorResponse
+from app.api.v1.models import ErrorResponse, JobStatus
 from app.api.v1.db.dbmodels import EnrichmentJob
 from app.api.v1.models import EnrichmentJobResponse, EnrichmentJobPost
 from app.api.v1.db.db import get_db
@@ -31,8 +31,8 @@ enricher_router = APIRouter()
     response_description="The response is a JSON object of the job created.")
 async def submitjob(
     request: Request,
-    graph_uri: str = Query(default=..., min_length=1, description="the graph_uri used for the job"),
-    source_endpoint: str = Query(default=..., min_length=1, description="the source endpoint used for the job"),
+    graph_uri: str = Query(default="http://semic.registry.eu", min_length=1, description="the graph_uri used for the job"),
+    source_endpoint: str = Query(default="http://63.32.50.253:81/sparql", min_length=1, description="the source endpoint used for the job"),
     db: Session = Depends(get_db)
     ):
 
@@ -46,11 +46,11 @@ async def submitjob(
         db.add(job)
         db.commit()
 
-        print(f"enrichment_flow is {enrichment_flow}")
-        print(f"callable? {callable(enrichment_flow)}")
+        logger.info(f"enrichment_flow is {enrichment_flow}")
+        logger.info(f"callable? {callable(enrichment_flow)}")
 
         asyncio.create_task(asyncio.to_thread(enrichment_flow, graph_uri, source_endpoint, job_id))
-        
+
         response = EnrichmentJobPost(
             id = job_id,
             graph_uri=graph_uri,
@@ -91,6 +91,12 @@ def delete_job(job_id: str, db: Session = Depends(get_db)):
     return {"message": f"Deleted job {job_id}"}
 
 @enricher_router.get("/jobs", response_model=List[EnrichmentJobResponse])
-def list_jobs(db: Session = Depends(get_db)):
-    jobs = db.query(EnrichmentJob).order_by(EnrichmentJob.created_at.desc()).all()
+def list_jobs(
+        db: Session = Depends(get_db),
+        status: Optional[List[JobStatus]] = Query(None, description="Filter jobs by status")
+    ):
+    query = db.query(EnrichmentJob)
+    if status:
+        query = query.filter(EnrichmentJob.status.in_(status))
+    jobs = query.order_by(EnrichmentJob.created_at.desc()).all()
     return jobs

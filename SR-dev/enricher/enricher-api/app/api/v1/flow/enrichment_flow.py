@@ -1,117 +1,59 @@
-from prefect import flow, task
-from SPARQLWrapper import SPARQLWrapper, JSON
-import requests
+from prefect import flow
+from prefect.runtime import flow_run
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from app.api.v1.db.dbmodels import EnrichmentJob
+from datetime import datetime, UTC
+import os
+from .classify_task import fetch_data_to_classify, classify_and_enrich
 
-@task
-def fetch_data(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri : str = "http://semic.registry.eu"):
-    sparql = SPARQLWrapper(source_endpoint)
-    sparql.setReturnFormat(JSON)
+from prefect.logging import get_run_logger
 
-    query = f"""
-    PREFIX dct: <http://purl.org/dc/terms/>
-    PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    SELECT distinct ?standard ?description
-    FROM <{graph_uri}>
-    WHERE {{
-      ?standard a dct:Standard .
-      ?standard dcat:theme ?theme .
-      ?standard dct:description ?description .
-      FILTER (STRSTARTS(str(?theme),"test-")) .
-    }}
-    """
-    sparql.setQuery(query)
-    results = sparql.query().convert()
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "..", "db", "enrichment_jobs.db")
 
-    # Process results into a dict: { standard_uri: { property_uri: [values] } }
-    data = {}
-    for result in results["results"]["bindings"]:
-        s = result["standard"]["value"]
-        description = result["description"]["value"]
-        data[s] = {
-            "description": description
-        }
-
-    print("Fetched data:", data)  # <-- This prints the fetched dictionary to stdou
-    return data
-
-@task
-def enrich_graph(source_endpoint, graph_uri, data):
-
-    url = "http://127.0.0.1:8000/api/v1/classify"
-    enriched_results = {}
-
-    for standard_uri, props in data.items():
-        description = props.get("description", "")
-        if not description:
-            print(f"No description for {standard_uri}, skipping.")
-            continue
-        params = {
-            "context": description,
-            "max": 1
-        }
-
-        response = requests.get(url, params=params)
-        if response.status_code == 200:
-            classification_list = response.json()
-            if classification_list and isinstance(classification_list, list):
-                # Extract 'term' from first item, if exists
-                term = classification_list[0].get("term") if "term" in classification_list[0] else None
-                print(f"Classification term for {standard_uri}: {term}")
-                enriched_results[standard_uri] = term
-            else:
-                print(f"Unexpected response format for {standard_uri}: {classification_list}")
-                enriched_results[standard_uri] = None
-        else:
-            print(f"Failed to classify {standard_uri}: HTTP {response.status_code}")
-            enriched_results[standard_uri] = None
-
-    print(enriched_results)
-
-    prefixes = """
-    PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    """
-
-    update_blocks = "\n".join(
-        f"""
-        DELETE {{
-        GRAPH <{graph_uri}> {{
-            <{uri}> dcat:theme ?oldTheme .
-        }}
-        }}
-        INSERT {{
-        GRAPH <{graph_uri}> {{
-            <{uri}> dcat:theme "test-{theme}" .
-        }}
-        }}
-        WHERE {{
-        GRAPH <{graph_uri}> {{
-            OPTIONAL {{ <{uri}> dcat:theme ?oldTheme . }}
-        }}
-        }}
-        """ for uri, theme in enriched_results.items() if theme
-    )
-
-    sparql_update = prefixes + update_blocks
-    print(sparql_update)
-
-    # Headers for the SPARQL update request
-    headers = {
-        "Content-Type": "application/sparql-update"
-    }
-
-    # Send the POST request
-    response = requests.post(source_endpoint, data=sparql_update.encode('utf-8'), headers=headers)
-
-    # Check response
-    if response.status_code == 200:
-        print("SPARQL update successful!")
-    else:
-        print(f"Error {response.status_code}: {response.text}")
-    pass
+engine = create_engine(f"sqlite:///{DB_PATH}")
+SessionLocal = sessionmaker(bind=engine)
 
 @flow
 def enrichment_flow(graph_uri: str, source_endpoint: str, job_id: str = None):
-    print(f"Starting enrichment for job_id={job_id}")
-    data = fetch_data(source_endpoint, graph_uri)
-    enrich_graph(source_endpoint, graph_uri, data)
-    print(f"Completed enrichment for job_id={job_id}")
+    logger = get_run_logger()
+     # ✅ Get Prefect flow_run_id
+    flow_run_id = flow_run.id
+
+    # ✅ Update DB with flow_run_id
+    session = SessionLocal()
+    try:
+        job = session.query(EnrichmentJob).filter(EnrichmentJob.id == job_id).first()
+        if job:
+            job.flow_run_id = flow_run_id
+            job.status = "running"
+            session.commit()
+
+        logger.info(f"Job {job_id} status set to RUNNING with flow_run_id {flow_run_id}")
+
+        data = fetch_data_to_classify(source_endpoint, graph_uri)
+        classify_and_enrich(source_endpoint, graph_uri, data)
+
+        # ✅ Mark job as completed
+        if job:
+            job.status = "completed"
+            job.completed_at = datetime.now(UTC)
+            session.commit()
+            logger.info(f"Job {job_id} status set to COMPLETED")
+
+        logger.info(f"Completed enrichment for job_id={job_id}")
+
+    except Exception as e:
+        # ✅ Mark job as failed
+        if job:
+            job.status = "failed"
+            job.error_log = str(e)
+            job.completed_at = datetime.now(UTC)
+            session.commit()
+            logger.error(f"Job {job_id} status set to FAILED due to error: {e}")
+
+        raise  # re-raise so Prefect marks the flow as failed
+
+    finally:
+        session.close()

@@ -31,7 +31,7 @@ class Theme(BaseModel):
 class JobStatus(str, Enum):
     pending = "pending"
     running = "running"
-    success = "success"
+    completed = "completed"
     failed = "failed"
 
 class EnrichmentJobPost(BaseModel):

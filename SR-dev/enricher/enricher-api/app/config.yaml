@@ -1,6 +1,6 @@
 datamuse_endpoint: "https://api.datamuse.com/words?ml="
 
-themes:
+datathemes:
   AGRI:
     code: AGRI
     label: Agriculture, fisheries, forestry and food

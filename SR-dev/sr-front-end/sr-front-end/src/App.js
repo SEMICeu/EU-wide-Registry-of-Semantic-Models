@@ -70,7 +70,7 @@ function OntologyDetail({ ontologies }) {
     if (ontologyIdx === -1) {
       setLoading(true);
       setError(null);
-      fetch('http://localhost:4000/api/ontology', {
+      fetch('https://3d84baf2cf03.ngrok-free.app/api/ontology', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug })
@@ -248,7 +248,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       setError(null);
       setResults([]);
       try {
-        const response = await fetch('http://localhost:4000/api/search', {
+        const response = await fetch('https://3d84baf2cf03.ngrok-free.app/api/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -277,7 +277,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
     setError(null);
     setResults([]);
     try {
-      const response = await fetch('http://localhost:4000/api/search', {
+      const response = await fetch('https://3d84baf2cf03.ngrok-free.app/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

@@ -1,12 +1,12 @@
 sequenceDiagram
     participant C as Client
-    participant A as FastAPI
+    participant A as Enricher Job API
     participant DB as Database
     participant P as Prefect Flow
     participant API1 as Classify API
     participant API2 as Translate API
     participant API3 as Synonyms API
-    participant V as Virtuoso SPARQL
+    participant V as Virtuoso
 
     C->>A: POST /job (graph_uri, source_endpoint)
     A->>DB: Insert job (status=pending)

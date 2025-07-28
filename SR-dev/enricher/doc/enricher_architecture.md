@@ -34,7 +34,7 @@ sequenceDiagram
         end
 
         rect rgb(153, 153, 255)
-            P->>V: SPARQL SELECT
+            P->>V: fetch - SPARQL SELECT
             V-->>P: Data
             P->>API2: Call Translate API
             API2-->>P: Translated data

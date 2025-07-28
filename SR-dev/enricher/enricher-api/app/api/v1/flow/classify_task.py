@@ -115,3 +115,5 @@ def classify_and_enrich(source_endpoint, graph_uri, data):
     else:
         logger.error(f"Error {response.status_code}: {response.text}")
     pass
+
+    return {"classify response sparql": response.status_code}

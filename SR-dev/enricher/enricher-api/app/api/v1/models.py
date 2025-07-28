@@ -48,4 +48,6 @@ class EnrichmentJobResponse(BaseModel):
     completed_at: Optional[datetime] = None
     status: JobStatus
     error_log: Optional[str] = None
+    flow_run_id : Optional[str] = None
+    flow_url : Optional[str] = None
 

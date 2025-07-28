@@ -5,16 +5,15 @@ import yaml
 import os
 import logging
 import nltk
-from transformers import MarianMTModel, MarianTokenizer
-from functools import lru_cache
 
 os.environ['HF_HUB_DISABLE_SSL_VERIFY'] = '1'
 # Configure logging globally
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    force=True
 )
-logger = logging.getLogger(__name__)
+logger = logging.getLogger()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -40,6 +39,6 @@ app = FastAPI(
     lifespan=lifespan)
 
 
-api_router= APIRouter(prefix="/api")
+api_router= APIRouter(prefix="/enricher-api")
 api_router.include_router(v1_router)
 app.include_router(api_router)

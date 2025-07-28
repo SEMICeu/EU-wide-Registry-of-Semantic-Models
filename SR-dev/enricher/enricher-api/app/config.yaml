@@ -1,1 +1,68 @@
 datamuse_endpoint: "https://api.datamuse.com/words?ml="
+
+datathemes:
+  AGRI:
+    code: AGRI
+    label: Agriculture, fisheries, forestry and food
+    definition: dataset theme covering the domains of agriculture which involves the cultivation of plants and livestock; fisheries which focuses on the harvesting of fish from wild or farmed sources; forestry which relates to the management and conservation of forests and woodlands; and food which includes substances that provide nutritional support to organisms
+    uri: http://publications.europa.eu/resource/authority/data-theme/AGRI
+  ECON:
+    code: ECON
+    label: Economy and finance
+    definition: dataset theme covering the domains of economic activity which involves production, distribution, trade, and consumption of goods and services, and finance activity focusing on the management of money at the individual, company, or government level
+    uri: http://publications.europa.eu/resource/authority/data-theme/ECON
+  EDUC:
+    code: EDUC
+    label: Education, culture and sport
+    definition: dataset theme covering the domains of education, which facilitates learning and the acquisition of knowledge, skills, values, beliefs, and habits; culture, which includes the social behaviour, norms, knowledge, beliefs, arts, laws, customs, capabilities, and habits found in human societies; and sport, encompassing competitive physical activities or games that improve physical ability, skills, and provide enjoyment to participants as well as entertainment to spectators
+    uri: http://publications.europa.eu/resource/authority/data-theme/EDUC
+  ENER:
+    code: ENER
+    label: Energy
+    definition: dataset theme covering the domain of energy, characterised as the quantitative property necessary to perform work on or heat objects, and vital element of living organisms and the operation of human civilisation
+    uri: http://publications.europa.eu/resource/authority/data-theme/ENER
+  ENVI:
+    code: ENVI
+    label: Environment
+    definition: dataset theme covering the domain of environment, defined as the interaction of all living species, climate, weather, and natural resources that impact human survival and economic activity
+    uri: http://publications.europa.eu/resource/authority/data-theme/ENVI
+  GOVE:
+    code: GOVE
+    label: Government and public sector
+    definition: dataset theme covering the areas of government and the public sector, government being the system or group of individuals governing an organised community, usually a state, and the public sector comprising the segment of the economy involving public services and enterprises, which may be managed by central, regional or local authorities
+    uri: http://publications.europa.eu/resource/authority/data-theme/GOVE
+  HEAL:
+    code: HEAL
+    label: Health
+    definition: dataset theme covering the domain of health which includes health conditions, diseases, treatments, healthcare services, and health policies
+    uri: http://publications.europa.eu/resource/authority/data-theme/HEAL
+  INTR:
+    code: INTR
+    label: International issues
+    definition: dataset theme covering the domain of international issues which relates to significant topics or problems that are subject to debate or discussion and involve participants from at least two different countries
+    uri: http://publications.europa.eu/resource/authority/data-theme/INTR
+  JUST:
+    code: JUST
+    label: Justice, legal system and public safety
+    definition: dataset theme covering the domains of justice, legal system and public safety, where justice refers to the procedural fairness in the application of law; legal system comprises various frameworks including civil, common, statutory, and religious law; and public safety denotes the governmental responsibility to protect individuals, organisations, and institutions from threats to their well-being and community prosperity
+    uri: http://publications.europa.eu/resource/authority/data-theme/JUST
+  REGI:
+    code: REGI
+    label: Regions and cities
+    definition: dataset theme covering the domains of regions and cities, where regions is defined by political geography units including sovereign states, subnational administrative areas, and multinational groupings, and cities are characterised as large human settlements
+    uri: http://publications.europa.eu/resource/authority/data-theme/REGI
+  SOCI:
+    code: SOCI
+    label: Population and society
+    definition: dataset theme covering the domains of population and society, where population refers to the total number of people residing within various geographic levels from cities to the global scale, and society denotes a collective of individuals engaged in continuous social interaction within a common territory, often under the same political and cultural norms
+    uri: http://publications.europa.eu/resource/authority/data-theme/SOCI
+  TECH:
+    code: TECH
+    label: Science and technology
+    definition: dataset theme covering the domains of science and technology, with science being the systematic pursuit of knowledge through testable explanations and predictions across natural, social, and formal disciplines, and technology encompassing the collective techniques, skills, methods, and processes used in producing goods, providing services, or achieving objectives like scientific research
+    uri: http://publications.europa.eu/resource/authority/data-theme/TECH
+  TRAN:
+    code: TRAN
+    label: Transport
+    definition: dataset theme covering the domain of transport, which involves the movement of humans, animals, and goods from one location to another using various modes such as air, land (rail and road), water, cable, pipeline and space
+    uri: http://publications.europa.eu/resource/authority/data-theme/TRAN

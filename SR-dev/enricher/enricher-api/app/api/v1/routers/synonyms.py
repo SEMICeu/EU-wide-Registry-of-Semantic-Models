@@ -1,14 +1,13 @@
 from fastapi import APIRouter, Query, HTTPException, Request
 import os
-from datetime import datetime
-from typing import List, Optional, Annotated
+from typing import List, Optional
 import logging
 
 import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app.api.v1.models import ErrorResponse, Synonym, TranslationItem, TranslationResponse, DetectedLanguage 
-from app.api.v1.mlmodels import load_model, get_fasttext_model, best_synonym_for_context
+from app.api.v1.models import ErrorResponse, Synonym
+from app.api.v1.mlmodels import best_synonym_for_context
 from app.schemas.source import Source
 from nltk.corpus import wordnet
 import requests
@@ -29,10 +28,10 @@ synonyms_router = APIRouter()
     response_description="The response is a JSON object including list of synonyms with their source ")
 async def synonyms(
     request: Request,
-    term: str = Query(default=...),
-    sources : Optional[Source] = Query(None),
-    context: str = Query(default=None),
-    max: int = Query(default=None, min=1)
+    term: str = Query(default=..., description="A word used as input to find synonyms."),
+    sources : Optional[Source] = Query(None, description="If this value is not set, nltk has priority on datamuse, so if synonyms are not found in nltk, they will be searched in datamuse. If the value is set to all, the order by score is not maintained."),
+    context: str = Query(default=None, description="A sentence that can be used to give a context and reorder the results."),
+    max: int = Query(default=None, min=1, description="The maximum number of results.")
     ):
 
     try:

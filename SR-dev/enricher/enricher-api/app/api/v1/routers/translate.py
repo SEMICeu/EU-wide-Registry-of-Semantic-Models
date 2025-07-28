@@ -1,17 +1,14 @@
 from fastapi import APIRouter, Query, HTTPException, Request
 import os
-from datetime import datetime
-from typing import List, Optional, Annotated
+from typing import List, Optional
 import logging
 
 import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from app.api.v1.models import ErrorResponse, Synonym, TranslationItem, TranslationResponse, DetectedLanguage 
-from app.api.v1.mlmodels import load_model, get_fasttext_model, best_synonym_for_context
-from app.schemas.source import Source
-from nltk.corpus import wordnet
-import requests
+from app.api.v1.models import ErrorResponse, TranslationItem, TranslationResponse, DetectedLanguage 
+from app.api.v1.mlmodels import load_model_translate, get_fasttext_model, list_pairs
+from app.schemas.language import Language
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +27,8 @@ translate_router = APIRouter()
 async def translates(
     request: Request,
     term: str = Query(default=..., min_length=1, description="the text to be translated"),
-    source: Optional[str] = Query(default=None, description="Optional source language code; auto-detect if omitted"),
-    target: List[str] = Query(default=..., description="one or more languages")
+    source: Optional[Language] = Query(default=None, description="Optional source language code; auto-detect if omitted"),
+    target: List[Language] = Query(default=..., description="one or more languages")
     ):
 
     try:
@@ -43,18 +40,29 @@ async def translates(
         logger.info("detected " + lang_code)
         if source is None:
             source = lang_code
+        else:
+            source = source.value
         resultList =[]
+
+        sorted_pairs = list_pairs()
+        found = 0
         for tgt in target:
-            tokenizer, model = load_model(source, tgt)
-            inputs = tokenizer(term, return_tensors="pt", padding=True)
-            translated = model.generate(**inputs)
-            output = tokenizer.decode(translated[0], skip_special_tokens=True)
-            translation = TranslationItem(
-                        term=output,
-                        lang=tgt
-            )
-            resultList.append(translation)
-        
+            target_value = tgt.value
+            if (source,target_value) in sorted_pairs:
+                logger.info("valid pair:" + source + "-" + target_value)
+                found +=1
+
+                tokenizer, model = load_model_translate(source, target_value)
+                inputs = tokenizer(term, return_tensors="pt", padding=True)
+                translated = model.generate(**inputs)
+                output = tokenizer.decode(translated[0], skip_special_tokens=True)
+                translation = TranslationItem(
+                            term=output,
+                            lang=target_value
+                )
+                resultList.append(translation)
+        logger.info("found " + str(found))
+
         response = TranslationResponse(
             detectedLanguage=detected,
             translations=resultList

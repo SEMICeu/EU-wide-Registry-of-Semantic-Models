@@ -23,4 +23,5 @@ class EnrichmentJob(Base):
     completed_at = Column(DateTime, nullable=True)
     status = Column(Enum(JobStatus), default=JobStatus.pending)
     error_log = Column(Text, nullable=True)
-    flow_run_id = Column(String, nullable=True) 
+    flow_run_id = Column(String, nullable=True)
+    flow_url = Column(String, nullable=True)

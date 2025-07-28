@@ -458,7 +458,7 @@ function App() {
               alt="Semantic Registry Logo"
               className="navbar-logo"
             />
-            <h1 onClick={handleTitleClick}>The SEMIC Semantic Registry</h1>
+            <h1 onClick={handleTitleClick}>The Semantic Registry</h1>
           </div>
 
           {/* Replace paragraph with button */}

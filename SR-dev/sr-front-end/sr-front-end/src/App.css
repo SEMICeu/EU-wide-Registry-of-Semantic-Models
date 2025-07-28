@@ -43,7 +43,7 @@ body {
 }
 
 .navbar h1:hover {
-  color: #ccc;
+  color: #a1f4ff;
 }
 
 .logo-title-container {
@@ -76,7 +76,7 @@ body {
 }
 
 .about-button:hover {
-  color: #ccc; /* lighter on hover */
+  color: #a1f4ff; /* lighter on hover */
 }
 
 .about-container {

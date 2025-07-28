@@ -90,7 +90,7 @@ body {
 }
 
 .about-heading {
-  color: #1a237e; /* MAIN DARK BLUE */
+  color: #0E1F2F; /* MAIN DARK BLUE */
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -189,7 +189,7 @@ body {
   border-radius: 8px;
   outline: none;
   background: #fff;
-  color: #1a237e;
+  color: #0E1F2F;
   transition: border 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   box-sizing: border-box;
@@ -209,7 +209,7 @@ body {
   border-radius: 8px;
   outline: none;
   background: #fff;
-  color: #1a237e;
+  color: #0E1F2F;
   transition: border 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   cursor: pointer;
@@ -284,7 +284,7 @@ body {
   display: flex;
   gap: 18px;
   font-size: 1.01rem;
-  color: #5c6bc0;
+  color: #288EBF;
   margin-bottom: 2px;
 }
 .ontology-card-description {
@@ -375,12 +375,12 @@ body {
 
 .ontology-detail-card h2 {
   font-size: 2.2rem;
-  color: #7eb6ff;
+  color: #288EBF;
   margin-bottom: 18px;
 }
 
 .ontology-detail-card .description {
-  color: #c7e0ff;
+  color: #288EBF;
   font-size: 1.18rem;
   margin-bottom: 32px;
 }
@@ -389,7 +389,7 @@ body {
   display: flex;
   justify-content: space-between;
   font-size: 1.13rem;
-  color: #a3bde7;
+  color: #288EBF;
 }
 
 @keyframes fadeIn {
@@ -413,7 +413,7 @@ body {
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 8px 40px #0E1F2F22;
-  border: 2px solid #e3eafc;
+  border: 1px solid #e3eafc;
   padding: 44px 44px 36px 44px;
   max-width: 700px;
   width: 700px;
@@ -455,12 +455,11 @@ body {
 }
 
 .publisher-tag {
-  background-color: #e3f2fd;
-  color: #075CA8;
+  background-color: #e3eafc;
+  color: #22345a;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  border: 1px solid #bbdefb;
   white-space: nowrap;
 }
 
@@ -472,8 +471,8 @@ body {
 
 .ontology-detail-info-box {
   background: #22345a;
-  color: #7eb6ff;
-  border-left: 4px solid #7eb6ff;
+  color: #288EBF;
+  border-left: 4px solid #288EBF;
   border-radius: 8px;
   padding: 16px 18px;
   margin-bottom: 28px;
@@ -512,7 +511,7 @@ body {
   font-weight: 600;
 }
 .ontology-detail-table td {
-  color: #1a237e;
+  color: #0E1F2F;
 }
 
 .ontology-detail-keywords {

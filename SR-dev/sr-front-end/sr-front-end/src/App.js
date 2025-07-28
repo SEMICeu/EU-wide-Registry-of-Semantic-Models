@@ -70,7 +70,7 @@ function OntologyDetail({ ontologies }) {
     if (ontologyIdx === -1) {
       setLoading(true);
       setError(null);
-      fetch('https://3d84baf2cf03.ngrok-free.app/api/ontology', {
+      fetch('http://localhost:4000/api/ontology', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug })
@@ -248,7 +248,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       setError(null);
       setResults([]);
       try {
-        const response = await fetch('https://3d84baf2cf03.ngrok-free.app/api/search', {
+        const response = await fetch('http://localhost:4000/api/search', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -277,7 +277,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
     setError(null);
     setResults([]);
     try {
-      const response = await fetch('https://3d84baf2cf03.ngrok-free.app/api/search', {
+      const response = await fetch('http://localhost:4000/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -300,7 +300,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
   return (
     <div className="main-content">
       <div className="intro-section">
-        <h2>Welcome to the Semantic Registry</h2>
+        <h2>Welcome to the SEMIC Semantic Registry</h2>
         <p>
           The Semantic Registry contains semantic models from well known publishers, Member States, European Agencies and more. It uses ranking metrics to recommend semantic models that are the most commonly used and interconnected with other models, allowing you to make the best decision for your use case!
         </p>
@@ -454,11 +454,11 @@ function App() {
         <div className="navbar-content">
           <div className="logo-title-container">
             <img
-              src="/semic-logo.png"
+              src="/semic-logo-cropped.png"
               alt="Semantic Registry Logo"
               className="navbar-logo"
             />
-            <h1 onClick={handleTitleClick}>The Semantic Registry</h1>
+            <h1 onClick={handleTitleClick}>The SEMIC Semantic Registry</h1>
           </div>
 
           {/* Replace paragraph with button */}

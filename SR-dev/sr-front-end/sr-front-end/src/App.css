@@ -2,12 +2,12 @@ body {
   margin: 0;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   background: #fff;
-  color: #1a237e;
+  color: #0E1F2F;
 }
 
 .navbar {
   width: 100%;
-  background: #003399;
+  background: #0E1F2F;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   padding: 0;
   display: flex;
@@ -43,7 +43,7 @@ body {
 }
 
 .navbar h1:hover {
-  color: #a1f4ff;
+  color: #288EBF;
 }
 
 .logo-title-container {
@@ -76,7 +76,7 @@ body {
 }
 
 .about-button:hover {
-  color: #a1f4ff; /* lighter on hover */
+  color: #288EBF; /* lighter on hover */
 }
 
 .about-container {
@@ -97,7 +97,7 @@ body {
 }
 
 .about-subheading {
-  color: #1976d2; /* ACCENT BLUE */
+  color: #075CA8; /* ACCENT BLUE */
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 2rem;
@@ -124,7 +124,7 @@ body {
 }
 
 .rating-button {
-  background-color: #1976d2; /* Light blue accent */
+  background-color: #075CA8; /* Light blue accent */
   border: none;
   border-radius: 6px;
   padding: 0.75rem 1.25rem;
@@ -253,8 +253,8 @@ body {
 }
 .ontology-card:hover {
   transform: translateY(-2px) scale(1.012);
-  box-shadow: 0 6px 24px #1976d233;
-  border-color: #1976d2;
+  box-shadow: 0 6px 24px #075CA833;
+  border-color: #288EBF;
 }
 .ontology-card-header {
   display: flex;
@@ -265,12 +265,12 @@ body {
 }
 .ontology-card-title {
   font-size: 1.35rem;
-  color: #003399;
+  color: #0E1F2F;
   font-weight: 700;
   margin: 0;
 }
 .ontology-card-ranking {
-  color: #1976d2;
+  color: #075CA8;
   background: #ffffff;
   border-radius: 6px;
   font-size: 1.1rem;
@@ -300,14 +300,14 @@ body {
   align-items: center;
 }
 .ontology-card-main-classes-title {
-  color: #1976d2;
+  color: #075CA8;
   font-size: 0.98rem;
   font-weight: 600;
   margin-right: 8px;
 }
 .ontology-card-main-class-tag {
   background: #e3eafc;
-  color: #003399;
+  color: #0E1F2F;
   border-radius: 6px;
   padding: 4px 12px;
   font-size: 0.98rem;
@@ -332,21 +332,21 @@ body {
 
 .no-results {
   text-align: center;
-  color: #1976d2;
+  color: #075CA8;
   font-size: 1.13rem;
   margin-top: 36px;
 }
 
 .loading {
   text-align: center;
-  color: #1976d2;
+  color: #075CA8;
   font-size: 1.13rem;
   margin-top: 36px;
 }
 
 .error {
   text-align: center;
-  color: #1976d2;
+  color: #075CA8;
   font-size: 1.13rem;
   margin-top: 36px;
 }
@@ -365,7 +365,7 @@ body {
 .ontology-detail-card {
   background: #fff;
   border-radius: 18px;
-  box-shadow: 0 8px 40px #00339911;
+  box-shadow: 0 8px 40px #0E1F2F11;
   border: 2px solid #e3eafc;
   padding: 48px 44px 36px 44px;
   max-width: 600px;
@@ -412,7 +412,7 @@ body {
 .ontology-detail-main {
   background: #fff;
   border-radius: 18px;
-  box-shadow: 0 8px 40px #00339922;
+  box-shadow: 0 8px 40px #0E1F2F22;
   border: 2px solid #e3eafc;
   padding: 44px 44px 36px 44px;
   max-width: 700px;
@@ -430,7 +430,7 @@ body {
 
 .ontology-detail-main h2 {
   font-size: 2.1rem;
-  color: #003399;
+  color: #0E1F2F;
   margin: 0;
   font-weight: 700;
 }
@@ -456,7 +456,7 @@ body {
 
 .publisher-tag {
   background-color: #e3f2fd;
-  color: #1976d2;
+  color: #075CA8;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
@@ -487,7 +487,7 @@ body {
 }
 
 .ontology-detail-section h3 {
-  color: #003399;
+  color: #0E1F2F;
   font-size: 1.15rem;
   margin-bottom: 10px;
   font-weight: 700;
@@ -508,7 +508,7 @@ body {
 }
 .ontology-detail-table th {
   background: #e3eafc;
-  color: #003399;
+  color: #0E1F2F;
   font-weight: 600;
 }
 .ontology-detail-table td {
@@ -525,7 +525,7 @@ body {
 }
 .ontology-detail-keywords li {
   background: #e3eafc;
-  color: #003399;
+  color: #0E1F2F;
   border-radius: 6px;
   padding: 5px 14px;
   font-size: 1rem;
@@ -544,16 +544,16 @@ body {
 .ontology-detail-meta-box {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 12px #00339911;
+  box-shadow: 0 2px 12px #0E1F2F11;
   border: 1.5px solid #e3eafc;
   padding: 28px 24px 20px 24px;
-  color: #003399;
+  color: #0E1F2F;
   font-size: 1.08rem;
   margin-bottom: 18px;
   width: 100%;
 }
 .ontology-detail-meta-box a {
-  color: #1976d2;
+  color: #075CA8;
   text-decoration: underline;
   word-break: break-all;
 }
@@ -561,17 +561,17 @@ body {
 .ontology-detail-reuses-box {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 12px #00339911;
+  box-shadow: 0 2px 12px #0E1F2F11;
   border: 1.5px solid #e3eafc;
   padding: 18px 20px 14px 20px;
-  color: #003399;
+  color: #0E1F2F;
   font-size: 1.05rem;
   margin-bottom: 18px;
   width: 100%;
   text-align: left;
 }
 .ontology-detail-reuses-title {
-  color: #003399;
+  color: #0E1F2F;
   font-weight: 700;
   margin-bottom: 8px;
   font-size: 1.08rem;
@@ -590,17 +590,17 @@ body {
 .ontology-detail-reuses-list button {
   background: none;
   border: none;
-  color: #1976d2;
+  color: #075CA8;
   text-decoration: underline;
   cursor: pointer;
   font-size: 1rem;
   padding: 0;
 }
 .ontology-detail-reuses-list button:hover {
-  color: #003399;
+  color: #0E1F2F;
 }
 .ontology-detail-reuses-list span {
-  color: #b3c6f7;
+  color: #288EBF;
   font-size: 1rem;
 }
 
@@ -609,10 +609,10 @@ body {
   max-width: 700px;
   background: #f5f7fa;
   border-radius: 12px;
-  box-shadow: 0 2px 8px #00339911;
+  box-shadow: 0 2px 8px #0E1F2F11;
   padding: 28px 32px 18px 32px;
   margin-bottom: 32px;
-  color: #003399;
+  color: #0E1F2F;
   text-align: left;
 }
 .intro-section h2 {
@@ -620,7 +620,7 @@ body {
   margin-bottom: 10px;
   font-size: 1.45rem;
   font-weight: 700;
-  color: #003399;
+  color: #0E1F2F;
 }
 .intro-section p {
   margin: 0;

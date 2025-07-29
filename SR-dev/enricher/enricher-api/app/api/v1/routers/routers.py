@@ -1,6 +1,6 @@
 import logging
 from fastapi import APIRouter
-from .synonyms import synonyms_router
+from .synonyms.synonyms import synonyms_router
 from .translate import translate_router
 from .classifier import classify_router
 from .enricher import enricher_router

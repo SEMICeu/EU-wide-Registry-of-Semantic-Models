@@ -1,4 +1,5 @@
 datamuse_endpoint: "https://api.datamuse.com/words?ml="
+altervista_key: "Kdnuiqz85LO7gGIHdGZf"
 
 datathemes:
   AGRI:

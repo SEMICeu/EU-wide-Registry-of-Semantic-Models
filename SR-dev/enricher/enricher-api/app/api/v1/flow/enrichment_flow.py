@@ -41,8 +41,8 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, job_id: str = None):
         logger.info(f"Job {job_id} status set to RUNNING with flow_run_id {flow_run_id}")
 
         classify_future = classify_and_enrich.submit(source_endpoint, graph_uri, fetch_data_to_classify.submit(source_endpoint, graph_uri))
+        synonyms_future = synonyms_and_enrich.submit(source_endpoint, graph_uri, fetch_data_to_synonyms.submit(source_endpoint, graph_uri))
         translate_future = translate_and_enrich.submit(fetch_data_to_translate.submit(source_endpoint))
-        synonyms_future = synonyms_and_enrich.submit(fetch_data_to_synonyms.submit(source_endpoint))
 
         # Wait for results
         class_res = classify_future.result()

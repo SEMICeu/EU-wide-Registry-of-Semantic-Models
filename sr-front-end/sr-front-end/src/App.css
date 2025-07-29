@@ -1,0 +1,628 @@
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #fff;
+  color: #0E1F2F;
+}
+
+.navbar {
+  width: 100%;
+  background: #0E1F2F;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: 64px;
+}
+
+.navbar-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 64px;
+}
+
+.navbar h1 {
+  font-size: 1.7rem;
+  margin: 0;
+  letter-spacing: 1.2px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.navbar h1:hover {
+  color: #288EBF;
+}
+
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo {
+  height: 60px;
+  width: auto;
+}
+
+.navbar p {
+  color: #c7d6f7;
+  margin: 0 0 0 18px;
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.about-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 1000;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.about-button:hover {
+  color: #288EBF; /* lighter on hover */
+}
+
+.about-container {
+  background-color: white; /* PAGE BACKGROUND */
+  color: black; /* Default text color */
+  min-height: 100vh;
+  padding: 2rem 3rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.about-heading {
+  color: #0E1F2F; /* MAIN DARK BLUE */
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.about-subheading {
+  color: #075CA8; /* ACCENT BLUE */
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-paragraph {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: black; /* Ensure paragraphs are black */
+}
+
+.rating-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.rating-button {
+  background-color: #075CA8; /* Light blue accent */
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  color: white;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.rating-stars {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.rating-title {
+  font-weight: 700;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+}
+
+.rating-description {
+  flex: 1;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: black; /* Ensure explanation text is black */
+}
+
+.main-content {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 36px;
+  background: #fff;
+}
+
+.search-filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 760px;
+  margin-bottom: 36px;
+  gap: 16px;
+}
+
+.search-bar {
+  width: 100%;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 18px 22px;
+  font-size: 1.13rem;
+  border: 1.5px solid #b3c6f7;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: #0E1F2F;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-sizing: border-box;
+}
+
+.filter-bar {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+}
+
+.filter-bar select {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  border: 1.5px solid #b3c6f7;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: #0E1F2F;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Visually hidden but accessible label */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.results {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 16px;
+}
+
+.ontology-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px 32px 22px 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border: 1.5px solid #e3eafc;
+  transition: transform 0.12s, box-shadow 0.12s, border 0.12s;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ontology-card:hover {
+  transform: translateY(-2px) scale(1.012);
+  box-shadow: 0 6px 24px #075CA833;
+  border-color: #288EBF;
+}
+.ontology-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  position: relative;
+}
+.ontology-card-title {
+  font-size: 1.35rem;
+  color: #0E1F2F;
+  font-weight: 700;
+  margin: 0;
+}
+.ontology-card-ranking {
+  color: #075CA8;
+  background: #ffffff;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 4px 14px;
+  margin-left: 16px;
+  min-width: 60px;
+  text-align: center;
+}
+.ontology-card-meta {
+  display: flex;
+  gap: 18px;
+  font-size: 1.01rem;
+  color: #288EBF;
+  margin-bottom: 2px;
+}
+.ontology-card-description {
+  color: #374785;
+  font-size: 1.07rem;
+  margin-bottom: 2px;
+}
+.ontology-card-main-classes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  align-items: center;
+}
+.ontology-card-main-classes-title {
+  color: #075CA8;
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin-right: 8px;
+}
+.ontology-card-main-class-tag {
+  background: #e3eafc;
+  color: #0E1F2F;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+.ontology-card-themes {
+  margin-top: 6px;
+}
+.ontology-card-themes-title {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.ontology-card-theme-tag {
+  display: inline-block;
+  background: #e6f0ff;
+  color: #0056b3;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 4px;
+  font-size: 0.85em;
+}
+
+.no-results {
+  text-align: center;
+  color: #075CA8;
+  font-size: 1.13rem;
+  margin-top: 36px;
+}
+
+.loading {
+  text-align: center;
+  color: #075CA8;
+  font-size: 1.13rem;
+  margin-top: 36px;
+}
+
+.error {
+  text-align: center;
+  color: #075CA8;
+  font-size: 1.13rem;
+  margin-top: 36px;
+}
+
+.ontology-detail-bg {
+  min-height: 80vh;
+  width: 100vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #fff;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.ontology-detail-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px #0E1F2F11;
+  border: 2px solid #e3eafc;
+  padding: 48px 44px 36px 44px;
+  max-width: 600px;
+  width: 100%;
+  animation: fadeIn 0.5s;
+}
+
+.ontology-detail-card h2 {
+  font-size: 2.2rem;
+  color: #288EBF;
+  margin-bottom: 18px;
+}
+
+.ontology-detail-card .description {
+  color: #288EBF;
+  font-size: 1.18rem;
+  margin-bottom: 32px;
+}
+
+.ontology-detail-card .meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.13rem;
+  color: #288EBF;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+.ontology-detail-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  min-height: 80vh;
+  background: #fff;
+  padding: 48px 0 48px 0;
+  gap: 40px;
+}
+
+.ontology-detail-main {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px #0E1F2F22;
+  border: 1px solid #e3eafc;
+  padding: 44px 44px 36px 44px;
+  max-width: 700px;
+  width: 700px;
+  min-width: 320px;
+  animation: fadeIn 0.5s;
+}
+
+.ontology-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 8px;
+}
+
+.ontology-detail-main h2 {
+  font-size: 2.1rem;
+  color: #0E1F2F;
+  margin: 0;
+  font-weight: 700;
+}
+
+.ontology-detail-publisher {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.ontology-detail-publisher-label {
+  font-weight: bold;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.publisher-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.publisher-tag {
+  background-color: #e3eafc;
+  color: #22345a;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.ontology-detail-description {
+  color: #374785;
+  font-size: 1.13rem;
+  margin-bottom: 24px;
+}
+
+.ontology-detail-info-box {
+  background: #22345a;
+  color: #288EBF;
+  border-left: 4px solid #288EBF;
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 28px;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+}
+
+.ontology-detail-section {
+  margin-bottom: 28px;
+}
+
+.ontology-detail-section h3 {
+  color: #0E1F2F;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.ontology-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #f8fafd;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 1.01rem;
+}
+.ontology-detail-table th, .ontology-detail-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e3eafc;
+  text-align: left;
+}
+.ontology-detail-table th {
+  background: #e3eafc;
+  color: #0E1F2F;
+  font-weight: 600;
+}
+.ontology-detail-table td {
+  color: #0E1F2F;
+}
+
+.ontology-detail-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ontology-detail-keywords li {
+  background: #e3eafc;
+  color: #0E1F2F;
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 1rem;
+}
+
+.ontology-detail-meta {
+  min-width: 260px;
+  max-width: 320px;
+  width: 100%;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ontology-detail-meta-box {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0E1F2F11;
+  border: 1.5px solid #e3eafc;
+  padding: 28px 24px 20px 24px;
+  color: #0E1F2F;
+  font-size: 1.08rem;
+  margin-bottom: 18px;
+  width: 100%;
+}
+.ontology-detail-meta-box a {
+  color: #075CA8;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.ontology-detail-reuses-box {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0E1F2F11;
+  border: 1.5px solid #e3eafc;
+  padding: 18px 20px 14px 20px;
+  color: #0E1F2F;
+  font-size: 1.05rem;
+  margin-bottom: 18px;
+  width: 100%;
+  text-align: left;
+}
+.ontology-detail-reuses-title {
+  color: #0E1F2F;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 1.08rem;
+  text-align: left;
+}
+.ontology-detail-reuses-list {
+  /* Remove list-style: none to show bullets */
+  padding-left: 20px;
+  margin: 0;
+  text-align: left;
+}
+.ontology-detail-reuses-list li {
+  margin-bottom: 4px;
+  text-align: left;
+}
+.ontology-detail-reuses-list button {
+  background: none;
+  border: none;
+  color: #075CA8;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+.ontology-detail-reuses-list button:hover {
+  color: #0E1F2F;
+}
+.ontology-detail-reuses-list span {
+  color: #288EBF;
+  font-size: 1rem;
+}
+
+.intro-section {
+  width: 100%;
+  max-width: 700px;
+  background: #f5f7fa;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0E1F2F11;
+  padding: 28px 32px 18px 32px;
+  margin-bottom: 32px;
+  color: #0E1F2F;
+  text-align: left;
+}
+.intro-section h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0E1F2F;
+}
+.intro-section p {
+  margin: 0;
+  font-size: 1.08rem;
+  color: #374785;
+} 

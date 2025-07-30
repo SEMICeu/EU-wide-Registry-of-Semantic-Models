@@ -1,21 +1,26 @@
 version: 1
+
 formatters:
-  default:
-    format: "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+  json:
+    format: '{"time": "%(asctime)s", "level": "%(levelname)s", "name": "%(name)s", "message": "%(message)s"}'
     datefmt: "%Y-%m-%d %H:%M:%S"
 
 handlers:
   console:
     class: logging.StreamHandler
-    formatter: default
+    formatter: json
     stream: ext://sys.stdout
 
   file:
     class: logging.FileHandler
-    formatter: default
+    formatter: json
     filename: app.log
-    mode: w  # append mode
+    mode: a 
     encoding: utf-8
+
+root:
+  level: INFO
+  handlers: [console, file]
 
 loggers:
   uvicorn:
@@ -33,6 +38,7 @@ loggers:
     handlers: [console, file]
     propagate: false
 
-root:
-  level: INFO
-  handlers: [console, file]
+  app:
+    level: INFO
+    handlers: [console, file]
+    propagate: false

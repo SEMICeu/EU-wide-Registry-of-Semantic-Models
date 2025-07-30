@@ -1,19 +1,25 @@
 from fastapi import FastAPI, APIRouter
 from app.api.v1.routers.routers import v1_router
+from app.api.v1.routers.synonyms.synonyms_cache import reset_cache_stats
 from contextlib import asynccontextmanager
 import yaml
 import os
 import logging
+import logging.config
 import nltk
 
+# 🔧 Force Uvicorn to use our logging config
+LOG_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "log_config.yaml")
+if os.path.exists(LOG_CONFIG_PATH):
+    import logging.config
+    import yaml
+    with open(LOG_CONFIG_PATH, "r") as f:
+        config = yaml.safe_load(f)
+        logging.config.dictConfig(config)
+
+logger = logging.getLogger("app")  # ✅ Matches "app" logger in YAML
+
 os.environ['HF_HUB_DISABLE_SSL_VERIFY'] = '1'
-# Configure logging globally
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    force=True
-)
-logger = logging.getLogger()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,21 +30,23 @@ async def lifespan(app: FastAPI):
         app.state.config = yaml.safe_load(f)
     
     nltk.download('wordnet')
+
+    reset_cache_stats()
     yield  # serve requests
 
     # Optional cleanup
     logger.info("👋 App is shutting down...")
 
-app = FastAPI( 
+app = FastAPI(
     title="Enricher REST API",
     description="REST API for Registry enricher",
     version="1.0.0",
-    docs_url="/docs",       # Swagger UI path
-    redoc_url="/redoc",     # ReDoc path
-    openapi_url="/openapi.json",  # Raw OpenAPI JSON path
-    lifespan=lifespan)
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+    lifespan=lifespan
+)
 
-
-api_router= APIRouter(prefix="/enricher-api")
+api_router = APIRouter(prefix="/enricher-api")
 api_router.include_router(v1_router)
 app.include_router(api_router)

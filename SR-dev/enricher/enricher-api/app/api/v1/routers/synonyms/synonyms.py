@@ -2,6 +2,7 @@ from fastapi import APIRouter, Query, HTTPException, Request
 import os
 from typing import List, Optional, Optional, Dict, Any
 import logging
+import re
 
 import sys
 # Add project root to sys.path
@@ -11,7 +12,7 @@ from app.api.v1.mlmodels import best_synonym_for_context
 from app.schemas.source import Source
 from nltk.corpus import wordnet
 import requests
-from .synonyms_cache import get_cached_synonyms, set_cached_synonyms, SessionLocal, SynonymCache
+from .synonyms_cache import get_cached_synonyms, set_cached_synonyms, SessionLocal, SynonymCache, get_cache_stats
 from sqlalchemy.orm import Session
 import json
 
@@ -65,6 +66,8 @@ async def synonyms(
             for syn, score in datamuse_syns.items():
                 resultList.append(Synonym(term=syn, source="datamuse", score=score))
 
+        if not nltk_syns and not altervista_syns and not datamuse_syns:
+            logger.warning(f"No synonyms found from any source for term '{term}'")
         # Context re-scoring
         if context:
             temp_list = [s.term for s in resultList]
@@ -78,7 +81,7 @@ async def synonyms(
         if max:
             resultList = resultList[:max]
         
-        logger.info("found synonyms for" + term + ":" + resultList)
+        logger.info(f"Found synonyms for {term}: {resultList}")
         return resultList
     except ValueError as e:
         raise HTTPException(
@@ -101,7 +104,8 @@ def get_nltk_synonyms(term):
         for lemma in syn.lemmas():
             if lemma.name() != term:
                 frequency = lemma.count()
-                synonyms[lemma.name()] = frequency
+                clean_name = lemma.name().replace("_", " ")
+                synonyms[clean_name] = frequency
 
     synonyms = dict(sorted(synonyms.items(), key=lambda x: x[1], reverse=True))
 
@@ -111,10 +115,19 @@ def get_nltk_synonyms(term):
 
     return synonyms
 
+def clean_altervista_term(term: str) -> str:
+    # Remove anything in parentheses and strip whitespace
+    return re.sub(r"\s*\(.*?\)", "", term).strip()
+
 def get_altervista_synonyms(term, api_key, language="en_US"):
+    logger.info(f"[ALTERVISTA] Request for term: '{term}'")
+    
     cached = get_cached_synonyms(term, "altervista")
-    if cached:
+    if cached is not None:
+        logger.info(f"[ALTERVISTA] Cache HIT for '{term}', returning: {cached}")
         return cached
+
+    logger.info(f"[ALTERVISTA] Cache MISS for '{term}', calling API")
 
     url = f"http://thesaurus.altervista.org/thesaurus/v1?word={term}&language={language}&key={api_key}&output=json"
     synonyms = {}
@@ -126,13 +139,16 @@ def get_altervista_synonyms(term, api_key, language="en_US"):
             words = item["list"]["synonyms"].split("|")
             logger.info(f"found altervista synonyms: {words}")
             for w in words:
-                w_clean = w.strip()
-                if w_clean != term:
+                w_clean = clean_altervista_term(w)
+                if w_clean and w_clean != term:
                     synonyms[w_clean] = synonyms.get(w_clean, 1)
 
         # ✅ Only cache if not empty
-        if synonyms:
-            set_cached_synonyms(term, "altervista", synonyms)
+            if synonyms:
+                logger.info(f"[ALTERVISTA] Caching {len(synonyms)} synonyms for '{term}': {synonyms}")
+                set_cached_synonyms(term, "altervista", synonyms)
+            else:
+                logger.info(f"[ALTERVISTA] No synonyms found for '{term}', skipping cache")
 
         return synonyms
     except Exception as e:
@@ -203,3 +219,10 @@ def clear_cache(source: Optional[str] = Query(None, description="Filter by sourc
         return {"deleted": deleted, "source": source or "all"}
     finally:
         session.close()
+
+@synonyms_router.get("/synonyms/cache/stats",
+    summary="Get cache hit/miss stats",
+    description="Returns the number of cache hits and misses per source."
+)
+def cache_stats_endpoint():
+    return get_cache_stats()

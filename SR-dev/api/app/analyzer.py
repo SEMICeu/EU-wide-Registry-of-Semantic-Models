@@ -46,7 +46,11 @@ class AsyncSemanticRegistryAnalyzer:
             resp.raise_for_status()
             results = resp.json()
             return [
-                (result['s']['value'], result['download']['value'])
+                (
+                    result['s']['value'],
+                    result['download']['value'],
+                    result.get('preferredNamespaceUri', {}).get('value')
+                )
                 for result in results['results']['bindings']
             ]
 
@@ -135,49 +139,64 @@ class AsyncSemanticRegistryAnalyzer:
         download_urls = await self.get_download_urls()
         ontology_namespaces = {}
         ontology_main_ns = {}
+        # Map preferredNamespaceUri to its associated fake URIs and download URLs
+        pref_ns_map = {}
+        download_map = {}
+        for fake_uri, download_url, preferred_ns in download_urls:
+            if preferred_ns:
+                pref_ns_map.setdefault(preferred_ns, set()).add(fake_uri)
+                download_map[fake_uri] = download_url
+
         # Download and parse all ontologies
-        tasks = [self.download_and_parse(url) for _, url in download_urls]
-        graphs = await asyncio.gather(*tasks)
-        for (standard_uri, _), graph in zip(download_urls, graphs):
+        ontology_namespaces = {}
+        graphs = await asyncio.gather(*[
+            self.download_and_parse(download_map[fake_uri])
+            for fake_uri in download_map
+        ])
+
+        for fake_uri, graph in zip(download_map, graphs):
             if graph:
-                unique_ns = self.get_unique_namespaces(graph)
-                ontology_namespaces[standard_uri] = unique_ns
-        dct_standard_mappings = self.get_dct_standard_mappings(download_urls, ontology_namespaces)
-        for standard_uri in ontology_namespaces.keys():
-            ontology_main_ns[standard_uri] = dct_standard_mappings.get(standard_uri)
-        total_ontologies = len(ontology_namespaces)
-        ns_to_ontologies = {}
-        for onto, ns_set in ontology_namespaces.items():
-            for ns in ns_set:
-                ns_to_ontologies.setdefault(ns, set()).add(onto)
-        ns_to_ontology_uri = {ns: uri for uri, ns in ontology_main_ns.items() if ns}
-        # Calculate backlinks and LOVRank
+                ontology_namespaces[fake_uri] = self.get_unique_namespaces(graph)
+
+        # Build backlinks per preferred_namespace
+        pref_ns_to_ontologies = {}
+        for fake_uri, used_namespaces in ontology_namespaces.items():
+            for ns in used_namespaces:
+                pref_ns_to_ontologies.setdefault(ns, set()).add(fake_uri)
+
         ontology_metrics = []
         lovrank_tasks = []
-        for standard_uri, main_ns in ontology_main_ns.items():
-            if not main_ns:
-                backlinks = 0
-            else:
-                using_ontologies = ns_to_ontologies.get(main_ns, set())
-                backlinks = len(using_ontologies - {standard_uri})
-            lovrank = backlinks / total_ontologies if total_ontologies > 0 else 0
-            ontology_metrics.append(OntologyMetric(
-                standard_uri=standard_uri,
-                backlinks=backlinks,
-                lovrank=lovrank,
-                main_namespace=main_ns
-            ))
-            lovrank_tasks.append(self.write_lovrank_to_endpoint(standard_uri, f"{lovrank:.6f}"))
+        total_ontologies = sum(len(fake_uris) for fake_uris in pref_ns_map.values())
+
+        for pref_ns, fake_uris in pref_ns_map.items():
+            referencing_uris = pref_ns_to_ontologies.get(pref_ns, set())
+            backlinks = len(referencing_uris - pref_ns_map.get(pref_ns, set()))
+            lovrank = backlinks / total_ontologies if total_ontologies else 0
+            for fake_uri in fake_uris:
+                ontology_metrics.append(OntologyMetric(
+                    standard_uri=fake_uri,
+                    backlinks=backlinks,
+                    lovrank=lovrank,
+                    preferred_namespace_uri=pref_ns
+                ))
+                lovrank_tasks.append(
+                    self.write_lovrank_to_endpoint(fake_uri, f"{lovrank:.6f}")
+                )
         await asyncio.gather(*lovrank_tasks)
-        # Write dct:requires dependencies
-        dependency_count = 0
+        # Write dct:requires based on preferredNamespaceUri
         requires_tasks = []
-        for standard_uri, used_namespaces in ontology_namespaces.items():
+        dependency_count = 0
+        for source_fake_uri, used_namespaces in ontology_namespaces.items():
+            source_pref_ns = None
+            for pref_ns, fake_uris in pref_ns_map.items():
+                if source_fake_uri in fake_uris:
+                    source_pref_ns = pref_ns
+                    break
             for ns in used_namespaces:
-                if ns in ns_to_ontology_uri and ns_to_ontology_uri[ns] != standard_uri:
-                    target_ontology = ns_to_ontology_uri[ns]
-                    requires_tasks.append(self.write_requires_to_endpoint(standard_uri, target_ontology))
-                    dependency_count += 1
+                if ns in pref_ns_map and ns != source_pref_ns:
+                    for target_fake_uri in pref_ns_map[ns]:
+                        requires_tasks.append(self.write_requires_to_endpoint(source_fake_uri, target_fake_uri))
+                        dependency_count += 1
         await asyncio.gather(*requires_tasks)
         end_time = datetime.now()
         execution_time = (end_time - start_time).total_seconds()

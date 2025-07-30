@@ -11,6 +11,7 @@ class AnalysisStatusEnum(str, Enum):
 
 class OntologyMetric(BaseModel):
     standard_uri: str = Field(..., description="The URI of the dct:Standard ontology")
+    preferred_namespace_uri: str = Field(..., description="The preferred namespace URI of the ontology")
     backlinks: int = Field(..., description="Number of other ontologies that use this ontology")
     lovrank: float = Field(..., description="LOVRank score between 0 and 1")
     main_namespace: Optional[str] = Field(None, description="The main namespace of the ontology")

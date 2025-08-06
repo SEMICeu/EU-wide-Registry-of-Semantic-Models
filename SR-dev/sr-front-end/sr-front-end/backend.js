@@ -40,6 +40,9 @@ app.post('/api/search', async (req, res) => {
       (GROUP_CONCAT(DISTINCT COALESCE(?publisherName, STR(?publisher)); SEPARATOR="||") AS ?publishers)
       (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses)
       (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies)
+      (GROUP_CONCAT(DISTINCT CONCAT(STR(?requiringStandard), "|", COALESCE(?requiringTitle, ""), "|", COALESCE(?requiringPublisherName, STR(?requiringPublisher)), "|", COALESCE(STR(?requiringLocation), "")); SEPARATOR="||") AS ?requiringStandards)
+      (GROUP_CONCAT(DISTINCT ?requiringPublisherName; SEPARATOR="||") AS ?requiringPublisherNames)
+      (GROUP_CONCAT(DISTINCT STR(?requiringLocation); SEPARATOR="||") AS ?requiringLocations)
       (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords)
       ?created ?homepage
       (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
@@ -88,7 +91,24 @@ app.post('/api/search', async (req, res) => {
       }
       OPTIONAL {
         ?standard dct:requires ?reused .
-        OPTIONAL { ?reused dct:title ?reusedTitle . FILTER(lang(?reusedTitle) = "en") }
+        OPTIONAL { ?reused dct:title ?requiredTitle . FILTER(lang(?reusedTitle) = "en") }
+      }
+      OPTIONAL {
+        ?requiringStandard dct:requires ?standard .
+        ?requiringStandard dct:title ?requiringTitle .
+        ?requiringStandard dct:publisher ?requiringPublisher .
+        OPTIONAL {
+          ?requiringPublisher a foaf:Agent ;
+                            dct:title ?requiringPublisherName .
+          FILTER(lang(?requiringPublisherName) = "en")
+        }
+        OPTIONAL {
+          ?requiringStandard dct:creator ?requiringAgent .
+          ?requiringAgent a foaf:Agent ;
+                        dct:spatial ?requiringLocation .
+          ?requiringLocation a dct:Location .
+        }
+        FILTER(lang(?requiringTitle) = "en")
       }
       OPTIONAL { ?standard dcat:keyword ?keyword }
       OPTIONAL { ?standard dct:created ?created }
@@ -99,7 +119,7 @@ app.post('/api/search', async (req, res) => {
         ?resourceDescriptor dcat:downloadURL ?downloadURL .
         OPTIONAL { ?resourceDescriptor dct:format ?format }
       }
-      OPTIONAL { ?standard dcat:theme ?dataTheme }  # <-- added
+      OPTIONAL { ?standard dcat:theme ?dataTheme }
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
       FILTER (lang(?description) = "en")
@@ -128,6 +148,19 @@ app.post('/api/search', async (req, res) => {
               return { uri, title };
             })
           : [],
+        requiringStandards: row.requiringStandards
+          ? row.requiringStandards.value.split('||').filter(Boolean).map(str => {
+              const [uri, title, publisher, location] = str.split('|');
+              return { uri, title, publisher, location };
+            })
+          : [],
+        requiringPublisherNames: row.requiringPublisherNames ? row.requiringPublisherNames.value.split('||').filter(Boolean) : [],
+        requiringLocations: (() => {
+          const locations = row.requiringLocations ? row.requiringLocations.value.split('||').filter(Boolean) : [];
+          console.log('Backend - requiringLocations raw:', row.requiringLocations ? row.requiringLocations.value : 'null');
+          console.log('Backend - requiringLocations processed:', locations);
+          return locations;
+        })(),
         keywords: row.keywords ? row.keywords.value.split('||') : [],
         created: row.created ? row.created.value : null,
         homepage: row.homepage ? row.homepage.value : null,
@@ -171,6 +204,9 @@ app.post('/api/ontology', async (req, res) => {
       (GROUP_CONCAT(DISTINCT COALESCE(?publisherName, STR(?publisher)); SEPARATOR="||") AS ?publishers)
       (GROUP_CONCAT(DISTINCT ?classLabel; SEPARATOR="||") AS ?mainClasses)
       (GROUP_CONCAT(DISTINCT CONCAT(STR(?reused), "|", COALESCE(?reusedTitle, "")); SEPARATOR="||") AS ?reusedOntologies)
+      (GROUP_CONCAT(DISTINCT CONCAT(STR(?requiringStandard), "|", COALESCE(?requiringTitle, ""), "|", COALESCE(?requiringPublisherName, STR(?requiringPublisher)), "|", COALESCE(STR(?requiringLocation), "")); SEPARATOR="||") AS ?requiringStandards)
+      (GROUP_CONCAT(DISTINCT ?requiringPublisherName; SEPARATOR="||") AS ?requiringPublisherNames)
+      (GROUP_CONCAT(DISTINCT STR(?requiringLocation); SEPARATOR="||") AS ?requiringLocations)
       (GROUP_CONCAT(DISTINCT ?keyword; SEPARATOR="||") AS ?keywords)
       ?created ?homepage
       (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
@@ -196,6 +232,23 @@ app.post('/api/ontology', async (req, res) => {
       OPTIONAL {
         ?standard dct:requires ?reused .
         OPTIONAL { ?reused dct:title ?reusedTitle . FILTER(lang(?reusedTitle) = "en") }
+      }
+      OPTIONAL {
+        ?requiringStandard dct:requires ?standard .
+        ?requiringStandard dct:title ?requiringTitle .
+        ?requiringStandard dct:publisher ?requiringPublisher .
+        OPTIONAL {
+          ?requiringPublisher a foaf:Agent ;
+                            dct:title ?requiringPublisherName .
+          FILTER(lang(?requiringPublisherName) = "en")
+        }
+        OPTIONAL {
+          ?requiringStandard dct:creator ?requiringAgent .
+          ?requiringAgent a foaf:Agent ;
+                        dct:spatial ?requiringLocation .
+          ?requiringLocation a dct:Location .
+        }
+        FILTER(lang(?requiringTitle) = "en")
       }
       OPTIONAL { ?standard dcat:keyword ?keyword }
       OPTIONAL { ?standard dct:created ?created }
@@ -237,6 +290,19 @@ app.post('/api/ontology', async (req, res) => {
               return { uri, title };
             })
           : [],
+        requiringStandards: row.requiringStandards
+          ? row.requiringStandards.value.split('||').filter(Boolean).map(str => {
+              const [uri, title, publisher, location] = str.split('|');
+              return { uri, title, publisher, location };
+            })
+          : [],
+        requiringPublisherNames: row.requiringPublisherNames ? row.requiringPublisherNames.value.split('||').filter(Boolean) : [],
+        requiringLocations: (() => {
+          const locations = row.requiringLocations ? row.requiringLocations.value.split('||').filter(Boolean) : [];
+          console.log('Backend - requiringLocations raw:', row.requiringLocations ? row.requiringLocations.value : 'null');
+          console.log('Backend - requiringLocations processed:', locations);
+          return locations;
+        })(),
         keywords: row.keywords ? row.keywords.value.split('||') : [],
         created: row.created ? row.created.value : null,
         homepage: row.homepage ? row.homepage.value : null,

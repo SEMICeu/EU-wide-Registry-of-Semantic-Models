@@ -6,6 +6,7 @@ import { getLanguageLabel } from './languageMapping';
 import { getFormatLabel } from './formatMapping';
 import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
 import { allPublishers, getPublisherLabel } from './publisherMapping';
+import { getCountryLabel } from './countryMapping';
 
 // Helper to map ranking (0-1) to stars and meaning
 function getRankingDisplay(ranking) {
@@ -17,7 +18,122 @@ function getRankingDisplay(ranking) {
 }
 
 function slugifyTitle(titleOrUri) {
-  return (titleOrUri || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return titleOrUri
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
+// Helper function to extract unique publishers and countries from requiring standards
+function extractUniquePublishersAndCountries(requiringStandards) {
+  if (!requiringStandards || requiringStandards.length === 0) {
+    return [];
+  }
+
+  const publisherMap = new Map();
+
+  requiringStandards.forEach(standard => {
+    const publisher = standard.publisher;
+    const location = standard.location;
+    
+    if (publisher && publisher.trim() !== '') {
+      // Clean up the publisher name (remove any URI prefixes if present)
+      const cleanPublisher = publisher.replace(/^https?:\/\/[^\/]+\//, '').replace(/^http:\/\/[^\/]+\//, '');
+      
+      if (!publisherMap.has(cleanPublisher)) {
+        publisherMap.set(cleanPublisher, {
+          publisher: cleanPublisher,
+          countries: new Set(),
+          count: 0
+        });
+      }
+      
+      const entry = publisherMap.get(cleanPublisher);
+      entry.count++;
+      
+      if (location && location.trim() !== '') {
+        // Clean up the location name (remove any URI prefixes if present)
+        const cleanLocation = location.replace(/^https?:\/\/[^\/]+\//, '').replace(/^http:\/\/[^\/]+\//, '');
+        entry.countries.add(cleanLocation);
+      }
+    }
+  });
+
+  return Array.from(publisherMap.values()).map(entry => ({
+    publisher: entry.publisher,
+    countries: Array.from(entry.countries),
+    count: entry.count
+  }));
+}
+
+// New function to extract unique publishers from requiring standards
+function getUniquePublishersFromRequiringStandards(requiringStandards) {
+  if (!requiringStandards || requiringStandards.length === 0) {
+    return [];
+  }
+
+  console.log('Raw requiring standards data:', requiringStandards);
+
+  const uniquePublishers = new Set();
+  
+  requiringStandards.forEach((standard, index) => {
+    console.log(`Standard ${index}:`, standard);
+    console.log(`Standard ${index} publisher field:`, standard.publisher);
+    
+    if (standard.publisher && standard.publisher.trim() !== '') {
+      // Clean up the publisher name (remove any URI prefixes if present)
+      const cleanPublisher = standard.publisher.replace(/^https?:\/\/[^\/]+\//, '').replace(/^http:\/\/[^\/]+\//, '');
+      console.log(`Standard ${index} clean publisher:`, cleanPublisher);
+      uniquePublishers.add(cleanPublisher);
+    }
+  });
+
+  const result = Array.from(uniquePublishers);
+  console.log('Final unique publishers:', result);
+  return result;
+}
+
+// Simple function to get unique publisher names from the dedicated field
+function getUniqueRequiringPublisherNames(requiringPublisherNames) {
+  if (!requiringPublisherNames || requiringPublisherNames.length === 0) {
+    return [];
+  }
+
+  console.log('Raw requiring publisher names:', requiringPublisherNames);
+  
+  // Filter out empty strings and get unique values
+  const uniquePublishers = [...new Set(requiringPublisherNames.filter(name => name && name.trim() !== ''))];
+  
+  console.log('Final unique requiring publisher names:', uniquePublishers);
+  return uniquePublishers;
+}
+
+// Simple function to get unique requiring locations (countries) from the dedicated field
+function getUniqueRequiringLocations(requiringLocations) {
+  if (!requiringLocations || requiringLocations.length === 0) {
+    console.log('No requiring locations data available');
+    return [];
+  }
+
+  console.log('Raw requiring locations:', requiringLocations);
+  console.log('Requiring locations length:', requiringLocations.length);
+  
+  // Filter out empty strings and get unique values, keep full URIs for mapping
+  const uniqueLocations = [...new Set(requiringLocations
+    .filter(location => location && location.trim() !== '')
+  )];
+  
+  console.log('Filtered locations:', requiringLocations.filter(location => location && location.trim() !== ''));
+  console.log('Final unique requiring locations:', uniqueLocations);
+  return uniqueLocations;
+}
+
+// Helper function to truncate text to 50 words
+function truncateToWords(text, maxWords = 50) {
+  if (!text) return '';
+  const words = text.split(' ');
+  if (words.length <= maxWords) return text;
+  return words.slice(0, maxWords).join(' ') + '...';
 }
 
 function About() {
@@ -62,9 +178,20 @@ function OntologyDetail({ ontologies }) {
   const [fetchedOntology, setFetchedOntology] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [expandedSections, setExpandedSections] = useState({
+    reuses: false,
+    reusedBy: false
+  });
   const ontologyIdx = ontologies.findIndex(o => slugifyTitle(o.title) === slug);
   const ontology = ontologyIdx !== -1 ? ontologies[ontologyIdx] : fetchedOntology;
   const navigate = useNavigate();
+
+  const toggleSection = (section) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
 
   useEffect(() => {
     if (ontologyIdx === -1) {
@@ -103,15 +230,17 @@ function OntologyDetail({ ontologies }) {
         <div className="ontology-detail-header">
           <h2>{ontology.title}</h2>
         </div>
-        <div className="ontology-detail-publisher">
-          <span className="ontology-detail-publisher-label">Publisher:</span>
-          <div className="publisher-list">
-            {ontology.publishers?.map((publisher, index) => (
-              <span key={index} className="publisher-tag">
-                {publisher}
-              </span>
-            ))}
-          </div>
+        <div className="ontology-detail-section">
+          <h3>Publisher</h3>
+          {ontology.publishers && ontology.publishers.length > 0 ? (
+            <ul className="ontology-detail-keywords">
+              {ontology.publishers.map((publisher, idx) => (
+                <li key={idx}>{publisher}</li>
+              ))}
+            </ul>
+          ) : (
+            <span style={{ color: '#7eb6ff' }}>No publisher listed.</span>
+          )}
         </div>
         <div className="ontology-detail-description">
           {ontology.description}
@@ -185,19 +314,60 @@ function OntologyDetail({ ontologies }) {
             <span style={{ color: '#7eb6ff' }}>No keywords listed.</span>
           )}
         </div>
+        
+        {ontology.reusedOntologies && ontology.reusedOntologies.length > 0 && (
+          <div className="ontology-detail-section">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                 onClick={() => toggleSection('reuses')}>
+              <h3>This ontology reuses ({ontology.reusedOntologies.length})</h3>
+              <span style={{ fontSize: '1.2rem', color: '#075CA8' }}>
+                {expandedSections.reuses ? '−' : '+'}
+              </span>
+            </div>
+            {expandedSections.reuses && (
+              <ul className="ontology-detail-keywords">
+                {ontology.reusedOntologies.map((onto, idx) => {
+                  return (
+                    <li key={idx}>
+                      <button style={{ background: 'none', border: 'none', color: '#075CA8', textDecoration: 'underline', cursor: 'pointer', padding: 0 }}
+                        onClick={() => navigate(`/ontology/${encodeURIComponent(onto.uri)}`)}>
+                        {onto.title ? onto.title : onto.uri}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        )}
+        
+        {ontology.requiringStandards && ontology.requiringStandards.length > 0 && (
+          <div className="ontology-detail-section">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
+                 onClick={() => toggleSection('reusedBy')}>
+              <h3>This ontology is reused by ({ontology.requiringStandards.length})</h3>
+              <span style={{ fontSize: '1.2rem', color: '#075CA8' }}>
+                {expandedSections.reusedBy ? '−' : '+'}
+              </span>
+            </div>
+            {expandedSections.reusedBy && (
+              <ul className="ontology-detail-keywords">
+                {ontology.requiringStandards.map((onto, idx) => {
+                  return (
+                    <li key={idx}>
+                      <button style={{ background: 'none', border: 'none', color: '#075CA8', textDecoration: 'underline', cursor: 'pointer', padding: 0 }}
+                        onClick={() => navigate(`/ontology/${encodeURIComponent(onto.uri)}`)}>
+                        {onto.title ? onto.title : onto.uri}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
       <aside className="ontology-detail-meta">
-        <div className="ontology-detail-meta-box">
-            {(() => {
-              const { stars, label } = getRankingDisplay(ontology.ranking);
-              return (
-                <div className="ontology-card-ranking">
-                  <div className="stars">{stars}</div>
-                  <div className="ranking-label">{label}</div>
-                </div>
-              );
-            })()}
-        </div>
         <div className="ontology-detail-meta-box">
           <div><b>Created:</b> {ontology.created ? new Date(ontology.created).toLocaleDateString() : <span style={{color:'#7eb6ff'}}>Unknown</span>}</div>
           <div><b>Landing Page:</b> {ontology.homepage ? <a href={ontology.homepage} target="_blank" rel="noopener noreferrer">{ontology.homepage}</a> : <span style={{color:'#7eb6ff'}}>None</span>}</div>
@@ -215,23 +385,72 @@ function OntologyDetail({ ontologies }) {
           )}
         </div>
         </div>
-        {ontology.reusedOntologies && ontology.reusedOntologies.length > 0 && (
-          <div className="ontology-detail-reuses-box">
-            <div className="ontology-detail-reuses-title">This ontology reuses:</div>
-            <ul className="ontology-detail-reuses-list">
-              {ontology.reusedOntologies.map((onto, idx) => {
-                return (
-                  <li key={idx}>
-                    <button style={{ background: 'none', border: 'none', color: '#7eb6ff', textDecoration: 'underline', cursor: 'pointer', padding: 0 }}
-                      onClick={() => navigate(`/ontology/${encodeURIComponent(onto.uri)}`)}>
-                      {onto.title ? onto.title : onto.uri}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
+        <div className="ontology-detail-meta-box">
+            {(() => {
+              const { stars, label } = getRankingDisplay(ontology.ranking);
+              const reuseCount = ontology.requiringStandards ? ontology.requiringStandards.length : 0;
+              return (
+                <div className="ontology-card-ranking">
+                  <div className="stars">{stars}</div>
+                  <div className="ranking-label">{label}</div>
+                  <div className="reuse-count">Reused in {reuseCount} ontologies</div>
+                </div>
+              );
+            })()}
+            {ontology.requiringStandards && ontology.requiringStandards.length > 0 && (
+              <div style={{ marginTop: '16px' }}>
+                <div style={{ fontWeight: 'bold', marginBottom: '8px', color: '#0E1F2F' }}>Reused by</div>
+                <div style={{ marginBottom: '12px' }}>
+                  <div style={{ fontWeight: '600', marginBottom: '4px', color: '#075CA8', fontSize: '0.95rem' }}>Country</div>
+                  {(() => {
+                    const uniqueLocations = getUniqueRequiringLocations(ontology.requiringLocations);
+                    return uniqueLocations.length > 0 ? (
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                        {uniqueLocations.map((location, idx) => (
+                          <li key={idx} style={{ 
+                            background: '#e3eafc', 
+                            color: '#0E1F2F', 
+                            borderRadius: '6px', 
+                            padding: '5px 14px', 
+                            fontSize: '1rem',
+                            marginBottom: '4px',
+                            display: 'inline-block',
+                            marginRight: '6px'
+                          }}>{getCountryLabel(location)}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span style={{ color: '#7eb6ff' }}>No country information available.</span>
+                    );
+                  })()}
+                </div>
+                <div>
+                  <div style={{ fontWeight: '600', marginBottom: '4px', color: '#075CA8', fontSize: '0.95rem' }}>Publisher</div>
+                  {(() => {
+                    const uniquePublishers = getUniqueRequiringPublisherNames(ontology.requiringPublisherNames);
+                    return uniquePublishers.length > 0 ? (
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                        {uniquePublishers.map((publisher, idx) => (
+                          <li key={idx} style={{ 
+                            background: '#e3eafc', 
+                            color: '#0E1F2F', 
+                            borderRadius: '6px', 
+                            padding: '5px 14px', 
+                            fontSize: '1rem',
+                            marginBottom: '4px',
+                            display: 'inline-block',
+                            marginRight: '6px'
+                          }}>{publisher}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span style={{ color: '#7eb6ff' }}>No publisher information available.</span>
+                    );
+                  })()}
+                </div>
+              </div>
+            )}
+        </div>
       </aside>
     </div>
   );
@@ -383,42 +602,73 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                     <span className="ontology-card-title">{onto.title}</span>
                     <span className="ontology-card-ranking">{(() => {
                       const { stars, label } = getRankingDisplay(onto.ranking);
+                      const reuseCount = onto.requiringStandards ? onto.requiringStandards.length : 0;
                       return (
                         <div className="ontology-card-ranking">
                           <div className="stars">{stars}</div>
                           <div className="ranking-label">{label}</div>
+                          <div className="reuse-count">Reused in {reuseCount} ontologies</div>
                         </div>
                       );
                     })()}
                     </span>
                   </div>
-                  <div className="ontology-card-meta">
-                    <span className="publisher-label">Publisher:</span>
-                    <div className="publisher-list">
-                      {onto.publishers?.map((publisher, index) => (
-                        <span key={index} className="publisher-tag">
+                  {onto.publishers && onto.publishers.length > 0 && (
+                    <div className="ontology-card-main-classes">
+                      <span className="ontology-card-main-classes-title">Publisher</span>
+                      {onto.publishers.slice(0, 3).map((publisher, i) => (
+                        <span className="ontology-card-main-class-tag" key={i}>
                           {publisher}
                         </span>
                       ))}
                     </div>
-                  </div>
-                  <div className="ontology-card-description">{onto.description}</div>
-                  {onto.dataThemes && onto.dataThemes.length > 0 && (
-                    <div className="ontology-card-themes">
-                      <span className="ontology-card-themes-title">Data Themes:</span>
-                      {onto.dataThemes.map((theme, i) => (
-                        <span className="ontology-card-theme-tag" key={i}>
-                          {getDataThemeLabel(theme)}
-                        </span>
-                      ))}
+                  )}
+                  {onto.description && (
+                    <div className="ontology-card-description">
+                      {truncateToWords(onto.description)}
                     </div>
                   )}
-                  {onto.mainClasses && onto.mainClasses.length > 0 && (
+                  {onto.requiringStandards && onto.requiringStandards.length > 0 && (
                     <div className="ontology-card-main-classes">
-                      <span className="ontology-card-main-classes-title">Main classes:</span>
-                      {onto.mainClasses.map((cls, i) => (
-                        <span className="ontology-card-main-class-tag" key={i}>{cls}</span>
-                      ))}
+                      <div className="ontology-card-subsection-title">Reused by</div>
+                      <div className="ontology-card-subsection">
+                        <span className="ontology-card-subsection-title-grey">Publisher</span>
+                        {(() => {
+                          const uniquePublishers = getUniqueRequiringPublisherNames(onto.requiringPublisherNames);
+                          return uniquePublishers.slice(0, 3).map((pub, i) => (
+                            <span className="ontology-card-main-class-tag" key={i}>
+                              {pub}
+                            </span>
+                          ));
+                        })()}
+                        {(() => {
+                          const uniquePublishers = getUniqueRequiringPublisherNames(onto.requiringPublisherNames);
+                          return uniquePublishers.length > 3 && (
+                            <span className="ontology-card-main-class-tag">
+                              +{uniquePublishers.length - 3} more
+                            </span>
+                          );
+                        })()}
+                      </div>
+                      <div className="ontology-card-subsection">
+                        <span className="ontology-card-subsection-title-grey">Country</span>
+                        {(() => {
+                          const uniqueLocations = getUniqueRequiringLocations(onto.requiringLocations);
+                          return uniqueLocations.slice(0, 3).map((location, i) => (
+                            <span className="ontology-card-main-class-tag" key={i}>
+                              {getCountryLabel(location)}
+                            </span>
+                          ));
+                        })()}
+                        {(() => {
+                          const uniqueLocations = getUniqueRequiringLocations(onto.requiringLocations);
+                          return uniqueLocations.length > 3 && (
+                            <span className="ontology-card-main-class-tag">
+                              +{uniqueLocations.length - 3} more
+                            </span>
+                          );
+                        })()}
+                      </div>
                     </div>
                   )}
                 </div>

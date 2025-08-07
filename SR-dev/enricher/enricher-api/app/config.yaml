@@ -1,4 +1,5 @@
-datamuse_endpoint: "https://api.datamuse.com/words?ml="
+altervista_endpoint: "http://thesaurus.altervista.org/thesaurus/v1?"
+datamuse_endpoint: "https://api.datamuse.com/words?"
 altervista_key: "Kdnuiqz85LO7gGIHdGZf"
 
 datathemes:

@@ -1,10 +1,10 @@
+from prefect import task
 from prefect.logging import get_run_logger
 from SPARQLWrapper import SPARQLWrapper, JSON
-from prefect import task
 import requests
 
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
-def fetch_data_to_classify(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri : str = "http://semic.registry.eu"):
+def fetch_themes_to_classify(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri : str = "http://semic.registry.eu"):
     logger = get_run_logger()
     logger.info(f"Fetching data from {source_endpoint}")
 

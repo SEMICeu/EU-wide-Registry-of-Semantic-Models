@@ -40,6 +40,7 @@ async def synonyms(
 
     try:
         config = request.app.state.config
+        altervista_endpoint = config['altervista_endpoint']
         datamuse_endpoint = config['datamuse_endpoint']
         altervista_key = config['altervista_key']
 
@@ -56,7 +57,7 @@ async def synonyms(
 
         # Altervista
         if sources in ("altervista", "all") or ((sources is None) and not nltk_syns):
-            altervista_syns = get_altervista_synonyms(term, altervista_key)
+            altervista_syns = get_altervista_synonyms(altervista_endpoint, term, altervista_key)
             for syn, score in altervista_syns.items():
                 resultList.append(Synonym(term=syn, source="altervista", score=score))
 
@@ -119,7 +120,7 @@ def clean_altervista_term(term: str) -> str:
     # Remove anything in parentheses and strip whitespace
     return re.sub(r"\s*\(.*?\)", "", term).strip()
 
-def get_altervista_synonyms(term, api_key, language="en_US"):
+def get_altervista_synonyms(altervista_endpoint, term, api_key, language="en_US"):
     logger.info(f"[ALTERVISTA] Request for term: '{term}'")
     
     cached = get_cached_synonyms(term, "altervista")
@@ -129,7 +130,7 @@ def get_altervista_synonyms(term, api_key, language="en_US"):
 
     logger.info(f"[ALTERVISTA] Cache MISS for '{term}', calling API")
 
-    url = f"http://thesaurus.altervista.org/thesaurus/v1?word={term}&language={language}&key={api_key}&output=json"
+    url = f"{altervista_endpoint}word={term}&language={language}&key={api_key}&output=json"
     synonyms = {}
     try:
         response = requests.get(url)
@@ -161,7 +162,7 @@ def get_datamuse_synonyms(datamuse_endpoint, term, max_results=10):
         return cached
 
     synonyms = {}
-    url = f"{datamuse_endpoint}{term}&max={max_results}"
+    url = f"{datamuse_endpoint}rel_syn={term}&max={max_results}"
     try:
         response = requests.get(url)
         response.raise_for_status()

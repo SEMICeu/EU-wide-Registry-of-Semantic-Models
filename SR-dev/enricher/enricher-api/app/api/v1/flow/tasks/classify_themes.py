@@ -38,12 +38,12 @@ def fetch_themes_to_classify(source_endpoint: str = "http://63.32.50.253:81/spar
     logger.info("Fetched data:", data)  # <-- This prints the fetched dictionary to stdout
     return data
 
-@task
-def classify_and_enrich(source_endpoint, graph_uri, data):
+@task(tags=["classify", "enrich"])
+def classify(classify_api, data):
     logger = get_run_logger()
-    logger.info(f"Enriching graph {graph_uri} with data")
+    logger.info(f"Classifying the data...")
 
-    url = "http://127.0.0.1:8000/enricher-api/v1/classify"
+    url = classify_api
     enriched_results = {}
 
     for standard_uri, props in data.items():
@@ -73,7 +73,12 @@ def classify_and_enrich(source_endpoint, graph_uri, data):
             enriched_results[standard_uri] = None
 
     logger.info(enriched_results)
+    return enriched_results
 
+@task
+def add_themes_to_graph(source_endpoint, graph_uri, enriched_results):
+    logger = get_run_logger()
+    logger.info(f"Adding themes to the graph {graph_uri}...")
     prefixes = """
     PREFIX dcat: <http://www.w3.org/ns/dcat#>
     """

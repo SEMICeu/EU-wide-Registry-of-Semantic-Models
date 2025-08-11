@@ -6,16 +6,10 @@ import { getLanguageLabel } from './languageMapping';
 import { getFormatLabel } from './formatMapping';
 import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
 import { allPublishers, getPublisherLabel } from './publisherMapping';
-import { getCountryLabel } from './countryMapping';
+import 'flag-icons/css/flag-icons.min.css';
+import { getCountryLabel, getCountryCode } from './countryMapping';
 
-// Helper to map ranking (0-1) to stars and meaning
-function getRankingDisplay(ranking) {
-  if (ranking >= 0.85) return { stars: "⭐⭐⭐⭐⭐", label: "Highly Interoperable" };
-  if (ranking >= 0.65) return { stars: "⭐⭐⭐⭐", label: "Widely Reused" };
-  if (ranking >= 0.35) return { stars: "⭐⭐⭐", label: "Commonly Reused" };
-  if (ranking >= 0.1) return { stars: "⭐⭐", label: "Occasionally Reused" };
-  return { stars: "⭐", label: "Rarely Reused" };
-}
+// Ranking-based UI removed
 
 function slugifyTitle(titleOrUri) {
   return titleOrUri
@@ -136,42 +130,7 @@ function truncateToWords(text, maxWords = 50) {
   return words.slice(0, maxWords).join(' ') + '...';
 }
 
-function About() {
-  const ratings = [
-    { stars: '⭐⭐⭐⭐⭐', title: 'Highly Interoperable', description: 'This ontology is among the most reused within the graph and adoption of this ontology or its elements will ensure the highest level of interoperability.' },
-    { stars: '⭐⭐⭐⭐', title: 'Widely Reused', description: 'This ontology is widely reused within the graph and adoption of this ontology or its elements will ensure a strong level of interoperability.' },
-    { stars: '⭐⭐⭐', title: 'Commonly Reused', description: 'This ontology is commonly reused within the graph and adoption of this ontology or its elements will ensure a good level of interoperability.' },
-    { stars: '⭐⭐', title: 'Occasionally Reused', description: 'This ontology is occasionally reused within the graph and adoption of this ontology or its elements will ensure a modest level of interoperability.' },
-    { stars: '⭐', title: 'Rarely Reused', description: 'This ontology is rarely reused within the graph and adoption of this ontology or its elements will ensure the lowest level of interoperability.' },
-  ];
-  return (
-    <div className="about-container">
-      <h1 className="about-heading">About the Ranking System</h1>
-      <p className="about-paragraph">
-        Our ranking system evaluates semantic ontologies based on their reuse within the graph of the Semantic Registry.
-      </p>
-      <p className="about-paragraph">
-        It does so by calculating a score for each ontology by counting the number of times it is reused by other ontologies. To make the interpretation of these scores more intuitive each score is assigned a number of starts between 1 and 5.
-      </p>
-      <p className="about-paragraph">
-        For example, if elements of an ontology are reused in half of all the ontologies in the graph it will receive a score of 0.5.
-      </p>
-      <h2 className="about-subheading">Five-Star Rating Explained</h2>
-
-      <div className="rating-list">
-        {ratings.map(({ stars, title, description }) => (
-          <div className="rating-row" key={title}>
-            <button className="rating-button" type="button" aria-label={`${title} rating`}>
-              <span className="rating-stars">{stars}</span>
-              <span className="rating-title">{title}</span>
-            </button>
-            <p className="rating-description">{description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// About page removed
 
 function OntologyDetail({ ontologies }) {
   const { slug } = useParams();
@@ -179,8 +138,8 @@ function OntologyDetail({ ontologies }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [expandedSections, setExpandedSections] = useState({
-    reuses: false,
-    reusedBy: false
+    reuses: true,
+    reusedBy: true
   });
   const ontologyIdx = ontologies.findIndex(o => slugifyTitle(o.title) === slug);
   const ontology = ontologyIdx !== -1 ? ontologies[ontologyIdx] : fetchedOntology;
@@ -386,17 +345,6 @@ function OntologyDetail({ ontologies }) {
         </div>
         </div>
         <div className="ontology-detail-meta-box">
-            {(() => {
-              const { stars, label } = getRankingDisplay(ontology.ranking);
-              const reuseCount = ontology.requiringStandards ? ontology.requiringStandards.length : 0;
-              return (
-                <div className="ontology-card-ranking">
-                  <div className="stars">{stars}</div>
-                  <div className="ranking-label">{label}</div>
-                  <div className="reuse-count">Reused in {reuseCount} ontologies</div>
-                </div>
-              );
-            })()}
             {ontology.requiringStandards && ontology.requiringStandards.length > 0 && (
               <div style={{ marginTop: '16px' }}>
                 <div style={{ fontWeight: 'bold', marginBottom: '8px', color: '#0E1F2F' }}>Reused by</div>
@@ -406,18 +354,25 @@ function OntologyDetail({ ontologies }) {
                     const uniqueLocations = getUniqueRequiringLocations(ontology.requiringLocations);
                     return uniqueLocations.length > 0 ? (
                       <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-                        {uniqueLocations.map((location, idx) => (
-                          <li key={idx} style={{ 
-                            background: '#e3eafc', 
-                            color: '#0E1F2F', 
-                            borderRadius: '6px', 
-                            padding: '5px 14px', 
-                            fontSize: '1rem',
-                            marginBottom: '4px',
-                            display: 'inline-block',
-                            marginRight: '6px'
-                          }}>{getCountryLabel(location)}</li>
-                        ))}
+                        {uniqueLocations.map((location, idx) => {
+                          const code = getCountryCode(location);
+                          const name = getCountryLabel(location);
+                          return (
+                            <li key={idx} style={{ 
+                              background: '#e3eafc', 
+                              color: '#0E1F2F', 
+                              borderRadius: '6px', 
+                              padding: '5px 14px', 
+                              fontSize: '1rem',
+                              marginBottom: '4px',
+                              display: 'inline-block',
+                              marginRight: '6px'
+                            }}>
+                              {code && <span className={`fi fi-${code}`} style={{marginRight: '8px'}}></span>}
+                              {name}
+                            </li>
+                          );
+                        })}
                       </ul>
                     ) : (
                       <span style={{ color: '#7eb6ff' }}>No country information available.</span>
@@ -521,7 +476,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       <div className="intro-section">
         <h2>Welcome to the SEMIC Semantic Registry</h2>
         <p>
-          The Semantic Registry contains semantic models from well known publishers, Member States, European Agencies and more. It uses ranking metrics to recommend semantic models that are the most commonly used and interconnected with other models, allowing you to make the best decision for your use case!
+          The Semantic Registry contains technical, implementation and relationship information, that are intended to promote the increasing convergence to semantic interoperability. The information can be used in support to the semantic modelling task as evidence to guide the selection of the semantic elements that will overall increase the semantic interoperability of the adopters.
         </p>
       </div>
       <div className="search-filter-container">
@@ -589,9 +544,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
           {results.length === 0 ? (
             <p className="no-results">No ontologies found.</p>
           ) : (
-            [...results]
-              .sort((a, b) => parseFloat(b.ranking) - parseFloat(a.ranking))
-              .map((onto, idx) => (
+            results.map((onto, idx) => (
                 <div
                   className="ontology-card"
                   key={idx}
@@ -600,18 +553,6 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                 >
                   <div className="ontology-card-header">
                     <span className="ontology-card-title">{onto.title}</span>
-                    <span className="ontology-card-ranking">{(() => {
-                      const { stars, label } = getRankingDisplay(onto.ranking);
-                      const reuseCount = onto.requiringStandards ? onto.requiringStandards.length : 0;
-                      return (
-                        <div className="ontology-card-ranking">
-                          <div className="stars">{stars}</div>
-                          <div className="ranking-label">{label}</div>
-                          <div className="reuse-count">Reused in {reuseCount} ontologies</div>
-                        </div>
-                      );
-                    })()}
-                    </span>
                   </div>
                   {onto.publishers && onto.publishers.length > 0 && (
                     <div className="ontology-card-main-classes">
@@ -632,6 +573,25 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                     <div className="ontology-card-main-classes">
                       <div className="ontology-card-subsection-title">Reused by</div>
                       <div className="ontology-card-subsection">
+                        <span className="ontology-card-subsection-title-grey">Country</span>
+                        {(() => {
+                          const uniqueLocations = getUniqueRequiringLocations(onto.requiringLocations);
+                          return uniqueLocations.slice(0, 3).map((location, i) => (
+                            <span className="ontology-card-main-class-tag" key={i}>
+                              <span className={`fi fi-${getCountryCode(location)}`}></span>{' '}{getCountryLabel(location)}
+                            </span>
+                          ));
+                        })()}
+                        {(() => {
+                          const uniqueLocations = getUniqueRequiringLocations(onto.requiringLocations);
+                          return uniqueLocations.length > 3 && (
+                            <span className="ontology-card-main-class-tag">
+                              +{uniqueLocations.length - 3} more
+                            </span>
+                          );
+                        })()}
+                      </div>
+                      <div className="ontology-card-subsection">
                         <span className="ontology-card-subsection-title-grey">Publisher</span>
                         {(() => {
                           const uniquePublishers = getUniqueRequiringPublisherNames(onto.requiringPublisherNames);
@@ -646,25 +606,6 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                           return uniquePublishers.length > 3 && (
                             <span className="ontology-card-main-class-tag">
                               +{uniquePublishers.length - 3} more
-                            </span>
-                          );
-                        })()}
-                      </div>
-                      <div className="ontology-card-subsection">
-                        <span className="ontology-card-subsection-title-grey">Country</span>
-                        {(() => {
-                          const uniqueLocations = getUniqueRequiringLocations(onto.requiringLocations);
-                          return uniqueLocations.slice(0, 3).map((location, i) => (
-                            <span className="ontology-card-main-class-tag" key={i}>
-                              {getCountryLabel(location)}
-                            </span>
-                          ));
-                        })()}
-                        {(() => {
-                          const uniqueLocations = getUniqueRequiringLocations(onto.requiringLocations);
-                          return uniqueLocations.length > 3 && (
-                            <span className="ontology-card-main-class-tag">
-                              +{uniqueLocations.length - 3} more
                             </span>
                           );
                         })()}
@@ -710,11 +651,6 @@ function App() {
             />
             <h1 onClick={handleTitleClick}>The Semantic Registry</h1>
           </div>
-
-          {/* Replace paragraph with button */}
-          <Link to="/about">
-            <button className="about-button">Click here to learn more about the ranking.</button>
-          </Link>
         </div>
       </nav>
       <Routes>
@@ -733,7 +669,7 @@ function App() {
           />
         } />
         <Route path="/ontology/:slug" element={<OntologyDetail ontologies={results} />} />
-        <Route path="/about" element={<About />} />
+        {/* About route removed */}
       </Routes>
     </>
   );

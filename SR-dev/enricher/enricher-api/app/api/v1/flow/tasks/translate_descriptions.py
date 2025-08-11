@@ -8,7 +8,8 @@ import re
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def fetch_descriptions_to_translate(
     source_endpoint: str = "http://63.32.50.253:81/sparql",
-    graph_uri: str = "http://semic.registry.eu"
+    graph_uri: str = "http://semic.registry.eu",
+    languages=None
 ):
     logger = get_run_logger()
     logger.info(f"Fetching data for translation from {source_endpoint}")
@@ -16,7 +17,9 @@ def fetch_descriptions_to_translate(
     sparql = SPARQLWrapper(source_endpoint)
     sparql.setReturnFormat(JSON)
 
-    languages = ["en", "fr", "it"]
+    if languages is None:
+        languages = ['en']
+    logger.info("Translating in languages: " + str(languages))
     results_by_standard = {}
 
     for lang in languages:
@@ -221,7 +224,7 @@ def chunk_dict(data, chunk_size):
 def make_batches(results_by_standard, batch_size=4):
     return list(chunk_dict(results_by_standard, batch_size))
 
-@task(tags=["translate", "enrich"])
+@task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
 def translate_batch(source_endpoint, graph_uri, batch_data):
     from SPARQLWrapper import SPARQLWrapper, JSON
     import requests, re
@@ -278,6 +281,158 @@ def translate_batch(source_endpoint, graph_uri, batch_data):
                     }
             else:
                 logger.error(f"API error {api_resp.status_code} for {standard_uri}")
+
+        except Exception as e:
+            logger.error(f"Error processing {standard_uri}: {e}")
+
+    return translations
+
+from collections import defaultdict
+import threading, time
+# Global lock store (per (source, target) pair)
+# Per-(source,target) lock
+_model_locks = defaultdict(threading.Lock)
+
+@task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
+def translate_batch_lock(source_endpoint, graph_uri, batch_data):
+    logger = get_run_logger()
+    TRANSLATE_API = "http://127.0.0.1:8000/enricher-api/v1/translate"
+    sparql = SPARQLWrapper(source_endpoint)
+    sparql.setReturnFormat(JSON)
+
+    translations = {}
+
+    for standard_uri, lang_map in batch_data.items():
+        existing_langs = lang_map.get("existing", [])
+        missing_langs = lang_map.get("missing", [])
+
+        if not existing_langs or not missing_langs:
+            continue
+
+        source_lang = existing_langs[0]
+        logger.info(f"[Batch] Using {source_lang} for {standard_uri} → {missing_langs}")
+
+        # Get source text
+        sparql.setQuery(f"""
+            PREFIX dct: <http://purl.org/dc/terms/>
+            SELECT ?description
+            FROM <{graph_uri}>
+            WHERE {{
+                <{standard_uri}> dct:description ?description .
+                FILTER(lang(?description) = "{source_lang}")
+            }}
+            LIMIT 1
+        """)
+        try:
+            resp = sparql.query().convert()
+            bindings = resp["results"]["bindings"]
+            if not bindings:
+                continue
+
+            source_text = re.sub(r'[\x00-\x1f\x7f]', ' ', bindings[0]["description"]["value"]).strip()
+
+            for target_lang in missing_langs:
+                lock_key = (source_lang, target_lang)
+                with _model_locks[lock_key]:
+                    # Keep trying until API works
+                    while True:
+                        params = [("term", source_text), ("source", source_lang), ("target", target_lang)]
+                        api_resp = requests.get(TRANSLATE_API, params=params)
+
+                        if api_resp.status_code == 200:
+                            t = api_resp.json()[0]["translations"][0]
+                            translations.setdefault(standard_uri, {})[t["lang"]] = {
+                                "text": t["term"],
+                                "source_lang": source_lang
+                            }
+                            break  # Success → leave lock
+                        else:
+                            logger.warning(
+                                f"API error {api_resp.status_code} for {standard_uri} ({source_lang}→{target_lang}), retrying in 5s"
+                            )
+                            time.sleep(5)  # Wait and retry until ready
+
+        except Exception as e:
+            logger.error(f"Error processing {standard_uri}: {e}")
+
+    return translations
+
+# Locks per (source, target) pair
+_model_locks = defaultdict(threading.Lock)
+
+@task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
+def translate_batch_lock2(source_endpoint, graph_uri, batch_data):
+    logger = get_run_logger()
+    TRANSLATE_API = "http://127.0.0.1:8000/enricher-api/v1/translate"
+    sparql = SPARQLWrapper(source_endpoint)
+    sparql.setReturnFormat(JSON)
+
+    translations = {}
+
+    for standard_uri, lang_map in batch_data.items():
+        existing_langs = lang_map.get("existing", [])
+        missing_langs = lang_map.get("missing", [])
+
+        if not existing_langs or not missing_langs:
+            continue
+
+        source_lang = existing_langs[0]
+        logger.info(f"[Batch] Using {source_lang} for {standard_uri} → {missing_langs}")
+
+        # Get source text
+        sparql.setQuery(f"""
+            PREFIX dct: <http://purl.org/dc/terms/>
+            SELECT ?description
+            FROM <{graph_uri}>
+            WHERE {{
+                <{standard_uri}> dct:description ?description .
+                FILTER(lang(?description) = "{source_lang}")
+            }}
+            LIMIT 1
+        """)
+        try:
+            resp = sparql.query().convert()
+            bindings = resp["results"]["bindings"]
+            if not bindings:
+                continue
+
+            source_text = re.sub(r'[\x00-\x1f\x7f]', ' ', bindings[0]["description"]["value"]).strip()
+
+            # Sort targets by lock acquisition order to avoid deadlocks
+            sorted_targets = sorted(missing_langs)
+
+            # Acquire all necessary locks for this batch of translations
+            locks_to_release = []
+            try:
+                for target_lang in sorted_targets:
+                    lock_key = (source_lang, target_lang)
+                    _model_locks[lock_key].acquire()
+                    locks_to_release.append(_model_locks[lock_key])
+
+                # While holding locks, keep retrying until API succeeds for all targets
+                while True:
+                    params = [("term", source_text), ("source", source_lang)] + [
+                        ("target", lang) for lang in sorted_targets
+                    ]
+                    api_resp = requests.get(TRANSLATE_API, params=params)
+
+                    if api_resp.status_code == 200:
+                        for t in api_resp.json()[0]["translations"]:
+                            translations.setdefault(standard_uri, {})[t["lang"]] = {
+                                "text": t["term"],
+                                "source_lang": source_lang
+                            }
+                        break  # Success
+                    else:
+                        logger.warning(
+                            f"API error {api_resp.status_code} for {standard_uri} ({source_lang}→{sorted_targets}), retrying in 5s"
+                        )
+                        time.sleep(5)
+
+            finally:
+                # Always release locks
+                for lock in locks_to_release:
+                    lock.release()
 
         except Exception as e:
             logger.error(f"Error processing {standard_uri}: {e}")

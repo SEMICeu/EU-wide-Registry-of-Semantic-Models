@@ -46,7 +46,7 @@ def fetch_labels_to_synonyms(source_endpoint: str = "http://63.32.50.253:81/spar
     logger.info("Fetched data:", data)  # <-- This prints the fetched dictionary to stdout
     return data
 
-@task(tags=["synonyms", "enrich"])
+@task(tags=["synonyms", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
 def synonyms(synonyms_api, data):
     logger = get_run_logger()
     logger.info(f"Getting synonyms...")

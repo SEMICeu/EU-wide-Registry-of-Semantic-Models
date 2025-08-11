@@ -54,7 +54,7 @@ def load_model_translate(source: str, target: str):
             )
             logger.info("Model " + repo_id + " found locally:" + local_model_path)
         except Exception as e:
-            logger.warning(f"Local model not found, attempting download from hub... ({e})")
+            logger.warning(f"Local model {repo_id} not found, attempting download from hub... ({e})")
             # Retry with network access
             local_model_path = snapshot_download(
                 repo_id=repo_id,

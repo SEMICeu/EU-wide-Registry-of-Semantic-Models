@@ -4,7 +4,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
 
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
-def fetch_data_to_synonyms(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri : str = "http://semic.registry.eu"):
+def fetch_labels_to_synonyms(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri : str = "http://semic.registry.eu"):
     logger = get_run_logger()
     logger.info(f"Fetching data from {source_endpoint}")
 
@@ -46,12 +46,12 @@ def fetch_data_to_synonyms(source_endpoint: str = "http://63.32.50.253:81/sparql
     logger.info("Fetched data:", data)  # <-- This prints the fetched dictionary to stdout
     return data
 
-@task
-def synonyms_and_enrich(source_endpoint, graph_uri, data):
+@task(tags=["synonyms", "enrich"])
+def synonyms(synonyms_api, data):
     logger = get_run_logger()
-    logger.info(f"Enriching graph {graph_uri} with data")
+    logger.info(f"Getting synonyms...")
     
-    url = "http://127.0.0.1:8000/enricher-api/v1/synonyms"
+    url = synonyms_api
     enriched_results = {}
 
     for aclass, props in data.items():
@@ -82,7 +82,12 @@ def synonyms_and_enrich(source_endpoint, graph_uri, data):
                 enriched_results[aclass] = None
 
     logger.info(enriched_results)
+    return enriched_results
 
+@task
+def add_synonyms_to_graph(source_endpoint, graph_uri, enriched_results):
+    logger = get_run_logger()
+    logger.info(f"Add synonyms to the graph {graph_uri}...")
     prefixes = """
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     """

@@ -1,5 +1,10 @@
-datamuse_endpoint: "https://api.datamuse.com/words?ml="
+altervista_endpoint: "http://thesaurus.altervista.org/thesaurus/v1?"
 altervista_key: "Kdnuiqz85LO7gGIHdGZf"
+datamuse_endpoint: "https://api.datamuse.com/words?"
+
+classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
+synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
+translate_api: "http://127.0.0.1:8000/enricher-api/v1/translate"
 
 datathemes:
   AGRI:

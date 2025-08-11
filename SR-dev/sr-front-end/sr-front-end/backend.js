@@ -127,6 +127,7 @@ app.post('/api/search', async (req, res) => {
       ${publisherFilter}
     }
     GROUP BY ?title ?description ?lovRank ?created ?homepage
+    ORDER BY DESC(?lovRank)
     LIMIT 50
   `;
 

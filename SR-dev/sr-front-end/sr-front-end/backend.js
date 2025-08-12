@@ -55,7 +55,7 @@ app.post('/api/search', async (req, res) => {
         WHERE {
           ?standard a dct:Standard .
           ?standard dct:title ?title .
-          ?standard dct:description ?description .
+          ?standard dct:description ?descriptionAnyLang .  # Allow any language for search
           OPTIONAL {
             ?standard dct:hasPart ?class .
             ?class a rdfs:Class ;
@@ -63,13 +63,13 @@ app.post('/api/search', async (req, res) => {
             FILTER(lang(?classLabel) = "en")
           }
           FILTER (lang(?title) = "en")
-          FILTER (lang(?description) = "en")
+          # Remove the English filter for description in search context
           ${isUri ?
             `FILTER(?standard = <${query}>)` :
             query && query !== '*' ?
             `FILTER(
               CONTAINS(LCASE(?title), LCASE("${query}")) ||
-              CONTAINS(LCASE(?description), LCASE("${query}")) ||
+              CONTAINS(LCASE(?descriptionAnyLang), LCASE("${query}")) ||
               CONTAINS(LCASE(?classLabel), LCASE("${query}"))
             )` : ''
           }
@@ -122,7 +122,7 @@ app.post('/api/search', async (req, res) => {
       OPTIONAL { ?standard dcat:theme ?dataTheme }
       ?standard <http://example.org/LOVRank> ?lovRank .
       FILTER (lang(?title) = "en")
-      FILTER (lang(?description) = "en")
+      FILTER (lang(?description) = "en")  # Keep English filter for returned description
       ${themeFilter}
       ${publisherFilter}
     }

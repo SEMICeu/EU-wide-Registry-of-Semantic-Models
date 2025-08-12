@@ -294,9 +294,9 @@ import threading, time
 _model_locks = defaultdict(threading.Lock)
 
 @task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
-def translate_batch_lock(source_endpoint, graph_uri, batch_data):
+def translate_batch_lock(source_endpoint, graph_uri, translate_api, batch_data):
     logger = get_run_logger()
-    TRANSLATE_API = "http://127.0.0.1:8000/enricher-api/v1/translate"
+    TRANSLATE_API = translate_api
     sparql = SPARQLWrapper(source_endpoint)
     sparql.setReturnFormat(JSON)
 

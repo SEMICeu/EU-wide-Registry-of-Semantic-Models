@@ -67,8 +67,9 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, job_id: str = None, ba
         add_synonyms_to_graph.submit(source_endpoint, graph_uri, synonyms_future)
 
         languages = config["languages"]
+        translate_api = config["translate_api"]
         #fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, graph_uri)
-        #translate_api = config["translate_api"]
+
         #translate_future = translate.submit(source_endpoint, graph_uri, translate_api, fetch_descriptions_future)
         #add_translations_to_graph.submit(source_endpoint, graph_uri, translate_future)
         
@@ -80,7 +81,7 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, job_id: str = None, ba
 
         # Step 3: Submit translation batches in parallel
         batch_futures = [
-            translate_batch_lock.submit(source_endpoint, graph_uri, batch,  wait_for=[batches_future])
+            translate_batch_lock.submit(source_endpoint, graph_uri, translate_api, batch,  wait_for=[batches_future])
             for batch in batches_future.result()   # ensures Prefect sees only batch_translate as upstream
         ]
 

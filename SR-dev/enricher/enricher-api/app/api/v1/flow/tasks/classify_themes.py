@@ -35,10 +35,10 @@ def fetch_themes_to_classify(source_endpoint: str = "http://63.32.50.253:81/spar
             "description": description
         }
 
-    logger.info("Fetched data:", data)  # <-- This prints the fetched dictionary to stdout
+    logger.info(f"Fetched data: {data}")
     return data
 
-@task(tags=["classify", "enrich"])
+@task(tags=["classify", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
 def classify(classify_api, data):
     logger = get_run_logger()
     logger.info(f"Classifying the data...")

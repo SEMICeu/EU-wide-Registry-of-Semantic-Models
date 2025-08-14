@@ -72,3 +72,10 @@ datathemes:
     label: Transport
     definition: dataset theme covering the domain of transport, which involves the movement of humans, animals, and goods from one location to another using various modes such as air, land (rail and road), water, cable, pipeline and space
     uri: http://publications.europa.eu/resource/authority/data-theme/TRAN
+
+languages:
+  - en   # English (~370M)
+  - de   # German (~95M)
+  - fr   # French (~80M)
+  - it   # Italian (~65M)
+  - es   # Spanish (~45M)

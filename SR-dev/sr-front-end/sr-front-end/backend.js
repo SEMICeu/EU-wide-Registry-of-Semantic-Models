@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const SparqlClient = require('sparql-http-client').default;
 
-const VIRTUOSO_ENDPOINT = 'http://63.32.50.253:81/sparql';
+const VIRTUOSO_ENDPOINT = 'https://health.semic.eu/virtuoso/sparql';
 const app = express();
 const PORT = 4000;
 

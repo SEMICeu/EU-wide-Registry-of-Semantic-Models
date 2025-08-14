@@ -1,0 +1,18 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies  
+RUN npm install
+
+# Copy backend file
+COPY backend.js ./
+
+# Expose backend port (adjust if different)
+EXPOSE 4000
+
+# Start backend
+CMD ["node", "backend.js"]

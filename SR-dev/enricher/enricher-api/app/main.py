@@ -1,6 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from app.api.v1.routers.routers import v1_router
 from app.api.v1.routers.synonyms.synonyms_cache import reset_cache_stats
+from app.api.v1.mlmodels import list_opus_pairs
 from contextlib import asynccontextmanager
 import yaml
 import os
@@ -32,6 +33,14 @@ async def lifespan(app: FastAPI):
     nltk.download('wordnet')
 
     reset_cache_stats()
+
+    try:
+        # Preload the translation pairs cache at startup
+        list_opus_pairs()
+        logger.info("Translation pairs cached at startup")
+    except Exception as e:
+        logger.error(f"Failed to preload translation pairs: {e}")
+
     yield  # serve requests
 
     # Optional cleanup

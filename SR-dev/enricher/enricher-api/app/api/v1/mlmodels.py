@@ -186,6 +186,28 @@ from huggingface_hub import list_models
 import re
 import time
 
+MODEL_PATTERN = re.compile(r"^Helsinki-NLP/opus-mt-([a-z\-]+)-([a-z\-]+)$")
+
+@lru_cache(maxsize=1)
+def list_opus_pairs():
+    """Fetch and cache all available Helsinki-NLP translation pairs."""
+    lang_pairs = set()
+
+    try:
+        logger.info("Fetching models from Hugging Face Hub...")
+        models = list_models(author="Helsinki-NLP")
+    except Exception as e:
+        logger.error(f"Error fetching models: {e}")
+        return set()
+
+    for model in models:
+        match = MODEL_PATTERN.match(model.modelId)
+        if match:
+            src, tgt = match.groups()
+            lang_pairs.add((src, tgt))
+
+    return lang_pairs
+
 def list_pairs():
     pattern = re.compile(r"^Helsinki-NLP/opus-mt-([a-z\-]+)-([a-z\-]+)$")
 

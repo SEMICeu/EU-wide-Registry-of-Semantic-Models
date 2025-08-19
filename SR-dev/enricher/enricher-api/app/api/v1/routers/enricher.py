@@ -14,7 +14,7 @@ from app.api.v1.db.dbmodels import EnrichmentJob
 from app.api.v1.models import EnrichmentJobResponse, EnrichmentJobPost
 from app.api.v1.db.db import get_db
 from app.api.v1.flow.enrichment_flow import enrichment_flow
-
+from app.schemas.tasktype import TaskType
 logger = logging.getLogger(__name__)
 
 enricher_router = APIRouter()
@@ -31,8 +31,17 @@ enricher_router = APIRouter()
     response_description="The response is a JSON object of the job created.")
 async def submitjob(
     request: Request,
-    graph_uri: str = Query(default="http://semic.registry.eu", min_length=1, description="the graph_uri used for the job"),
-    source_endpoint: str = Query(default="http://63.32.50.253:81/sparql", min_length=1, description="the source endpoint used for the job"),
+    endpoint: str = Query(
+        default="https://health.semic.eu/virtuoso/sparql", 
+        min_length=1, 
+        description="the source endpoint used for the job"),
+    graph_uri: str = Query(
+        default="http://semic.registry.eu", 
+        min_length=1, 
+        description="the source graph_uri used for the job"),
+    task : Optional[TaskType] = Query(
+        "all", 
+        description="Either all, or select one of those available"),
     db: Session = Depends(get_db)
     ):
 
@@ -41,7 +50,7 @@ async def submitjob(
         job = EnrichmentJob(
             id=job_id,
             graph_uri=graph_uri,
-            source_endpoint=source_endpoint
+            source_endpoint=endpoint
         )
         db.add(job)
         db.commit()
@@ -49,12 +58,12 @@ async def submitjob(
         logger.info(f"enrichment_flow is {enrichment_flow}")
         logger.info(f"callable? {callable(enrichment_flow)}")
 
-        asyncio.create_task(asyncio.to_thread(enrichment_flow, graph_uri, source_endpoint, job_id))
+        asyncio.create_task(asyncio.to_thread(enrichment_flow, graph_uri, endpoint, task, job_id))
 
         response = EnrichmentJobPost(
             id = job_id,
-            graph_uri=graph_uri,
-            source_endpoint=source_endpoint
+            graph_uri = graph_uri,
+            source_endpoint = endpoint
         )
         return response
     except ValueError as e:

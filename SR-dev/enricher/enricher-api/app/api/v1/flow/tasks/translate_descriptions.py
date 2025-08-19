@@ -4,17 +4,17 @@ from SPARQLWrapper import SPARQLWrapper, JSON, POST, URLENCODED
 import requests
 import re
 
-
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def fetch_descriptions_to_translate(
-    source_endpoint: str = "http://63.32.50.253:81/sparql",
+    endpoint: str = "https://health.semic.eu/virtuoso/sparql",
     graph_uri: str = "http://semic.registry.eu",
     languages=None
-):
-    logger = get_run_logger()
-    logger.info(f"Fetching data for translation from {source_endpoint}")
+    ):
 
-    sparql = SPARQLWrapper(source_endpoint)
+    logger = get_run_logger()
+    logger.info(f"Fetching data for translation from {endpoint}")
+
+    sparql = SPARQLWrapper(endpoint)
     sparql.setReturnFormat(JSON)
 
     if languages is None:
@@ -55,6 +55,7 @@ def fetch_descriptions_to_translate(
         entry["existing"] = list(entry["existing"])
         entry["missing"] = list(entry["missing"])
 
+    logger.info(results_by_standard)
     return results_by_standard
 
 @task
@@ -171,13 +172,17 @@ def add_translations_to_graph(source_endpoint, graph_uri, translations):
             logger.error(f"❌ Failed to insert translations for {standard_uri}: {e}")
 
 @task
-def add_translations_to_graph_batch(source_endpoint, graph_uri, translations):
+def add_translations_to_graph_batch(endpoint, graph_uri, translations):
     logger = get_run_logger()
     logger.info("Running SPARQL update to insert translations...")
 
-    sparql = SPARQLWrapper(source_endpoint)
+    sparql = SPARQLWrapper(endpoint)
     sparql.setMethod(POST)
     sparql.setRequestMethod(URLENCODED)
+
+    successful_inserts = 0
+    failed_inserts = 0
+    errors = []
 
     for standard_uri, langs in translations.items():  # no ["translated"]
         triples = []
@@ -207,10 +212,29 @@ def add_translations_to_graph_batch(source_endpoint, graph_uri, translations):
         try:
             logger.info(f"Query {update_query}")
             sparql.setQuery(update_query)
-            sparql.query()
+            result = sparql.query()
             logger.info(f"✔ Inserted translations for {standard_uri}")
+            successful_inserts += 1
         except Exception as e:
-            logger.error(f"❌ Failed to insert translations for {standard_uri}: {e}")
+            error_msg = f"Failed to insert translations for {standard_uri}: {e}"
+            logger.error(f"❌ {error_msg}")
+            errors.append(error_msg)
+            failed_inserts += 1
+
+    # Summary logging
+    logger.info(f"Translation insertion summary: {successful_inserts} successful, {failed_inserts} failed")
+    
+    # Fail the task if any insertions failed
+    if failed_inserts > 0:
+        error_summary = f"Translation insertion failed for {failed_inserts} items. Errors: {'; '.join(errors)}"
+        logger.error(error_summary)
+        raise Exception(error_summary)
+    
+    return {
+        "successful_inserts": successful_inserts,
+        "failed_inserts": failed_inserts,
+        "total_processed": successful_inserts + failed_inserts
+    }
 
 from math import ceil
 
@@ -225,13 +249,13 @@ def make_batches(results_by_standard, batch_size=4):
     return list(chunk_dict(results_by_standard, batch_size))
 
 @task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
-def translate_batch(source_endpoint, graph_uri, batch_data):
+def translate_batch(source_endpoint, graph_uri, translate_api, batch_data):
     from SPARQLWrapper import SPARQLWrapper, JSON
     import requests, re
     from prefect import get_run_logger
 
     logger = get_run_logger()
-    TRANSLATE_API = "http://127.0.0.1:8000/enricher-api/v1/translate"
+    TRANSLATE_API = translate_api
     sparql = SPARQLWrapper(source_endpoint)
     sparql.setReturnFormat(JSON)
 
@@ -293,11 +317,23 @@ import threading, time
 # Per-(source,target) lock
 _model_locks = defaultdict(threading.Lock)
 
+HUB_LANGUAGES = ["en", "fr", "de", "it", "sv", "el"]
+
+def select_source_language(existing_langs):
+    """
+    Selects the best source language based on priority hubs.
+    Falls back to the first available language if no hub is present.
+    """
+    for hub in HUB_LANGUAGES:
+        if hub in existing_langs:
+            return hub
+    return existing_langs[0] if existing_langs else None
+
 @task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
-def translate_batch_lock(source_endpoint, graph_uri, translate_api, batch_data):
+def translate_batch_lock(endpoint, graph_uri, translate_api, batch_data):
     logger = get_run_logger()
     TRANSLATE_API = translate_api
-    sparql = SPARQLWrapper(source_endpoint)
+    sparql = SPARQLWrapper(endpoint)
     sparql.setReturnFormat(JSON)
 
     translations = {}
@@ -309,7 +345,9 @@ def translate_batch_lock(source_endpoint, graph_uri, translate_api, batch_data):
         if not existing_langs or not missing_langs:
             continue
 
-        source_lang = existing_langs[0]
+        source_lang = select_source_language(existing_langs)
+        if not source_lang:
+            continue  # No source language available, skip
         logger.info(f"[Batch] Using {source_lang} for {standard_uri} → {missing_langs}")
 
         # Get source text
@@ -340,7 +378,11 @@ def translate_batch_lock(source_endpoint, graph_uri, translate_api, batch_data):
                         api_resp = requests.get(TRANSLATE_API, params=params)
 
                         if api_resp.status_code == 200:
-                            t = api_resp.json()[0]["translations"][0]
+                            data = api_resp.json()
+                            if not data or "translations" not in data[0] or not data[0]["translations"]:
+                                logger.warning(f"No translations for {standard_uri} {source_lang}→{target_lang}, response: {data}")
+                                break
+                            t = data[0]["translations"][0]
                             translations.setdefault(standard_uri, {})[t["lang"]] = {
                                 "text": t["term"],
                                 "source_lang": source_lang

@@ -4,11 +4,15 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
 
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
-def fetch_themes_to_classify(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri : str = "http://semic.registry.eu"):
-    logger = get_run_logger()
-    logger.info(f"Fetching data from {source_endpoint}")
+def fetch_themes_to_classify(
+    endpoint: str = "https://health.semic.eu/virtuoso/sparql", 
+    graph_uri : str = "http://semic.registry.eu"
+    ):
 
-    sparql = SPARQLWrapper(source_endpoint)
+    logger = get_run_logger()
+    logger.info(f"Fetching data from {endpoint}")
+
+    sparql = SPARQLWrapper(endpoint)
     sparql.setReturnFormat(JSON)
 
     query = f"""
@@ -20,9 +24,11 @@ def fetch_themes_to_classify(source_endpoint: str = "http://63.32.50.253:81/spar
       ?standard a dct:Standard .
       ?standard dcat:theme ?theme .
       ?standard dct:description ?description .
-      FILTER (STRSTARTS(str(?theme),"test-")) .
+      FILTER(lang(?description) = "en")
+     
     }}
     """
+    #  FILTER (STRSTARTS(str(?theme),"test-")) .
     sparql.setQuery(query)
     results = sparql.query().convert()
 
@@ -56,8 +62,8 @@ def classify(classify_api, data):
             "classification" : "datathemes",
             "max": 1
         }
-
-        response = requests.get(url, params=params)
+        logger.info(f"Calling classify API {url} for {standard_uri}")
+        response = requests.get(url, params=params, timeout=30)
         if response.status_code == 200:
             classification_list = response.json()
             if classification_list and isinstance(classification_list, list):
@@ -75,8 +81,11 @@ def classify(classify_api, data):
     logger.info(enriched_results)
     return enriched_results
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 @task
-def add_themes_to_graph(source_endpoint, graph_uri, enriched_results):
+def add_themes_to_graph(endpoint, graph_uri, enriched_results):
     logger = get_run_logger()
     logger.info(f"Adding themes to the graph {graph_uri}...")
     prefixes = """
@@ -111,14 +120,20 @@ def add_themes_to_graph(source_endpoint, graph_uri, enriched_results):
         "Content-Type": "application/sparql-update"
     }
 
-    # Send the POST request
-    response = requests.post(source_endpoint, data=sparql_update.encode('utf-8'), headers=headers)
+    try:
+        # Send the POST request
+        response = requests.post(endpoint, data=sparql_update.encode('utf-8'), headers=headers, verify=False)
 
-    # Check response
-    if response.status_code == 200:
-        logger.info("SPARQL update successful!")
-    else:
-        logger.error(f"Error {response.status_code}: {response.text}")
-    pass
-
-    return {"classify response sparql": response.status_code}
+        # Check response and raise exception if failed
+        if response.status_code == 200:
+            logger.info("SPARQL update successful!")
+            return {"classify response sparql": response.status_code}
+        else:
+            error_msg = f"SPARQL update failed with status {response.status_code}: {response.text}"
+            logger.error(error_msg)
+            raise Exception(error_msg)
+        
+    except requests.exceptions.RequestException as e:
+        error_msg = f"Request failed: {str(e)}"
+        logger.error(error_msg)
+        raise Exception(error_msg)

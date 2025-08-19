@@ -79,3 +79,8 @@ languages:
   - fr   # French (~80M)
   - it   # Italian (~65M)
   - es   # Spanish (~45M)
+  - pl   # Polish (~38M)
+  - ro   # Romanian (~24M)
+  - nl   # Dutch (~23M)
+  - hu   # Hungarian (~13M)
+  - el   # Greek (~13M)

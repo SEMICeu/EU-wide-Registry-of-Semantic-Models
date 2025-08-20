@@ -11,6 +11,14 @@ The scope of the enricher is to enrich the data for the registry by:
 
 For more information of the model, see the [SRM](https://semiceu.github.io/uri.semic.eu-generated/SRM/releases/1.0.0/)
 
+## Architecture
+
+The enricher is based on:
+- FastAPI to trigger its own execution and to trigger 3 main API: synonyms, classify and translate.
+- Prefect to create a flow of 3 respective tasks (synonyms, classify and translate), that fetch the data from Virtuoso, calls the respective API and store the new data in Virtuoso
+
+See the [architecture](enricher_architecture.png) for better understanding.
+
 ## Setup
 
 The environment is completely based on Python 3 that should be setup.
@@ -64,6 +72,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

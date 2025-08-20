@@ -40,7 +40,7 @@ Steps:
 
     ```uvicorn app.main:app --workers 5 --log-config log_config.yaml```
 
- The idea is that the FastAPI will provide 5 parallel workers and Prefect will allocate max 5 slots of concurrency at the same time.
+ The idea is that the FastAPI will provide 5 parallel workers and Prefect will allocate max 5 slots of concurrency at the same time. The application will write to the app.log file.
  
  The FastAPI documentation will be available on http://127.0.0.1:8000/docs#
 
@@ -64,6 +64,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

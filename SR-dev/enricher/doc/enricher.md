@@ -39,6 +39,8 @@ Steps:
 
     ```uvicorn app.main:app --workers 5 --log-config log_config.yaml```
 
+ The idea is that the FastAPI will provide 5 parallel workers and Prefect will allocate max 5 slots of concurrency at the same time.
+ 
  The FastAPI documentation will be available on http://127.0.0.1:8000/docs#
 
 4) Execute the POST operation on /enricher-api/v1/job passing the default parameters
@@ -52,11 +54,13 @@ Steps:
 
 Notes:
 1) if you stop the execution from the VSCode while is executing the Prefect tasks make sure that there aren't active tasks in the concurrency with the command:
-   ```prefect concurrency-limit inspect enrich````
+
+   ```prefect concurrency-limit inspect enrich```
    
    if you see active tasks better reset via the command:
 
    ```prefect concurrency-limit reset enrich```
 
-2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
+3) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
+
 

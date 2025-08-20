@@ -480,3 +480,186 @@ def translate_batch_lock2(source_endpoint, graph_uri, batch_data):
             logger.error(f"Error processing {standard_uri}: {e}")
 
     return translations
+
+from app.api.v1.mlmodels import list_opus_pairs
+
+@task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
+def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, multi_target: bool = True):
+    """
+    Batch translation task with optional multi-target support.
+
+    Args:
+        endpoint: SPARQL endpoint
+        graph_uri: Graph where descriptions are stored
+        translate_api: Translation API URL
+        batch_data: Dict like
+            {
+                "http://example/standard1": {
+                    "existing": ["en", "fr"],
+                    "missing": ["de", "pl"]
+                },
+                ...
+            }
+        multi_target (bool): 
+            If True → combine multiple targets into one API call.
+            If False → translate each target separately.
+
+    Examples:
+        - Direct multi-target (multi_target=True):
+            en → [fr, de, it]  (1 call instead of 3)
+
+        - Pivot single-target (multi_target=False):
+            it → fr (1 call)
+            fr → pl (1 call)
+
+        - Pivot multi-target (multi_target=True):
+            it → fr
+            fr → [pl, el, sv]  (1 call)
+    """
+    logger = get_run_logger()
+    TRANSLATE_API = translate_api
+    sparql = SPARQLWrapper(endpoint)
+    sparql.setReturnFormat(JSON)
+
+    translations = {}
+    SUPPORTED_PAIRS = list_opus_pairs()
+    logger.info(f"[Init] Loaded {len(SUPPORTED_PAIRS)} OPUS translation pairs")
+    logger.info(f"[Init] HUB_LANGUAGES={HUB_LANGUAGES}, multi_target={multi_target}")
+
+    def select_source_language(existing_langs):
+        for hub in HUB_LANGUAGES:
+            if hub in existing_langs:
+                return hub
+        return existing_langs[0] if existing_langs else None
+
+    def safe_translate(text, src, tgt, context):
+        """Single target translation call."""
+        params = [("term", text), ("source", src), ("target", tgt)]
+        api_resp = requests.get(TRANSLATE_API, params=params)
+        if api_resp.status_code != 200:
+            logger.warning(f"[API] {context}: {src}→{tgt} failed ({api_resp.status_code})")
+            return None
+        data = api_resp.json()
+        if not data or "translations" not in data[0] or not data[0]["translations"]:
+            logger.warning(f"[API] {context}: empty response for {src}→{tgt}: {data}")
+            return None
+        t = data[0]["translations"][0]
+        result = t.get("term")
+        logger.info(f"[OK] {context}: {src}→{tgt} = {result[:40]}...")
+        return result
+
+    def safe_translate_multi(text, src, targets, context):
+        """Multi-target translation in one API call."""
+        if not targets:
+            return {}
+        params = [("term", text), ("source", src)] + [("target", t) for t in targets]
+        api_resp = requests.get(TRANSLATE_API, params=params)
+        if api_resp.status_code != 200:
+            logger.warning(f"[API] {context}: {src}→{targets} failed ({api_resp.status_code})")
+            return {}
+        data = api_resp.json()
+        if not data or "translations" not in data[0]:
+            logger.warning(f"[API] {context}: empty response for {src}→{targets}: {data}")
+            return {}
+        out = {}
+        for t in data[0]["translations"]:
+            tgt = t.get("lang")
+            term = t.get("term")
+            if tgt and term:
+                logger.info(f"[OK] {context}: {src}→{tgt} = {term[:40]}...")
+                out[tgt] = term
+        return out
+
+    def find_pivot(source, target):
+        """Find a pivot hub language if no direct pair exists."""
+        for hub in HUB_LANGUAGES:
+            if (source, hub) in SUPPORTED_PAIRS and (hub, target) in SUPPORTED_PAIRS:
+                return hub
+        return None
+
+    for standard_uri, lang_map in batch_data.items():
+        existing_langs = lang_map.get("existing", [])
+        missing_langs = lang_map.get("missing", [])
+
+        source_lang = select_source_language(existing_langs)
+        if not source_lang or not missing_langs:
+            logger.info(f"[Skip] {standard_uri}: no valid source or targets")
+            continue
+
+        logger.info(f"[Batch] {standard_uri}: source={source_lang}, missing={missing_langs}")
+
+        # fetch source text
+        sparql.setQuery(f"""
+            PREFIX dct: <http://purl.org/dc/terms/>
+            SELECT ?description
+            FROM <{graph_uri}>
+            WHERE {{
+                <{standard_uri}> dct:description ?description .
+                FILTER(lang(?description) = "{source_lang}")
+            }}
+            LIMIT 1
+        """)
+        resp = sparql.query().convert()
+        bindings = resp["results"]["bindings"]
+        if not bindings:
+            logger.warning(f"[Skip] {standard_uri}: no source text for {source_lang}")
+            continue
+
+        source_text = re.sub(r'[\x00-\x1f\x7f]', ' ', bindings[0]["description"]["value"]).strip()
+
+        # --- Direct translations ---
+        direct_targets = [t for t in missing_langs if (source_lang, t) in SUPPORTED_PAIRS]
+        if direct_targets:
+            logger.info(f"[Direct] {standard_uri}: {source_lang}→{direct_targets}")
+
+        if multi_target:
+            results = safe_translate_multi(source_text, source_lang, direct_targets, f"{standard_uri}")
+            for out_lang, term in results.items():
+                translations.setdefault(standard_uri, {})[out_lang] = {
+                    "text": term,
+                    "source_lang": source_lang
+                }
+        else:
+            for tgt in direct_targets:
+                term = safe_translate(source_text, source_lang, tgt, f"{standard_uri}")
+                if term:
+                    translations.setdefault(standard_uri, {})[tgt] = {
+                        "text": term,
+                        "source_lang": source_lang
+                    }
+
+        # --- Pivot translations ---
+        for target_lang in [t for t in missing_langs if t not in translations.get(standard_uri, {})]:
+            pivot = find_pivot(source_lang, target_lang)
+            if not pivot:
+                logger.warning(f"[Pivot] {standard_uri}: no route {source_lang}→{target_lang}")
+                continue
+
+            logger.info(f"[Pivot] {standard_uri}: {source_lang}→{pivot}→{target_lang}")
+
+            if multi_target:
+                # Step 1: source → pivot
+                pivot_res = safe_translate_multi(source_text, source_lang, [pivot], f"{standard_uri} (pivot)")
+                if not pivot_res or pivot not in pivot_res:
+                    continue
+                mid_text = pivot_res[pivot]
+
+                # Step 2: pivot → target
+                final_res = safe_translate_multi(mid_text, pivot, [target_lang], f"{standard_uri} (via {pivot})")
+                if final_res and target_lang in final_res:
+                    translations.setdefault(standard_uri, {})[target_lang] = {
+                        "text": final_res[target_lang],
+                        "source_lang": pivot
+                    }
+            else:
+                mid_text = safe_translate(source_text, source_lang, pivot, f"{standard_uri} (pivot)")
+                if not mid_text:
+                    continue
+                term = safe_translate(mid_text, pivot, target_lang, f"{standard_uri} (via {pivot})")
+                if term:
+                    translations.setdefault(standard_uri, {})[target_lang] = {
+                        "text": term,
+                        "source_lang": pivot
+                    }
+
+    return translations

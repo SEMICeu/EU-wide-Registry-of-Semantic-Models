@@ -9,7 +9,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.api.v1.models import ErrorResponse, Synonym
 from app.api.v1.mlmodels import best_synonym_for_context
-from app.schemas.source import Source
+from app.api.v1.schemas.source import Source
 from nltk.corpus import wordnet
 import requests
 from .synonyms_cache import get_cached_synonyms, set_cached_synonyms, SessionLocal, SynonymCache, get_cache_stats

@@ -2,13 +2,14 @@ from fastapi import APIRouter, Query, HTTPException, Request
 import os
 from typing import List, Optional, Tuple
 import logging
+import re
 
 import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.api.v1.models import ErrorResponse, TranslationItem, TranslationResponse, DetectedLanguage 
 from app.api.v1.mlmodels import load_model_translate, get_fasttext_model, list_pairs, list_opus_pairs
-from app.schemas.language import Language
+from app.api.v1.schemas.language import Language
 
 logger = logging.getLogger(__name__)
 

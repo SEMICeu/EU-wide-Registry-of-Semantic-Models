@@ -7,7 +7,7 @@ from datetime import datetime, UTC
 import os
 from .tasks.classify_themes import fetch_themes_to_classify, classify, add_themes_to_graph
 from .tasks.synonyms_class_labels import fetch_labels_to_synonyms, synonyms, add_synonyms_to_graph
-from .tasks.translate_descriptions import fetch_descriptions_to_translate, translate, add_translations_to_graph, make_batches, translate_batch, add_translations_to_graph_batch, translate_batch_lock 
+from .tasks.translate_descriptions import fetch_descriptions_to_translate, translate, add_translations_to_graph, make_batches, translate_batch, add_translations_to_graph_batch, translate_batch_lock3 
 
 from prefect.logging import get_run_logger
 from prefect.settings import PREFECT_UI_URL
@@ -95,7 +95,7 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
 
             # Step 3: Submit translation batches in parallel
             batch_futures = [
-                translate_batch_lock.submit(source_endpoint, source_graph, translate_api, batch,  wait_for=[batches_future])
+                translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch,  wait_for=[batches_future])
                 for batch in batches_future.result()   # ensures Prefect sees only batch_translate as upstream
             ]
 

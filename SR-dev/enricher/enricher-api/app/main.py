@@ -1,5 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from app.api.v1.routers.routers import v1_router
+from app.api.v2.routers.routers import v2_router
 from app.api.v1.routers.synonyms.synonyms_cache import reset_cache_stats
 from app.api.v1.mlmodels import list_opus_pairs
 from contextlib import asynccontextmanager
@@ -58,4 +59,5 @@ app = FastAPI(
 
 api_router = APIRouter(prefix="/enricher-api")
 api_router.include_router(v1_router)
+api_router.include_router(v2_router)
 app.include_router(api_router)

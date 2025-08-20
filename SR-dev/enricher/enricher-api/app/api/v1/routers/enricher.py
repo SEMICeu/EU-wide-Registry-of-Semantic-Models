@@ -14,7 +14,7 @@ from app.api.v1.db.dbmodels import EnrichmentJob
 from app.api.v1.models import EnrichmentJobResponse, EnrichmentJobPost
 from app.api.v1.db.db import get_db
 from app.api.v1.flow.enrichment_flow import enrichment_flow
-from app.schemas.tasktype import TaskType
+from app.api.v1.schemas.tasktype import TaskType
 logger = logging.getLogger(__name__)
 
 enricher_router = APIRouter()

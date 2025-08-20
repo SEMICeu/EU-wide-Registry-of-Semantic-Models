@@ -7,7 +7,7 @@ import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.api.v1.models import ErrorResponse, Theme
-from app.schemas.classification import Classification
+from app.api.v1.schemas.classification import Classification
 from app.api.v1.mlmodels import rank_theme_codes_by_context
 
 logger = logging.getLogger(__name__)

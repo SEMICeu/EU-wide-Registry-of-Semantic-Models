@@ -15,3 +15,7 @@ sqlalchemy
 prefect
 SPARQLWrapper
 protobuf
+streamlit
+streamlit-autorefresh
+pandas
+plotly

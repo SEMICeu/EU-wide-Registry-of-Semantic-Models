@@ -54,7 +54,7 @@ Steps:
    ```streamlit run log_dashboard.py```
 
 Notes:
-1) if you stop the execution from the VSCode while is executing the Prefect tasks make sure that there aren't active tasks in the concurrency with the command:
+1) if you stop the execution from the VSCode terminal, while it is executing the Prefect tasks, make sure that there aren't active tasks in the concurrency with the command:
 
    ```prefect concurrency-limit inspect enrich```
    
@@ -64,6 +64,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

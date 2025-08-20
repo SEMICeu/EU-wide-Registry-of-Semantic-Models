@@ -27,11 +27,36 @@ Steps:
 5) setup the requirements:
 
    ```pip install -r .\requirements.txt```
-   
-6) run the prefect server to monitor the execution:
+
+## Execution
+1) run the prefect server to monitor the execution:
    
    ```prefect server start```
    
-   the prefect dashboard should be accessible on http://127.0.0.1:4200
-8) from the dashboard configure prefect to enable concurrency on task with tag "enrich" set to 5 slots, see screenshot [prefect concurrency](prefect_concurrency.jpg)
-9)  
+   the Prefect dashboard should be accessible on http://127.0.0.1:4200
+2) from the Prefect dashboard configure concurrency on task with tag "enrich" set to 5 slots, see screenshot [prefect concurrency](prefect_concurrency.jpg)
+3) in VSCode, open a new terminal and launch:
+
+    ```uvicorn app.main:app --workers 5 --log-config log_config.yaml```
+
+ The FastAPI documentation will be available on http://127.0.0.1:8000/docs#
+
+4) Execute the POST operation on /enricher-api/v1/job passing the default parameters
+
+## Debug
+
+1) Check executions of the tasks on the Prefect dashboard
+2) Monitor the app.log file, it could be also monitored/analysed with streamlit with the command:
+
+   ```streamlit run log_dashboard.py```
+
+Notes:
+1) if you stop the execution from the VSCode while is executing the Prefect tasks make sure that there aren't active tasks in the concurrency with the command:
+   ```prefect concurrency-limit inspect enrich````
+   
+   if you see active tasks better reset via the command:
+
+   ```prefect concurrency-limit reset enrich```
+
+2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
+

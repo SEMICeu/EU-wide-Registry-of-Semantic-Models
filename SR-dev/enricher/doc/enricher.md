@@ -44,7 +44,7 @@ Steps:
   
      ```python create_db.py```
 
-6) There is a configuration file config.yaml that describes:
+6) There is a configuration file [config.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config.yaml) that describes:
     - the endpoint for api for synonyms (altervista and datamuse)
     - the 3 endpoints for the api classify, synonyms and translate, used by the 3 respective Prefect tasks
     - the datathemes taxonomy used by the classify api
@@ -85,6 +85,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

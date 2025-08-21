@@ -32,9 +32,17 @@ Steps:
   - ```python -m venv .venv```
    
   - ```& .venv/Scripts/Activate```                                                                 
-5) setup the requirements:
+4) setup the requirements:
 
    ```pip install -r .\requirements.txt```
+
+5) make sure that database files are in place. The Enricher uses SQLite, via SQL Alchemy, in 2 different files:
+   - enrichment_jobs.db : to store the job id executions over time, that could be used to track the execution status of the enrichment and link withe Prefect job id. The file should be present in /enricher-api/app/v1/db/ folder. Inside that folder there is create_db.py that could be executed to create the file with the command
+     ```python create_db.py```
+     
+   - synonyms_cache.db : to store the synonyms instead of query data sources. The file should be present in /enricher-api/app/v1/routers/synonyms. Inside that folder there is create_db.py that could be executed to create the file with the command
+  
+     ```python create_db.py```
 
 ## Execution
 0) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the application to download first the list of machine learning models for translation 
@@ -72,6 +80,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

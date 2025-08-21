@@ -5,23 +5,23 @@
 The objective is to be able to find the standards in the registry.
 
 The scope of the enricher is to enrich the data for the registry by:
-- adding automatically a classification (dcat:theme) for a dct:Standard
-- find synonyms (skos:altLabel) for the name of the classes being part of a dct:Standard
-- translate the description (dct:description) of a dct:Standard in multiple languages
+- adding automatically a classification (dcat:theme) for a dct:Standard, so they can be easily found out via the classification filter
+- find synonyms (skos:altLabel) for the name of the classes being part of a dct:Standard, so via synonyms classes and thefore standard can be found.
+- translate the description (dct:description) of a dct:Standard in multiple languages, so end user can search in their own languages.
 
 For more information of the model, see the [SRM](https://semiceu.github.io/uri.semic.eu-generated/SRM/releases/1.0.0/)
 
 ## Architecture
 
 The enricher is based on:
-- FastAPI to trigger its own execution and to trigger 3 main API: synonyms, classify and translate.
-- Prefect to create a flow of 3 respective tasks (synonyms, classify and translate), that fetch the data from Virtuoso, calls the respective API and store the new data in Virtuoso
+- FastAPI to trigger its own execution and to trigger 3 main API: classify, synonyms and translate.
+- Prefect to create a flow of 3 respective tasks (classify, synonyms and translate), that fetch the data needed from Virtuoso, calls the respective API and store the new data in Virtuoso.
 
 See the [architecture](enricher_architecture.png) for better understanding.
 
 ## Setup
 
-The environment is completely based on Python 3 that should be setup.
+The environment is completely based on Python 3 that should be setup in the system (the version 3.11 was used for development).
 
 Steps:
 1) Pull the code and open the project with VSCode
@@ -85,6 +85,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

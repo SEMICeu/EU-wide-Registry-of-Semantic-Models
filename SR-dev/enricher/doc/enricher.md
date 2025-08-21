@@ -68,7 +68,9 @@ Steps:
  
  The FastAPI documentation will be available on http://127.0.0.1:8000/docs#
 
-4) Execute the POST operation on /enricher-api/v1/job passing the default parameters
+4) Execute the POST operation on /enricher-api/v1/job passing the default parameters, see example below:
+
+[prefect classify task](prefect_classify_task.jpg)
 
 ## Debug
 
@@ -88,6 +90,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

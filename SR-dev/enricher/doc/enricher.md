@@ -14,7 +14,7 @@ For more information of the model, see the [SRM](https://semiceu.github.io/uri.s
 ## Architecture
 
 The enricher is mainly based on 2 open source software:
-- [FastAPI](https://fastapi.tiangolo.com/) to trigger its own execution and to trigger 3 main API: classify, synonyms and translate.
+- [FastAPI](https://fastapi.tiangolo.com/) to trigger the Enricher and to execute 3 main API: classify, synonyms and translate.
 - [Prefect](https://www.prefect.io/) to create a flow of 3 respective tasks (classify, synonyms and translate), that fetch the data needed from Virtuoso, calls the respective API and store the new data in Virtuoso.
 
 See the [architecture](enricher_architecture.png) for better understanding.
@@ -85,6 +85,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

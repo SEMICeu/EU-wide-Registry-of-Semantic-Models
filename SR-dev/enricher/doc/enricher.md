@@ -50,7 +50,7 @@ Steps:
     - the datathemes taxonomy used by the classify api
 
 ## Execution
-0) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the application to download first the list of machine learning models for translation 
+0) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the Enricher, via the [list_models](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L198), to download first the list of machine learning models for translation 
 1) run the prefect server to monitor the execution:
    
    ```prefect server start```
@@ -85,6 +85,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

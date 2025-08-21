@@ -37,10 +37,10 @@ Steps:
    ```pip install -r .\requirements.txt```
 
 5) make sure that database files are in place. The Enricher uses SQLite, via SQL Alchemy, in 2 different files:
-   - enrichment_jobs.db : to store the job id executions over time, that could be used to track the execution status of the enrichment and link withe Prefect job id. The file should be present in /enricher-api/app/v1/db/ folder. Inside that folder there is create_db.py that could be executed to create the file with the command
+   - enrichment_jobs.db : to store the job id executions over time, that could be used to track the execution status of the enrichment and link withe Prefect job id. The file should be present in [/enricher-api/app/v1/db/](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/tree/main/SR-dev/enricher/enricher-api/app/api/v1/db) folder. Inside that folder there is create_db.py that could be executed to create the file with the command
      ```python create_db.py```
      
-   - synonyms_cache.db : to store the synonyms instead of query data sources. The file should be present in /enricher-api/app/v1/routers/synonyms. Inside that folder there is create_db.py that could be executed to create the file with the command
+   - synonyms_cache.db : to store the synonyms instead of query data sources. The file should be present in [/enricher-api/app/v1/routers/synonyms](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/tree/main/SR-dev/enricher/enricher-api/app/api/v1/routers/synonyms). Inside that folder there is create_db.py that could be executed to create the file with the command
   
      ```python create_db.py```
 
@@ -85,6 +85,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

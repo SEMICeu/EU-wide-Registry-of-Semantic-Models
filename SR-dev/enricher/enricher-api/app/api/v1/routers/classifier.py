@@ -32,12 +32,13 @@ async def classify(
     ):
 
     try:
-        config = request.app.state.config
+        config = request.app.state.config_classify
         # Process and print results
         listofterms = config[classification]
+        logger.info(f"[CLASSIFY] Loaded {len(listofterms)} terms for classification")
 
         resultList =[]
-        logger.info("context:" + context)
+        logger.info("[CLASSIFY] Context:" + context)
         #for code, data in listofterms.items():
         #    logger.info(f"{data['label']}. {data['definition']}")
 
@@ -51,13 +52,20 @@ async def classify(
 
         if max is not None:
             resultList = resultList[:max] 
+        
+        logger.info(f"[CLASSIFY] Success | results={resultList}")
         return resultList
     except ValueError as e:
+        logger.error(f"[CLASSIFY] Invalid input | error={str(e)}")
         raise HTTPException(
             status_code=400,
             detail=ErrorResponse(detail=str(e), error="INVALID_INPUT").model_dump()
         )
     except Exception as e:
+        logger.error(
+            f"[CLASSIFY] Internal error | error={str(e)}\n"
+            + traceback.format_exc()
+        )
         raise HTTPException(
             status_code=500,
             detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()

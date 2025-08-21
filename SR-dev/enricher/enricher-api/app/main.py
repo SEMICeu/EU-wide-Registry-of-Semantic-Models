@@ -23,13 +23,17 @@ logger = logging.getLogger("app")  # ✅ Matches "app" logger in YAML
 
 os.environ['HF_HUB_DISABLE_SSL_VERIFY'] = '1'
 
+def load_yaml(filename: str):
+    path = os.path.join(os.path.dirname(__file__), filename)
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("🚀 App is starting up...")
     # Load config at startup
-    config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
-    with open(config_path, "r") as f:
-        app.state.config = yaml.safe_load(f)
+    app.state.config = load_yaml("config.yaml")
+    app.state.config_classify = load_yaml("config_classify.yaml")
     
     nltk.download('wordnet')
 

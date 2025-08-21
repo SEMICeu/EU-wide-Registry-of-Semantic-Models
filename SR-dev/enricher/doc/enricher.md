@@ -46,11 +46,14 @@ Steps:
 
 6) There is a configuration file [config.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config.yaml) that describes:
     - the endpoint for api for synonyms (altervista and datamuse)
-    - the 3 endpoints for the api classify, synonyms and translate, used by the 3 respective Prefect tasks
+    - the 3 endpoints for the api classify, synonyms and translate, used by the 3 respective Prefect tasks, to be adapted in case the API are deployed somewhere else.
     - the datathemes taxonomy used by the classify api
 
+7) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the Enricher, via the [list_models](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L198), to download first the list of machine learning models for translation.
+   The page is sometimes blocked by the company proxy.
+
 ## Execution
-0) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the Enricher, via the [list_models](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L198), to download first the list of machine learning models for translation 
+ 
 1) run the prefect server to monitor the execution:
    
    ```prefect server start```
@@ -85,6 +88,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

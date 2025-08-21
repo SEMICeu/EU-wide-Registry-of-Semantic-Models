@@ -44,6 +44,11 @@ Steps:
   
      ```python create_db.py```
 
+6) There is a configuration file config.yaml that describes:
+    - the endpoint for api for synonyms (altervista and datamuse)
+    - the 3 endpoints for the api classify, synonyms and translate, used by the 3 respective Prefect tasks
+    - the datathemes taxonomy used by the classify api
+
 ## Execution
 0) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the application to download first the list of machine learning models for translation 
 1) run the prefect server to monitor the execution:
@@ -80,6 +85,7 @@ Notes:
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
   
+
 
 
 

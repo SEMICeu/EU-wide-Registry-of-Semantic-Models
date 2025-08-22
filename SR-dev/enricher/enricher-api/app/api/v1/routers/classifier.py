@@ -2,6 +2,7 @@ from fastapi import APIRouter, Query, HTTPException, Request
 import os
 from typing import List, Optional
 import logging
+import traceback
 
 import sys
 # Add project root to sys.path

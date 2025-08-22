@@ -5,6 +5,48 @@ import requests
 import re
 
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
+def delete_descriptions(
+    endpoint: str = "https://health.semic.eu/virtuoso/sparql",
+    graph_uri: str = "http://semic.registry.eu",
+    ) -> int:
+
+    logger = get_run_logger()
+    logger.info(f"deleting translations from {endpoint}")
+
+    query = f"""
+    PREFIX dct: <http://purl.org/dc/terms/>
+    DELETE {{
+      GRAPH <{graph_uri}> {{
+        ?s dct:description ?description .
+      }}
+    }}
+    WHERE {{
+      GRAPH <{graph_uri}> {{
+        ?s a dct:Standard ;
+           dct:description ?description .
+        FILTER (STRSTARTS(?description, "test-"))
+      }}
+    }}
+    """
+
+    sparql = SPARQLWrapper(endpoint)
+    sparql.setMethod(POST)
+    sparql.setQuery(query)
+
+    # Virtuoso returns plain text like "Delete from <...>, 403 triples"
+    response = sparql.query().response.read().decode("utf-8")
+
+    # Extract number of triples if present
+    deleted_count = 0
+    if "triples" in response:
+        try:
+            deleted_count = int(response.split(",")[-1].strip().split()[0])
+        except Exception:
+            pass
+    logger.info("translations deleted: " + str(deleted_count))
+    return deleted_count
+
+@task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def fetch_descriptions_to_translate(
     endpoint: str = "https://health.semic.eu/virtuoso/sparql",
     graph_uri: str = "http://semic.registry.eu",

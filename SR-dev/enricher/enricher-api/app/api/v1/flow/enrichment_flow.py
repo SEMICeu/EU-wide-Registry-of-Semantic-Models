@@ -7,7 +7,7 @@ from datetime import datetime, UTC
 import os
 from .tasks.classify_themes import fetch_themes_to_classify, classify, add_themes_to_graph
 from .tasks.synonyms_class_labels import fetch_labels_to_synonyms, synonyms, add_synonyms_to_graph
-from .tasks.translate_descriptions import fetch_descriptions_to_translate, translate, add_translations_to_graph, make_batches, translate_batch, add_translations_to_graph_batch, translate_batch_lock3 
+from .tasks.translate_descriptions import delete_descriptions, fetch_descriptions_to_translate, translate, add_translations_to_graph, make_batches, translate_batch, add_translations_to_graph_batch, translate_batch_lock3 
 
 from prefect.logging import get_run_logger
 from prefect.settings import PREFECT_UI_URL
@@ -24,7 +24,7 @@ DB_PATH = os.path.join(BASE_DIR, "..", "db", "enrichment_jobs.db")
 engine = create_engine(f"sqlite:///{DB_PATH}")
 SessionLocal = sessionmaker(bind=engine)
 
-config_path = Path(__file__).resolve().parents[3] / "config.yaml"
+config_path = Path(__file__).resolve().parents[3] / "config_prefect.yaml"
 with open(config_path, "r") as file:
     config = yaml.safe_load(file)
 
@@ -87,8 +87,10 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
             #translate_future = translate.submit(source_endpoint, graph_uri, translate_api, fetch_descriptions_future)
             #add_translations_to_graph.submit(source_endpoint, graph_uri, translate_future)
             
-            # Step 1: ferch
-            fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, source_graph, languages)
+            # Step 0: delete
+            delete_descriptions_future = delete_descriptions.submit(source_endpoint, source_graph)
+            # Step 1: fetch
+            fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, source_graph, languages, wait_for=[delete_descriptions_future])
             # Step 2: Batch (as a Prefect task)
             batches_future = make_batches.submit(fetch_descriptions_future)  # only one dependency here
             

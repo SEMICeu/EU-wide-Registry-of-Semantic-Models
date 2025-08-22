@@ -1,0 +1,40 @@
+classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
+synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
+translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
+
+languages:
+  - en   # English (~370M)
+  - de   # German (~95M)
+  - fr   # French (~80M)
+  - it   # Italian (~65M)
+  - es   # Spanish (~45M)
+  - pl   # Polish (~38M)
+  - ro   # Romanian (~24M)
+  - nl   # Dutch (~23M)
+  - hu   # Hungarian (~13M)
+  - el   # Greek (~13M)
+
+additional_languages:
+  - pt   # Portuguese (~10M)
+  - cs   # Czech (~10M)
+  - sv   # Swedish (~10M)
+  - bg   # Bulgarian (~7M)
+  - sk   # Slovak (~5M)
+  - fi   # Finnish (~5M)
+  - da   # Danish (~5M)
+  - sr   # Serbian (~5M in Europe)
+  - hr   # Croatian (~4M)
+  - sq   # Albanian (~4M in Europe)
+  - no   # Norwegian (~4M)
+  - mk   # Macedonian (~2M)
+  - bs   # Bosnian (~2M)
+  - lt   # Lithuanian (~2M)
+  - lv   # Latvian (~2M)
+  - sl   # Slovenian (~2M)
+  - et   # Estonian (~1M)
+  - is   # Icelandic (~0.3M)
+  - ga   # Irish (~0.1M native, wider as L2)
+  - cy   # Welsh (~0.9M)
+  - mt   # Maltese (~0.5M)
+  - eu   # Basque (~0.75M)
+  - gl   # Galician (~2.4M)

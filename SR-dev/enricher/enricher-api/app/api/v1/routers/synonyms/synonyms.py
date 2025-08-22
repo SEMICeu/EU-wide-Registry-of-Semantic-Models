@@ -3,6 +3,7 @@ import os
 from typing import List, Optional, Optional, Dict, Any
 import logging
 import re
+import traceback
 
 import sys
 # Add project root to sys.path
@@ -39,7 +40,7 @@ async def synonyms(
     ):
 
     try:
-        config = request.app.state.config
+        config = request.app.state.config_synonyms
         altervista_endpoint = config['altervista_endpoint']
         datamuse_endpoint = config['datamuse_endpoint']
         altervista_key = config['altervista_key']
@@ -68,10 +69,12 @@ async def synonyms(
                 resultList.append(Synonym(term=syn, source="datamuse", score=score))
 
         if not nltk_syns and not altervista_syns and not datamuse_syns:
-            logger.warning(f"No synonyms found from any source for term '{term}'")
+            logger.warning(f"[SYNONYMS] No synonyms found from any source for term '{term}'")
         # Context re-scoring
         if context:
             temp_list = [s.term for s in resultList]
+            logger.info(f"[SYNONYMS] got synonyms: {[s.json() for s in temp_list]}")
+            logger.info(f"[SYNONYMS] Re-evaluating the synonyms given the context '{context}'")
             all_scores = best_synonym_for_context(context, temp_list, return_all=True)
             score_map = {word: score for word, score in all_scores}
             for s in resultList:
@@ -82,14 +85,19 @@ async def synonyms(
         if max:
             resultList = resultList[:max]
         
-        logger.info(f"Found synonyms for {term}: {resultList}")
+        logger.info(f"[SYNONYMS] Found best synonyms for {term}: {resultList}")
         return resultList
     except ValueError as e:
+        logger.error(f"[SYNONYMS] Invalid input | error={str(e)}")
         raise HTTPException(
             status_code=400,
             detail=ErrorResponse(detail=str(e), error="INVALID_INPUT").model_dump()
         )
     except Exception as e:
+        logger.error(
+            f"[SYNONYMS] Internal error | error={str(e)}\n"
+            + traceback.format_exc()
+        )
         raise HTTPException(
             status_code=500,
             detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()
@@ -153,12 +161,13 @@ def get_altervista_synonyms(altervista_endpoint, term, api_key, language="en_US"
 
         return synonyms
     except Exception as e:
-        logger.error(f"Altervista error: {e}")
+        logger.error(f"[ALTERVISTA] error: {e}")
         return {}
 
 def get_datamuse_synonyms(datamuse_endpoint, term, max_results=10):
     cached = get_cached_synonyms(term, "datamuse")
     if cached:
+        logger.info(f"[DATAMUSE] Cache HIT for '{term}', returning: {cached}")
         return cached
 
     synonyms = {}
@@ -173,11 +182,13 @@ def get_datamuse_synonyms(datamuse_endpoint, term, max_results=10):
 
         # ✅ Only cache if not empty
         if synonyms:
+            logger.info(f"[DATAMUSE] Caching {len(synonyms)} synonyms for '{term}': {synonyms}")
             set_cached_synonyms(term, "datamuse", synonyms)
-
+        else:
+            logger.info(f"[DATAMUSE] No synonyms found for '{term}', skipping cache")
         return synonyms
     except Exception as e:
-        logger.error(f"Datamuse error: {e}")
+        logger.error(f"[DATAMUSE] error: {e}")
         return {}
 
 @synonyms_router.get("/synonyms/cache",

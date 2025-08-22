@@ -3,6 +3,7 @@ import os
 from typing import List, Optional, Tuple
 import logging
 import re
+import traceback
 
 import sys
 # Add project root to sys.path
@@ -38,7 +39,7 @@ async def translates(
             language=lang_code,
             score=confidence
         )
-        logger.info("detected " + lang_code)
+        logger.info("[TRANSLATE] detected " + lang_code)
         if source is None:
             source = lang_code
         else:
@@ -50,7 +51,7 @@ async def translates(
         for tgt in target:
             target_value = tgt.value
             if (source,target_value) in sorted_pairs:
-                logger.info("valid pair:" + source + "-" + target_value)
+                logger.info("[TRANSLATE] valid pair:" + source + "-" + target_value)
                 found +=1
 
                 tokenizer, model = load_model_translate(source, target_value)
@@ -62,7 +63,7 @@ async def translates(
                             lang=target_value
                 )
                 resultList.append(translation)
-        logger.info("found " + str(found))
+        logger.info("[TRANSLATE] found " + str(found))
 
         response = TranslationResponse(
             detectedLanguage=detected,
@@ -71,11 +72,16 @@ async def translates(
 
         return [response]
     except ValueError as e:
+        logger.error(f"[TRANSLATE] Invalid input | error={str(e)}")
         raise HTTPException(
             status_code=400,
             detail=ErrorResponse(detail=str(e), error="INVALID_INPUT").model_dump()
         )
     except Exception as e:
+        logger.error(
+            f"[CLASSIFY] Internal error | error={str(e)}\n"
+            + traceback.format_exc()
+        )
         raise HTTPException(
             status_code=500,
             detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()

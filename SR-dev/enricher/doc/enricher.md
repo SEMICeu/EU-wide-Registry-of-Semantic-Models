@@ -50,7 +50,10 @@ Steps:
     - the datathemes taxonomy used by the classify api
 
 7) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the Enricher, via the [list_models](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L198), to download first the list of machine learning models for translation.
-   The page is sometimes blocked by the company proxy.
+   The page is sometimes blocked by the company proxy and you can get the log message:
+   
+   {"time": "2025-08-22 22:53:47", "level": "INFO", "name": "app.api.v1.mlmodels", "message": "Fetching models from Hugging Face Hub..."}
+   {"time": "2025-08-22 22:53:47", "level": "ERROR", "name": "app", "message": "Failed to preload translation pairs: Expecting value: line 1 column 1 (char 0)"}
 
 ## Execution
  

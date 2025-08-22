@@ -32,8 +32,9 @@ def load_yaml(filename: str):
 async def lifespan(app: FastAPI):
     logger.info("🚀 App is starting up...")
     # Load config at startup
-    app.state.config = load_yaml("config.yaml")
-    app.state.config_classify = load_yaml("config_classify.yaml")
+    app.state.config_classify = load_yaml("config_api_classify.yaml")
+    app.state.config_synonyms = load_yaml("config_api_synonyms.yaml")
+    app.state.config_prefect = load_yaml("config_prefect.yaml")
     
     nltk.download('wordnet')
 

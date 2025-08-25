@@ -63,7 +63,7 @@ synonyms:
       }
       INSERT {
       GRAPH <$graph_uri> {
-          <$uri> skos:altLabel $altLabel .
+          <$uri> skos:altLabel "$altLabel" .
       }
       }
       WHERE {

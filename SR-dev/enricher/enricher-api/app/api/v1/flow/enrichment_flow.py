@@ -43,7 +43,7 @@ def combine_translations(batch_results):
     return all_translations
     
 @flow(name="enrichment-flow")
-def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job_id: str = None, batch_size: int = 5):
+def enrichment_flow(task: str = "all", job_id: str = None):
     logger = get_run_logger()
     # ✅ Get Prefect flow_run_id
     flow_run_id = flow_run.id
@@ -52,6 +52,13 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
     flow_url = f"{ui_base}/flow-runs/flow-run/{flow_run_id}"
     logger.info(f"🔗 Flow started: {flow_url}")
     
+    source_endpoint = config["flow_source_endpoint"]
+    graph_uri = config["flow_graph_uri"]
+    logger.info(f"[FLOW] source endpoint: {source_endpoint}")
+    logger.info(f"[FLOW] graph uri: {graph_uri}")
+    source_graph = graph_uri
+    target_graph = graph_uri
+
     # ✅ Update DB with flow_run_id
     session = SessionLocal()
     try:
@@ -60,12 +67,10 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
             job.flow_run_id = flow_run_id
             job.flow_url = flow_url
             job.status = "running"
+            job.started_at = datetime.now()
             session.commit()
 
         logger.info(f"Job {job_id} status set to RUNNING with flow_run_id {flow_run_id}")
-
-        source_graph = graph_uri
-        target_graph = graph_uri
 
         if(task == "all" or task == "classify"):
             fetch_themes_future = fetch_themes_to_classify.submit(source_endpoint, source_graph)
@@ -80,8 +85,11 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
             add_synonyms_to_graph.submit(source_endpoint, target_graph, synonyms_future)
 
         if(task == "all" or task == "translate"):
-            languages = config["languages"]
+            languages = config["translate_languages"]
             translate_api = config["translate_api"]
+            multi_target = config["translate_multi_target"]
+            batch_size = config["translate_batch_size"]
+            hub_languages = config["translate_hub_languages"]
             #fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, graph_uri)
 
             #translate_future = translate.submit(source_endpoint, graph_uri, translate_api, fetch_descriptions_future)
@@ -92,12 +100,12 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
             # Step 1: fetch
             fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, source_graph, languages, wait_for=[delete_descriptions_future])
             # Step 2: Batch (as a Prefect task)
-            batches_future = make_batches.submit(fetch_descriptions_future)  # only one dependency here
+            batches_future = make_batches.submit(fetch_descriptions_future, batch_size)  # only one dependency here
             
 
             # Step 3: Submit translation batches in parallel
             batch_futures = [
-                translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch,  wait_for=[batches_future])
+                translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch, hub_languages, multi_target, wait_for=[batches_future])
                 for batch in batches_future.result()   # ensures Prefect sees only batch_translate as upstream
             ]
 
@@ -132,7 +140,7 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
         # ✅ Mark job as completed
         if job:
             job.status = "completed"
-            job.completed_at = datetime.now(UTC)
+            job.completed_at = datetime.now()
             session.commit()
             logger.info(f"Job {job_id} status set to COMPLETED")
 
@@ -141,9 +149,12 @@ def enrichment_flow(graph_uri: str, source_endpoint: str, task: str = "all", job
     except Exception as e:
         # ✅ Mark job as failed
         if job:
+            session.rollback()  # very important
+            job.flow_run_id = flow_run_id
+            job.flow_url = flow_url
             job.status = "failed"
             job.error_log = str(e)
-            job.completed_at = datetime.now(UTC)
+            job.completed_at = datetime.now()
             session.commit()
             logger.error(f"Job {job_id} status set to FAILED due to error: {e}")
 

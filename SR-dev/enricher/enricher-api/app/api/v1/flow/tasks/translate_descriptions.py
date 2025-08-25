@@ -359,13 +359,14 @@ import threading, time
 # Per-(source,target) lock
 _model_locks = defaultdict(threading.Lock)
 
-HUB_LANGUAGES = ["en", "fr", "de", "it", "sv", "el"]
+#HUB_LANGUAGES = ["en", "fr", "de", "it", "sv", "el"]
 
 def select_source_language(existing_langs):
     """
     Selects the best source language based on priority hubs.
     Falls back to the first available language if no hub is present.
     """
+    HUB_LANGUAGES = ["en", "fr", "de", "it", "sv", "el"]
     for hub in HUB_LANGUAGES:
         if hub in existing_langs:
             return hub
@@ -526,7 +527,7 @@ def translate_batch_lock2(source_endpoint, graph_uri, batch_data):
 from app.api.v1.mlmodels import list_opus_pairs
 
 @task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
-def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, multi_target: bool = True):
+def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, hub_languages, multi_target: bool = True ):
     """
     Batch translation task with optional multi-target support.
 
@@ -566,10 +567,10 @@ def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, multi_
     translations = {}
     SUPPORTED_PAIRS = list_opus_pairs()
     logger.info(f"[Init] Loaded {len(SUPPORTED_PAIRS)} OPUS translation pairs")
-    logger.info(f"[Init] HUB_LANGUAGES={HUB_LANGUAGES}, multi_target={multi_target}")
+    logger.info(f"[Init] hub_languages={hub_languages}, multi_target={multi_target}")
 
     def select_source_language(existing_langs):
-        for hub in HUB_LANGUAGES:
+        for hub in hub_languages:
             if hub in existing_langs:
                 return hub
         return existing_langs[0] if existing_langs else None
@@ -614,8 +615,9 @@ def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, multi_
 
     def find_pivot(source, target):
         """Find a pivot hub language if no direct pair exists."""
-        for hub in HUB_LANGUAGES:
+        for hub in hub_languages:
             if (source, hub) in SUPPORTED_PAIRS and (hub, target) in SUPPORTED_PAIRS:
+                logger.info(f"[Pivot] found pivot hub language {hub}")
                 return hub
         return None
 

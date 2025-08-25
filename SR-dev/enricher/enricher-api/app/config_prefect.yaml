@@ -1,8 +1,13 @@
+flow_source_endpoint: "https://health.semic.eu/virtuoso/sparql"
+flow_graph_uri: "http://semic.registry.eu"
+
 classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
 synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
 translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
 
-languages:
+translate_batch_size: 4
+translate_multi_target: True 
+translate_languages:
   - en   # English (~370M)
   - de   # German (~95M)
   - fr   # French (~80M)
@@ -13,8 +18,15 @@ languages:
   - nl   # Dutch (~23M)
   - hu   # Hungarian (~13M)
   - el   # Greek (~13M)
+translate_hub_languages:
+  - en
+  - fr
+  - de
+  - it
+  - sv
+  - el
 
-additional_languages:
+translate_additional_languages:
   - pt   # Portuguese (~10M)
   - cs   # Czech (~10M)
   - sv   # Swedish (~10M)

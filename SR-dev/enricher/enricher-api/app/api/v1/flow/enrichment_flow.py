@@ -73,23 +73,27 @@ def enrichment_flow(task: str = "all", job_id: str = None):
         logger.info(f"Job {job_id} status set to RUNNING with flow_run_id {flow_run_id}")
 
         if(task == "all" or task == "classify"):
-            fetch_themes_future = fetch_themes_to_classify.submit(source_endpoint, source_graph)
-            classify_api = config["classify_api"]
+            fetch_themes_to_classify_query = config["classify"]["fetch_themes_to_classify_query"]
+            fetch_themes_future = fetch_themes_to_classify.submit(source_endpoint, source_graph, fetch_themes_to_classify_query)
+            classify_api = config["classify"]["classify_api"]
             classify_future = classify.submit(classify_api, fetch_themes_future)
-            add_themes_to_graph.submit(source_endpoint, target_graph, classify_future)
+            add_classification_query = config["classify"]["add_themes"]
+            add_themes_to_graph.submit(source_endpoint, target_graph, classify_future, add_classification_query)
 
         if(task == "all" or task == "synonyms"):
-            fetch_labels_future = fetch_labels_to_synonyms.submit(source_endpoint, source_graph)
-            synonyms_api = config["synonyms_api"]
+            fetch_labels_to_synonyms_query = config["synonyms"]["fetch_labels_to_synonyms_query"]
+            fetch_labels_future = fetch_labels_to_synonyms.submit(source_endpoint, source_graph, fetch_labels_to_synonyms_query)
+            synonyms_api = config["synonyms"]["synonyms_api"]
             synonyms_future = synonyms.submit(synonyms_api, fetch_labels_future)
-            add_synonyms_to_graph.submit(source_endpoint, target_graph, synonyms_future)
+            add_synonyms_query = config["synonyms"]["add_synonyms"]
+            add_synonyms_to_graph.submit(source_endpoint, target_graph, synonyms_future, add_synonyms_query)
 
         if(task == "all" or task == "translate"):
-            languages = config["translate_languages"]
-            translate_api = config["translate_api"]
-            multi_target = config["translate_multi_target"]
-            batch_size = config["translate_batch_size"]
-            hub_languages = config["translate_hub_languages"]
+            languages = config["translate"]["languages"]
+            translate_api = config["translate"]["translate_api"]
+            multi_target = config["translate"]["multi_target"]
+            batch_size = config["translate"]["batch_size"]
+            hub_languages = config["translate"]["hub_languages"]
             #fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, graph_uri)
 
             #translate_future = translate.submit(source_endpoint, graph_uri, translate_api, fetch_descriptions_future)

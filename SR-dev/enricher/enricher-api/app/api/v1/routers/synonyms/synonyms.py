@@ -4,6 +4,7 @@ from typing import List, Optional, Optional, Dict, Any
 import logging
 import re
 import traceback
+from fastapi.responses import JSONResponse
 
 import sys
 # Add project root to sys.path
@@ -28,8 +29,8 @@ synonyms_router = APIRouter()
         400: {"description": "Bad Request", "model": ErrorResponse},
         500: {"description": "Internal Server Error", "model": ErrorResponse},
     },
-    summary="Get a list of synoyms for a term",  
-    description="This endpoint returns a list of synoyms for a term, filtered if needed by source",
+    summary="Get a list of synonyms for a term",  
+    description="This endpoint returns a list of synonyms for a term, filtered if needed by source",
     response_description="The response is a JSON object including list of synonyms with their source ")
 async def synonyms(
     request: Request,
@@ -73,34 +74,52 @@ async def synonyms(
         # Context re-scoring
         if context:
             temp_list = [s.term for s in resultList]
-            logger.info(f"[SYNONYMS] got synonyms: {[s.json() for s in temp_list]}")
+            logger.info(f"[SYNONYMS] got synonyms: {temp_list}")
             logger.info(f"[SYNONYMS] Re-evaluating the synonyms given the context '{context}'")
-            all_scores = best_synonym_for_context(context, temp_list, return_all=True)
-            score_map = {word: score for word, score in all_scores}
-            for s in resultList:
-                if s.term in score_map:
-                    s.score = score_map[s.term]
-            resultList.sort(key=lambda x: x.score, reverse=True)
+            if temp_list:  # 🔒 guard here
+                all_scores = best_synonym_for_context(context, temp_list, return_all=True)
+                score_map = {word: score for word, score in all_scores}
+                for s in resultList:
+                    if s.term in score_map:
+                        s.score = score_map[s.term]
+                resultList.sort(key=lambda x: x.score, reverse=True)
+            else:
+                logger.warning("[SYNONYMS] No synonyms available, skipping re-evaluation")
+
 
         if max:
             resultList = resultList[:max]
         
         logger.info(f"[SYNONYMS] Found best synonyms for {term}: {resultList}")
+
+        if not resultList:
+            logger.warning(f"[SYNONYMS] No synonyms found for term '{term}'")
+        else:
+            logger.info(f"[SYNONYMS] Found best synonyms for {term}: {resultList}")     
+        
         return resultList
+    
     except ValueError as e:
         logger.error(f"[SYNONYMS] Invalid input | error={str(e)}")
-        raise HTTPException(
+        return JSONResponse(
             status_code=400,
-            detail=ErrorResponse(detail=str(e), error="INVALID_INPUT").model_dump()
+            content=ErrorResponse(
+                detail=str(e),
+                error="INVALID_INPUT"
+            ).model_dump()
         )
+
     except Exception as e:
         logger.error(
             f"[SYNONYMS] Internal error | error={str(e)}\n"
             + traceback.format_exc()
         )
-        raise HTTPException(
+        return JSONResponse(
             status_code=500,
-            detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()
+            content=ErrorResponse(
+                detail=str(e),
+                error="INTERNAL_ERROR"
+            ).model_dump()
         )
 
 def get_nltk_synonyms(term):

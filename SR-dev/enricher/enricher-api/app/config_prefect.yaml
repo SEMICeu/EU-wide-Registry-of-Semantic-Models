@@ -1,52 +1,120 @@
 flow_source_endpoint: "https://health.semic.eu/virtuoso/sparql"
 flow_graph_uri: "http://semic.registry.eu"
 
-classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
-synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
-translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
+classify:
+  classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
+  fetch_themes_to_classify_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    SELECT DISTINCT ?standard ?description
+    FROM <$graph_uri>
+    WHERE {
+      ?standard a dct:Standard .
+      ?standard dcat:theme ?theme .
+      ?standard dct:description ?description .
+      FILTER(lang(?description) = "en")
+    }
+  add_themes:
+    prefixes: |
+      PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    query: |
+      DELETE {
+        GRAPH <$graph_uri> {
+          <$uri> dcat:theme ?oldTheme .
+        }
+      }
+      INSERT {
+        GRAPH <$graph_uri> {
+          <$uri> dcat:theme "$theme" .
+        }
+      }
+      WHERE {
+        GRAPH <$graph_uri> {
+          OPTIONAL { <$uri> dcat:theme ?oldTheme . }
+        }
+      }
 
-translate_batch_size: 4
-translate_multi_target: True 
-translate_languages:
-  - en   # English (~370M)
-  - de   # German (~95M)
-  - fr   # French (~80M)
-  - it   # Italian (~65M)
-  - es   # Spanish (~45M)
-  - pl   # Polish (~38M)
-  - ro   # Romanian (~24M)
-  - nl   # Dutch (~23M)
-  - hu   # Hungarian (~13M)
-  - el   # Greek (~13M)
-translate_hub_languages:
-  - en
-  - fr
-  - de
-  - it
-  - sv
-  - el
+synonyms:
+  synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
+  fetch_labels_to_synonyms_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    select distinct ?class (group_concat(distinct ?lowLabel;separator=",") as ?labels) ?description
+    FROM <$graph_uri>
+    where {
+      ?standard a dct:Standard .
+      ?standard dct:description ?description .
+      FILTER(lang(?description) = "en") .
+      ?standard dct:hasPart ?class .
+      ?class rdfs:label ?label .
+      BIND(LCASE(?label) as ?lowLabel) .
+      FILTER(lang(?label) = "en")
+      
+    }
+    GROUP BY ?class ?description
+  add_synonyms:
+    prefixes: |
+      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    query: |
+      DELETE {
+      GRAPH <$graph_uri}> {
+          <$uri> skos:altLabel ?altLabel .
+      }
+      }
+      INSERT {
+      GRAPH <$graph_uri> {
+          <$uri> skos:altLabel $altLabel .
+      }
+      }
+      WHERE {
+      GRAPH <$graph_uri> {
+          OPTIONAL { <$uri> skos:altLabel ?altLabel . }
+      }
+      }
 
-translate_additional_languages:
-  - pt   # Portuguese (~10M)
-  - cs   # Czech (~10M)
-  - sv   # Swedish (~10M)
-  - bg   # Bulgarian (~7M)
-  - sk   # Slovak (~5M)
-  - fi   # Finnish (~5M)
-  - da   # Danish (~5M)
-  - sr   # Serbian (~5M in Europe)
-  - hr   # Croatian (~4M)
-  - sq   # Albanian (~4M in Europe)
-  - no   # Norwegian (~4M)
-  - mk   # Macedonian (~2M)
-  - bs   # Bosnian (~2M)
-  - lt   # Lithuanian (~2M)
-  - lv   # Latvian (~2M)
-  - sl   # Slovenian (~2M)
-  - et   # Estonian (~1M)
-  - is   # Icelandic (~0.3M)
-  - ga   # Irish (~0.1M native, wider as L2)
-  - cy   # Welsh (~0.9M)
-  - mt   # Maltese (~0.5M)
-  - eu   # Basque (~0.75M)
-  - gl   # Galician (~2.4M)
+translate:
+  translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
+  batch_size: 4
+  multi_target: True 
+  languages:
+    - en   # English (~370M)
+    - de   # German (~95M)
+    - fr   # French (~80M)
+    - it   # Italian (~65M)
+    - es   # Spanish (~45M)
+    - pl   # Polish (~38M)
+    - ro   # Romanian (~24M)
+    - nl   # Dutch (~23M)
+    - hu   # Hungarian (~13M)
+    - el   # Greek (~13M)
+  hub_languages:
+    - en
+    - fr
+    - de
+    - it
+    - sv
+    - el
+  translate_additional_languages:
+    - pt   # Portuguese (~10M)
+    - cs   # Czech (~10M)
+    - sv   # Swedish (~10M)
+    - bg   # Bulgarian (~7M)
+    - sk   # Slovak (~5M)
+    - fi   # Finnish (~5M)
+    - da   # Danish (~5M)
+    - sr   # Serbian (~5M in Europe)
+    - hr   # Croatian (~4M)
+    - sq   # Albanian (~4M in Europe)
+    - no   # Norwegian (~4M)
+    - mk   # Macedonian (~2M)
+    - bs   # Bosnian (~2M)
+    - lt   # Lithuanian (~2M)
+    - lv   # Latvian (~2M)
+    - sl   # Slovenian (~2M)
+    - et   # Estonian (~1M)
+    - is   # Icelandic (~0.3M)
+    - ga   # Irish (~0.1M native, wider as L2)
+    - cy   # Welsh (~0.9M)
+    - mt   # Maltese (~0.5M)
+    - eu   # Basque (~0.75M)
+    - gl   # Galician (~2.4M)

@@ -2,12 +2,14 @@ from prefect import task
 from prefect.logging import get_run_logger
 from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
+from string import Template
 
 # Suggest improvements for this function
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def fetch_themes_to_classify(
-    endpoint: str = "https://health.semic.eu/virtuoso/sparql", 
-    graph_uri : str = "http://semic.registry.eu"
+    endpoint: str, 
+    graph_uri : str,
+    fetch_themes_to_classify_query : str
     ):
 
     logger = get_run_logger()
@@ -16,19 +18,12 @@ def fetch_themes_to_classify(
     sparql = SPARQLWrapper(endpoint)
     sparql.setReturnFormat(JSON)
 
-    query = f"""
-    PREFIX dct: <http://purl.org/dc/terms/>
-    PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    SELECT distinct ?standard ?description
-    FROM <{graph_uri}>
-    WHERE {{
-      ?standard a dct:Standard .
-      ?standard dcat:theme ?theme .
-      ?standard dct:description ?description .
-      FILTER(lang(?description) = "en")
-     
-    }}
-    """
+    template = Template(fetch_themes_to_classify_query)
+    params = {
+        "graph_uri" : graph_uri
+    }
+    query = template.substitute(params)
+    logger.info(f"Query: {query}")
     #  FILTER (STRSTARTS(str(?theme),"test-")) .
     sparql.setQuery(query)
     results = sparql.query().convert()
@@ -86,35 +81,28 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 @task
-def add_themes_to_graph(endpoint, graph_uri, enriched_results):
+def add_themes_to_graph(endpoint: str, graph_uri: str, enriched_results: dict, queries: dict):
     logger = get_run_logger()
     logger.info(f"Adding themes to the graph {graph_uri}...")
-    prefixes = """
-    PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    """
 
-    update_blocks = "\n".join(
-        f"""
-        DELETE {{
-        GRAPH <{graph_uri}> {{
-            <{uri}> dcat:theme ?oldTheme .
-        }}
-        }}
-        INSERT {{
-        GRAPH <{graph_uri}> {{
-            <{uri}> dcat:theme "test-{theme}" .
-        }}
-        }}
-        WHERE {{
-        GRAPH <{graph_uri}> {{
-            OPTIONAL {{ <{uri}> dcat:theme ?oldTheme . }}
-        }}
-        }}
-        """ for uri, theme in enriched_results.items() if theme
-    )
+    prefixes = queries["prefixes"]
+    query_template = queries["query"]
 
-    sparql_update = prefixes + update_blocks
-    logger.info("sparql query: " +sparql_update)
+    #prefixes = """
+    #PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    #"""
+
+    sparql_update_blocks = []
+
+    for uri, theme in enriched_results.items():
+        if theme:
+            template = Template(query_template)
+            sparql_update_blocks.append(
+                template.substitute(graph_uri=graph_uri, uri=uri, theme=f"test-{theme}")
+            )
+
+    sparql_update = prefixes + "\n" + "\n".join(sparql_update_blocks)
+    logger.info("SPARQL update query:\n" + sparql_update)
 
     # Headers for the SPARQL update request
     headers = {

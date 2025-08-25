@@ -144,7 +144,7 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             session.commit()
             logger.info(f"Job {job_id} status set to COMPLETED")
 
-        logger.info(f"Completed enrichment for job_id={job_id}")
+        logger.info(f"Job {job_id} status set to COMPLETED")
 
     except Exception as e:
         # ✅ Mark job as failed

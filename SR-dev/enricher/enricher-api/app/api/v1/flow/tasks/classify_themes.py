@@ -3,6 +3,7 @@ from prefect.logging import get_run_logger
 from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
 
+# Suggest improvements for this function
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def fetch_themes_to_classify(
     endpoint: str = "https://health.semic.eu/virtuoso/sparql", 

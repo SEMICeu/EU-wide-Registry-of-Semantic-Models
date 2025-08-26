@@ -17,7 +17,7 @@ The enricher is mainly based on 2 open source software:
 - [FastAPI](https://fastapi.tiangolo.com/) to trigger the Enricher and to execute 3 main API: classify, synonyms and translate.
 - [Prefect](https://www.prefect.io/) to create a flow of 3 respective tasks (classify, synonyms and translate), that fetch the data needed from Virtuoso, calls the respective API and store the new data in Virtuoso.
 
-See the [architecture](enricher_architecture.png) for better understanding.
+![architecture](enricher_architecture.png)
 
 ## Setup
 

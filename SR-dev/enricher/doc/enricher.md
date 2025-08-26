@@ -77,36 +77,46 @@ Steps:
 ### Executing classify task
 The classify task is divided in 3 steps:
 
- 1) fetch the English description of the Standard to classify from the graph in the sparql endpoint, see query
- 2) classify the descriptions accordingly to the Publications Office data themes, calling the classify API
- 3) add the data themes to the graph 
+ 1) fetch the English description of the Standard to classify from the graph in the sparql endpoint, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L6)
+ 2) classify the descriptions accordingly to the Publications Office data themes, stored in the [config_api_classify.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_classify.yaml), calling the [classify API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L17)
+ 3) add the data themes to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L18) 
+
+#### Classify API
+
+The end user can pass the below parameters:
+ - a context, a sentence to be used to give a context
+ - a classification, for now only the Publications Office data themes is available
+ - the maximum number of results
+
+The classify task provides to the API the below values:
+ - the English description of the Standard as context
+ - select the data themes classification 
+ - set the maximum value 1 to be returned
+
+To evaluate against the context, the classify API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder.
 
 ### Executing synonyms task
 The classify task is divided in 3 steps:
 
- 1) fetch:
-   - the English description of the Standard and
-   - the English labels of classes belonging to the Standard
-   
-   from the graph in the sparql endpoint, see query
- 2) find the best synonyms for a label, if it exists, calling the synonyms API
- 3) add (update) the synonyms back to the graph, see query 
+ 1) fetch the English description of the Standard and the English labels of classes belonging to the Standard from the graph in the sparql endpoint, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L39)
+ 2) find the best synonyms for a label, if it exists, calling the [synonyms API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L54)
+ 3) add (update) the synonyms back to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L55) 
 
 #### Synonyms API
 
-The synoynms API has 3 data sources to find synonyms: nltk (wordnet), altervista API and datamuse API.
+The synoynms API has 3 data sources to find synonyms: nltk (wordnet), altervista API and datamuse API, see [config_api_synonyms.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_synonyms.yaml)
 The end user can pass the below parameters:
  - a term, the text to be searched for synonyms
  - the data sources in which to search
  - a context, a sentence to be used to give a context and reorder the results in decreasing order probability
  - the maximum number of results
 
-The synonyms task provides then:
- - a label as term
+The synonyms task provides to the API the below values:
+ - the English label of the class as term
  - the English description of the Standard as context
- - the maximum value 1 to be returned
+ - set the maximum value 1 to be returned
 
-To evaluate against the context, the synonyms API uses the sentence transformers model "all-MiniLM-L6-v2".
+To evaluate against the context, the synonyms API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder.
 
 The synonyms found for a term are stored in a cache so the synonyms api uses the cache to retrieve the synonyms first without call the API.
 The end user can get or delete the cache and look at the cache statistics from the respective API endpoints.

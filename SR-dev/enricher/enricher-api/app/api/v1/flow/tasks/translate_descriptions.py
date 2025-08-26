@@ -3,31 +3,24 @@ from prefect.logging import get_run_logger
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, URLENCODED
 import requests
 import re
+from string import Template
 
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def delete_descriptions(
-    endpoint: str = "https://health.semic.eu/virtuoso/sparql",
-    graph_uri: str = "http://semic.registry.eu",
-    ) -> int:
+        endpoint: str, 
+        graph_uri: str, 
+        delete_descriptions_query: str
+    ) :
 
     logger = get_run_logger()
     logger.info(f"deleting translations from {endpoint}")
 
-    query = f"""
-    PREFIX dct: <http://purl.org/dc/terms/>
-    DELETE {{
-      GRAPH <{graph_uri}> {{
-        ?s dct:description ?description .
-      }}
-    }}
-    WHERE {{
-      GRAPH <{graph_uri}> {{
-        ?s a dct:Standard ;
-           dct:description ?description .
-        FILTER (STRSTARTS(?description, "test-"))
-      }}
-    }}
-    """
+    template = Template(delete_descriptions_query)
+    params = {
+        "graph_uri" : graph_uri
+    }
+    query = template.substitute(params)
+    logger.info(f"Deleting Query: {query}")
 
     sparql = SPARQLWrapper(endpoint)
     sparql.setMethod(POST)
@@ -48,9 +41,10 @@ def delete_descriptions(
 
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def fetch_descriptions_to_translate(
-    endpoint: str = "https://health.semic.eu/virtuoso/sparql",
-    graph_uri: str = "http://semic.registry.eu",
-    languages=None
+    endpoint: str,
+    graph_uri: str,
+    languages: dict,
+    fetch_descriptions_query: str
     ):
 
     logger = get_run_logger()
@@ -65,21 +59,13 @@ def fetch_descriptions_to_translate(
     results_by_standard = {}
 
     for lang in languages:
-        query = f"""
-        PREFIX dct: <http://purl.org/dc/terms/>
-        SELECT DISTINCT ?standard ?existingLang
-        FROM <{graph_uri}>
-        WHERE {{
-            ?standard a dct:Standard .
-            ?standard dct:description ?existingDesc .
-            BIND(lang(?existingDesc) AS ?existingLang)
-
-            FILTER NOT EXISTS {{
-                ?standard dct:description ?missingDesc .
-                FILTER (lang(?missingDesc) = "{lang}")
-            }}
-        }}
-        """
+        template = Template(fetch_descriptions_query)
+        params = {
+            "graph_uri" : graph_uri,
+            "lang": lang
+        }
+        query = template.substitute(params)
+        logger.info(f"Fetching query: {query}")
 
         sparql.setQuery(query)
         response = sparql.query().convert()
@@ -214,7 +200,7 @@ def add_translations_to_graph(source_endpoint, graph_uri, translations):
             logger.error(f"❌ Failed to insert translations for {standard_uri}: {e}")
 
 @task
-def add_translations_to_graph_batch(endpoint, graph_uri, translations):
+def add_translations_to_graph_batch(endpoint, graph_uri, translations, triple_template, insert_query):
     logger = get_run_logger()
     logger.info("Running SPARQL update to insert translations...")
 
@@ -233,23 +219,43 @@ def add_translations_to_graph_batch(endpoint, graph_uri, translations):
             translated_text = data["text"]
             source_lang = data["source_lang"]
 
-            lang_tag = f"{target_lang}-t-{source_lang}-t0-mtec"
+            #lang_tag = f"{target_lang}-t-{source_lang}-t0-mtec"
             final_text = f"test-{translated_text}"
 
             safe_text = final_text.replace('"', '\\"')
-            triple = f'<{standard_uri}> <http://purl.org/dc/terms/description> "{safe_text}"@{lang_tag} .'
+
+            template = Template(triple_template)
+            params = {
+                "standard_uri" : standard_uri,
+                "safe_text" : safe_text,
+                "target_lang" : target_lang,
+                "source_lang" : source_lang
+            }
+            triple = template.substitute(params)
+
+
+
+            #triple = f'<{standard_uri}> <http://purl.org/dc/terms/description> "{safe_text}"@{lang_tag} .'
             triples.append(triple)
 
         if not triples:
             continue
 
-        update_query = f"""
-        INSERT DATA {{
-            GRAPH <{graph_uri}> {{
-                {' '.join(triples)}
-            }}
-        }}
-        """
+        #update_query = f"""
+        #INSERT DATA {{
+        #    GRAPH <{graph_uri}> {{
+        #        {' '.join(triples)}
+        #    }}
+        #}}
+        #"""
+
+        template = Template(insert_query)
+        params = {
+                "graph_uri" : graph_uri,
+                "triples" : ' '.join(triples),
+            }
+        update_query = template.substitute(params)
+        
 
         try:
             logger.info(f"Query {update_query}")
@@ -288,7 +294,10 @@ def chunk_dict(data, chunk_size):
 
 @task
 def make_batches(results_by_standard, batch_size=4):
-    return list(chunk_dict(results_by_standard, batch_size))
+    logger = get_run_logger()
+    batches = list(chunk_dict(results_by_standard, batch_size))
+    logger.info(f"Creating {len(batches)} batches of size {batch_size}")
+    return batches
 
 @task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
 def translate_batch(source_endpoint, graph_uri, translate_api, batch_data):
@@ -527,7 +536,7 @@ def translate_batch_lock2(source_endpoint, graph_uri, batch_data):
 from app.api.v1.mlmodels import list_opus_pairs
 
 @task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
-def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, hub_languages, multi_target: bool = True ):
+def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, hub_languages, translate_batch_query, multi_target: bool = True ):
     """
     Batch translation task with optional multi-target support.
 
@@ -632,17 +641,17 @@ def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, hub_la
 
         logger.info(f"[Batch] {standard_uri}: source={source_lang}, missing={missing_langs}")
 
+        template = Template(translate_batch_query)
+        params = {
+            "graph_uri" : graph_uri,
+            "standard_uri" : standard_uri,
+            "source_lang" : source_lang
+        }
+        query = template.substitute(params)
+        logger.info(f"[Batch] Get description to be translated query: {query}")
+
         # fetch source text
-        sparql.setQuery(f"""
-            PREFIX dct: <http://purl.org/dc/terms/>
-            SELECT ?description
-            FROM <{graph_uri}>
-            WHERE {{
-                <{standard_uri}> dct:description ?description .
-                FILTER(lang(?description) = "{source_lang}")
-            }}
-            LIMIT 1
-        """)
+        sparql.setQuery(query)
         resp = sparql.query().convert()
         bindings = resp["results"]["bindings"]
         if not bindings:

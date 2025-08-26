@@ -1,8 +1,8 @@
 flow_source_endpoint: "https://health.semic.eu/virtuoso/sparql"
-flow_graph_uri: "http://semic.registry.eu"
+flow_source_graph_uri: "http://semic.registry.eu"
+flow_target_graph_uri: "http://semic.registry.eu"
 
 classify:
-  classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
   fetch_themes_to_classify_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -14,6 +14,7 @@ classify:
       ?standard dct:description ?description .
       FILTER(lang(?description) = "en")
     }
+  classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
   add_themes:
     prefixes: |
       PREFIX dcat: <http://www.w3.org/ns/dcat#>
@@ -35,7 +36,6 @@ classify:
       }
 
 synonyms:
-  synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
   fetch_labels_to_synonyms_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -49,15 +49,15 @@ synonyms:
       ?class rdfs:label ?label .
       BIND(LCASE(?label) as ?lowLabel) .
       FILTER(lang(?label) = "en")
-      
     }
     GROUP BY ?class ?description
+  synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
   add_synonyms:
     prefixes: |
       PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     query: |
       DELETE {
-      GRAPH <$graph_uri}> {
+      GRAPH <$graph_uri> {
           <$uri> skos:altLabel ?altLabel .
       }
       }
@@ -118,3 +118,49 @@ translate:
     - mt   # Maltese (~0.5M)
     - eu   # Basque (~0.75M)
     - gl   # Galician (~2.4M)
+  delete_descriptions_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    DELETE {
+      GRAPH <$graph_uri> {
+        ?s dct:description ?description .
+      }
+    }
+    WHERE {
+      GRAPH <$graph_uri> {
+        ?s a dct:Standard ;
+        dct:description ?description .
+        FILTER (STRSTARTS(?description, "test-"))
+      }
+    }
+  fetch_descriptions_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    SELECT DISTINCT ?standard ?existingLang
+    FROM <$graph_uri>
+    WHERE {
+        ?standard a dct:Standard .
+        ?standard dct:description ?existingDesc .
+        BIND(lang(?existingDesc) AS ?existingLang)
+
+        FILTER NOT EXISTS {
+          ?standard dct:description ?missingDesc .
+          FILTER (lang(?missingDesc) = "$lang")
+        }
+    }
+  translate_batch_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    SELECT ?description
+    FROM <$graph_uri>
+    WHERE {
+        <$standard_uri> dct:description ?description .
+        FILTER(lang(?description) = "$source_lang")
+    }
+    LIMIT 1
+  add_translations:
+    triple_template: |
+      <$standard_uri> <http://purl.org/dc/terms/description> "$safe_text"@$target_lang-t-$source_lang-t0-mtec .
+    insert_query: |
+      INSERT DATA {
+        GRAPH <$graph_uri> {
+          $triples
+        }
+      }

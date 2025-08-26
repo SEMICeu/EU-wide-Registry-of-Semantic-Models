@@ -44,10 +44,11 @@ Steps:
   
      ```python create_db.py```
 
-6) There is a configuration file [config.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config.yaml) that describes:
-    - the endpoint for api for synonyms (altervista and datamuse)
-    - the 3 endpoints for the api classify, synonyms and translate, used by the 3 respective Prefect tasks, to be adapted in case the API are deployed somewhere else.
-    - the datathemes taxonomy used by the classify api
+6) There are multiple configuration files:
+   - [config_log.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_log.yaml) : to configure the logging of the application
+   - [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) : to configure the behaviour of the prefect flow and tasks
+   - [config_api_classify.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_classify.yaml) : to configure the behaviour of the api classify
+   - [config_api_synonyms.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_synonyms.yaml) : to configure the behaviour of the api synonyms
 
 7) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the Enricher, via the [list_models](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L198), to download first the list of machine learning models for translation.
    The page is sometimes blocked by the company proxy and you can get the log message:
@@ -65,13 +66,59 @@ Steps:
 2) from the Prefect dashboard configure concurrency on task with tag "enrich" set to 5 slots, see screenshot [prefect concurrency](prefect_concurrency.jpg)
 3) in VSCode, open a new terminal and launch:
 
-    ```uvicorn app.main:app --workers 5 --log-config log_config.yaml```
+    ```uvicorn app.main:app --workers 5 --log-config app/config_log.yaml```
 
  The idea is that the FastAPI will provide 5 parallel workers and Prefect will allocate max 5 slots of concurrency at the same time. The application will write to the app.log file.
  
  The FastAPI documentation will be available on http://127.0.0.1:8000/docs#
 
-4) Execute the POST operation on /enricher-api/v1/job passing the default parameters. The prefect flow will be triggered and it can be monitored see for example the [prefect classify task](prefect_classify_task.jpg)
+4) Execute the POST operation on /enricher-api/v1/job passing the parameters. The prefect flow will be triggered and it can be monitored see for example the [prefect classify task](prefect_classify_task.jpg)
+
+### Executing classify task
+The classify task is divided in 3 steps:
+
+ 1) fetch the English description of the Standard to classify from the graph in the sparql endpoint, see query
+ 2) classify the descriptions accordingly to the Publications Office data themes, calling the classify API
+ 3) add the data themes to the graph 
+
+### Executing synonyms task
+The classify task is divided in 3 steps:
+
+ 1) fetch:
+   - the English description of the Standard and
+   - the English labels of classes belonging to the Standard
+   
+   from the graph in the sparql endpoint, see query
+ 2) find the best synonyms for a label, if it exists, calling the synonyms API
+ 3) add (update) the synonyms back to the graph, see query 
+
+#### Synonyms API
+
+The synoynms API has 3 data sources to find synonyms: nltk (wordnet), altervista API and datamuse API.
+The end user can pass the below parameters:
+ - a term, the text to be searched for synonyms
+ - the data sources in which to search
+ - a context, a sentence to be used to give a context and reorder the results in decreasing order probability
+ - the maximum number of results
+
+The synonyms task provides then:
+ - a label as term
+ - the English description of the Standard as context
+ - the maximum value 1 to be returned
+
+To evaluate against the context, the synonyms API uses the sentence transformers model "all-MiniLM-L6-v2".
+
+The synonyms found for a term are stored in a cache so the synonyms api uses the cache to retrieve the synonyms first without call the API.
+The end user can get or delete the cache and look at the cache statistics from the respective API endpoints.
+
+### Executing translate task
+The classify task is divided in 5 steps:
+
+ 1) delete the translations from the graph in the sparql endpoint, see query
+ 2) find descriptions to translate, by looking at the language list finding those missing, see query
+ 3) make batches of a certain size, defined in the [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) : to configure the behaviour of the prefect flow and tasks
+ 4) translate batch, calling the translate API
+ 5) add translations to the graph, see query
 
 ## Debug
 
@@ -90,7 +137,7 @@ Notes:
    ```prefect concurrency-limit reset enrich```
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
-  
+
 
 
 

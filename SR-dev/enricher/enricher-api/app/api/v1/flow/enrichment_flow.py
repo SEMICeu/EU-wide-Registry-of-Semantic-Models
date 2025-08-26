@@ -53,11 +53,11 @@ def enrichment_flow(task: str = "all", job_id: str = None):
     logger.info(f"🔗 Flow started: {flow_url}")
     
     source_endpoint = config["flow_source_endpoint"]
-    graph_uri = config["flow_graph_uri"]
+    source_graph = config["flow_source_graph_uri"]
+    target_graph = config["flow_target_graph_uri"]
     logger.info(f"[FLOW] source endpoint: {source_endpoint}")
-    logger.info(f"[FLOW] graph uri: {graph_uri}")
-    source_graph = graph_uri
-    target_graph = graph_uri
+    logger.info(f"[FLOW] source graph uri: {source_graph}")
+    logger.info(f"[FLOW] target graph uri: {target_graph}")
 
     # ✅ Update DB with flow_run_id
     session = SessionLocal()
@@ -89,27 +89,30 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             add_synonyms_to_graph.submit(source_endpoint, target_graph, synonyms_future, add_synonyms_query)
 
         if(task == "all" or task == "translate"):
-            languages = config["translate"]["languages"]
-            translate_api = config["translate"]["translate_api"]
-            multi_target = config["translate"]["multi_target"]
-            batch_size = config["translate"]["batch_size"]
-            hub_languages = config["translate"]["hub_languages"]
             #fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, graph_uri)
 
             #translate_future = translate.submit(source_endpoint, graph_uri, translate_api, fetch_descriptions_future)
             #add_translations_to_graph.submit(source_endpoint, graph_uri, translate_future)
             
             # Step 0: delete
-            delete_descriptions_future = delete_descriptions.submit(source_endpoint, source_graph)
+            delete_descriptions_query = config["translate"]["delete_descriptions_query"]
+            delete_descriptions_future = delete_descriptions.submit(source_endpoint, source_graph, delete_descriptions_query)
             # Step 1: fetch
-            fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, source_graph, languages, wait_for=[delete_descriptions_future])
+            languages = config["translate"]["languages"]
+            fetch_descriptions_query = config["translate"]["fetch_descriptions_query"]
+            fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, source_graph, languages, fetch_descriptions_query, wait_for=[delete_descriptions_future])
             # Step 2: Batch (as a Prefect task)
+            batch_size = config["translate"]["batch_size"]
             batches_future = make_batches.submit(fetch_descriptions_future, batch_size)  # only one dependency here
             
 
             # Step 3: Submit translation batches in parallel
+            translate_api = config["translate"]["translate_api"]
+            multi_target = config["translate"]["multi_target"]
+            hub_languages = config["translate"]["hub_languages"]
+            translate_batch_query = config["translate"]["translate_batch_query"]
             batch_futures = [
-                translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch, hub_languages, multi_target, wait_for=[batches_future])
+                translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch, hub_languages, translate_batch_query, multi_target, wait_for=[batches_future])
                 for batch in batches_future.result()   # ensures Prefect sees only batch_translate as upstream
             ]
 
@@ -121,7 +124,9 @@ def enrichment_flow(task: str = "all", job_id: str = None):
                     all_translations.setdefault(uri, {}).update(langs)
 
             # Step 5: Insert into graph
-            translate_future = add_translations_to_graph_batch.submit(source_endpoint, target_graph, all_translations)
+            triple_template = config["translate"]["add_translations"]["triple_template"]
+            insert_query = config["translate"]["add_translations"]["insert_query"]
+            translate_future = add_translations_to_graph_batch.submit(source_endpoint, target_graph, all_translations, triple_template, insert_query)
 
         # Wait for results
         if(task == "all" or task == "classify"):

@@ -73,9 +73,20 @@ synonyms:
       }
 
 translate:
-  translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
-  batch_size: 4
-  multi_target: True 
+  delete_descriptions_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    DELETE {
+      GRAPH <$graph_uri> {
+        ?s dct:description ?description .
+      }
+    }
+    WHERE {
+      GRAPH <$graph_uri> {
+        ?s a dct:Standard ;
+        dct:description ?description .
+        FILTER (STRSTARTS(?description, "test-"))
+      }
+    }
   languages:
     - en   # English (~370M)
     - de   # German (~95M)
@@ -87,13 +98,6 @@ translate:
     - nl   # Dutch (~23M)
     - hu   # Hungarian (~13M)
     - el   # Greek (~13M)
-  hub_languages:
-    - en
-    - fr
-    - de
-    - it
-    - sv
-    - el
   translate_additional_languages:
     - pt   # Portuguese (~10M)
     - cs   # Czech (~10M)
@@ -118,20 +122,6 @@ translate:
     - mt   # Maltese (~0.5M)
     - eu   # Basque (~0.75M)
     - gl   # Galician (~2.4M)
-  delete_descriptions_query: |
-    PREFIX dct: <http://purl.org/dc/terms/>
-    DELETE {
-      GRAPH <$graph_uri> {
-        ?s dct:description ?description .
-      }
-    }
-    WHERE {
-      GRAPH <$graph_uri> {
-        ?s a dct:Standard ;
-        dct:description ?description .
-        FILTER (STRSTARTS(?description, "test-"))
-      }
-    }
   fetch_descriptions_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     SELECT DISTINCT ?standard ?existingLang
@@ -146,6 +136,16 @@ translate:
           FILTER (lang(?missingDesc) = "$lang")
         }
     }
+  batch_size: 4
+  translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
+  multi_target: True 
+  hub_languages:
+    - en
+    - fr
+    - de
+    - it
+    - sv
+    - el
   translate_batch_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     SELECT ?description

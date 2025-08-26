@@ -81,6 +81,8 @@ The classify task is divided in 3 steps:
  2) classify the descriptions accordingly to the Publications Office data themes, stored in the [config_api_classify.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_classify.yaml), calling the [classify API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L17)
  3) add the data themes to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L18) 
 
+![Prefect classify task](./prefect_classify_task.jpg)
+
 #### Classify API
 
 The end user can pass the below parameters:
@@ -101,6 +103,8 @@ The classify task is divided in 3 steps:
  1) fetch the English description of the Standard and the English labels of classes belonging to the Standard from the graph in the sparql endpoint, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L39)
  2) find the best synonyms for a label, if it exists, calling the [synonyms API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L54)
  3) add (update) the synonyms back to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L55) 
+
+![Prefect synonyms task](./prefect_synonyms_task.jpg)
 
 #### Synonyms API
 
@@ -130,6 +134,8 @@ The classify task is divided in 5 steps:
  4) translate batch, calling the translate API
  5) add translations to the graph, see query
 
+![Prefect translate task](./prefect_translate_task.jpg)
+
 #### Translate API
 
 The end user can pass the below parameters:
@@ -138,7 +144,7 @@ The end user can pass the below parameters:
  - one or multiple target languages
 
 The translate task provides to the API the below values:
- - the description of the Standard
+ - the description of the Standard as term
  - the source language used fo translating 
  - The target languages in which the description must be translated
 
@@ -149,10 +155,10 @@ The Translate API returns:
 The [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) includes the list of languages and the prioritised list of pivot languages.
 The pivot languages are used to:
 - prioritize on the language used for translation, if a standard is in Italian and English but must be translated in French, the English description (first in the list of the pivot languages) is used to translate to French, by doing En->Fr translation.
-- optimize memory and and disk, so instead of downloading the pair model It->Fr, the En->Fr is donwloaded instead as privileged
+- optimize memory and and disk, so instead of downloading the pair model It->Fr, the En->Fr is downloaded instead as privileged
 - in case of missing direct translation, the pivot list is used to choose the first pivot available in which a direct translation is missing. That is the current case of not being able to translate from English to Polish, so the next available pivot is chosen that is French which has direct translation, therefore English description is translated in French, which in turn is translated in Polish.
 
-
+Note that the opus pairs have a limit on the input text, therefore, in the translate API v2 currently used, the input text is split in sentences and, if the sentence is too long, is split in 400 characters.
 
 ## Debug
 
@@ -171,6 +177,19 @@ Notes:
    ```prefect concurrency-limit reset enrich```
 
 2) Sometimes in the app.log you see warnings on concurrency of sqlite, these are internal warnings of Prefect that you can ignore.
+
+## TO DO
+
+1) Add more languages for translating. In the [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) there is:
+  - the language list, to indicate the 10 languages tested so far 
+  - the translate_additional_languages, to indicate the potential languages to be added in the language list and tested.
+
+2) Test better the all-MiniLM-L6-v2 model if it is good for the classify API or choose the best synonym in the synonyms API.
+
+3) Run the enricher whenever a description changes; for now the enricher is thought to add (classify, synonyms, translate) in one shot but ideally it should run when a new standard is modified. 
+
+4) Evaluate performance for translating; for now the batch size is 4 and the multi target is True (so using the multi target feature of the Translate API).
+
 
 
 

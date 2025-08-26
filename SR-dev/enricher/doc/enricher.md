@@ -188,7 +188,14 @@ Notes:
 
 3) Run the enricher whenever a description changes; for now the enricher is thought to add (classify, synonyms, translate) in one shot but ideally it should run when a new standard is modified. 
 
-4) Evaluate performance for translating; for now the batch size is 4 and the multi target is True (so using the multi target feature of the Translate API).
+4) Move in the configuration file:
+ - the Prefect and task tags (like "enrich" and retry) 
+ - the synonyms cache expiration now set to 24 hours 
+ - the translate max characters (now 400)
+
+5) Evaluate performance for translating; for now the batch size is 4 and the multi target is True (so using the multi target feature of the Translate API) but it would be nice to see if there are better combination.
+
+6) Evaluate performance for synonyms; now synonyms are found in a loop, maybe it is possible to split in batch.
 
 
 

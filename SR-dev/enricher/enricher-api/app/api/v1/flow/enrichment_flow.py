@@ -96,7 +96,7 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             
             # Step 0: delete
             delete_descriptions_query = config["translate"]["delete_descriptions_query"]
-            delete_descriptions_future = delete_descriptions.submit(source_endpoint, source_graph, delete_descriptions_query)
+            delete_descriptions_future = delete_descriptions.submit(source_endpoint, target_graph, delete_descriptions_query)
             # Step 1: fetch
             languages = config["translate"]["languages"]
             fetch_descriptions_query = config["translate"]["fetch_descriptions_query"]

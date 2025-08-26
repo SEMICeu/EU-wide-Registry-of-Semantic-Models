@@ -93,7 +93,7 @@ The classify task provides to the API the below values:
  - select the data themes classification 
  - set the maximum value 1 to be returned
 
-To evaluate against the context, the classify API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder.
+To evaluate against the context, the classify API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder via [load_model_mini()](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L119) function.
 
 ### Executing synonyms task
 The classify task is divided in 3 steps:
@@ -104,7 +104,7 @@ The classify task is divided in 3 steps:
 
 #### Synonyms API
 
-The synoynms API has 3 data sources to find synonyms: nltk (wordnet), altervista API and datamuse API, see [config_api_synonyms.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_synonyms.yaml)
+The synoynms API has 3 data sources to find synonyms: nltk (wordnet), altervista API and datamuse API in the respective order, see [config_api_synonyms.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_synonyms.yaml)
 The end user can pass the below parameters:
  - a term, the text to be searched for synonyms
  - the data sources in which to search
@@ -113,12 +113,12 @@ The end user can pass the below parameters:
 
 The synonyms task provides to the API the below values:
  - the English label of the class as term
- - the English description of the Standard as context
+ - the English description of the Standard as context, note that currently SRM doesn't store the description of the class
  - set the maximum value 1 to be returned
 
-To evaluate against the context, the synonyms API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder.
+To evaluate against the context, the synonyms API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder via [load_model_mini()](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L119) function.
 
-The synonyms found for a term are stored in a cache so the synonyms api uses the cache to retrieve the synonyms first without call the API.
+The synonyms found for a term are stored in a cache, synonyms_cache.db see above, so the synonyms API uses the cache to retrieve the synonyms first without calling the data sources API.
 The end user can get or delete the cache and look at the cache statistics from the respective API endpoints.
 
 ### Executing translate task
@@ -129,6 +129,30 @@ The classify task is divided in 5 steps:
  3) make batches of a certain size, defined in the [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) : to configure the behaviour of the prefect flow and tasks
  4) translate batch, calling the translate API
  5) add translations to the graph, see query
+
+#### Translate API
+
+The end user can pass the below parameters:
+ - a term, the text to be translated
+ - the source language in which of the term
+ - one or multiple target languages
+
+The translate task provides to the API the below values:
+ - the description of the Standard
+ - the source language used fo translating 
+ - The target languages in which the description must be translated
+
+The Translate API returns:
+ - the detected language of the description, if the source language is not passed. The detection used the [FastText](https://fasttext.cc/docs/en/language-identification.html) model, downloaded in the enricher-api/models folder via [download_fasttext_model()](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v2/mlmodels.py#L86) function.
+ - the translations of the description in the target languages, using pair translation (source, target) opus models of the [Helsinki-NLP](https://huggingface.co/models?sort=trending&search=Helsinki-NLP) downloaded in the enricher-api/models.
+
+The [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) includes the list of languages and the prioritised list of pivot languages.
+The pivot languages are used to:
+- prioritize on the language used for translation, if a standard is in Italian and English but must be translated in French, the English description (first in the list of the pivot languages) is used to translate to French, by doing En->Fr translation.
+- optimize memory and and disk, so instead of downloading the pair model It->Fr, the En->Fr is donwloaded instead as privileged
+- in case of missing direct translation, the pivot list is used to choose the first pivot available in which a direct translation is missing. That is the current case of not being able to translate from English to Polish, so the next available pivot is chosen that is French which has direct translation, therefore English description is translated in French, which in turn is translated in Polish.
+
+
 
 ## Debug
 

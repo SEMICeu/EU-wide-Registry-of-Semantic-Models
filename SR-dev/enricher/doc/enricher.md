@@ -128,11 +128,11 @@ The end user can get or delete the cache and look at the cache statistics from t
 ### Executing translate task
 The classify task is divided in 5 steps:
 
- 1) delete the translations from the graph in the sparql endpoint, see query
- 2) find descriptions to translate, by looking at the language list finding those missing, see query
- 3) make batches of a certain size, defined in the [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) : to configure the behaviour of the prefect flow and tasks
- 4) translate batch, calling the translate API
- 5) add translations to the graph, see query
+ 1) delete the translations from the graph in the sparql endpoint, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L76)
+ 2) find descriptions to translate, by looking at the [language list](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L90) finding those missing, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L125)
+ 3) make batches of a certain size, defined in the [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml), currently the size is set to 4 and there are 12 batches generated, see images below.
+ 4) translate the batch, calling the [translate API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L140) on the source description, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L149)
+ 5) add translations to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L158)
 
 ![Prefect translate task](./prefect_translate_task.jpg)
 
@@ -181,8 +181,8 @@ Notes:
 ## TO DO
 
 1) Add more languages for translating. In the [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) there is:
-  - the language list, to indicate the 10 languages tested so far 
-  - the translate_additional_languages, to indicate the potential languages to be added in the language list and tested.
+  - the [language list](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L90), to indicate the 10 languages tested so far 
+  - the [translate_additional_languages](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L101), to indicate the potential languages to be moved in the language list and tested.
 
 2) Test better the all-MiniLM-L6-v2 model if it is good for the classify API or choose the best synonym in the synonyms API.
 

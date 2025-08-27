@@ -9,15 +9,25 @@ from string import Template
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
 def delete_descriptions(
         endpoint: str, 
-        graph_uri: str, 
-        delete_descriptions_query: str,
+        source_graph: str,
+        target_graph: str, 
+        delete_source_descriptions_query: str,
+        delete_target_descriptions_query: str,
         auth_dict: dict
     ) :
 
     logger = get_run_logger()
     logger.info(f"deleting translations from {endpoint}")
 
-    template = Template(delete_descriptions_query)
+    graph_uri = ""
+    template = None
+    if (target_graph != source_graph):
+        graph_uri = target_graph
+        template = Template(delete_target_descriptions_query)
+    else:
+        graph_uri = source_graph
+        template = Template(delete_source_descriptions_query)
+    
     params = {
         "graph_uri" : graph_uri
     }

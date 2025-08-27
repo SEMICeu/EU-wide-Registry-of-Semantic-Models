@@ -114,8 +114,9 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             #add_translations_to_graph.submit(source_endpoint, graph_uri, translate_future)
             
             # Step 0: delete
-            delete_descriptions_query = config["translate"]["delete_descriptions_query"]
-            delete_descriptions_future = delete_descriptions.submit(source_endpoint, target_graph, delete_descriptions_query, auth_dict)
+            delete_source_descriptions_query = config["translate"]["delete_source_descriptions_query"]
+            delete_target_descriptions_query = config["translate"]["delete_target_descriptions_query"]
+            delete_descriptions_future = delete_descriptions.submit(source_endpoint, source_graph, target_graph, delete_source_descriptions_query, delete_target_descriptions_query, auth_dict)
             # Step 1: fetch
             languages = config["translate"]["languages"]
             fetch_descriptions_query = config["translate"]["fetch_descriptions_query"]

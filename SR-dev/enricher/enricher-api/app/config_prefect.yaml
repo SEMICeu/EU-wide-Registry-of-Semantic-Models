@@ -1,7 +1,7 @@
 sparql:
   source_endpoint: "https://health.semic.eu/virtuoso/sparql"
   source_graph_uri: "http://semic.registry.eu"
-  target_graph_uri: "http://semic.registry.eu"
+  target_graph_uri: "http://semic.registry2.eu"
   authentication: True
   auth_endpoint: "https://health.semic.eu/virtuoso/sparql-auth"
   auth_file: config_auth_sparql.yaml
@@ -77,7 +77,7 @@ synonyms:
       }
 
 translate:
-  delete_descriptions_query: |
+  delete_source_descriptions_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     DELETE {
       GRAPH <$graph_uri> {
@@ -87,6 +87,19 @@ translate:
     WHERE {
       GRAPH <$graph_uri> {
         ?s a dct:Standard .
+        ?s dct:description ?description .
+        FILTER (STRSTARTS(?description, "test-"))
+      }
+    }
+  delete_target_descriptions_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    DELETE {
+      GRAPH <$graph_uri> {
+        ?s dct:description ?description .
+      }
+    }
+    WHERE {
+      GRAPH <$graph_uri> {
         ?s dct:description ?description .
         FILTER (STRSTARTS(?description, "test-"))
       }
@@ -110,22 +123,14 @@ translate:
     - sk   # Slovak (~5M)
     - fi   # Finnish (~5M)
     - da   # Danish (~5M)
-    - sr   # Serbian (~5M in Europe)
     - hr   # Croatian (~4M)
-    - sq   # Albanian (~4M in Europe)
     - no   # Norwegian (~4M)
-    - mk   # Macedonian (~2M)
-    - bs   # Bosnian (~2M)
     - lt   # Lithuanian (~2M)
     - lv   # Latvian (~2M)
     - sl   # Slovenian (~2M)
     - et   # Estonian (~1M)
-    - is   # Icelandic (~0.3M)
     - ga   # Irish (~0.1M native, wider as L2)
-    - cy   # Welsh (~0.9M)
     - mt   # Maltese (~0.5M)
-    - eu   # Basque (~0.75M)
-    - gl   # Galician (~2.4M)
   fetch_descriptions_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     SELECT DISTINCT ?standard ?existingLang

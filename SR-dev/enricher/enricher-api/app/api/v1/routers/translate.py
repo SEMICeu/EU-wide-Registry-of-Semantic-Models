@@ -39,7 +39,7 @@ async def translates(
             language=lang_code,
             score=confidence
         )
-        logger.info("[TRANSLATE] detected " + lang_code)
+        logger.info(f"[TRANSLATE] source language: {source} detected: " + lang_code)
         if source is None:
             source = lang_code
         else:
@@ -101,10 +101,25 @@ def get_translation_pairs():
 
 @translate_router.post("/translate/pairs/refresh")
 def refresh_translation_pairs():
-    list_opus_pairs.cache_clear()   # clear cache
-    updated = list_opus_pairs()     # fetch again
+    # snapshot of old cached pairs
+    old_pairs = set(list_opus_pairs())
+
+    # clear cache and refresh from Hugging Face
+    list_opus_pairs.cache_clear()
+    new_pairs = set(list_opus_pairs())
+
+    # compute differences
+    added = new_pairs - old_pairs
+    removed = old_pairs - new_pairs
+    unchanged = old_pairs & new_pairs
+
     return {
         "refreshed": True,
-        "count": len(updated),
-        "sample": list(updated)[:5]  # show just a few pairs as preview
+        "count": len(new_pairs),
+        "added_count": len(added),
+        "removed_count": len(removed),
+        "unchanged_count": len(unchanged),
+        "added_sample": list(added)[:5],
+        "removed_sample": list(removed)[:5],
+        "unchanged_sample": list(unchanged)[:5],
     }

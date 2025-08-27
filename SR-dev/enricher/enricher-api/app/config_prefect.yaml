@@ -1,6 +1,10 @@
-flow_source_endpoint: "https://health.semic.eu/virtuoso/sparql"
-flow_source_graph_uri: "http://semic.registry.eu"
-flow_target_graph_uri: "http://semic.registry.eu"
+sparql:
+  source_endpoint: "https://health.semic.eu/virtuoso/sparql"
+  source_graph_uri: "http://semic.registry.eu"
+  target_graph_uri: "http://semic.registry2.eu"
+  authentication: True
+  auth_endpoint: "https://health.semic.eu/virtuoso/sparql-auth"
+  auth_file: config_auth_sparql.yaml
 
 classify:
   fetch_themes_to_classify_query: |

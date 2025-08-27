@@ -1,6 +1,7 @@
 from prefect import task
 from prefect.logging import get_run_logger
 from SPARQLWrapper import SPARQLWrapper, JSON, POST, URLENCODED
+from ..util_sparql import execute_sparql_delete, execute_sparql_select, execute_sparql_update
 import requests
 import re
 from string import Template
@@ -9,7 +10,8 @@ from string import Template
 def delete_descriptions(
         endpoint: str, 
         graph_uri: str, 
-        delete_descriptions_query: str
+        delete_descriptions_query: str,
+        auth_dict: dict
     ) :
 
     logger = get_run_logger()
@@ -20,14 +22,15 @@ def delete_descriptions(
         "graph_uri" : graph_uri
     }
     query = template.substitute(params)
-    logger.info(f"Deleting Query: {query}")
+    logger.info(f"[SPARQL] Deleting Query: {query}")
 
-    sparql = SPARQLWrapper(endpoint)
-    sparql.setMethod(POST)
-    sparql.setQuery(query)
+    result = ""
+    sparql_result = execute_sparql_delete(endpoint, query.encode('utf-8'), auth_dict["username"], auth_dict["password"])
+    if(sparql_result['http_code'] == 200):
+        results = sparql_result['message']
 
     # Virtuoso returns plain text like "Delete from <...>, 403 triples"
-    response = sparql.query().response.read().decode("utf-8")
+    response = results
 
     # Extract number of triples if present
     deleted_count = 0
@@ -44,14 +47,12 @@ def fetch_descriptions_to_translate(
     endpoint: str,
     graph_uri: str,
     languages: dict,
-    fetch_descriptions_query: str
+    fetch_descriptions_query: str,
+    auth_dict: dict
     ):
 
     logger = get_run_logger()
     logger.info(f"Fetching data for translation from {endpoint}")
-
-    sparql = SPARQLWrapper(endpoint)
-    sparql.setReturnFormat(JSON)
 
     if languages is None:
         languages = ['en']
@@ -65,12 +66,18 @@ def fetch_descriptions_to_translate(
             "lang": lang
         }
         query = template.substitute(params)
-        logger.info(f"Fetching query: {query}")
+        logger.info(f"[SPARQL] Fetching query: {query}")
 
-        sparql.setQuery(query)
-        response = sparql.query().convert()
+        #sparql = SPARQLWrapper(endpoint)
+        #sparql.setReturnFormat(JSON)
+        #sparql.setQuery(query)
+        #response = sparql.query().convert()
 
-        for result in response["results"]["bindings"]:
+        sparql_result = execute_sparql_select(endpoint, query, "JSON", auth_dict["username"], auth_dict["password"])
+        if(sparql_result['http_code'] == 200):
+            results = sparql_result['data']
+
+        for result in results["results"]["bindings"]:
             standard_uri = result["standard"]["value"]
             existing_lang = result["existingLang"]["value"]
 
@@ -200,13 +207,17 @@ def add_translations_to_graph(source_endpoint, graph_uri, translations):
             logger.error(f"❌ Failed to insert translations for {standard_uri}: {e}")
 
 @task
-def add_translations_to_graph_batch(endpoint, graph_uri, translations, triple_template, insert_query):
+def add_translations_to_graph_batch(
+        endpoint: str, 
+        graph_uri: str, 
+        translations: str, 
+        triple_template: str, 
+        insert_query: str,
+        auth_dict: dict
+    ):
+
     logger = get_run_logger()
     logger.info("Running SPARQL update to insert translations...")
-
-    sparql = SPARQLWrapper(endpoint)
-    sparql.setMethod(POST)
-    sparql.setRequestMethod(URLENCODED)
 
     successful_inserts = 0
     failed_inserts = 0
@@ -258,11 +269,22 @@ def add_translations_to_graph_batch(endpoint, graph_uri, translations, triple_te
         
 
         try:
-            logger.info(f"Query {update_query}")
-            sparql.setQuery(update_query)
-            result = sparql.query()
-            logger.info(f"✔ Inserted translations for {standard_uri}")
-            successful_inserts += 1
+            logger.info(f"[SPARQL] Query {update_query}")
+
+            #sparql = SPARQLWrapper(endpoint)
+            #sparql.setMethod(POST)
+            #sparql.setRequestMethod(URLENCODED)
+            #sparql.setQuery(update_query)
+            #result = sparql.query()
+
+            sparql_result = execute_sparql_update(endpoint, update_query.encode('utf-8'), auth_dict["username"], auth_dict["password"])
+            if (sparql_result['http_code'] == 200):
+                logger.info(f"✔ Inserted translations for {standard_uri}")
+                successful_inserts += 1
+            else:
+                error_msg = f"[SPARQL] update failed with status {sparql_result['http_code'] }: {sparql_result['message'] }"
+                logger.error(error_msg)
+                raise Exception(error_msg)
         except Exception as e:
             error_msg = f"Failed to insert translations for {standard_uri}: {e}"
             logger.error(f"❌ {error_msg}")
@@ -536,7 +558,15 @@ def translate_batch_lock2(source_endpoint, graph_uri, batch_data):
 from app.api.v1.mlmodels import list_opus_pairs
 
 @task(tags=["translate", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
-def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, hub_languages, translate_batch_query, multi_target: bool = True ):
+def translate_batch_lock3(
+        endpoint: str, 
+        graph_uri: str, 
+        translate_api: str, 
+        batch_data: dict, 
+        hub_languages: dict, 
+        translate_batch_query: dict, 
+        auth_dict: dict, 
+        multi_target: bool = True ):
     """
     Batch translation task with optional multi-target support.
 
@@ -570,8 +600,6 @@ def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, hub_la
     """
     logger = get_run_logger()
     TRANSLATE_API = translate_api
-    sparql = SPARQLWrapper(endpoint)
-    sparql.setReturnFormat(JSON)
 
     translations = {}
     SUPPORTED_PAIRS = list_opus_pairs()
@@ -651,9 +679,16 @@ def translate_batch_lock3(endpoint, graph_uri, translate_api, batch_data, hub_la
         logger.info(f"[Batch] Get description to be translated query: {query}")
 
         # fetch source text
-        sparql.setQuery(query)
-        resp = sparql.query().convert()
-        bindings = resp["results"]["bindings"]
+        #sparql = SPARQLWrapper(endpoint)
+        #sparql.setReturnFormat(JSON)
+        #sparql.setQuery(query)
+        #results = sparql.query().convert()
+
+        sparql_result = execute_sparql_select(endpoint, query, "JSON", auth_dict["username"], auth_dict["password"])
+        if(sparql_result['http_code'] == 200):
+            results = sparql_result['data']
+
+        bindings = results["results"]["bindings"]
         if not bindings:
             logger.warning(f"[Skip] {standard_uri}: no source text for {source_lang}")
             continue

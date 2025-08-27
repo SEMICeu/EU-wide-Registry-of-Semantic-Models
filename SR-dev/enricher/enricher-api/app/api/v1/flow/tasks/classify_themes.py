@@ -1,7 +1,7 @@
 from prefect import task
 from prefect.logging import get_run_logger
-from SPARQLWrapper import SPARQLWrapper, JSON
 import requests
+from ..util_sparql import execute_sparql_select, execute_sparql_update
 from string import Template
 
 # Suggest improvements for this function
@@ -9,24 +9,29 @@ from string import Template
 def fetch_themes_to_classify(
     endpoint: str, 
     graph_uri : str,
-    fetch_themes_to_classify_query : str
+    fetch_themes_to_classify_query : str,
+    auth_dict: dict
     ):
 
     logger = get_run_logger()
     logger.info(f"Fetching data from {endpoint}")
-
-    sparql = SPARQLWrapper(endpoint)
-    sparql.setReturnFormat(JSON)
 
     template = Template(fetch_themes_to_classify_query)
     params = {
         "graph_uri" : graph_uri
     }
     query = template.substitute(params)
-    logger.info(f"Query: {query}")
+    logger.info(f"[SPARQL] Query: {query}")
     #  FILTER (STRSTARTS(str(?theme),"test-")) .
-    sparql.setQuery(query)
-    results = sparql.query().convert()
+    
+    # sparql = SPARQLWrapper(endpoint)
+    # sparql.setReturnFormat(JSON)
+    # sparql.setQuery(query)
+    # results = sparql.query().convert()
+
+    sparql_result = execute_sparql_select(endpoint, query, "JSON", auth_dict["username"], auth_dict["password"])
+    if(sparql_result['http_code'] == 200):
+        results = sparql_result['data']
 
     # Process results into a dict: { standard_uri: { property_uri: [values] } }
     data = {}
@@ -41,7 +46,11 @@ def fetch_themes_to_classify(
     return data
 
 @task(tags=["classify", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
-def classify(classify_api, data):
+def classify(
+        classify_api: str, 
+        data: dict
+    ):
+
     logger = get_run_logger()
     logger.info(f"Classifying the data...")
 
@@ -81,16 +90,19 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 @task
-def add_themes_to_graph(endpoint: str, graph_uri: str, enriched_results: dict, queries: dict):
+def add_themes_to_graph(
+        endpoint: str, 
+        graph_uri: str, 
+        enriched_results: dict, 
+        queries: dict, 
+        auth_dict: dict
+    ):
+
     logger = get_run_logger()
     logger.info(f"Adding themes to the graph {graph_uri}...")
 
     prefixes = queries["prefixes"]
     query_template = queries["query"]
-
-    #prefixes = """
-    #PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    #"""
 
     sparql_update_blocks = []
 
@@ -102,23 +114,17 @@ def add_themes_to_graph(endpoint: str, graph_uri: str, enriched_results: dict, q
             )
 
     sparql_update = prefixes + "\n" + "\n".join(sparql_update_blocks)
-    logger.info("SPARQL update query:\n" + sparql_update)
-
-    # Headers for the SPARQL update request
-    headers = {
-        "Content-Type": "application/sparql-update"
-    }
+    logger.info("[SPARQL] update query:\n" + sparql_update)
 
     try:
-        # Send the POST request
-        response = requests.post(endpoint, data=sparql_update.encode('utf-8'), headers=headers, verify=False)
+        sparql_result = execute_sparql_update(endpoint, sparql_update.encode('utf-8'), auth_dict["username"], auth_dict["password"])
 
         # Check response and raise exception if failed
-        if response.status_code == 200:
-            logger.info("SPARQL update successful!")
-            return {"classify response sparql": response.status_code}
+        if (sparql_result['http_code'] == 200):
+            logger.info("[SPARQL] update successful!")
+            return {"classify response sparql": sparql_result['http_code'] }
         else:
-            error_msg = f"SPARQL update failed with status {response.status_code}: {response.text}"
+            error_msg = f"[SPARQL] update failed with status {sparql_result['http_code'] }: {sparql_result['message'] }"
             logger.error(error_msg)
             raise Exception(error_msg)
         

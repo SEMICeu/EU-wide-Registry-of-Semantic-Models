@@ -49,6 +49,8 @@ Steps:
    - [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml) : to configure the behaviour of the prefect flow and tasks
    - [config_api_classify.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_classify.yaml) : to configure the behaviour of the api classify
    - [config_api_synonyms.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_synonyms.yaml) : to configure the behaviour of the api synonyms
+ 
+Additionally, if you need authentication for the SPARQL endpoint, you need to add a config_auth_sparql.yaml with keys "username" and "password" to be read by the Prefect flow.
 
 7) Make sure you can access the Hugging face models page https://huggingface.co/models, that is used by the Enricher, via the [list_models](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L198), to download first the list of machine learning models for translation.
    The page is sometimes blocked by the company proxy and you can get the log message:

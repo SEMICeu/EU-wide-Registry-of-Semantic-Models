@@ -86,8 +86,8 @@ translate:
     }
     WHERE {
       GRAPH <$graph_uri> {
-        ?s a dct:Standard ;
-        dct:description ?description .
+        ?s a dct:Standard .
+        ?s dct:description ?description .
         FILTER (STRSTARTS(?description, "test-"))
       }
     }

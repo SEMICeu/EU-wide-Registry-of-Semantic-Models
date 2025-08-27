@@ -1,7 +1,7 @@
 sparql:
   source_endpoint: "https://health.semic.eu/virtuoso/sparql"
   source_graph_uri: "http://semic.registry.eu"
-  target_graph_uri: "http://semic.registry2.eu"
+  target_graph_uri: "http://semic.registry.eu"
   authentication: True
   auth_endpoint: "https://health.semic.eu/virtuoso/sparql-auth"
   auth_file: config_auth_sparql.yaml

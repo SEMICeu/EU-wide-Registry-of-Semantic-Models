@@ -227,6 +227,32 @@ ga       | 1          | -
 lvsl     | 0          | -
 
 
+Language | Pair count | All targets
+---------|------------|----------------
+en       | 157        | CELTIC, ROMANCE, aav, af, afa, alv, ar, az, bat, bcl, bem, ber, bg, bi, bnt, bzs, ca, ceb, cel, chk, cpf, cpp, crs, cs, cus, cy, da, de, dra, ee, efi, el, eo, es, et, eu, euq, fi, fiu, fj, fr, ga, gaa, gem, gil, gl, gmq, gmw, grk, guw, gv, ha, he, hi, hil, ho, ht, hu, hy, id, ig, iir, ilo, inc, ine, is, iso, it, itc, jap, kg, kj, kqn, kwn, kwy, lg, ln, loz, lu, lua, lue, lun, luo, lus, map, mfe, mg, mh, mk, mkh, ml, mos, mr, mt, mul, ng, nic, niu, nl, nso, ny, nyk, om, pag, pap, phi, pis, pon, poz, pqe, pqw, rn, rnd, ro, roa, ru, run, rw, sal, sem, sg, sit, sk, sla, sm, sn, sq, ss, st, sv, sw, swc, tdt, ti, tiv, tl, tll, tn, to, toi, tpi, trk, ts, tut, tvl, tw, ty, uk, umb, ur, urj, vi, xh, zh, zle, zls, zlw
+sv       | 97         | NORWAY, ZH, af, ase, bcl, bem, bg, bi, bzs, ceb, chk, crs, cs, ee, efi, el, en, eo, es, et, fi, fj, fr, gaa, gil, guw, ha, he, hil, ho, hr, ht, hu, id, ig, ilo, is, iso, kg, kqn, kwy, lg, ln, lu, lua, lue, lus, lv, mfe, mh, mos, mt, niu, nl, no, nso, ny, pag, pap, pis, pon, rnd, ro, ru, run, rw, sg, sk, sl, sm, sn, sq, srn, st, sv, swc, th, tiv, tll, tn, to, toi, tpi, ts, tum, tvl, tw, ty, uk, umb, ve, war, wls, xh, yap, yo, zne
+fi       | 96         | NORWAY, ZH, af, bcl, bem, bg, bzs, ceb, crs, cs, de, ee, efi, el, en, eo, es, et, fi, fj, fr, fse, gaa, gil, guw, ha, he, hil, ho, hr, ht, hu, id, ig, ilo, is, iso, it, kg, kqn, lg, ln, lu, lua, lue, lus, lv, mfe, mg, mh, mk, mos, mt, niu, nl, no, nso, ny, pag, pap, pis, pon, ro, ru, run, rw, sg, sk, sl, sm, sn, sq, srn, st, sv, sw, swc, tiv, tll, tn, to, toi, tpi, tr, ts, tvl, tw, ty, uk, ve, war, wls, xh, yap, yo, zne
+es       | 94         | NORWAY, aed, af, ar, ase, bcl, ber, bg, bi, bzs, ca, ceb, crs, cs, csg, csn, da, de, ee, efi, el, en, eo, es, et, eu, fi, fj, fr, gaa, gil, gl, guw, ha, he, hil, ho, hr, ht, id, ig, ilo, is, iso, it, kg, ln, loz, lt, lua, lus, mfs, mk, mt, niu, nl, no, nso, ny, pag, pap, pis, pl, pon, prl, rn, ro, ru, rw, sg, sl, sm, sn, srn, st, swc, tl, tll, tn, to, tpi, tvl, tw, ty, tzo, uk, ve, vi, war, wls, xh, yo, yua, zai
+fr       | 92         | af, ar, ase, bcl, bem, ber, bg, bi, bzs, ca, ceb, crs, de, ee, efi, el, en, eo, es, fj, gaa, gil, guw, ha, he, hil, ho, hr, ht, hu, id, ig, ilo, iso, kg, kqn, kwy, lg, ln, loz, lu, lua, lue, lus, mfe, mh, mos, ms, mt, niu, no, nso, ny, pag, pap, pis, pl, pon, rnd, ro, ru, run, rw, sg, sk, sl, sm, sn, srn, st, sv, swc, tiv, tl, tll, tn, to, tpi, ts, tum, tvl, tw, ty, uk, ve, vi, war, wls, xh, yap, yo, zne
+de       | 59         | ZH, af, ar, ase, bcl, bg, bi, bzs, ca, crs, cs, da, de, ee, efi, el, en, eo, es, et, eu, fi, fj, fr, gaa, gil, guw, ha, he, hil, ho, hr, ht, hu, ig, ilo, is, iso, it, kg, ln, loz, lt, lua, ms, mt, niu, nl, no, nso, ny, pag, pap, pis, pl, pon, tl, uk, vi
+it       | 14         | ar, bg, ca, de, en, eo, es, fr, is, lt, ms, sv, uk, vi
+bg       | 11         | de, en, eo, es, fi, fr, it, ru, sv, tr, uk
+no       | 11         | da, de, es, fi, fr, nl, no, pl, ru, sv, uk
+pl       | 10         | ar, de, en, eo, es, fr, lt, no, sv, uk
+nl       | 10         | af, ca, en, eo, es, fi, fr, no, sv, uk
+lt       | 9          | de, eo, es, fr, it, pl, ru, sv, tr
+da       | 8          | de, en, eo, es, fi, fr, no, ru
+hu       | 7          | de, en, eo, fi, fr, sv, uk
+cs       | 7          | de, en, eo, fi, fr, sv, uk
+et       | 7          | de, en, es, fi, fr, ru, sv
+pt       | 5          | ca, eo, gl, tl, uk
+el       | 5          | ar, eo, fi, fr, sv
+sk       | 5          | en, es, fi, fr, sv
+mt       | 5          | en, es, fi, fr, sv
+ro       | 4          | eo, fi, fr, sv
+ga       | 1          | en
+lvsl     | 0          | -
+
 
 
 

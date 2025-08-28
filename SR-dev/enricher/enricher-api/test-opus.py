@@ -69,8 +69,17 @@ for src, count in ordered_langs:
     result.append((src, count, sorted(unique_targets)))
     already_seen |= targets_by_src[src]
 
-# Print results
+# Table 1: Pair count and exclusive targets
 print("Language | Pair count | Exclusive targets (removing overlaps with previous)")
 print("---------|------------|--------------------------------------------")
 for src, count, uniques in result:
     print(f"{src:<8} | {count:<10} | {', '.join(uniques) if uniques else '-'}")
+
+print("\n")  # Spacer between tables
+
+# Table 2: Full list of targets with counts, ordered by decreasing pair count
+print("Language | Pair count | All targets")
+print("---------|------------|----------------")
+for src, count in ordered_langs:
+    all_targets = sorted(targets_by_src[src]) if targets_by_src[src] else []
+    print(f"{src:<8} | {len(all_targets):<10} | {', '.join(all_targets) if all_targets else '-'}")

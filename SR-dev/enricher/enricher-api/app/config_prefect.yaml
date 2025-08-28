@@ -147,14 +147,12 @@ translate:
     }
   batch_size: 4
   translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
-  multi_target: True 
   hub_languages:
     - en
-    - fr
-    - de
-    - it
     - sv
-    - el
+    - fi
+    - es
+    - fr
   translate_batch_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     SELECT ?description
@@ -164,6 +162,34 @@ translate:
         FILTER(lang(?description) = "$source_lang")
     }
     LIMIT 1
+  multi_target: True
+  preferred_pivot_for_target:
+    # Polish needs German pivot (no direct EN→PL)
+    pl: de   # Polish via German
+    
+    # Slavic family - use Polish as hub
+    #cs: pl   # Czech via Polish (West Slavic)
+    #sk: pl   # Slovak via Polish (West Slavic)
+    #bg: pl   # Bulgarian via Polish (South Slavic)
+    #sl: pl   # Slovenian via Polish (South Slavic)
+    
+    # Germanic family - use German as hub
+    #nl: de   # Dutch via German
+    #da: de   # Danish via German
+    #no: de   # Norwegian via German
+    
+    # Romance family - use existing Romance hubs
+    #it: fr   # Italian via French
+    #pt: es   # Portuguese via Spanish
+    #ro: fr   # Romanian via French
+    
+    # Finno-Ugric family - use Finnish hub
+    #et: fi   # Estonian via Finnish
+    #hu: fi   # Hungarian via Finnish
+    
+    # Baltic
+    #lt: de   # Lithuanian via German
+    #lv: de   # Latvian via German
   add_translations:
     triple_template: |
       <$standard_uri> <http://purl.org/dc/terms/description> "$safe_text"@$target_lang-t-$source_lang-t0-mtec .

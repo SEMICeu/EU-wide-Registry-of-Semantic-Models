@@ -576,7 +576,8 @@ def translate_batch_lock3(
         hub_languages: dict, 
         translate_batch_query: dict, 
         auth_dict: dict, 
-        multi_target: bool = True ):
+        multi_target: bool = True,
+        preferred_pivot_for_target: dict = None ):
     """
     Batch translation task with optional multi-target support.
 
@@ -668,6 +669,25 @@ def translate_batch_lock3(
                 return hub
         return None
 
+    def find_pivot2(source, target, preferred_pivot_for_target):
+        """
+        Find a pivot hub language using preferences if provided,
+        otherwise fallback to hub_languages.
+        """
+        # First try the preferred pivot (if it exists and is supported)
+        preferred = preferred_pivot_for_target.get(target)
+        if preferred and (source, preferred) in SUPPORTED_PAIRS and (preferred, target) in SUPPORTED_PAIRS:
+            logger.info(f"[Pivot] using preferred pivot {preferred} for {target}")
+            return preferred
+
+        # Fallback to default hub search
+        for hub in hub_languages:
+            if (source, hub) in SUPPORTED_PAIRS and (hub, target) in SUPPORTED_PAIRS:
+                logger.info(f"[Pivot] fallback pivot {hub} for {target}")
+                return hub
+
+        return None
+
     for standard_uri, lang_map in batch_data.items():
         existing_langs = lang_map.get("existing", [])
         missing_langs = lang_map.get("missing", [])
@@ -728,7 +748,7 @@ def translate_batch_lock3(
 
         # --- Pivot translations ---
         for target_lang in [t for t in missing_langs if t not in translations.get(standard_uri, {})]:
-            pivot = find_pivot(source_lang, target_lang)
+            pivot = find_pivot2(source_lang, target_lang, preferred_pivot_for_target)
             if not pivot:
                 logger.warning(f"[Pivot] {standard_uri}: no route {source_lang}→{target_lang}")
                 continue

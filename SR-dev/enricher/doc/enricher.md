@@ -200,6 +200,32 @@ Notes:
 6) Evaluate performance for synonyms; now synonyms are found in a loop, maybe it is possible to split in batch.
 
 
+Language | Pair count | Exclusive targets (removing overlaps with previous)
+---------|------------|--------------------------------------------
+en       | 157        | CELTIC, ROMANCE, aav, af, afa, alv, ar, az, bat, bcl, bem, ber, bg, bi, bnt, bzs, ca, ceb, cel, chk, cpf, cpp, crs, cs, cus, cy, da, de, dra, ee, efi, el, eo, es, et, eu, euq, fi, fiu, fj, fr, ga, gaa, gem, gil, gl, gmq, gmw, grk, guw, gv, ha, he, hi, hil, ho, ht, hu, hy, id, ig, iir, ilo, inc, ine, is, iso, it, itc, jap, kg, kj, kqn, kwn, kwy, lg, ln, loz, lu, lua, lue, lun, luo, lus, map, mfe, mg, mh, mk, mkh, ml, mos, mr, mt, mul, ng, nic, niu, nl, nso, ny, nyk, om, pag, pap, phi, pis, pon, poz, pqe, pqw, rn, rnd, ro, roa, ru, run, rw, sal, sem, sg, sit, sk, sla, sm, sn, sq, ss, st, sv, sw, swc, tdt, ti, tiv, tl, tll, tn, to, toi, tpi, trk, ts, tut, tvl, tw, ty, uk, umb, ur, urj, vi, xh, zh, zle, zls, zlw
+sv       | 97         | NORWAY, ZH, ase, en, hr, lv, no, sl, srn, th, tum, ve, war, wls, yap, yo, zne
+fi       | 96         | fse, tr
+es       | 94         | aed, csg, csn, lt, mfs, pl, prl, tzo, yua, zai
+fr       | 92         | ms
+de       | 59         | -
+it       | 14         | -
+bg       | 11         | -
+no       | 11         | -
+pl       | 10         | -
+nl       | 10         | -
+lt       | 9          | -
+da       | 8          | -
+hu       | 7          | -
+cs       | 7          | -
+et       | 7          | -
+pt       | 5          | -
+el       | 5          | -
+sk       | 5          | -
+mt       | 5          | -
+ro       | 4          | -
+ga       | 1          | -
+lvsl     | 0          | -
+
 
 
 

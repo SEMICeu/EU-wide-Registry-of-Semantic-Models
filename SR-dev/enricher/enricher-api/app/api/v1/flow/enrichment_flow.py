@@ -131,8 +131,9 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             multi_target = config["translate"]["multi_target"]
             hub_languages = config["translate"]["hub_languages"]
             translate_batch_query = config["translate"]["translate_batch_query"]
+            preferred_pivot_for_target = config["translate"]["preferred_pivot_for_target"]
             batch_futures = [
-                translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch, hub_languages, translate_batch_query, auth_dict, multi_target, wait_for=[batches_future])
+                translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch, hub_languages, translate_batch_query, auth_dict, multi_target,  preferred_pivot_for_target, wait_for=[batches_future])
                 for batch in batches_future.result()   # ensures Prefect sees only batch_translate as upstream
             ]
 

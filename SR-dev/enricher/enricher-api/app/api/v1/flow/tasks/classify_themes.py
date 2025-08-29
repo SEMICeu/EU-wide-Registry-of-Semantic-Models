@@ -74,7 +74,8 @@ def classify(
             if classification_list and isinstance(classification_list, list):
                 # Extract 'term' from first item, if exists
                 term = classification_list[0].get("term") if "term" in classification_list[0] else None
-                logger.info(f"Classification term for {standard_uri}: {term}")
+                score = classification_list[0].get("score") if "score" in classification_list[0] else None
+                logger.info(f"Classification term for {standard_uri}: {term}-{score}")
                 enriched_results[standard_uri] = term
             else:
                 logger.error(f"Unexpected response format for {standard_uri}: {classification_list}")
@@ -91,15 +92,16 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 @task
 def add_themes_to_graph(
-        endpoint: str, 
-        graph_uri: str, 
+        endpoint: str,
+        source_graph: str, 
+        target_graph: str, 
         enriched_results: dict, 
         queries: dict, 
         auth_dict: dict
     ):
 
     logger = get_run_logger()
-    logger.info(f"Adding themes to the graph {graph_uri}...")
+    logger.info(f"Adding themes to the graph {target_graph}...")
 
     prefixes = queries["prefixes"]
     query_template = queries["query"]
@@ -109,9 +111,14 @@ def add_themes_to_graph(
     for uri, theme in enriched_results.items():
         if theme:
             template = Template(query_template)
-            sparql_update_blocks.append(
-                template.substitute(graph_uri=graph_uri, uri=uri, theme=f"test-{theme}")
-            )
+            if (target_graph != source_graph):
+                sparql_update_blocks.append(
+                    template.substitute(graph_uri=target_graph, uri=uri, theme=f"{theme}")
+                )
+            else:
+                sparql_update_blocks.append(
+                    template.substitute(graph_uri=target_graph, uri=uri, theme=f"test-{theme}")
+                )            
 
     sparql_update = prefixes + "\n" + "\n".join(sparql_update_blocks)
     logger.info("[SPARQL] update query:\n" + sparql_update)

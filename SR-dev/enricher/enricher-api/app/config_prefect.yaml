@@ -101,7 +101,6 @@ translate:
     WHERE {
       GRAPH <$graph_uri> {
         ?s dct:description ?description .
-        FILTER (STRSTARTS(?description, "test-"))
       }
     }
   languages:

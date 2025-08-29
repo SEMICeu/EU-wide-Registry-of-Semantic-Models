@@ -250,7 +250,7 @@ def rank_theme_codes_by_context(context: str, themes: dict, return_all=False):
     for code, data in themes.items():
         text = f"{data['label']}. {data['definition']}"
         theme_texts.append(text)
-        codes.append(code)
+        codes.append(data['uri'])
 
     # Embed the theme descriptions
     theme_embeddings = model.encode(theme_texts, convert_to_tensor=True)

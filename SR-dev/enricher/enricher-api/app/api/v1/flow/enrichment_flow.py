@@ -97,7 +97,7 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             classify_api = config["classify"]["classify_api"]
             classify_future = classify.submit(classify_api, fetch_themes_future)
             add_classification_query = config["classify"]["add_themes"]
-            add_themes_to_graph.submit(source_endpoint, target_graph, classify_future, add_classification_query, auth_dict)
+            add_themes_to_graph.submit(source_endpoint, source_graph, target_graph, classify_future, add_classification_query, auth_dict)
 
         if(task == "all" or task == "synonyms"):
             fetch_labels_to_synonyms_query = config["synonyms"]["fetch_labels_to_synonyms_query"]
@@ -128,9 +128,9 @@ def enrichment_flow(task: str = "all", job_id: str = None):
 
             # Step 3: Submit translation batches in parallel
             translate_api = config["translate"]["translate_api"]
-            multi_target = config["translate"]["multi_target"]
             hub_languages = config["translate"]["hub_languages"]
             translate_batch_query = config["translate"]["translate_batch_query"]
+            multi_target = config["translate"]["multi_target"]
             preferred_pivot_for_target = config["translate"]["preferred_pivot_for_target"]
             batch_futures = [
                 translate_batch_lock3.submit(source_endpoint, source_graph, translate_api, batch, hub_languages, translate_batch_query, auth_dict, multi_target,  preferred_pivot_for_target, wait_for=[batches_future])

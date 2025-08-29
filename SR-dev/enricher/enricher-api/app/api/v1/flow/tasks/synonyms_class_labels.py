@@ -82,9 +82,17 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 @task
-def add_synonyms_to_graph(endpoint: str, graph_uri: str, enriched_results: dict,  queries: dict, auth_dict: dict):
+def add_synonyms_to_graph(
+    endpoint: str, 
+    source_graph: str,
+    target_graph: str, 
+    enriched_results: dict,  
+    queries: dict, 
+    auth_dict: dict
+    ):
+
     logger = get_run_logger()
-    logger.info(f"Add synonyms to the graph {graph_uri}...")
+    logger.info(f"Add synonyms to the graph {target_graph}...")
 
     prefixes = queries["prefixes"]
     query_template = queries["query"]
@@ -93,9 +101,14 @@ def add_synonyms_to_graph(endpoint: str, graph_uri: str, enriched_results: dict,
     for uri, altLabel  in enriched_results.items():
         if altLabel :
             template = Template(query_template)
-            sparql_update_blocks.append(
-                template.substitute(graph_uri=graph_uri, uri=uri, altLabel=f"test-{altLabel}")
-            )
+            if (target_graph != source_graph):
+                sparql_update_blocks.append(
+                    template.substitute(graph_uri=target_graph, uri=uri, altLabel=f"{altLabel}")
+                )
+            else:
+                sparql_update_blocks.append(
+                    template.substitute(graph_uri=target_graph, uri=uri, altLabel=f"test-{altLabel}")
+                )
 
     sparql_update = prefixes + "\n" + "\n".join(sparql_update_blocks)
     logger.info("[SPARQL] update query:\n" + sparql_update)

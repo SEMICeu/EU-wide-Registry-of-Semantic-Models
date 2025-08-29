@@ -64,3 +64,8 @@ datathemes:
     label: Transport
     definition: dataset theme covering the domain of transport, which involves the movement of humans, animals, and goods from one location to another using various modes such as air, land (rail and road), water, cable, pipeline and space
     uri: http://publications.europa.eu/resource/authority/data-theme/TRAN
+  OTHE:
+    code: OTHER
+    label: other
+    definition: additional theme to classify a text not belonging to other domains or agnostic
+    uri: http://example.com/resource/authority/data-theme/OTHE

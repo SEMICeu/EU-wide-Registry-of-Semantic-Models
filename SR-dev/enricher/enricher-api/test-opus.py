@@ -1,4 +1,4 @@
-from huggingface_hub import list_models
+from huggingface_hub import list_models, model_info
 from collections import Counter, defaultdict
 
 import urllib3
@@ -8,6 +8,7 @@ import requests
 from huggingface_hub import configure_http_backend
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ssl._create_default_https_context = ssl._create_unverified_context
+import pandas as pd
 
 # Disable cert verification globally
 os.environ['CURL_CA_BUNDLE'] = ''
@@ -83,3 +84,28 @@ print("---------|------------|----------------")
 for src, count in ordered_langs:
     all_targets = sorted(targets_by_src[src]) if targets_by_src[src] else []
     print(f"{src:<8} | {len(all_targets):<10} | {', '.join(all_targets) if all_targets else '-'}")
+
+# Collect metadata
+rows = []
+for model_id in marian_models:
+    try:
+        info = model_info(model_id)
+        rows.append({
+            "model": model_id,
+            "downloads": info.downloads,
+            "lastModified": info.lastModified,
+            "likes": info.likes,
+            "tags": ", ".join(info.tags) if info.tags else ""
+        })
+    except Exception as e:
+        print(f"Could not fetch info for {model_id}: {e}")
+
+# Build DataFrame
+df = pd.DataFrame(rows)
+
+# Sort by downloads (most popular first)
+df = df.sort_values(by="downloads", ascending=False).reset_index(drop=True)
+
+# Print table to console
+print(df.to_string(max_rows=50, max_colwidth=40))
+df.to_csv("helsinki_models.csv", index=False)

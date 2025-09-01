@@ -18,6 +18,35 @@ classify:
       ?standard dct:description ?description .
       FILTER(lang(?description) = "en")
     }
+  fetch_themes_to_classify_query2: |
+    PREFIX dct: <http://purl.org/dc/terms/> 
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    SELECT DISTINCT ?standard ?description (GROUP_CONCAT(DISTINCT ?lowLabel; separator=",") AS ?labels) (GROUP_CONCAT(DISTINCT ?lowKeyword; separator=",") AS ?keywords)
+    FROM <$graph_uri>
+    WHERE {
+        ?standard a dct:Standard .
+        ?standard dcat:theme ?theme .
+        ?standard dct:description ?description .
+        FILTER(lang(?description) = "en") .
+
+        OPTIONAL {
+            SELECT ?standard (LCASE(?label) AS ?lowLabel)
+            WHERE {
+                ?standard dct:hasPart ?class .
+                ?class rdfs:label ?label .
+                FILTER(lang(?label) = "en")
+            }
+        }
+
+        OPTIONAL {
+            SELECT ?standard (LCASE(?keyword) AS ?lowKeyword)
+            WHERE {
+                ?standard dcat:keyword ?keyword .
+                FILTER(lang(?keyword) = "en")
+            }
+        }
+    }
+    GROUP BY ?standard ?description
   classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
   add_themes:
     prefixes: |
@@ -30,7 +59,7 @@ classify:
       }
       INSERT {
         GRAPH <$graph_uri> {
-          <$uri> dcat:theme "$theme" .
+          <$uri> dcat:theme <$theme> .
         }
       }
       WHERE {

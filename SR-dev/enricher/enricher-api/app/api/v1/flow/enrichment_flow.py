@@ -92,7 +92,7 @@ def enrichment_flow(task: str = "all", job_id: str = None):
         logger.info(f"Job {job_id} status set to RUNNING with flow_run_id {flow_run_id}")
 
         if(task == "all" or task == "classify"):
-            fetch_themes_to_classify_query = config["classify"]["fetch_themes_to_classify_query"]
+            fetch_themes_to_classify_query = config["classify"]["fetch_themes_to_classify_query2"]
             fetch_themes_future = fetch_themes_to_classify.submit(source_endpoint, source_graph, fetch_themes_to_classify_query, auth_dict)
             classify_api = config["classify"]["classify_api"]
             classify_future = classify.submit(classify_api, fetch_themes_future)

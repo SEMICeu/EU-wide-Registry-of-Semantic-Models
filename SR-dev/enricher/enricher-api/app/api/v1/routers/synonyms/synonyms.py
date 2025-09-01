@@ -45,6 +45,10 @@ async def synonyms(
         altervista_endpoint = config['altervista_endpoint']
         datamuse_endpoint = config['datamuse_endpoint']
         altervista_key = config['altervista_key']
+        model_repo_id = config['model']["repo_id"]
+        model_local_dir = config["model"]["local_dir"]
+        logger.info(f"[SYNONYMS] model_repo_id: {model_repo_id}")
+        logger.info(f"[SYNONYMS] model_local_dir: {model_local_dir}")
 
         resultList = []
         nltk_syns = {}
@@ -77,7 +81,7 @@ async def synonyms(
             logger.info(f"[SYNONYMS] got synonyms: {temp_list}")
             logger.info(f"[SYNONYMS] Re-evaluating the synonyms given the context '{context}'")
             if temp_list:  # 🔒 guard here
-                all_scores = best_synonym_for_context(context, temp_list, return_all=True)
+                all_scores = best_synonym_for_context(context, temp_list, model_repo_id, model_local_dir, return_all=True)
                 score_map = {word: score for word, score in all_scores}
                 for s in resultList:
                     if s.term in score_map:

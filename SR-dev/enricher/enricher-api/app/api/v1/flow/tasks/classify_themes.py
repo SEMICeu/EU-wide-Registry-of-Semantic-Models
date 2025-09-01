@@ -3,6 +3,25 @@ from prefect.logging import get_run_logger
 import requests
 from ..util_sparql import execute_sparql_select, execute_sparql_update
 from string import Template
+import re
+
+def clean_text(text: str) -> str:
+    """
+    Preprocess text before embedding:
+    - remove URLs
+    - remove email-like tokens
+    - collapse extra whitespace
+    """
+    # remove URLs (http, https, www)
+    text = re.sub(r'http\S+|www\.\S+', '', text)
+
+    # remove email addresses or s3-like tokens
+    text = re.sub(r'\S+@\S+|\S+\.s3-\S+', '', text)
+
+    # collapse multiple spaces/newlines into one space
+    text = re.sub(r'\s+', ' ', text).strip()
+
+    return text
 
 # Suggest improvements for this function
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
@@ -38,8 +57,12 @@ def fetch_themes_to_classify(
     for result in results["results"]["bindings"]:
         s = result["standard"]["value"]
         description = result["description"]["value"]
+        labels = result["labels"]["value"]
+        keywords = result["keywords"]["value"]
         data[s] = {
-            "description": description
+            "description": description,
+            "labels": labels,
+            "keywords": keywords
         }
 
     logger.info(f"Fetched data: {data}")
@@ -62,12 +85,14 @@ def classify(
         if not description:
             logger.info(f"No description for {standard_uri}, skipping.")
             continue
+        labels = props.get("labels", "")
+        keywords = props.get("keywords", "")
         params = {
-            "context": description,
+            "context": description + " " + labels + " " + keywords,
             "classification" : "datathemes",
             "max": 1
         }
-        logger.info(f"Calling classify API {url} for {standard_uri}")
+        logger.info(f"Calling classify API {url} for {standard_uri} with context {params['context']} ")
         response = requests.get(url, params=params, timeout=30)
         if response.status_code == 200:
             classification_list = response.json()
@@ -117,7 +142,7 @@ def add_themes_to_graph(
                 )
             else:
                 sparql_update_blocks.append(
-                    template.substitute(graph_uri=target_graph, uri=uri, theme=f"test-{theme}")
+                    template.substitute(graph_uri=target_graph, uri=uri, theme=f"{theme}-test")
                 )            
 
     sparql_update = prefixes + "\n" + "\n".join(sparql_update_blocks)

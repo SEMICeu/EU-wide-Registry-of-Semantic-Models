@@ -1,3 +1,7 @@
 altervista_endpoint: "http://thesaurus.altervista.org/thesaurus/v1?"
 altervista_key: "Kdnuiqz85LO7gGIHdGZf"
 datamuse_endpoint: "https://api.datamuse.com/words?"
+
+model:
+  repo_id: "sentence-transformers/all-MiniLM-L6-v2"
+  local_dir: "./models/all-MiniLM-L6-v2"

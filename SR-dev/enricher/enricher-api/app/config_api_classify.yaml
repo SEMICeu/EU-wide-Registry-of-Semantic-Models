@@ -1,3 +1,20 @@
+model:
+  # Replace model name here with any from the list:
+  # "sentence-transformers/all-MiniLM-L6-v2"
+  # "sentence-transformers/all-MiniLM-L12-v2"
+  # "BAAI/bge-small-en-v1.5"
+  # "nomic-ai/nomic-embed-text-v1.5"
+  # "sentence-transformers/all-mpnet-base-v2"
+  # "sentence-transformers/multi-qa-mpnet-base-dot-v1"
+  # "sentence-transformers/multi-qa-MiniLM-L6-cos-v1"
+  # "sentence-transformers/all-distilroberta-v1
+  # "sentence-transformers/paraphrase-mpnet-base-v2"
+  # "BAAI/bge-large-en-v1"
+  # "thenlper/gte-large"
+  # "intfloat/e5-large-v2" put a prefix "passage:" in front of the text
+  repo_id: "sentence-transformers/all-mpnet-base-v2"
+  local_dir: "./models/all-mpnet-base-v2"
+ 
 datathemes:
   AGRI:
     code: AGRI
@@ -64,8 +81,3 @@ datathemes:
     label: Transport
     definition: dataset theme covering the domain of transport, which involves the movement of humans, animals, and goods from one location to another using various modes such as air, land (rail and road), water, cable, pipeline and space
     uri: http://publications.europa.eu/resource/authority/data-theme/TRAN
-  OTHE:
-    code: OTHER
-    label: other
-    definition: additional theme to classify a text not belonging to other domains or agnostic
-    uri: http://example.com/resource/authority/data-theme/OTHE

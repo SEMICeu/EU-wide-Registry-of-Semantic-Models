@@ -36,14 +36,18 @@ async def classify(
         config = request.app.state.config_classify
         # Process and print results
         listofterms = config[classification]
+        model_repo_id = config["model"]["repo_id"]
+        model_local_dir = config["model"]["local_dir"]
         logger.info(f"[CLASSIFY] Loaded {len(listofterms)} terms for classification")
+        logger.info(f"[CLASSIFY] model_repo_id: {model_repo_id}")
+        logger.info(f"[CLASSIFY] model_local_dir: {model_local_dir}")
 
         resultList =[]
         logger.info("[CLASSIFY] Context:" + context)
         #for code, data in listofterms.items():
         #    logger.info(f"{data['label']}. {data['definition']}")
 
-        all_scores = rank_theme_codes_by_context(context, listofterms, return_all=True)
+        all_scores = rank_theme_codes_by_context(context, listofterms, model_repo_id, model_local_dir, return_all=True)
         for code,score in all_scores:
                 theme = Theme(
                     term=code,

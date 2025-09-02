@@ -8,27 +8,15 @@ sparql:
 
 classify:
   fetch_themes_to_classify_query: |
-    PREFIX dct: <http://purl.org/dc/terms/>
-    PREFIX dcat: <http://www.w3.org/ns/dcat#>
-    SELECT DISTINCT ?standard ?description
-    FROM <$graph_uri>
-    WHERE {
-      ?standard a dct:Standard .
-      ?standard dcat:theme ?theme .
-      ?standard dct:description ?description .
-      FILTER(lang(?description) = "en")
-    }
-  fetch_themes_to_classify_query2: |
     PREFIX dct: <http://purl.org/dc/terms/> 
     PREFIX dcat: <http://www.w3.org/ns/dcat#>
     SELECT DISTINCT ?standard ?description (GROUP_CONCAT(DISTINCT ?lowLabel; separator=",") AS ?labels) (GROUP_CONCAT(DISTINCT ?lowKeyword; separator=",") AS ?keywords)
     FROM <$graph_uri>
     WHERE {
         ?standard a dct:Standard .
-        ?standard dcat:theme ?theme .
         ?standard dct:description ?description .
         FILTER(lang(?description) = "en") .
-
+        FILTER NOT EXISTS { ?standard dcat:theme ?theme}
         OPTIONAL {
             SELECT ?standard (LCASE(?label) AS ?lowLabel)
             WHERE {

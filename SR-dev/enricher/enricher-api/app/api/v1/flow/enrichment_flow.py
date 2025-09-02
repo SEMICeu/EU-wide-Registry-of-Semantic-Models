@@ -92,7 +92,7 @@ def enrichment_flow(task: str = "all", job_id: str = None):
         logger.info(f"Job {job_id} status set to RUNNING with flow_run_id {flow_run_id}")
 
         if(task == "all" or task == "classify"):
-            fetch_themes_to_classify_query = config["classify"]["fetch_themes_to_classify_query2"]
+            fetch_themes_to_classify_query = config["classify"]["fetch_themes_to_classify_query"]
             fetch_themes_future = fetch_themes_to_classify.submit(source_endpoint, source_graph, fetch_themes_to_classify_query, auth_dict)
             classify_api = config["classify"]["classify_api"]
             classify_future = classify.submit(classify_api, fetch_themes_future)
@@ -105,7 +105,7 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             synonyms_api = config["synonyms"]["synonyms_api"]
             synonyms_future = synonyms.submit(synonyms_api, fetch_labels_future)
             add_synonyms_query = config["synonyms"]["add_synonyms"]
-            add_synonyms_to_graph.submit(source_endpoint, target_graph, synonyms_future, add_synonyms_query, auth_dict)
+            add_synonyms_to_graph.submit(source_endpoint, source_graph, target_graph, synonyms_future, add_synonyms_query, auth_dict)
 
         if(task == "all" or task == "translate"):
             #fetch_descriptions_future = fetch_descriptions_to_translate.submit(source_endpoint, graph_uri)

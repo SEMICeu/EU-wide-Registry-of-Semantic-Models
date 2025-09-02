@@ -97,7 +97,12 @@ The classify task provides to the API the below values:
  - select the data themes classification 
  - set the maximum value 1 to be returned
 
-To evaluate against the context, the classify API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder via [load_model_mini()](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L119) function.
+To evaluate against the context, the classify API uses the sentence transformers model [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2), downloaded in the enricher-api/models folder via [load_model_mini()](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L119) function.
+
+Changing the model is possible by:
+1) modifying the configuration file config_api_classify.yaml
+2) stop and start the application
+3) trigger the classify API to download and load the model, so then it can be used after by the Prefect task.
 
 ### Executing synonyms task
 The classify task is divided in 3 steps:
@@ -123,6 +128,11 @@ The synonyms task provides to the API the below values:
  - set the maximum value 1 to be returned
 
 To evaluate against the context, the synonyms API uses the sentence transformers model "[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)", downloaded in the enricher-api/models folder via [load_model_mini()](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/api/v1/mlmodels.py#L119) function.
+
+Changing the model is possible by:
+1) modifying the configuration file config_api_synonyms.yaml
+2) stop and start the application
+3) trigger the synonyms API to download and load the model, so then it can be used after by the Prefect task.
 
 The synonyms found for a term are stored in a cache, synonyms_cache.db see above, so the synonyms API uses the cache to retrieve the synonyms first without calling the data sources API.
 The end user can get or delete the cache and look at the cache statistics from the respective API endpoints.

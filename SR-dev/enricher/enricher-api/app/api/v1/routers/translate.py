@@ -1,14 +1,16 @@
 from fastapi import APIRouter, Query, HTTPException, Request
 import os
-from typing import List, Optional
+from typing import List, Optional, Tuple
 import logging
+import re
+import traceback
 
 import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.api.v1.models import ErrorResponse, TranslationItem, TranslationResponse, DetectedLanguage 
-from app.api.v1.mlmodels import load_model_translate, get_fasttext_model, list_pairs
-from app.schemas.language import Language
+from app.api.v1.mlmodels import load_model_translate, get_fasttext_model, list_pairs, list_opus_pairs
+from app.api.v1.schemas.language import Language
 
 logger = logging.getLogger(__name__)
 
@@ -37,19 +39,19 @@ async def translates(
             language=lang_code,
             score=confidence
         )
-        logger.info("detected " + lang_code)
+        logger.info(f"[TRANSLATE] source language: {source} detected: " + lang_code)
         if source is None:
             source = lang_code
         else:
             source = source.value
         resultList =[]
 
-        sorted_pairs = list_pairs()
+        sorted_pairs = list_opus_pairs()
         found = 0
         for tgt in target:
             target_value = tgt.value
             if (source,target_value) in sorted_pairs:
-                logger.info("valid pair:" + source + "-" + target_value)
+                logger.info("[TRANSLATE] valid pair:" + source + "-" + target_value)
                 found +=1
 
                 tokenizer, model = load_model_translate(source, target_value)
@@ -61,7 +63,7 @@ async def translates(
                             lang=target_value
                 )
                 resultList.append(translation)
-        logger.info("found " + str(found))
+        logger.info("[TRANSLATE] found " + str(found))
 
         response = TranslationResponse(
             detectedLanguage=detected,
@@ -70,11 +72,16 @@ async def translates(
 
         return [response]
     except ValueError as e:
+        logger.error(f"[TRANSLATE] Invalid input | error={str(e)}")
         raise HTTPException(
             status_code=400,
             detail=ErrorResponse(detail=str(e), error="INVALID_INPUT").model_dump()
         )
     except Exception as e:
+        logger.error(
+            f"[CLASSIFY] Internal error | error={str(e)}\n"
+            + traceback.format_exc()
+        )
         raise HTTPException(
             status_code=500,
             detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()
@@ -86,3 +93,33 @@ def detect_language(text: str):
     lang_code = predictions[0][0].replace("__label__", "")
     confidence = predictions[1][0]
     return lang_code, confidence
+
+
+@translate_router.get("/translate/pairs", response_model=List[Tuple[str, str]])
+def get_translation_pairs():
+    return list_opus_pairs()
+
+@translate_router.post("/translate/pairs/refresh")
+def refresh_translation_pairs():
+    # snapshot of old cached pairs
+    old_pairs = set(list_opus_pairs())
+
+    # clear cache and refresh from Hugging Face
+    list_opus_pairs.cache_clear()
+    new_pairs = set(list_opus_pairs())
+
+    # compute differences
+    added = new_pairs - old_pairs
+    removed = old_pairs - new_pairs
+    unchanged = old_pairs & new_pairs
+
+    return {
+        "refreshed": True,
+        "count": len(new_pairs),
+        "added_count": len(added),
+        "removed_count": len(removed),
+        "unchanged_count": len(unchanged),
+        "added_sample": list(added)[:5],
+        "removed_sample": list(removed)[:5],
+        "unchanged_sample": list(unchanged)[:5],
+    }

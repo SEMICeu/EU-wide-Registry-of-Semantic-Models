@@ -1,37 +1,33 @@
 from prefect import task
 from prefect.logging import get_run_logger
-from SPARQLWrapper import SPARQLWrapper, JSON
+from ..util_sparql import execute_sparql_select, execute_sparql_update
 import requests
+from string import Template
 
 @task(retries=3, retry_delay_seconds=20, retry_jitter_factor=0.2)
-def fetch_labels_to_synonyms(source_endpoint: str = "http://63.32.50.253:81/sparql", graph_uri : str = "http://semic.registry.eu"):
+def fetch_labels_to_synonyms(
+    endpoint: str, 
+    graph_uri : str,
+    fetch_labels_to_synonyms_query : str,
+    auth_dict: dict
+    ):
+    
     logger = get_run_logger()
-    logger.info(f"Fetching data from {source_endpoint}")
+    logger.info(f"Fetching data from {endpoint}")
 
-    sparql = SPARQLWrapper(source_endpoint)
-    sparql.setReturnFormat(JSON)
+    template = Template(fetch_labels_to_synonyms_query)
+    params = {
+        "graph_uri" : graph_uri
+    }
+    # ?class skos:altLabel ?altLabel .
+    # FILTER (STRSTARTS(str(?altLabel),"test-")) .
+    query = template.substitute(params)
+    logger.info(f"[SPARQL] Query: {query}")
 
-    query = f"""
-    PREFIX dct: <http://purl.org/dc/terms/>
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    select distinct ?class (group_concat(distinct ?lowLabel;separator=",") as ?labels) ?description
-    FROM <{graph_uri}>
-    where {{
-      ?standard a dct:Standard .
-      ?standard dct:description ?description .
-      FILTER(lang(?description) = "en") .
-      ?standard dct:hasPart ?class .
-      ?class rdfs:label ?label .
-      BIND(LCASE(?label) as ?lowLabel) .
-      FILTER(lang(?label) = "en")
-      ?class skos:altLabel ?altLabel .
-      FILTER (STRSTARTS(str(?altLabel),"test-")) .
-    }}
-    GROUP BY ?class ?description
-    """
-    sparql.setQuery(query)
-    results = sparql.query().convert()
-
+    sparql_result = execute_sparql_select(endpoint, query, "JSON", auth_dict["username"], auth_dict["password"])
+    if(sparql_result['http_code'] == 200):
+        results = sparql_result['data']
+    
     # Process results into a dict: { standard_uri: { property_uri: [values] } }
     data = {}
     for result in results["results"]["bindings"]:
@@ -43,7 +39,7 @@ def fetch_labels_to_synonyms(source_endpoint: str = "http://63.32.50.253:81/spar
             "labels" : labels
         }
 
-    logger.info("Fetched data:", data)  # <-- This prints the fetched dictionary to stdout
+    logger.info(f"Fetched data: {data}")
     return data
 
 @task(tags=["synonyms", "enrich"], retries=3, retry_delay_seconds=120, retry_jitter_factor=0.2)
@@ -68,66 +64,69 @@ def synonyms(synonyms_api, data):
             response = requests.get(url, params=params)
             if response.status_code == 200:
                 synonyms_list = response.json()
-                if synonyms_list and isinstance(synonyms_list, list):
-                    # Extract 'term' from first item, if exists
-                    term = synonyms_list[0].get("term") if "term" in synonyms_list[0] else None
-                    logger.info(f"synonyms for {aclass}: {term}")
-                    term = term.replace("_", " ")
-                    enriched_results[aclass] = term
+                # Take the first synonym if exists, else None
+                term = synonyms_list[0]["term"].replace("_", " ") if synonyms_list else None
+                if term:
+                    logger.info(f"Synonym for {aclass}: {term}")
                 else:
-                    logger.error(f"Unexpected response format for {aclass}: {synonyms_list}")
-                    enriched_results[aclass] = None
+                    logger.info(f"No synonyms found for {aclass} and label '{label}'")
+                enriched_results[aclass] = term
             else:
-                logger.error(f"Failed to find synonyms for {aclass}: HTTP {response.status_code}")
+                logger.error(f"Failed to get synonyms for {aclass}, label '{label}': HTTP {response.status_code}")
                 enriched_results[aclass] = None
 
     logger.info(enriched_results)
     return enriched_results
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 @task
-def add_synonyms_to_graph(source_endpoint, graph_uri, enriched_results):
+def add_synonyms_to_graph(
+    endpoint: str, 
+    source_graph: str,
+    target_graph: str, 
+    enriched_results: dict,  
+    queries: dict, 
+    auth_dict: dict
+    ):
+
     logger = get_run_logger()
-    logger.info(f"Add synonyms to the graph {graph_uri}...")
-    prefixes = """
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    """
+    logger.info(f"Add synonyms to the graph {target_graph}...")
 
-    update_blocks = "\n".join(
-        f"""
-        DELETE {{
-        GRAPH <{graph_uri}> {{
-            <{uri}> skos:altLabel ?altLabel .
-        }}
-        }}
-        INSERT {{
-        GRAPH <{graph_uri}> {{
-            <{uri}> skos:altLabel "test-{altLabel}" .
-        }}
-        }}
-        WHERE {{
-        GRAPH <{graph_uri}> {{
-            OPTIONAL {{ <{uri}> skos:altLabel ?altLabel . }}
-        }}
-        }}
-        """ for uri, altLabel in enriched_results.items() if altLabel
-    )
+    prefixes = queries["prefixes"]
+    query_template = queries["query"]
+    sparql_update_blocks = []
 
-    sparql_update = prefixes + update_blocks
-    logger.info("sparql query: " + sparql_update)
+    for uri, altLabel  in enriched_results.items():
+        if altLabel :
+            template = Template(query_template)
+            if (target_graph != source_graph):
+                sparql_update_blocks.append(
+                    template.substitute(graph_uri=target_graph, uri=uri, altLabel=f"{altLabel}")
+                )
+            else:
+                sparql_update_blocks.append(
+                    template.substitute(graph_uri=target_graph, uri=uri, altLabel=f"{altLabel}-test")
+                )
 
-    # Headers for the SPARQL update request
-    headers = {
-        "Content-Type": "application/sparql-update"
-    }
+    sparql_update = prefixes + "\n" + "\n".join(sparql_update_blocks)
+    logger.info("[SPARQL] update query:\n" + sparql_update)
 
-    # Send the POST request
-    response = requests.post(source_endpoint, data=sparql_update.encode('utf-8'), headers=headers)
+    try:
+        # Send the POST request
+        sparql_result = execute_sparql_update(endpoint, sparql_update.encode('utf-8'), auth_dict["username"], auth_dict["password"])
 
-    # Check response
-    if response.status_code == 200:
-        logger.info("SPARQL update successful!")
-    else:
-        logger.error(f"Error {response.status_code}: {response.text}")
-    pass
-
-    return {"synonyms response sparql": response.status_code}
+        # Check response and raise exception if failed
+        if (sparql_result['http_code'] == 200):
+            logger.info("[SPARQL] update successful!")
+            return {"classify response sparql": sparql_result['http_code'] }
+        else:
+            error_msg = f"[SPARQL] update failed with status {sparql_result['http_code'] }: {sparql_result['message'] }"
+            logger.error(error_msg)
+            raise Exception(error_msg)
+        
+    except requests.exceptions.RequestException as e:
+        error_msg = f"Request failed: {str(e)}"
+        logger.error(error_msg)
+        raise Exception(error_msg)

@@ -1,6 +1,8 @@
 from fastapi import FastAPI, APIRouter
 from app.api.v1.routers.routers import v1_router
+from app.api.v2.routers.routers import v2_router
 from app.api.v1.routers.synonyms.synonyms_cache import reset_cache_stats
+from app.api.v1.mlmodels import list_opus_pairs
 from contextlib import asynccontextmanager
 import yaml
 import os
@@ -21,17 +23,30 @@ logger = logging.getLogger("app")  # ✅ Matches "app" logger in YAML
 
 os.environ['HF_HUB_DISABLE_SSL_VERIFY'] = '1'
 
+def load_yaml(filename: str):
+    path = os.path.join(os.path.dirname(__file__), filename)
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("🚀 App is starting up...")
     # Load config at startup
-    config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
-    with open(config_path, "r") as f:
-        app.state.config = yaml.safe_load(f)
+    app.state.config_classify = load_yaml("config_api_classify.yaml")
+    app.state.config_synonyms = load_yaml("config_api_synonyms.yaml")
+    app.state.config_prefect = load_yaml("config_prefect.yaml")
     
     nltk.download('wordnet')
 
     reset_cache_stats()
+
+    try:
+        # Preload the translation pairs cache at startup
+        list_opus_pairs()
+        logger.info("Translation pairs cached at startup")
+    except Exception as e:
+        logger.error(f"Failed to preload translation pairs: {e}")
+
     yield  # serve requests
 
     # Optional cleanup
@@ -49,4 +64,5 @@ app = FastAPI(
 
 api_router = APIRouter(prefix="/enricher-api")
 api_router.include_router(v1_router)
+api_router.include_router(v2_router)
 app.include_router(api_router)

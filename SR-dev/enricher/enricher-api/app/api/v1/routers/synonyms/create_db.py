@@ -31,6 +31,15 @@ def init_cache():
         )
     """)
 
+    c.execute("""
+        CREATE TABLE invalid_synonyms (
+            term TEXT NOT NULL,
+            source TEXT NOT NULL,
+            synonym TEXT NOT NULL,
+            PRIMARY KEY (term, source, synonym)
+        )
+    """)
+    
     # insert default sources
     for src in ("nltk", "altervista", "datamuse"):
         c.execute("INSERT INTO cache_stats (source, hits, misses) VALUES (?, 0, 0)", (src,))

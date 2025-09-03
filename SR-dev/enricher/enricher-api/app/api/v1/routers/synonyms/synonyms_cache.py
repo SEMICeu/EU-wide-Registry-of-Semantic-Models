@@ -31,6 +31,13 @@ class CacheStats(Base):
     hits = Column(Integer, default=0)
     misses = Column(Integer, default=0)
 
+class InvalidSynonym(Base):
+    __tablename__ = "invalid_synonyms"
+
+    term = Column(String, primary_key=True, nullable=False)
+    source = Column(String, primary_key=True, nullable=False)
+    synonym = Column(String, primary_key=True, nullable=False)
+
 Base.metadata.create_all(engine)
 
 def init_cache_stats():
@@ -58,18 +65,20 @@ def increment_stat(source, field):
     finally:
         session.close()
 
-def get_cached_synonyms(term, source):
+def get_cached_synonyms(term: str, source: str, expiration_hours: int):
     session = SessionLocal()
     try:
         row = session.query(SynonymCache).filter_by(term=term, source=source).first()
         if row:
             age = datetime.now().timestamp() - row.timestamp
-            if age < CACHE_EXPIRATION_HOURS * 3600:
+            if age < expiration_hours * 3600:
                 synonyms = json.loads(row.synonyms)
                 logger.info(f"[CACHE HIT] {source} '{term}' -> {synonyms}")
                 increment_stat(source, "hits")
                 return synonyms
             else:
+                session.delete(row)
+                session.commit()
                 logger.info(f"[CACHE EXPIRED] {source} '{term}', age {age}s")
         logger.info(f"[CACHE MISS] {source} '{term}'")
         increment_stat(source, "misses")
@@ -117,5 +126,14 @@ def reset_cache_stats():
             else:
                 session.add(CacheStats(source=src, hits=0, misses=0))
         session.commit()
+    finally:
+        session.close()
+
+def filter_invalid_synonyms(term: str, source: str, synonyms: list[str]) -> list[str]:
+    session = SessionLocal()
+    try:
+        invalids = session.query(InvalidSynonym.synonym).filter_by(term=term, source=source).all()
+        invalid_set = {r[0] for r in invalids}
+        return [s for s in synonyms if s not in invalid_set]
     finally:
         session.close()

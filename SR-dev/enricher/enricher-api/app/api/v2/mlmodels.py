@@ -116,46 +116,33 @@ from sentence_transformers import SentenceTransformer, util
 
 
 @lru_cache(maxsize=1)
-def load_model_mini(repo_id: str, local_dir: str):
+def load_model_mini():
     try:
+        # Monkey-patch requests.Session temporarily
         original_session = requests.Session
         requests.Session = NoVerifySession
 
-        try:
-            # First: try local-only
-            local_model_path = snapshot_download(
-                repo_id=repo_id,
-                local_dir=local_dir,
-                local_dir_use_symlinks=False,
-                local_files_only=True
-            )
-            logger.info(f"✅ Found local copy of model: {local_model_path}")
+        local_model_path = snapshot_download(
+            repo_id=f"sentence-transformers/all-MiniLM-L6-v2",
+            local_dir=f"./models/all-MiniLM-L6-v2",
+            local_dir_use_symlinks=False,
+            local_files_only=True
+        )
+        logger.info(f"Model downloaded to: {local_model_path}")
 
-        except Exception as e:
-            logger.warning(f"⚠️ Local model not found at {local_dir}, falling back to download. Error: {e}")
-
-            # Retry with download enabled
-            local_model_path = snapshot_download(
-                repo_id=repo_id,
-                local_dir=local_dir,
-                local_dir_use_symlinks=False,
-                local_files_only=False
-            )
-            logger.info(f"⬇️ Downloaded model to: {local_model_path}")
-
-        # Load with SentenceTransformer
         model = SentenceTransformer(local_model_path)
-        logger.info(f"🎉 Model {repo_id} is ready to use!")
+
+        logger.info("Model mini loaded from local directory!")
         return model
 
     except Exception as e:
-        logger.error(f"❌ Error loading model: {e}")
-        raise
+        logger.error(f"Error loading model: {e}")
 
     finally:
+        # Restore the original requests.Session to avoid side effects
         requests.Session = original_session
 
-def best_synonym_for_context(context: str, synonyms: list[str], model_repo_id, model_local_dir, return_all=False):
+def best_synonym_for_context(context: str, synonyms: list[str], return_all=False):
     """
     Returns the synonym that best fits the given context sentence.
     
@@ -168,7 +155,7 @@ def best_synonym_for_context(context: str, synonyms: list[str], model_repo_id, m
         str: The best-fitting synonym (or list of tuples if return_all=True)
     """
     # Embed the context
-    model = load_model_mini(model_repo_id, model_local_dir)
+    model = load_model_mini()
     context_embedding = model.encode(context, convert_to_tensor=True)
 
     # Optionally, make synonym phrases more natural (optional)
@@ -242,7 +229,7 @@ def list_pairs():
 
     return lang_pairs
 
-def rank_theme_codes_by_context(context: str, themes: dict, model_repo_id: str, model_local_dir: str, return_all=False):
+def rank_theme_codes_by_context(context: str, themes: dict, return_all=False):
     """
     Ranks dataset theme codes by semantic similarity to a given context sentence.
     
@@ -254,7 +241,7 @@ def rank_theme_codes_by_context(context: str, themes: dict, model_repo_id: str, 
     Returns:
         list | str: Best-matching theme code or list of (code, score) tuples if return_all=True
     """
-    model = load_model_mini(model_repo_id, model_local_dir)
+    model = load_model_mini()
     context_embedding = model.encode(context, convert_to_tensor=True)
 
     # Prepare descriptive texts from themes
@@ -263,7 +250,7 @@ def rank_theme_codes_by_context(context: str, themes: dict, model_repo_id: str, 
     for code, data in themes.items():
         text = f"{data['label']}. {data['definition']}"
         theme_texts.append(text)
-        codes.append(data['uri'])
+        codes.append(code)
 
     # Embed the theme descriptions
     theme_embeddings = model.encode(theme_texts, convert_to_tensor=True)

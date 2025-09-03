@@ -2,3 +2,4 @@
 models/
 **/__pycache__/*
 app.log
+app/config_auth.yaml

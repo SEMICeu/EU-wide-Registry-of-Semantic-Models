@@ -16,8 +16,6 @@ class EnrichmentJob(Base):
     __tablename__ = "enrichment_jobs"
 
     id = Column(String, primary_key=True)
-    graph_uri = Column(String)
-    source_endpoint = Column(String)
     created_at = Column(DateTime, default=datetime.now)
     started_at = Column(DateTime, nullable=True)
     completed_at = Column(DateTime, nullable=True)

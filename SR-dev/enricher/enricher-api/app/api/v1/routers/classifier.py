@@ -2,12 +2,13 @@ from fastapi import APIRouter, Query, HTTPException, Request
 import os
 from typing import List, Optional
 import logging
+import traceback
 
 import sys
 # Add project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.api.v1.models import ErrorResponse, Theme
-from app.schemas.classification import Classification
+from app.api.v1.schemas.classification import Classification
 from app.api.v1.mlmodels import rank_theme_codes_by_context
 
 logger = logging.getLogger(__name__)
@@ -32,16 +33,21 @@ async def classify(
     ):
 
     try:
-        config = request.app.state.config
+        config = request.app.state.config_classify
         # Process and print results
         listofterms = config[classification]
+        model_repo_id = config["model"]["repo_id"]
+        model_local_dir = config["model"]["local_dir"]
+        logger.info(f"[CLASSIFY] Loaded {len(listofterms)} terms for classification")
+        logger.info(f"[CLASSIFY] model_repo_id: {model_repo_id}")
+        logger.info(f"[CLASSIFY] model_local_dir: {model_local_dir}")
 
         resultList =[]
-        logger.info("context:" + context)
+        logger.info("[CLASSIFY] Context:" + context)
         #for code, data in listofterms.items():
         #    logger.info(f"{data['label']}. {data['definition']}")
 
-        all_scores = rank_theme_codes_by_context(context, listofterms, return_all=True)
+        all_scores = rank_theme_codes_by_context(context, listofterms, model_repo_id, model_local_dir, return_all=True)
         for code,score in all_scores:
                 theme = Theme(
                     term=code,
@@ -51,13 +57,20 @@ async def classify(
 
         if max is not None:
             resultList = resultList[:max] 
+        
+        logger.info(f"[CLASSIFY] Success | results={resultList}")
         return resultList
     except ValueError as e:
+        logger.error(f"[CLASSIFY] Invalid input | error={str(e)}")
         raise HTTPException(
             status_code=400,
             detail=ErrorResponse(detail=str(e), error="INVALID_INPUT").model_dump()
         )
     except Exception as e:
+        logger.error(
+            f"[CLASSIFY] Internal error | error={str(e)}\n"
+            + traceback.format_exc()
+        )
         raise HTTPException(
             status_code=500,
             detail=ErrorResponse(detail=str(e), error="INTERNAL_ERROR").model_dump()

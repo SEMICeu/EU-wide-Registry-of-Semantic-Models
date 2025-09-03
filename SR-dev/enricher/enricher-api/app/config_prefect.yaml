@@ -1,0 +1,218 @@
+sparql:
+  source_endpoint: "https://health.semic.eu/virtuoso/sparql"
+  source_graph_uri: "http://semic.registry.eu"
+  target_graph_uri: "http://semic.registry2.eu"
+  authentication: True
+  auth_endpoint: "https://health.semic.eu/virtuoso/sparql-auth"
+  auth_file: config_auth_sparql.yaml
+
+classify:
+  fetch_themes_to_classify_query: |
+    PREFIX dct: <http://purl.org/dc/terms/> 
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    SELECT DISTINCT ?standard ?description (GROUP_CONCAT(DISTINCT ?lowLabel; separator=",") AS ?labels) (GROUP_CONCAT(DISTINCT ?lowKeyword; separator=",") AS ?keywords)
+    FROM <$graph_uri>
+    WHERE {
+      ?standard a dct:Standard .
+      ?standard dct:description ?description .
+      FILTER(lang(?description) = "en") .
+      FILTER NOT EXISTS { ?standard dcat:theme ?theme}
+      OPTIONAL {
+          SELECT ?standard (LCASE(?label) AS ?lowLabel)
+          WHERE {
+              ?standard dct:hasPart ?class .
+              ?class rdfs:label ?label .
+              FILTER(lang(?label) = "en")
+          }
+      }
+
+      OPTIONAL {
+          SELECT ?standard (LCASE(?keyword) AS ?lowKeyword)
+          WHERE {
+              ?standard dcat:keyword ?keyword .
+              FILTER(lang(?keyword) = "en")
+          }
+      }
+    }
+    GROUP BY ?standard ?description
+  classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
+  add_themes:
+    prefixes: |
+      PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    query: |
+      DELETE {
+        GRAPH <$graph_uri> {
+          <$uri> dcat:theme ?oldTheme .
+        }
+      }
+      INSERT {
+        GRAPH <$graph_uri> {
+          <$uri> dcat:theme <$theme> .
+        }
+      }
+      WHERE {
+        GRAPH <$graph_uri> {
+          OPTIONAL { <$uri> dcat:theme ?oldTheme . }
+        }
+      }
+
+synonyms:
+  fetch_labels_to_synonyms_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    select distinct ?class (group_concat(distinct ?lowLabel;separator=",") as ?labels) ?description
+    FROM <$graph_uri>
+    where {
+      ?standard a dct:Standard .
+      ?standard dct:description ?description .
+      FILTER(lang(?description) = "en") .
+      ?standard dct:hasPart ?class .
+      ?class rdfs:label ?label .
+      BIND(LCASE(?label) as ?lowLabel) .
+      FILTER(lang(?label) = "en")
+      FILTER NOT EXISTS {  ?class skos:altLabel ?altLabel }
+    }
+    GROUP BY ?class ?description
+  synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
+  add_synonyms:
+    prefixes: |
+      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    query: |
+      DELETE {
+      GRAPH <$graph_uri> {
+          <$uri> skos:altLabel ?altLabel .
+        }
+      }
+      INSERT {
+      GRAPH <$graph_uri> {
+          <$uri> skos:altLabel "$altLabel" .
+        }
+      }
+      WHERE {
+      GRAPH <$graph_uri> {
+          OPTIONAL { <$uri> skos:altLabel ?altLabel . }
+        }
+      }
+
+translate:
+  delete_source_descriptions_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    DELETE {
+      GRAPH <$graph_uri> {
+        ?s dct:description ?description .
+      }
+    }
+    WHERE {
+      GRAPH <$graph_uri> {
+        ?s a dct:Standard .
+        ?s dct:description ?description .
+        FILTER (STRSTARTS(?description, "test-"))
+      }
+    }
+  delete_target_descriptions_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    DELETE {
+      GRAPH <$graph_uri> {
+        ?s dct:description ?description .
+      }
+    }
+    WHERE {
+      GRAPH <$graph_uri> {
+        ?s dct:description ?description .
+      }
+    }
+  languages:
+    - en   # English (~370M)
+    - de   # German (~95M)
+    - fr   # French (~80M)
+    - it   # Italian (~65M)
+    - es   # Spanish (~45M)
+    - pl   # Polish (~38M)
+    - ro   # Romanian (~24M)
+    - nl   # Dutch (~23M)
+    - hu   # Hungarian (~13M)
+    - el   # Greek (~13M)
+  translate_additional_languages:
+    - pt   # Portuguese (~10M)
+    - cs   # Czech (~10M)
+    - sv   # Swedish (~10M)
+    - bg   # Bulgarian (~7M)
+    - sk   # Slovak (~5M)
+    - fi   # Finnish (~5M)
+    - da   # Danish (~5M)
+    - hr   # Croatian (~4M)
+    - no   # Norwegian (~4M)
+    - lt   # Lithuanian (~2M)
+    - lv   # Latvian (~2M)
+    - sl   # Slovenian (~2M)
+    - et   # Estonian (~1M)
+    - ga   # Irish (~0.1M native, wider as L2)
+    - mt   # Maltese (~0.5M)
+  fetch_descriptions_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    SELECT DISTINCT ?standard ?existingLang
+    FROM <$graph_uri>
+    WHERE {
+        ?standard a dct:Standard .
+        ?standard dct:description ?existingDesc .
+        BIND(lang(?existingDesc) AS ?existingLang)
+
+        FILTER NOT EXISTS {
+          ?standard dct:description ?missingDesc .
+          FILTER (lang(?missingDesc) = "$lang")
+        }
+    }
+  batch_size: 4
+  translate_api: "http://127.0.0.1:8000/enricher-api/v2/translate"
+  hub_languages:
+    - en
+    - sv
+    - fi
+    - es
+    - fr
+  translate_batch_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    SELECT ?description
+    FROM <$graph_uri>
+    WHERE {
+        <$standard_uri> dct:description ?description .
+        FILTER(lang(?description) = "$source_lang")
+    }
+    LIMIT 1
+  multi_target: True
+  preferred_pivot_for_target:
+    # Polish needs German pivot (no direct EN→PL)
+    pl: de   # Polish via German
+    
+    # Slavic family - use Polish as hub
+    #cs: pl   # Czech via Polish (West Slavic)
+    #sk: pl   # Slovak via Polish (West Slavic)
+    #bg: pl   # Bulgarian via Polish (South Slavic)
+    #sl: pl   # Slovenian via Polish (South Slavic)
+    
+    # Germanic family - use German as hub
+    #nl: de   # Dutch via German
+    #da: de   # Danish via German
+    #no: de   # Norwegian via German
+    
+    # Romance family - use existing Romance hubs
+    #it: fr   # Italian via French
+    #pt: es   # Portuguese via Spanish
+    #ro: fr   # Romanian via French
+    
+    # Finno-Ugric family - use Finnish hub
+    #et: fi   # Estonian via Finnish
+    #hu: fi   # Hungarian via Finnish
+    
+    # Baltic
+    #lt: de   # Lithuanian via German
+    #lv: de   # Latvian via German
+  add_translations:
+    triple_template: |
+      <$standard_uri> <http://purl.org/dc/terms/description> "$safe_text"@$target_lang-t-$source_lang-t0-mtec .
+    insert_query: |
+      INSERT DATA {
+        GRAPH <$graph_uri> {
+          $triples
+        }
+      }

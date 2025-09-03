@@ -36,9 +36,13 @@ class JobStatus(str, Enum):
 
 class EnrichmentJobPost(BaseModel):
     id: str
+    graph_uri: str
+    source_endpoint: str
 
 class EnrichmentJobResponse(BaseModel):
     id: str
+    graph_uri: str
+    source_endpoint: str
     created_at: datetime
     started_at: Optional[datetime] = None
     completed_at: Optional[datetime] = None

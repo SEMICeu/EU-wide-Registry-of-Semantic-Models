@@ -58,6 +58,8 @@ async def synonyms(
         altervista_syns = {}
         datamuse_syns = {}
 
+        has_nltk_valid = False
+        has_alt_valid = False
         # NLTK
         if sources in ("nltk", None, "all"):
             nltk_syns = get_nltk_synonyms(term, expiration_hours)
@@ -65,7 +67,7 @@ async def synonyms(
 
             # Filter out invalid synonyms for this source
             nltk_syns_filtered = filter_invalid_synonyms(term, "nltk", raw_list)
-
+            has_nltk_valid = bool(nltk_syns_filtered)
             # Compute removed invalid ones
             removed = set(raw_list) - set(nltk_syns_filtered)
 
@@ -79,13 +81,13 @@ async def synonyms(
                 resultList.append(Synonym(term=syn, source="nltk", score=nltk_syns[syn]))
 
         # Altervista
-        if sources in ("altervista", "all") or ((sources is None) and not nltk_syns):
+        if sources in ("altervista", "all") or ((sources is None) and not has_nltk_valid):
             altervista_syns = get_altervista_synonyms(altervista_endpoint, term, altervista_key, expiration_hours, altervista_language)
             raw_list = list(altervista_syns.keys())
 
             # Filter out invalid synonyms for this source
             altervista_syns_filtered = filter_invalid_synonyms(term, "altervista", raw_list)
-
+            has_alt_valid = bool(altervista_syns_filtered)
             # Compute removed invalid ones
             removed = set(raw_list) - set(altervista_syns_filtered)
 
@@ -99,7 +101,7 @@ async def synonyms(
                 resultList.append(Synonym(term=syn, source="altervista", score=altervista_syns[syn]))
 
         # Datamuse
-        if sources in ("datamuse", "all") or ((sources is None) and not nltk_syns and not altervista_syns):
+        if sources in ("datamuse", "all") or ((sources is None) and not has_nltk_valid and not has_alt_valid):
             datamuse_syns = get_datamuse_synonyms(datamuse_endpoint, term, expiration_hours, datamuse_max_results)
             raw_list = list(datamuse_syns.keys())
 

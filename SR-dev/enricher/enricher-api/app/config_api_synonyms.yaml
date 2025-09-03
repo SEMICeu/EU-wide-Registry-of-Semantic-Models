@@ -1,6 +1,14 @@
-altervista_endpoint: "http://thesaurus.altervista.org/thesaurus/v1?"
-altervista_key: "Kdnuiqz85LO7gGIHdGZf"
-datamuse_endpoint: "https://api.datamuse.com/words?"
+altervista:
+  endpoint: "http://thesaurus.altervista.org/thesaurus/v1?"
+  key: "Kdnuiqz85LO7gGIHdGZf"
+  language: "en_US"
+
+datamuse: 
+  endpoint: "https://api.datamuse.com/words?"
+  max_results: 10
+
+cache:
+  expiration_hours: 24
 
 model:
   repo_id: "sentence-transformers/all-MiniLM-L6-v2"

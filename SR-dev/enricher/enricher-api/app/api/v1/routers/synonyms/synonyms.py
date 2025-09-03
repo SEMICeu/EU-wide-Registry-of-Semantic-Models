@@ -14,7 +14,7 @@ from app.api.v1.mlmodels import best_synonym_for_context
 from app.api.v1.schemas.source import Source
 from nltk.corpus import wordnet
 import requests
-from .synonyms_cache import get_cached_synonyms, set_cached_synonyms, SessionLocal, SynonymCache, get_cache_stats
+from .synonyms_cache import get_cached_synonyms, set_cached_synonyms, SessionLocal, SynonymCache, InvalidSynonym, get_cache_stats, filter_invalid_synonyms
 from sqlalchemy.orm import Session
 import json
 
@@ -42,9 +42,12 @@ async def synonyms(
 
     try:
         config = request.app.state.config_synonyms
-        altervista_endpoint = config['altervista_endpoint']
-        datamuse_endpoint = config['datamuse_endpoint']
-        altervista_key = config['altervista_key']
+        altervista_endpoint = config['altervista']['endpoint']
+        altervista_key = config['altervista']['key']
+        altervista_language = config['altervista']['language']
+        datamuse_endpoint = config['datamuse']['endpoint']
+        datamuse_max_results = config['datamuse']['max_results']
+        expiration_hours = config['cache']['expiration_hours']
         model_repo_id = config['model']["repo_id"]
         model_local_dir = config["model"]["local_dir"]
         logger.info(f"[SYNONYMS] model_repo_id: {model_repo_id}")
@@ -57,21 +60,63 @@ async def synonyms(
 
         # NLTK
         if sources in ("nltk", None, "all"):
-            nltk_syns = get_nltk_synonyms(term)
-            for syn, score in nltk_syns.items():
-                resultList.append(Synonym(term=syn, source="nltk", score=score))
+            nltk_syns = get_nltk_synonyms(term, expiration_hours)
+            raw_list = list(nltk_syns.keys())
+
+            # Filter out invalid synonyms for this source
+            nltk_syns_filtered = filter_invalid_synonyms(term, "nltk", raw_list)
+
+            # Compute removed invalid ones
+            removed = set(raw_list) - set(nltk_syns_filtered)
+
+            # ✅ Log everything
+            logger.info(f"[SYNONYMS][nltk] Raw: {raw_list}")
+            logger.info(f"[SYNONYMS][nltk] Filtered: {nltk_syns_filtered}")
+            if removed:
+                logger.info(f"[SYNONYMS][nltk] Invalidated synonyms for '{term}': {list(removed)}")
+
+            for syn in nltk_syns_filtered:
+                resultList.append(Synonym(term=syn, source="nltk", score=nltk_syns[syn]))
 
         # Altervista
         if sources in ("altervista", "all") or ((sources is None) and not nltk_syns):
-            altervista_syns = get_altervista_synonyms(altervista_endpoint, term, altervista_key)
-            for syn, score in altervista_syns.items():
-                resultList.append(Synonym(term=syn, source="altervista", score=score))
+            altervista_syns = get_altervista_synonyms(altervista_endpoint, term, altervista_key, expiration_hours, altervista_language)
+            raw_list = list(altervista_syns.keys())
+
+            # Filter out invalid synonyms for this source
+            altervista_syns_filtered = filter_invalid_synonyms(term, "altervista", raw_list)
+
+            # Compute removed invalid ones
+            removed = set(raw_list) - set(altervista_syns_filtered)
+
+            # ✅ Log everything
+            logger.info(f"[SYNONYMS][altervista] Raw: {raw_list}")
+            logger.info(f"[SYNONYMS][altervista] Filtered: {altervista_syns_filtered}")
+            if removed:
+                logger.info(f"[SYNONYMS][altervista] Invalidated synonyms for '{term}': {list(removed)}")
+
+            for syn in altervista_syns_filtered:
+                resultList.append(Synonym(term=syn, source="altervista", score=altervista_syns[syn]))
 
         # Datamuse
         if sources in ("datamuse", "all") or ((sources is None) and not nltk_syns and not altervista_syns):
-            datamuse_syns = get_datamuse_synonyms(datamuse_endpoint, term)
-            for syn, score in datamuse_syns.items():
-                resultList.append(Synonym(term=syn, source="datamuse", score=score))
+            datamuse_syns = get_datamuse_synonyms(datamuse_endpoint, term, expiration_hours, datamuse_max_results)
+            raw_list = list(datamuse_syns.keys())
+
+            # Filter out invalid synonyms for this source
+            datamuse_syns_filtered = filter_invalid_synonyms(term, "datamuse", raw_list)
+
+            # Compute removed invalid ones
+            removed = set(raw_list) - set(datamuse_syns_filtered)
+
+            # ✅ Log everything
+            logger.info(f"[SYNONYMS][datamuse] Raw: {raw_list}")
+            logger.info(f"[SYNONYMS][datamuse] Filtered: {datamuse_syns_filtered}")
+            if removed:
+                logger.info(f"[SYNONYMS][datamuse] Invalidated synonyms for '{term}': {list(removed)}")
+                
+            for syn in datamuse_syns_filtered:
+                resultList.append(Synonym(term=syn, source="datamuse", score=datamuse_syns[syn]))
 
         if not nltk_syns and not altervista_syns and not datamuse_syns:
             logger.warning(f"[SYNONYMS] No synonyms found from any source for term '{term}'")
@@ -126,8 +171,8 @@ async def synonyms(
             ).model_dump()
         )
 
-def get_nltk_synonyms(term):
-    cached = get_cached_synonyms(term, "nltk")
+def get_nltk_synonyms(term, expiration_hours):
+    cached = get_cached_synonyms(term, "nltk", expiration_hours)
     if cached:
         return cached
 
@@ -151,10 +196,10 @@ def clean_altervista_term(term: str) -> str:
     # Remove anything in parentheses and strip whitespace
     return re.sub(r"\s*\(.*?\)", "", term).strip()
 
-def get_altervista_synonyms(altervista_endpoint, term, api_key, language="en_US"):
+def get_altervista_synonyms(altervista_endpoint, term, api_key, expiration_hours, language):
     logger.info(f"[ALTERVISTA] Request for term: '{term}'")
     
-    cached = get_cached_synonyms(term, "altervista")
+    cached = get_cached_synonyms(term, "altervista", expiration_hours)
     if cached is not None:
         logger.info(f"[ALTERVISTA] Cache HIT for '{term}', returning: {cached}")
         return cached
@@ -187,8 +232,8 @@ def get_altervista_synonyms(altervista_endpoint, term, api_key, language="en_US"
         logger.error(f"[ALTERVISTA] error: {e}")
         return {}
 
-def get_datamuse_synonyms(datamuse_endpoint, term, max_results=10):
-    cached = get_cached_synonyms(term, "datamuse")
+def get_datamuse_synonyms(datamuse_endpoint, term, expiration_hours, max_results):
+    cached = get_cached_synonyms(term, "datamuse", expiration_hours)
     if cached:
         logger.info(f"[DATAMUSE] Cache HIT for '{term}', returning: {cached}")
         return cached
@@ -261,3 +306,65 @@ def clear_cache(source: Optional[str] = Query(None, description="Filter by sourc
 )
 def cache_stats_endpoint():
     return get_cache_stats()
+
+@synonyms_router.post("/synonyms/cache/invalidate/")
+def add_invalid_synonym(term: str, source: str, synonym: str):
+    session: Session = SessionLocal()
+    try:
+        inv = InvalidSynonym(term=term, source=source, synonym=synonym)
+        session.merge(inv)  # upsert
+        session.commit()
+        return {"message": f"Synonym '{synonym}' invalidated for term '{term}' (source={source})"}
+    finally:
+        session.close()
+
+@synonyms_router.delete("/synonyms/cache/invalidate/item/")
+def remove_invalid_synonym(term: str, source: str, synonym: str):
+    session: Session = SessionLocal()
+    try:
+        deleted = (
+            session.query(InvalidSynonym)
+            .filter_by(term=term, source=source, synonym=synonym)
+            .delete()
+        )
+        session.commit()
+        return {
+            "message": f"Synonym '{synonym}' revalidated for term '{term}' (source={source})",
+            "deleted": deleted,
+        }
+    finally:
+        session.close()
+
+@synonyms_router.get("/synonyms/cache/invalidate/{term}/{source}")
+def list_invalid_synonyms(term: str, source: str):
+    session: Session = SessionLocal()
+    try:
+        rows = session.query(InvalidSynonym).filter_by(term=term, source=source).all()
+        return {"term": term, "source": source, "invalid_synonyms": [r.synonym for r in rows]}
+    finally:
+        session.close()
+
+@synonyms_router.delete("/synonyms/cache/invalidate/")
+def clear_invalid_synonyms():
+    session: Session = SessionLocal()
+    try:
+        deleted = session.query(InvalidSynonym).delete()
+        session.commit()
+        return {"message": f"Deleted {deleted} invalid synonym entries"}
+    finally:
+        session.close()
+
+# List ALL invalid synonyms (all terms and sources)
+@synonyms_router.get("/synonyms/cache/invalidate/")
+def list_all_invalid_synonyms():
+    session: Session = SessionLocal()
+    try:
+        rows = session.query(InvalidSynonym).all()
+        return {
+            "invalid_synonyms": [
+                {"term": r.term, "source": r.source, "synonym": r.synonym}
+                for r in rows
+            ]
+        }
+    finally:
+        session.close()

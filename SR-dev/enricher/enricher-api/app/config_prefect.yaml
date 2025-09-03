@@ -13,26 +13,26 @@ classify:
     SELECT DISTINCT ?standard ?description (GROUP_CONCAT(DISTINCT ?lowLabel; separator=",") AS ?labels) (GROUP_CONCAT(DISTINCT ?lowKeyword; separator=",") AS ?keywords)
     FROM <$graph_uri>
     WHERE {
-        ?standard a dct:Standard .
-        ?standard dct:description ?description .
-        FILTER(lang(?description) = "en") .
-        FILTER NOT EXISTS { ?standard dcat:theme ?theme}
-        OPTIONAL {
-            SELECT ?standard (LCASE(?label) AS ?lowLabel)
-            WHERE {
-                ?standard dct:hasPart ?class .
-                ?class rdfs:label ?label .
-                FILTER(lang(?label) = "en")
-            }
-        }
+      ?standard a dct:Standard .
+      ?standard dct:description ?description .
+      FILTER(lang(?description) = "en") .
+      FILTER NOT EXISTS { ?standard dcat:theme ?theme}
+      OPTIONAL {
+          SELECT ?standard (LCASE(?label) AS ?lowLabel)
+          WHERE {
+              ?standard dct:hasPart ?class .
+              ?class rdfs:label ?label .
+              FILTER(lang(?label) = "en")
+          }
+      }
 
-        OPTIONAL {
-            SELECT ?standard (LCASE(?keyword) AS ?lowKeyword)
-            WHERE {
-                ?standard dcat:keyword ?keyword .
-                FILTER(lang(?keyword) = "en")
-            }
-        }
+      OPTIONAL {
+          SELECT ?standard (LCASE(?keyword) AS ?lowKeyword)
+          WHERE {
+              ?standard dcat:keyword ?keyword .
+              FILTER(lang(?keyword) = "en")
+          }
+      }
     }
     GROUP BY ?standard ?description
   classify_api: "http://127.0.0.1:8000/enricher-api/v1/classify"
@@ -70,6 +70,7 @@ synonyms:
       ?class rdfs:label ?label .
       BIND(LCASE(?label) as ?lowLabel) .
       FILTER(lang(?label) = "en")
+      FILTER NOT EXISTS {  ?class skos:altLabel ?altLabel }
     }
     GROUP BY ?class ?description
   synonyms_api: "http://127.0.0.1:8000/enricher-api/v1/synonyms"
@@ -80,17 +81,17 @@ synonyms:
       DELETE {
       GRAPH <$graph_uri> {
           <$uri> skos:altLabel ?altLabel .
-      }
+        }
       }
       INSERT {
       GRAPH <$graph_uri> {
           <$uri> skos:altLabel "$altLabel" .
-      }
+        }
       }
       WHERE {
       GRAPH <$graph_uri> {
           OPTIONAL { <$uri> skos:altLabel ?altLabel . }
-      }
+        }
       }
 
 translate:

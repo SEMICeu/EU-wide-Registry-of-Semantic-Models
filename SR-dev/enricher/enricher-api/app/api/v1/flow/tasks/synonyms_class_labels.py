@@ -107,7 +107,7 @@ def add_synonyms_to_graph(
                 )
             else:
                 sparql_update_blocks.append(
-                    template.substitute(graph_uri=target_graph, uri=uri, altLabel=f"test-{altLabel}")
+                    template.substitute(graph_uri=target_graph, uri=uri, altLabel=f"{altLabel}-test")
                 )
 
     sparql_update = prefixes + "\n" + "\n".join(sparql_update_blocks)

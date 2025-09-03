@@ -41,12 +41,6 @@ def fetch_themes_to_classify(
     }
     query = template.substitute(params)
     logger.info(f"[SPARQL] Query: {query}")
-    #  FILTER (STRSTARTS(str(?theme),"test-")) .
-    
-    # sparql = SPARQLWrapper(endpoint)
-    # sparql.setReturnFormat(JSON)
-    # sparql.setQuery(query)
-    # results = sparql.query().convert()
 
     sparql_result = execute_sparql_select(endpoint, query, "JSON", auth_dict["username"], auth_dict["password"])
     if(sparql_result['http_code'] == 200):

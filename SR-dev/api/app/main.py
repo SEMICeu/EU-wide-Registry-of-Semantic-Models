@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
@@ -7,8 +7,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 import logging
 
 # Import your modules
-from app.api.v1.routers import router
-from app.api.v1.models import ErrorResponse
+from app.analyzer import AsyncSemanticRegistryAnalyzer
+from app.api.v1.models import AnalysisResult, ErrorResponse
 
 # Configure logging
 logging.basicConfig(
@@ -23,16 +23,10 @@ app = FastAPI(
     description="""
     A FastAPI application for analyzing semantic registries and calculating LOVRank metrics.
     
-    This API provides endpoints to:
-    - Start semantic registry analysis
-    - Monitor analysis progress
-    - Retrieve analysis results
-    - Manage analysis records
-    
-    The analysis calculates LOVRank metrics for ontologies based on their reuse patterns
+    This API analyzes ontologies and calculates LOVRank metrics based on their reuse patterns
     and establishes dependency relationships between ontologies.
     """,
-    version="0.0.1",
+    version="1.0.0",
     contact={
         "name": "SEMIC",
         "email": "DIGIT-SEMIC-TEAM@ec.europa.eu",
@@ -51,9 +45,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Include routers
-app.include_router(router)
 
 # Global exception handlers
 @app.exception_handler(StarletteHTTPException)
@@ -90,27 +81,66 @@ async def general_exception_handler(request, exc):
         ).dict()
     )
 
-# Root endpoint
+# Initialize analyzer
+analyzer = AsyncSemanticRegistryAnalyzer()
+
 @app.get("/", tags=["root"])
 async def root():
-    """
-    Root endpoint providing basic API information.
-    """
+    """Root endpoint providing basic API information."""
     return {
         "message": "Semantic Registry Analysis API",
         "version": "1.0.0",
         "docs_url": "/docs",
-        "redoc_url": "/redoc",
-        "health_check": "/api/v1/health"
+        "health_check": "/health"
     }
 
-# Startup and shutdown events
+@app.post("/analyze", 
+          response_model=AnalysisResult,
+          responses={
+              200: {"description": "Analysis completed successfully"},
+              500: {"model": ErrorResponse, "description": "Analysis failed"}
+          })
+async def analyze_registry():
+    """
+    Analyze the semantic registry and return results.
+    
+    This endpoint performs a complete analysis of the semantic registry,
+    calculating LOVRank metrics and establishing dependencies between ontologies.
+    Returns the complete analysis results including metrics for all ontologies.
+    """
+    try:
+        logger.info("Starting semantic registry analysis...")
+        
+        # Generate a simple analysis ID for logging purposes
+        import uuid
+        analysis_id = str(uuid.uuid4())
+        
+        # Run the analysis
+        result = await analyzer.run_analysis(analysis_id)
+        
+        logger.info(f"Analysis completed successfully. Processed {result.total_ontologies} ontologies in {result.execution_time:.2f} seconds")
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Analysis failed: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint."""
+    return {
+        "status": "healthy",
+        "service": "Semantic Registry Analysis API"
+    }
+
+# Startup event
 @app.on_event("startup")
 async def startup_event():
     """Initialize the application on startup"""
     logger.info("Starting Semantic Registry Analysis API...")
     
-    # Verify config file exists
+    # Verify config file exists (should be in same directory as analyzer.py)
     config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
     if not os.path.exists(config_path):
         logger.error(f"Config file not found at {config_path}")
@@ -122,13 +152,6 @@ async def startup_event():
 async def shutdown_event():
     """Cleanup on shutdown"""
     logger.info("Shutting down Semantic Registry Analysis API...")
-    
-    # Here you could add cleanup tasks like:
-    # - Cancelling running analyses
-    # - Closing database connections
-    # - Cleaning up temporary files
-    
-    logger.info("API shut down successfully")
 
 if __name__ == "__main__":
     import uvicorn

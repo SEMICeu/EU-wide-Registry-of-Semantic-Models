@@ -9,6 +9,10 @@ import { allPublishers, getPublisherLabel } from './publisherMapping';
 import 'flag-icons/css/flag-icons.min.css';
 import { getCountryLabel, getCountryCode } from './countryMapping';
 
+// Hardcoded base path for the app
+const BASE_PATH = '/semantic-registry';
+const API_BASE = process.env.REACT_APP_API_URL || BASE_PATH;
+
 // Ranking-based UI removed
 
 function slugifyTitle(titleOrUri) {
@@ -156,7 +160,7 @@ function OntologyDetail({ ontologies }) {
     if (ontologyIdx === -1) {
       setLoading(true);
       setError(null);
-      fetch('http://localhost:4000/api/ontology', {
+      fetch(`${API_BASE}/api/ontology`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug })
@@ -380,7 +384,7 @@ function OntologyDetail({ ontologies }) {
                   })()}
                 </div>
                 <div>
-                  <div style={{ fontWeight: '600', marginBottom: '4px', color: '#075CA8', fontSize: '0.95rem' }}>Publisher</div>
+                  <div style={{ fontWeight: '600', marginBottom: '4px', color: '#075CA8', fontSize: '0.95rem' }}>Organisation</div>
                   {(() => {
                     const uniquePublishers = getUniqueRequiringPublisherNames(ontology.requiringPublisherNames);
                     return uniquePublishers.length > 0 ? (
@@ -422,7 +426,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       setError(null);
       setResults([]);
       try {
-        const response = await fetch('http://localhost:4000/api/search', {
+        const response = await fetch(`${API_BASE}/api/search`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -451,7 +455,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
     setError(null);
     setResults([]);
     try {
-      const response = await fetch('http://localhost:4000/api/search', {
+      const response = await fetch(`${API_BASE}/api/search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -592,7 +596,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                         })()}
                       </div>
                       <div className="ontology-card-subsection">
-                        <span className="ontology-card-subsection-title-grey">Publisher</span>
+                        <span className="ontology-card-subsection-title-grey">Organisation</span>
                         {(() => {
                           const uniquePublishers = getUniqueRequiringPublisherNames(onto.requiringPublisherNames);
                           return uniquePublishers.slice(0, 3).map((pub, i) => (
@@ -645,7 +649,7 @@ function App() {
         <div className="navbar-content">
           <div className="logo-title-container">
             <img
-              src="/semic-logo-cropped.png"
+              src={`${BASE_PATH}/semic-logo-cropped.png`}
               alt="Semantic Registry Logo"
               className="navbar-logo"
             />
@@ -669,7 +673,6 @@ function App() {
           />
         } />
         <Route path="/ontology/:slug" element={<OntologyDetail ontologies={results} />} />
-        {/* About route removed */}
       </Routes>
     </>
   );
@@ -677,7 +680,7 @@ function App() {
 
 export default function AppWithRouter() {
   return (
-    <Router>
+    <Router basename="/semantic-registry">
       <App />
     </Router>
   );

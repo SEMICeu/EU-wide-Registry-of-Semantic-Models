@@ -1,16 +1,68 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const SparqlClient = require('sparql-http-client').default;
+const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const VIRTUOSO_ENDPOINT = 'https://health.semic.eu/virtuoso/sparql';
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
+const BASE_PATH = '/semantic-registry';
+
+let SparqlClient;
+
+// Dynamic import for ES module
+async function initializeSparqlClient() {
+  const module = await import('sparql-http-client');
+  SparqlClient = module.default;
+}
+
+// Trust proxy (required for reverse proxy)
+app.set('trust proxy', true);
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post('/api/search', async (req, res) => {
+// Redirect root to base path
+app.get('/', (req, res) => {
+  res.redirect(301, BASE_PATH + '/');
+});
+
+// Health check endpoint (keep at root for load balancers)
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+app.use((req, res, next) => {
+  // Skip if it's already a semantic-registry path or health check
+  if (req.path.startsWith(BASE_PATH) || req.path === '/health') {
+    return next();
+  }
+  
+  // If it's an API request without the base path, redirect
+  if (req.path.startsWith('/api/')) {
+    return res.redirect(301, BASE_PATH + req.path);
+  }
+  
+  // If it's a static file request, redirect
+  if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg)$/)) {
+    return res.redirect(301, BASE_PATH + req.path);
+  }
+  
+  // For any other path, redirect to semantic-registry
+  if (req.path !== '/') {
+    return res.redirect(301, BASE_PATH + req.path);
+  }
+  
+  next();
+});
+
+// API routes
+app.post(BASE_PATH + '/api/search', async (req, res) => {
+  if (!SparqlClient) {
+    return res.status(500).json({ error: 'SPARQL client not initialized' });
+  }
+
   const { query, theme, publisher } = req.body;
 
   if (!query || typeof query !== 'string') {
@@ -158,8 +210,6 @@ app.post('/api/search', async (req, res) => {
         requiringPublisherNames: row.requiringPublisherNames ? row.requiringPublisherNames.value.split('||').filter(Boolean) : [],
         requiringLocations: (() => {
           const locations = row.requiringLocations ? row.requiringLocations.value.split('||').filter(Boolean) : [];
-          console.log('Backend - requiringLocations raw:', row.requiringLocations ? row.requiringLocations.value : 'null');
-          console.log('Backend - requiringLocations processed:', locations);
           return locations;
         })(),
         keywords: row.keywords ? row.keywords.value.split('||') : [],
@@ -186,7 +236,11 @@ app.post('/api/search', async (req, res) => {
   }
 });
 
-app.post('/api/ontology', async (req, res) => {
+app.post(BASE_PATH + '/api/ontology', async (req, res) => {
+  if (!SparqlClient) {
+    return res.status(500).json({ error: 'SPARQL client not initialized' });
+  }
+
   const { slug } = req.body;
   if (!slug || typeof slug !== 'string') {
     return res.status(400).json({ error: 'Missing or invalid slug' });
@@ -300,8 +354,6 @@ app.post('/api/ontology', async (req, res) => {
         requiringPublisherNames: row.requiringPublisherNames ? row.requiringPublisherNames.value.split('||').filter(Boolean) : [],
         requiringLocations: (() => {
           const locations = row.requiringLocations ? row.requiringLocations.value.split('||').filter(Boolean) : [];
-          console.log('Backend - requiringLocations raw:', row.requiringLocations ? row.requiringLocations.value : 'null');
-          console.log('Backend - requiringLocations processed:', locations);
           return locations;
         })(),
         keywords: row.keywords ? row.keywords.value.split('||') : [],
@@ -334,6 +386,52 @@ app.post('/api/ontology', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend server running on http://localhost:${PORT}`);
+// Serve static files from React build at the base path
+app.use(BASE_PATH, express.static(path.join(__dirname, 'public')));
+
+// Proxy routes (if needed)
+app.use(BASE_PATH + '/proxy/*', createProxyMiddleware({
+  target: 'https://health.semic.eu',
+  changeOrigin: true,
+  pathRewrite: {
+    [`^${BASE_PATH}/proxy`]: ''
+  }
+}));
+
+// Catch-all handler: send back React's index.html file for client-side routing
+app.get(BASE_PATH + '*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// Fallback for any other routes - redirect to base path
+app.get('*', (req, res) => {
+  res.redirect(BASE_PATH + '/');
+});
+
+// Initialize and start server
+async function startServer() {
+  try {
+    await initializeSparqlClient();
+    console.log('SPARQL client initialized');
+    
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server with reverse proxy running on http://0.0.0.0:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to initialize server:', error);
+    process.exit(1);
+  }
+}
+
+// Fallback handler for any unmatched routes
+app.get('*', (req, res) => {
+  // If the request doesn't start with BASE_PATH, redirect
+  if (!req.path.startsWith(BASE_PATH)) {
+    return res.redirect(301, BASE_PATH + '/');
+  }
+  
+  // Otherwise, serve the React app
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+startServer();

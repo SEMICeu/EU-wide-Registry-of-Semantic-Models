@@ -2,8 +2,9 @@ services:
   semantic-registry:
     build: .
     ports:
-      - "80:4000"
+      - "8080:4000"
     environment:
       - NODE_ENV=production
       - PORT=4000
+      - BASE_PATH=/semantic-registry
     restart: unless-stopped

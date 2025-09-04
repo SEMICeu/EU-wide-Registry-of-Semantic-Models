@@ -2,4 +2,4 @@
 models/
 **/__pycache__/*
 app.log
-app/config_auth.yaml
+app/config_auth_sparql.yaml

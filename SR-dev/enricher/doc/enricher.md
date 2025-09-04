@@ -108,8 +108,8 @@ Changing the model is possible by:
 The classify task is divided in 3 steps:
 
  1) fetch the English description of the Standard and the English labels of classes belonging to the Standard from the graph in the sparql endpoint, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L60)
- 2) find the best synonyms for a label, if it exists, calling the [synonyms API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L54)
- 3) add (update) the synonyms back to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L55) 
+ 2) find the best synonyms for a label, if it exists, calling the [synonyms API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L76)
+ 3) add (update) the synonyms back to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L77) 
 
 ![Prefect synonyms task](./prefect_synonyms_task.jpg)
 
@@ -262,6 +262,7 @@ mt       | 5          | en, es, fi, fr, sv
 ro       | 4          | eo, fi, fr, sv
 ga       | 1          | en
 lvsl     | 0          | -
+
 
 
 

@@ -79,7 +79,7 @@ Additionally, if you need authentication for the SPARQL endpoint, you need to ad
 ### Executing classify task
 The classify task is divided in 3 steps:
 
- 1) fetch the English description of the Standard to classify from the graph in the sparql endpoint, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L10)
+ 1) fetch the English description, together with labels and keywords if any, of the Standard to classify from the graph in the sparql endpoint, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L10)
  2) classify the descriptions accordingly to the Publications Office data themes, stored in the [config_api_classify.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_api_classify.yaml), calling the [classify API](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L38)
  3) add the data themes to the graph, see [query](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L39) 
 
@@ -262,6 +262,7 @@ mt       | 5          | en, es, fi, fr, sv
 ro       | 4          | eo, fi, fr, sv
 ga       | 1          | en
 lvsl     | 0          | -
+
 
 
 

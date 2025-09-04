@@ -172,7 +172,7 @@ The [config_prefect.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semanti
 The pivot languages are used to:
 - prioritize on the language used for translation, if a standard is in Italian and English but must be translated in French, the English description (first in the list of the pivot languages) is used to translate to French, by doing En->Fr translation.
 - optimize memory and and disk, so instead of downloading the pair model It->Fr, the En->Fr is downloaded instead as privileged
-- in case of missing direct translation, the pivot list is used to choose the first pivot available in which a direct translation is missing. That is the current case of not being able to translate from English to Polish, so the next available pivot is chosen that is French which has direct translation, therefore English description is translated in French, which in turn is translated in Polish.
+- in case of missing direct translation, the pivot list is used to choose the first pivot available in which a direct translation is missing. 
 
 Note that the opus pairs have a limit on the input text, therefore, in the translate API v2 currently used, the input text is split in sentences and, if the sentence is too long, is split in 400 characters.
 
@@ -200,19 +200,22 @@ Notes:
   - the [language list](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L90), to indicate the 10 languages tested so far 
   - the [translate_additional_languages](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L101), to indicate the potential languages to be moved in the language list and tested.
 
-2) Test better the all-MiniLM-L6-v2 model if it is good for the classify API or choose the best synonym in the synonyms API.
+2) Test better the all-MiniLM-L6-v2 model if it is good for synonyms API and all-mpnet-base-v2 is still the best
 
 3) Run the enricher whenever a description changes; for now the enricher is thought to add (classify, synonyms, translate) in one shot but ideally it should run when a new standard is modified. 
 
 4) Move in the configuration file:
- - the Prefect and task tags (like "enrich" and retry) 
- - the synonyms cache expiration now set to 24 hours 
+ - the Prefect and task tags (like "enrich" and "retry") 
  - the translate max characters (now 400)
 
 5) Evaluate performance for translating; for now the batch size is 4 and the multi target is True (so using the multi target feature of the Translate API) but it would be nice to see if there are better combination.
 
 6) Evaluate performance for synonyms; now synonyms are found in a loop, maybe it is possible to split in batch.
 
+## Choosing pivot languages and custom pivot
+
+Below is the result of the [script](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/test-opus.py) to evaluate pivot languages, it is possible to see that en, sv, fi, es, fr cover all the languages in opus mt models, so they are defined as  [hub/pivot languages](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L167).
+However, since it is not possible to go directly from English to Polish, the next pivot would be Spanish; as latin language it is not good to translate from, therefore there is a list a [preferred pivot](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L183) where for Polish, the best translation would be from German.
 
 Language | Pair count | Exclusive targets (removing overlaps with previous)
 ---------|------------|--------------------------------------------
@@ -240,6 +243,7 @@ ro       | 4          | -
 ga       | 1          | -
 lvsl     | 0          | -
 
+The below table shows all targets languages for all the sources, so it is possible to see that there is a direct German->Polish translation.
 
 Language | Pair count | All targets
 ---------|------------|----------------
@@ -266,6 +270,7 @@ mt       | 5          | en, es, fi, fr, sv
 ro       | 4          | eo, fi, fr, sv
 ga       | 1          | en
 lvsl     | 0          | -
+
 
 
 

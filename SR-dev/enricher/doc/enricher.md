@@ -200,7 +200,7 @@ Notes:
   - the [language list](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L90), to indicate the 10 languages tested so far 
   - the [translate_additional_languages](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_prefect.yaml#L101), to indicate the potential languages to be moved in the language list and tested.
 
-2) Test better the all-MiniLM-L6-v2 model if it is good for synonyms API and all-mpnet-base-v2 is still the best
+2) Test better that all-mpnet-base-v2 is still the best for classify, even if it slow, and the all-MiniLM-L6-v2 model if it is good for synonyms API
 
 3) Run the enricher whenever a description changes; for now the enricher is thought to add (classify, synonyms, translate) in one shot but ideally it should run when a new standard is modified. 
 
@@ -271,6 +271,7 @@ mt       | 5          | en, es, fi, fr, sv
 ro       | 4          | eo, fi, fr, sv
 ga       | 1          | en
 lvsl     | 0          | -
+
 
 
 

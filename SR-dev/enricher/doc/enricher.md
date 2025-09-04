@@ -135,7 +135,11 @@ Changing the model is possible by:
 3) trigger the synonyms API to download and load the model, so then it can be used after by the Prefect task.
 
 The synonyms found for a term are stored in a cache, synonyms_cache.db see above, so the synonyms API uses the cache to retrieve the synonyms first without calling the data sources API.
-The end user can get or delete the cache and look at the cache statistics from the respective API endpoints.
+
+Via the REST API, the end user can:
+1) get or delete the cache
+2) look at the cache statistics
+3) invalidate synonyms so they cannot be used when returning from the synonyms API 
 
 ### Executing translate task
 The classify task is divided in 5 steps:
@@ -262,6 +266,7 @@ mt       | 5          | en, es, fi, fr, sv
 ro       | 4          | eo, fi, fr, sv
 ga       | 1          | en
 lvsl     | 0          | -
+
 
 
 

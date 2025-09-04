@@ -90,12 +90,17 @@ rows = []
 for model_id in marian_models:
     try:
         info = model_info(model_id)
+        # Sum file sizes (in bytes) from all siblings
+        total_size = sum(s.size for s in info.siblings if s.size is not None)
+
         rows.append({
             "model": model_id,
             "downloads": info.downloads,
             "lastModified": info.lastModified,
             "likes": info.likes,
-            "tags": ", ".join(info.tags) if info.tags else ""
+            "tags": ", ".join(info.tags) if info.tags else "",
+            "size_bytes": total_size,
+            "size_MB": round(total_size / (1024 * 1024), 2)
         })
     except Exception as e:
         print(f"Could not fetch info for {model_id}: {e}")

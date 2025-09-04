@@ -204,9 +204,10 @@ Notes:
 
 3) Run the enricher whenever a description changes; for now the enricher is thought to add (classify, synonyms, translate) in one shot but ideally it should run when a new standard is modified. 
 
-4) Move in the configuration file:
+4) Move in the configuration files:
  - the Prefect and task tags (like "enrich" and "retry") 
  - the translate max characters (now 400)
+ - the download of the fasttext model
 
 5) Evaluate performance for translating; for now the batch size is 4 and the multi target is True (so using the multi target feature of the Translate API) but it would be nice to see if there are better combination.
 
@@ -270,6 +271,7 @@ mt       | 5          | en, es, fi, fr, sv
 ro       | 4          | eo, fi, fr, sv
 ga       | 1          | en
 lvsl     | 0          | -
+
 
 
 

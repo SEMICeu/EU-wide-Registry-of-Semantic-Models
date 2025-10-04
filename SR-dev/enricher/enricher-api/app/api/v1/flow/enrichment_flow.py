@@ -55,7 +55,7 @@ def enrichment_flow(task: str = "all", job_id: str = None):
 
     ui_base = PREFECT_UI_URL.value() if PREFECT_UI_URL.value() else "http://127.0.0.1:4200"
     flow_url = f"{ui_base}/flow-runs/flow-run/{flow_run_id}"
-    logger.info(f"🔗 Flow started: {flow_url}")
+    logger.info("🔗 Flow started: %s", flow_url)
     
     config = load_config()
     if(config["sparql"]["authentication"]):
@@ -64,9 +64,9 @@ def enrichment_flow(task: str = "all", job_id: str = None):
         source_endpoint = config["sparql"]["source_endpoint"]
     source_graph = config["sparql"]["source_graph_uri"]
     target_graph = config["sparql"]["target_graph_uri"]
-    logger.info(f"[SPARQL] source endpoint: {source_endpoint}")
-    logger.info(f"[SPARQL] source graph uri: {source_graph}")
-    logger.info(f"[SPARQL] target graph uri: {target_graph}")
+    logger.info("[SPARQL] source endpoint: %s", source_endpoint)
+    logger.info("[SPARQL] source graph uri: %s", source_graph)
+    logger.info("[SPARQL] target graph uri: %s",target_graph)
 
     auth_dict = {"username": None, "password": None}
     if(config["sparql"]["authentication"]):
@@ -75,8 +75,6 @@ def enrichment_flow(task: str = "all", job_id: str = None):
             config_auth = yaml.safe_load(file)
             username = config_auth['username']
             password = config_auth['password']
-            logger.info(f"[SPARQL] username: {username}")
-            logger.info(f"[SPARQL] password: {password}")
             auth_dict = {"username": username, "password": password}
     # ✅ Update DB with flow_run_id
     session = SessionLocal()

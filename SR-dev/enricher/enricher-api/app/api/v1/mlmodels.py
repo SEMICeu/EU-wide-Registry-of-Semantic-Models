@@ -52,9 +52,9 @@ def load_model_translate(source: str, target: str):
                 local_dir_use_symlinks=False,
                 local_files_only=True
             )
-            logger.info("Model " + repo_id + " found locally:" + local_model_path)
+            logger.info("Model %s found locally: %s", repo_id, local_model_path)
         except Exception as e:
-            logger.warning(f"Local model {repo_id} not found, attempting download from hub... ({e})")
+            logger.warning("Local model %s not found, attempting download from hub... (%s)", repo_id, e)
             # Retry with network access
             local_model_path = snapshot_download(
                 repo_id=repo_id,
@@ -62,7 +62,7 @@ def load_model_translate(source: str, target: str):
                 local_dir_use_symlinks=False,
                 local_files_only=False,  # Allow download
             )
-            logger.info("Model " + repo_id + " downloaded to:" + local_model_path)
+            logger.info("Model %s downloaded to: %s" , repo_id , local_model_path)
 
         tokenizer = MarianTokenizer.from_pretrained(local_model_path)
         model = MarianMTModel.from_pretrained(local_model_path)
@@ -71,7 +71,7 @@ def load_model_translate(source: str, target: str):
         return tokenizer, model
 
     except Exception as e:
-        logger.info(f"Error loading model: {e}")
+        logger.info("Error loading model: %s", e)
         logger.info(traceback.print_exc())
 
     finally:
@@ -129,10 +129,10 @@ def load_model_mini(repo_id: str, local_dir: str):
                 local_dir_use_symlinks=False,
                 local_files_only=True
             )
-            logger.info(f"✅ Found local copy of model: {local_model_path}")
+            logger.info("✅ Found local copy of model: %s ",local_model_path)
 
         except Exception as e:
-            logger.warning(f"⚠️ Local model not found at {local_dir}, falling back to download. Error: {e}")
+            logger.warning("⚠️ Local model not found at %s, falling back to download. Error: %s", local_dir, e)
 
             # Retry with download enabled
             local_model_path = snapshot_download(
@@ -141,15 +141,15 @@ def load_model_mini(repo_id: str, local_dir: str):
                 local_dir_use_symlinks=False,
                 local_files_only=False
             )
-            logger.info(f"⬇️ Downloaded model to: {local_model_path}")
+            logger.info("⬇️ Downloaded model to: %s", local_model_path)
 
         # Load with SentenceTransformer
         model = SentenceTransformer(local_model_path)
-        logger.info(f"🎉 Model {repo_id} is ready to use!")
+        logger.info("🎉 Model %s is ready to use!", repo_id)
         return model
 
     except Exception as e:
-        logger.error(f"❌ Error loading model: {e}")
+        logger.error("❌ Error loading model: %s", e)
         raise
 
     finally:
@@ -210,7 +210,7 @@ def list_opus_pairs():
         logger.info("Fetching models from Hugging Face Hub...")
         models = list_models(author="Helsinki-NLP")
     except Exception as e:
-        logger.error(f"Error fetching models: {e}")
+        logger.error("Error fetching models: %s", e)
         return set()
 
     for model in models:
@@ -230,7 +230,7 @@ def list_pairs():
         logger.info("Fetching models from Hugging Face Hub...")
         models = list_models(author="Helsinki-NLP")
     except Exception as e:
-        logger.error(f"Error fetching models: {e}")
+        logger.error("Error fetching models: %s", e)
         exit(1)
 
     for model in models:

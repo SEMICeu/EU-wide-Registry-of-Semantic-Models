@@ -45,7 +45,7 @@ async def lifespan(app: FastAPI):
         list_opus_pairs()
         logger.info("Translation pairs cached at startup")
     except Exception as e:
-        logger.error(f"Failed to preload translation pairs: {e}")
+        logger.error("Failed to preload translation pairs: %s", e)
 
     yield  # serve requests
 

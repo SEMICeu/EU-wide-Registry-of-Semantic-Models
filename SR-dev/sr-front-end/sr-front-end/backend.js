@@ -99,84 +99,90 @@ app.post(BASE_PATH + '/api/search', async (req, res) => {
       ?created ?homepage
       (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
       (GROUP_CONCAT(DISTINCT CONCAT(STR(?downloadURL), "|", COALESCE(STR(?format), "")); SEPARATOR="||") AS ?distributions)
-      (GROUP_CONCAT(DISTINCT ?dataTheme; SEPARATOR="||") AS ?dataThemes)
-    FROM <http://semic.registry.eu>
+      (GROUP_CONCAT(DISTINCT COALESCE(?dataTheme, ?dataThemeGenerated); SEPARATOR="||") AS ?dataThemes)
     WHERE {
-      {
-        SELECT DISTINCT ?standard
-        WHERE {
-          ?standard a dct:Standard .
-          ?standard dct:title ?title .
-          ?standard dct:description ?descriptionAnyLang .  # Allow any language for search
+      GRAPH <http://semic.registry.eu> {
+        {
+          SELECT DISTINCT ?standard
+          WHERE {
+            ?standard a dct:Standard .
+            ?standard dct:title ?title .
+            ?standard dct:description ?descriptionAnyLang .
+            OPTIONAL {
+              ?standard dct:hasPart ?class .
+              ?class a rdfs:Class ;
+                    rdfs:label ?classLabel .
+              FILTER(lang(?classLabel) = "en")
+            }
+            FILTER (lang(?title) = "en")
+            ${isUri ?
+              `FILTER(?standard = <${query}>)` :
+              query && query !== '*' ?
+              `FILTER(
+                CONTAINS(LCASE(?title), LCASE("${query}")) ||
+                CONTAINS(LCASE(?descriptionAnyLang), LCASE("${query}")) ||
+                CONTAINS(LCASE(?classLabel), LCASE("${query}"))
+              )` : ''
+            }
+          }
+        }
+        ?standard dct:title ?title .
+        ?standard dct:description ?description .
+        ?standard dct:publisher ?publisher .
+        OPTIONAL {
+          ?publisher a foaf:Agent ;
+                    dct:title ?publisherName .
+          FILTER(lang(?publisherName) = "en")
+        }
+        OPTIONAL {
+          ?standard dct:hasPart ?class .
+          ?class a rdfs:Class ;
+                rdfs:label ?classLabel .
+          FILTER(lang(?classLabel) = "en")
+        }
+        OPTIONAL {
+          ?standard dct:requires ?reused .
+          OPTIONAL { ?reused dct:title ?reusedTitle . FILTER(lang(?reusedTitle) = "en") }
+        }
+        OPTIONAL {
+          ?requiringStandard dct:requires ?standard .
+          ?requiringStandard dct:title ?requiringTitle .
+          ?requiringStandard dct:publisher ?requiringPublisher .
           OPTIONAL {
-            ?standard dct:hasPart ?class .
-            ?class a rdfs:Class ;
-                  rdfs:label ?classLabel .
-            FILTER(lang(?classLabel) = "en")
+            ?requiringPublisher a foaf:Agent ;
+                              dct:title ?requiringPublisherName .
+            FILTER(lang(?requiringPublisherName) = "en")
           }
-          FILTER (lang(?title) = "en")
-          # Remove the English filter for description in search context
-          ${isUri ?
-            `FILTER(?standard = <${query}>)` :
-            query && query !== '*' ?
-            `FILTER(
-              CONTAINS(LCASE(?title), LCASE("${query}")) ||
-              CONTAINS(LCASE(?descriptionAnyLang), LCASE("${query}")) ||
-              CONTAINS(LCASE(?classLabel), LCASE("${query}"))
-            )` : ''
+          OPTIONAL {
+            ?requiringStandard dct:creator ?requiringAgent .
+            ?requiringAgent a foaf:Agent ;
+                          dct:spatial ?requiringLocation .
+            ?requiringLocation a dct:Location .
           }
+          FILTER(lang(?requiringTitle) = "en")
         }
-      }
-      ?standard dct:title ?title .
-      ?standard dct:description ?description .
-      ?standard dct:publisher ?publisher .
-      OPTIONAL {
-        ?publisher a foaf:Agent ;
-                  dct:title ?publisherName .
-        FILTER(lang(?publisherName) = "en")
-      }
-      OPTIONAL {
-        ?standard dct:hasPart ?class .
-        ?class a rdfs:Class ;
-              rdfs:label ?classLabel .
-        FILTER(lang(?classLabel) = "en")
-      }
-      OPTIONAL {
-        ?standard dct:requires ?reused .
-        OPTIONAL { ?reused dct:title ?requiredTitle . FILTER(lang(?reusedTitle) = "en") }
-      }
-      OPTIONAL {
-        ?requiringStandard dct:requires ?standard .
-        ?requiringStandard dct:title ?requiringTitle .
-        ?requiringStandard dct:publisher ?requiringPublisher .
+        OPTIONAL { ?standard dcat:keyword ?keyword }
+        OPTIONAL { ?standard dct:created ?created }
+        OPTIONAL { ?standard foaf:homepage ?homepage }
+        OPTIONAL { ?standard dct:language ?language }
         OPTIONAL {
-          ?requiringPublisher a foaf:Agent ;
-                            dct:title ?requiringPublisherName .
-          FILTER(lang(?requiringPublisherName) = "en")
+          ?standard prof:hasResource ?resourceDescriptor .
+          ?resourceDescriptor dcat:downloadURL ?downloadURL .
+          OPTIONAL { ?resourceDescriptor dct:format ?format }
         }
-        OPTIONAL {
-          ?requiringStandard dct:creator ?requiringAgent .
-          ?requiringAgent a foaf:Agent ;
-                        dct:spatial ?requiringLocation .
-          ?requiringLocation a dct:Location .
+        OPTIONAL { ?standard dcat:theme ?dataTheme }
+        ?standard <http://example.org/LOVRank> ?lovRank .
+        FILTER (lang(?title) = "en")
+        FILTER (lang(?description) = "en")
+        ${themeFilter}
+        ${publisherFilter}
+      }
+      
+      OPTIONAL { 
+        GRAPH <http://semic.registry2.eu> {
+          ?standard dcat:theme ?dataThemeGenerated 
         }
-        FILTER(lang(?requiringTitle) = "en")
       }
-      OPTIONAL { ?standard dcat:keyword ?keyword }
-      OPTIONAL { ?standard dct:created ?created }
-      OPTIONAL { ?standard foaf:homepage ?homepage }
-      OPTIONAL { ?standard dct:language ?language }
-      OPTIONAL {
-        ?standard prof:hasResource ?resourceDescriptor .
-        ?resourceDescriptor dcat:downloadURL ?downloadURL .
-        OPTIONAL { ?resourceDescriptor dct:format ?format }
-      }
-      OPTIONAL { ?standard dcat:theme ?dataTheme }
-      ?standard <http://example.org/LOVRank> ?lovRank .
-      FILTER (lang(?title) = "en")
-      FILTER (lang(?description) = "en")  # Keep English filter for returned description
-      ${themeFilter}
-      ${publisherFilter}
     }
     GROUP BY ?title ?description ?lovRank ?created ?homepage
     ORDER BY DESC(?lovRank)
@@ -266,61 +272,68 @@ app.post(BASE_PATH + '/api/ontology', async (req, res) => {
       ?created ?homepage
       (GROUP_CONCAT(DISTINCT ?language; SEPARATOR="||") AS ?languages)
       (GROUP_CONCAT(DISTINCT CONCAT(STR(?downloadURL), "|", COALESCE(STR(?format), "")); SEPARATOR="||") AS ?distributions)
-      (GROUP_CONCAT(DISTINCT ?dataTheme; SEPARATOR="||") AS ?dataThemes)
-    FROM <http://semic.registry.eu>
+      (GROUP_CONCAT(DISTINCT COALESCE(?dataTheme, ?dataThemeGenerated); SEPARATOR="||") AS ?dataThemes)
     WHERE {
-      ?standard a dct:Standard .
-      ?standard dct:title ?title .
-      ?standard dct:description ?description .
-      ?standard dct:publisher ?publisher .
-      OPTIONAL {
-        ?publisher a foaf:Agent ;
-                  dct:title ?publisherName .
-        FILTER(lang(?publisherName) = "en")
-      }
-      OPTIONAL {
-        ?standard dct:hasPart ?class .
-        ?class a rdfs:Class ;
-              rdfs:label ?classLabel .
-        FILTER(lang(?classLabel) = "en")
-      }
-      OPTIONAL {
-        ?standard dct:requires ?reused .
-        OPTIONAL { ?reused dct:title ?reusedTitle . FILTER(lang(?reusedTitle) = "en") }
-      }
-      OPTIONAL {
-        ?requiringStandard dct:requires ?standard .
-        ?requiringStandard dct:title ?requiringTitle .
-        ?requiringStandard dct:publisher ?requiringPublisher .
+      GRAPH <http://semic.registry.eu> {
+        ?standard a dct:Standard .
+        ?standard dct:title ?title .
+        ?standard dct:description ?description .
+        ?standard dct:publisher ?publisher .
         OPTIONAL {
-          ?requiringPublisher a foaf:Agent ;
-                            dct:title ?requiringPublisherName .
-          FILTER(lang(?requiringPublisherName) = "en")
+          ?publisher a foaf:Agent ;
+                    dct:title ?publisherName .
+          FILTER(lang(?publisherName) = "en")
         }
         OPTIONAL {
-          ?requiringStandard dct:creator ?requiringAgent .
-          ?requiringAgent a foaf:Agent ;
-                        dct:spatial ?requiringLocation .
-          ?requiringLocation a dct:Location .
+          ?standard dct:hasPart ?class .
+          ?class a rdfs:Class ;
+                rdfs:label ?classLabel .
+          FILTER(lang(?classLabel) = "en")
         }
-        FILTER(lang(?requiringTitle) = "en")
+        OPTIONAL {
+          ?standard dct:requires ?reused .
+          OPTIONAL { ?reused dct:title ?reusedTitle . FILTER(lang(?reusedTitle) = "en") }
+        }
+        OPTIONAL {
+          ?requiringStandard dct:requires ?standard .
+          ?requiringStandard dct:title ?requiringTitle .
+          ?requiringStandard dct:publisher ?requiringPublisher .
+          OPTIONAL {
+            ?requiringPublisher a foaf:Agent ;
+                              dct:title ?requiringPublisherName .
+            FILTER(lang(?requiringPublisherName) = "en")
+          }
+          OPTIONAL {
+            ?requiringStandard dct:creator ?requiringAgent .
+            ?requiringAgent a foaf:Agent ;
+                          dct:spatial ?requiringLocation .
+            ?requiringLocation a dct:Location .
+          }
+          FILTER(lang(?requiringTitle) = "en")
+        }
+        OPTIONAL { ?standard dcat:keyword ?keyword }
+        OPTIONAL { ?standard dct:created ?created }
+        OPTIONAL { ?standard foaf:homepage ?homepage }
+        OPTIONAL { ?standard dct:language ?language }
+        OPTIONAL {
+          ?standard prof:hasResource ?resourceDescriptor .
+          ?resourceDescriptor dcat:downloadURL ?downloadURL .
+          OPTIONAL { ?resourceDescriptor dct:format ?format }
+        }
+        OPTIONAL { ?standard dcat:theme ?dataTheme }
+        ?standard <http://example.org/LOVRank> ?lovRank .
+        FILTER (lang(?title) = "en")
+        FILTER (lang(?description) = "en")
+        ${isUri ?
+          `FILTER(?standard = <${slug}>)` :
+          `FILTER(REPLACE(LCASE(?title), "[^a-z0-9]+", "-", "g") = "${slug}")`
+        }
       }
-      OPTIONAL { ?standard dcat:keyword ?keyword }
-      OPTIONAL { ?standard dct:created ?created }
-      OPTIONAL { ?standard foaf:homepage ?homepage }
-      OPTIONAL { ?standard dct:language ?language }
-      OPTIONAL {
-        ?standard prof:hasResource ?resourceDescriptor .
-        ?resourceDescriptor dcat:downloadURL ?downloadURL .
-        OPTIONAL { ?resourceDescriptor dct:format ?format }
-      }
-      OPTIONAL { ?standard dcat:theme ?dataTheme }
-      ?standard <http://example.org/LOVRank> ?lovRank .
-      FILTER (lang(?title) = "en")
-      FILTER (lang(?description) = "en")
-      ${isUri ?
-        `FILTER(?standard = <${slug}>)` :
-        `FILTER(REPLACE(LCASE(?title), "[^a-z0-9]+", "-", "g") = "${slug}")`
+      
+      OPTIONAL { 
+        GRAPH <http://semic.registry2.eu> {
+          ?standard dcat:theme ?dataThemeGenerated 
+        }
       }
     }
     GROUP BY ?title ?description ?lovRank ?created ?homepage

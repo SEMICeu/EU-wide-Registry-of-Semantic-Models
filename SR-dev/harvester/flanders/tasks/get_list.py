@@ -1,10 +1,9 @@
-from prefect import flow, task, get_run_logger
+from prefect import task, get_run_logger
 
-from typing import List, Dict, Any
+from typing import List
  
  
 @task(name="Get List", retries=3, retry_delay_seconds=120)
-
 def get_list() -> List[str]:
 
     """

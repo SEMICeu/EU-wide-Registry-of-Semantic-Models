@@ -2,19 +2,9 @@ from prefect import flow, task, get_run_logger
 from typing import List, Dict, Any
 import time
 from tasks.extract import extract_list
-import os
-import yaml
-
-
-def load_config():
-    print(f"Current working directory: {os.getcwd()}") 
-    config_path = "SR-dev/harvester/flanders/config.yaml"
-    print(f"Config path: {config_path}")
-    with open(config_path, "r") as file:
-        return yaml.safe_load(file)
+from config import load_config
  
 @task(name="Split List", retries=3, retry_delay_seconds=120)
-
 def split_list(items: List[str], chunk_size: int = 3) -> List[List[str]]:
 
     """
@@ -179,7 +169,7 @@ def parallel_processing_flow():
     config = load_config()
     # Task 0: Extract the Vocabularium and Application Profiles from the Flanders Register
 
-    extract_list(config["db_path"], config["extract_query"])
+    extract_list(config["endpoint_url"], config["extract_query"])
 
     # Task 1: Get the list
 

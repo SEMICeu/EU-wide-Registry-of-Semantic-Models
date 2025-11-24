@@ -1,0 +1,9 @@
+db_path: "http://localhost:7200/repositories/flanders-register"
+extract_query: |
+    PREFIX m8g: <http://data.europa.eu/m8g/>
+    PREFIX dcterms: <http://purl.org/dc/terms/>
+    SELECT ?subject ?contactPoint
+    WHERE {
+      ?subject m8g:contactPoint ?contactPoint .
+    }
+  

@@ -1,11 +1,13 @@
 from prefect import task, get_run_logger
 from typing import List
 from db.client import get_sparql_client
+from SPARQLWrapper import TURTLE
+
 
 @task(name="Extract List", retries=3, retry_delay_seconds=120)
-def extract_list(db_path: str, extract_query: str) -> List[str]:
+def query_voc_and_ap_list(db_path: str, extract_query: str) -> List[str]:
     """
-    Task 1: Extract the Vocabularium and Application Profiles from the Flanders Register.
+    Task 4: Extract the Vocabularium and Application Profiles .
 
     Execute a SPARQL query and print results in a table format.
     """
@@ -41,3 +43,20 @@ def extract_list(db_path: str, extract_query: str) -> List[str]:
     logger.info(f"\n✅ Total rows: {len(bindings)}\n")
 
     return [row[vars[0]]["value"] for row in bindings] 
+
+
+@task(name="construct List", retries=3, retry_delay_seconds=120)
+def construct_list(db_path: str, construct_query: str) -> List[str]:
+    """
+    Execute a SPARQL query and print results in a table format.
+    """
+    logger = get_run_logger()
+    logger.info("Connecting to SPARQL endpoint...")
+
+    sparql = get_sparql_client(db_path)
+    sparql.setQuery(construct_query)
+    sparql.setReturnFormat(TURTLE)
+    results = sparql.query().convert()
+    logger.info(results)
+
+    return results

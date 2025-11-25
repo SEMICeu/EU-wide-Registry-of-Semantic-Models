@@ -1,7 +1,9 @@
 from prefect import flow, task, get_run_logger
 from typing import List, Dict, Any
 import time
-from tasks.extract import extract_list
+from tasks.jsonld_ingest import fetch_jsonld, initialize_graphdb_repo, load_jsonld_to_graphdb
+from tasks.extract import query_voc_and_ap_list
+from tasks.validate import validate_data_graph
 from config import load_config
  
 @task(name="Split List", retries=3, retry_delay_seconds=120)
@@ -67,50 +69,7 @@ def enrich_standard(item: str) -> Dict[str, Any]:
         raise
  
  
-@task(name="Validate", retries=3, retry_delay_seconds=120)
 
-def validate(enriched_data: Dict[str, Any]) -> Dict[str, Any]:
-
-    """
-
-    Task 4: Validate the enriched data
-
-    This task will run in parallel for each enriched item
-
-    """
-
-    logger = get_run_logger()
-
-    logger.info(f"Validating {enriched_data['original']}...")
-
-    try:
-
-        time.sleep(0.3)  # Simulate validation time
-
-        # Add validation results
-
-        is_valid = len(enriched_data.get("enriched_field_1", "")) > 0
-
-        enriched_data["is_valid"] = is_valid
-
-        enriched_data["validation_timestamp"] = time.time()
-
-        if is_valid:
-
-            logger.info(f"Validation passed for {enriched_data['original']}")
-
-        else:
-
-            logger.warning(f"Validation failed for {enriched_data['original']}")
-
-        return enriched_data
-
-    except Exception as e:
-
-        logger.error(f"Error validating {enriched_data['original']}: {str(e)}")
-
-        raise
- 
  
 @task(name="Store", retries=3, retry_delay_seconds=120)
 
@@ -162,16 +121,33 @@ def parallel_processing_flow():
     Main flow that orchestrates all tasks with parallel processing
 
     """
+    config = load_config()
 
     logger = get_run_logger()
-
     logger.info("Starting parallel processing flow...")
-    config = load_config()
-    # Task 0: Extract the Vocabularium and Application Profiles from the Flanders Register
 
-    extract_list(config["endpoint_url"], config["extract_query"])
+    # Task 1: Extract JSON-LD from a Vlaanderen standards page.
+    jsonld = fetch_jsonld(config["web_source_url"])
 
-    # Task 1: Get the list
+    #Task 2: Create a new repository in GraphDB. (Overwrite if repo exists)
+    endpoint = initialize_graphdb_repo(config["graphDB_repo_name"],config["graphDB_config_file_path"],config["graphDB_host"])
+
+    # Task 3: Load JSON-LD into GraphDB as RDF triples.
+    load_jsonld_to_graphdb(jsonld, endpoint)
+
+    # Task 4:     Task 4: Extract the Vocabularium and Application Profiles .
+    list = query_voc_and_ap_list(endpoint, config["extract_query"])
+
+
+    # chunks = chunk_list(list)
+
+    # Task 25 validate
+
+    # list2 = construct_list(config["endpoint_url"], config["construct_query"])
+
+    # validated_futures = [validate_data_graph(list2)]
+    # validated_results = [future.result() for future in validated_futures]
+
 
     # items = get_list()
 

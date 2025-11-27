@@ -5,43 +5,44 @@ import requests
 
 @task(name="Validate", retries=3, retry_delay_seconds=120)
 def validate_data_graph(data: str) -> bool:
-
     """
-
-    Task 4: Validate the enriched data
-
-    This task will run in parallel for each enriched item
-
+    Validate the enriched data using SHACL.
     """
-
     logger = get_run_logger()
+
+    # Ensure data is a string
+    if isinstance(data, bytes):
+        data = data.decode("utf-8")
 
     g = Graph()
     g.parse(data=data, format='turtle')
-    shacle_graph= Graph()
     
     url = "http://localhost:8080/shacl/srm/api/validate"
     payload = {
-        "version" : "v3.0.0",
-        "contentSyntax" : "text/turtle",
-        "contentToValidate" : data    
+        "version": "v3.0.0",
+        "contentSyntax": "text/turtle",
+        "contentToValidate": data    
     }
    
-    header = {
-        "Accept" : "application/ld+json",
-        "Content-Type" : "application/json"
+    headers = {
+        "Accept": "application/ld+json",
+        "Content-Type": "application/json"
     }
 
     try:
-        response = requests.post(url=url,data=payload,headers=header)
+        response = requests.post(url=url, json=payload, headers=headers)
+        logger.info(f"SHACL response: {response.text}")
 
         if response.status_code == 200:
-            # shacle_graph.parse(data=response.text)
-            logger.info(f"shacl_graph: {response.text}")
-        
-            
+            return True
+        else:
+            logger.error(f"Validation failed: {response.status_code}")
+            return False
+
     except Exception as e:
-            logger.error(f"Connection Error: {e}")
+        logger.error(f"Connection Error: {e}")
+        return False
+
 
     # try:
 

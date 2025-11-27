@@ -1,0 +1,8 @@
+{
+  "@context": "/shacl/srm/api/contexts/EntryPoint.jsonld",
+  "@id": "/shacl/srm/api/",
+  "@type": "EntryPoint",
+  "info": "/shacl/srm/api/info/",
+  "validate": "/shacl/srm/api/validate/",
+  "validateMultiple": "/shacl/srm/api/validateMultiple/"
+}

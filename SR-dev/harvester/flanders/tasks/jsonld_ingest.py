@@ -54,7 +54,6 @@ def initialize_graphdb_repo(repo_name: str, config_file_path: str, host: str = "
     """
     logger = get_run_logger()
 
-    # Check if repository already exists
     check_url = f"{host}/rest/repositories/{repo_name}"
     check_response = requests.get(check_url)
     

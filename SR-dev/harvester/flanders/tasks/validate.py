@@ -1,5 +1,4 @@
 from prefect import flow, task, get_run_logger
-from pyshacl import validate
 from rdflib import Graph
 import requests
 
@@ -21,41 +20,52 @@ def validate_data_graph(data: str) -> bool:
     g.parse(data=data, format='turtle')
     shacle_graph= Graph()
     
-    url = "https://semiceu.github.io/uri.semic.eu-generated/SRM/releases/1.0.0/shacl/srm-SHACL.ttl"
+    url = "http://localhost:8080/shacl/srm/api/validate"
+    payload = {
+        "version" : "v3.0.0",
+        "contentSyntax" : "text/turtle",
+        "contentToValidate" : data    
+    }
+   
+    header = {
+        "Accept" : "application/ld+json",
+        "Content-Type" : "application/json"
+    }
+
     try:
-        response = requests.get(url)
+        response = requests.post(url=url,data=payload,headers=header)
 
         if response.status_code == 200:
-            shacle_graph.parse(data=response.text, format='turtle')
+            # shacle_graph.parse(data=response.text)
             logger.info(f"shacl_graph: {response.text}")
         
             
     except Exception as e:
             logger.error(f"Connection Error: {e}")
 
-    try:
+    # try:
 
-        logger.info("Checking input data is turtle format")
-        result = validate(g, shacle_graph)
+    #     logger.info("Checking input data is turtle format")
+    #     result = validate(g, shacle_graph)
 
-        conforms, results_graph, results_text = result
+    #     conforms, results_graph, results_text = result
 
-        if conforms:
-            logger.info(f"Validation passed")
-            logger.warning(f"result graph {results_graph}")
-            logger.warning(f"result text {results_text}")
+    #     if conforms:
+    #         logger.info(f"Validation passed")
+    #         logger.warning(f"result graph {results_graph}")
+    #         logger.warning(f"result text {results_text}")
 
-        else:
-            logger.warning(f"Validation failed for {results_graph}")
-            logger.warning(f"Validation failed for {results_text}")
-            logger.warning(f"Input Data: {data}")
+    #     else:
+    #         logger.warning(f"Validation failed for {results_graph}")
+    #         logger.warning(f"Validation failed for {results_text}")
+    #         logger.warning(f"Input Data: {data}")
 
 
-        return conforms
+    #     return conforms
 
-    except Exception as e:
+    # except Exception as e:
 
-        logger.error(f"Format not in turtle: {str(e)}")
+    #     logger.error(f"Format not in turtle: {str(e)}")
 
-        raise
+    #     raise
  

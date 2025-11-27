@@ -1,0 +1,744 @@
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0> rdfs:member <https://semiceu.github.io/SRM/releases/1.0.0#LicenseDocumentShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#LocationShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#TextShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#URIShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#DateTimeShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#NonNegativeIntegerShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#StringShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#CodeShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#EmailShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#KindShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#DocumentShape> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/236f0210baaf149903750c43bbe7012c21debb2a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/322371a77364a50f049d46180f6192532eea26dc>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/4f381639bb6e021939f65b4f41409d1edaeade9b>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/8fd1cd7a406ec3816234c1ec0c69f985a9117476>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/9caf9e629daa0e64ece77788576468821d7cff8c>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/b93b49bf7122a561ecc9674449665256e441faf5>;
+  shacl:targetClass foaf:Agent .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/236f0210baaf149903750c43bbe7012c21debb2a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.type";
+  shacl:description "The nature of the Agent."@en;
+  shacl:maxCount 1;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.name";
+  shacl:datatype rdf:langString;
+  shacl:description "The noun given to the Agent."@en;
+  shacl:name "name"@en;
+  shacl:path foaf:name .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/322371a77364a50f049d46180f6192532eea26dc> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.type";
+  shacl:class skos:Concept;
+  shacl:description "The nature of the Agent."@en;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/4f381639bb6e021939f65b4f41409d1edaeade9b> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.type";
+  shacl:description "The nature of the Agent."@en;
+  shacl:name "type"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/8fd1cd7a406ec3816234c1ec0c69f985a9117476> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.spatial";
+  shacl:class dc:Location;
+  shacl:description "The country of the Agent."@en;
+  shacl:name "spatial"@en;
+  shacl:path dc:spatial .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.name";
+  shacl:description "The noun given to the Agent."@en;
+  shacl:minCount 1;
+  shacl:name "name"@en;
+  shacl:path foaf:name .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/9caf9e629daa0e64ece77788576468821d7cff8c> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.name";
+  shacl:description "The noun given to the Agent."@en;
+  shacl:name "name"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path foaf:name .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AgentShape/b93b49bf7122a561ecc9674449665256e441faf5> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Agent.spatial";
+  shacl:description "The country of the Agent."@en;
+  shacl:name "spatial"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:spatial .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/27ee30c66ff3cd2714f73a4b488a5e0f6b64b7f6>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/33469029eb88ff82a2db837ecd6a4f32a35daf1a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/3b60b5c46b21dcb6dbe3f18e67733c73a943e4fe>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/714a6b96fa04288f97d2a2d4c8f0921bca3f0068>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/737cd5f1c9f0e13c35eb82b7f0d2b2f76a9a82c7>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/76a80b965577e70ddaa1ad1bd18df4759b0dd505>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/9484b608420ccb732e39ca34b588c57868c81181>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/9caf9e629daa0e64ece77788576468821d7cff8c>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/a07d6e7a0a1790b89a1ce7ff602cbbd9ea835282>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/acfc682eaf1486f961dfda21dcee9dce25d6291f>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/b2d56c1cb8f0f7f1936bde664ed9a1c50844c089>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/c1577bd231c71b0b1910272999755d3414867cfd>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/cc9f7f9610c578482ee562a5993977f8a1871e96>;
+  shacl:targetClass <http://www.w3.org/ns/adms#AssetDistribution> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.name";
+  shacl:datatype rdf:langString;
+  shacl:description "The noun given to the Asset Distribution."@en;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/27ee30c66ff3cd2714f73a4b488a5e0f6b64b7f6> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.downloadURL";
+  shacl:description "The URL of the downloadable file in a given format."@en;
+  shacl:name "download URL"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dcat:downloadURL .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/33469029eb88ff82a2db837ecd6a4f32a35daf1a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.hasrole";
+  shacl:description "A description of a resource that defines an aspect - a particular part, feature or role - of a Profile."@en;
+  shacl:minCount 1;
+  shacl:name "has role"@en;
+  shacl:path <http://www.w3.org/ns/dx/prof/hasRole> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/3b60b5c46b21dcb6dbe3f18e67733c73a943e4fe> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.downloadURL";
+  shacl:description "The URL of the downloadable file in a given format."@en;
+  shacl:maxCount 1;
+  shacl:name "download URL"@en;
+  shacl:path dcat:downloadURL .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/714a6b96fa04288f97d2a2d4c8f0921bca3f0068> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.hasrole";
+  shacl:class skos:Concept;
+  shacl:description "A description of a resource that defines an aspect - a particular part, feature or role - of a Profile."@en;
+  shacl:name "has role"@en;
+  shacl:path <http://www.w3.org/ns/dx/prof/hasRole> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/737cd5f1c9f0e13c35eb82b7f0d2b2f76a9a82c7> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.format";
+  shacl:class skos:Concept;
+  shacl:description """	The file format, physical medium, or dimensions of the resource."""@en;
+  shacl:name "format"@en;
+  shacl:path dc:format .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/76a80b965577e70ddaa1ad1bd18df4759b0dd505> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.format";
+  shacl:description """	The file format, physical medium, or dimensions of the resource."""@en;
+  shacl:minCount 1;
+  shacl:name "format"@en;
+  shacl:path dc:format .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/9484b608420ccb732e39ca34b588c57868c81181> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.format";
+  shacl:description """	The file format, physical medium, or dimensions of the resource."""@en;
+  shacl:maxCount 1;
+  shacl:name "format"@en;
+  shacl:path dc:format .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.name";
+  shacl:description "The noun given to the Asset Distribution."@en;
+  shacl:minCount 1;
+  shacl:name "name"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/9caf9e629daa0e64ece77788576468821d7cff8c> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.name";
+  shacl:description "The noun given to the Asset Distribution."@en;
+  shacl:name "name"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/a07d6e7a0a1790b89a1ce7ff602cbbd9ea835282> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.downloadURL";
+  shacl:datatype xsd:anyURI;
+  shacl:description "The URL of the downloadable file in a given format."@en;
+  shacl:name "download URL"@en;
+  shacl:path dcat:downloadURL .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/acfc682eaf1486f961dfda21dcee9dce25d6291f> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.hasrole";
+  shacl:description "A description of a resource that defines an aspect - a particular part, feature or role - of a Profile."@en;
+  shacl:name "has role"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://www.w3.org/ns/dx/prof/hasRole> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/b2d56c1cb8f0f7f1936bde664ed9a1c50844c089> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.downloadURL";
+  shacl:description "The URL of the downloadable file in a given format."@en;
+  shacl:minCount 1;
+  shacl:name "download URL"@en;
+  shacl:path dcat:downloadURL .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/c1577bd231c71b0b1910272999755d3414867cfd> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.format";
+  shacl:description """	The file format, physical medium, or dimensions of the resource."""@en;
+  shacl:name "format"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:format .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetDistributionShape/cc9f7f9610c578482ee562a5993977f8a1871e96> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#AssetDistribution.hasrole";
+  shacl:description "A description of a resource that defines an aspect - a particular part, feature or role - of a Profile."@en;
+  shacl:maxCount 1;
+  shacl:name "has role"@en;
+  shacl:path <http://www.w3.org/ns/dx/prof/hasRole> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/018014f2768427f28128fcb3b1af2a192d03575a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/090276398be5438ae7147f6a4e2e8de8cc4a498b>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/0944fa62349328c4c2ca98a1f0901447a0814c73>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/0f6cb927d0d26f3819cba3fb903a075cd426180d>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/16a39520e446e5b794a01467eaeb5fe3e10ab704>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/203c9e087d4af4374273c4e2bf22610d8642e403>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/22f1578dcd99ac6439079f483b4886754ddf6ec4>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/236f0210baaf149903750c43bbe7012c21debb2a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/29ba27566ab1f32c8bb73f3492436d4bd868d3d2>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/2bc917d85a4ffccfa9de4268bf84b517c322ce2c>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/2f24e5e77199a0d328c94cb874400d574fc8e87f>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/2fd3850ab494807d4d5cc3ac00cc92ede3ec5052>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/322371a77364a50f049d46180f6192532eea26dc>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/3894f9fa605c37b8ff4766859d3107f97cc5f934>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/3bbdbd65941f58187b251bba520894472f60f953>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/3c1ab2e1170c5050c8b7742e97810027ddc104b1>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/488f0bcb1b2d7cb5288ca9952a7b94f106f95859>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/4f381639bb6e021939f65b4f41409d1edaeade9b>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/5bc739112726cd993c279f81380611cafc3a9857>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/6631930d613b1d5b260d976a601d251efa561d7b>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/6cae9880e515253132af1452a38a8a5827165149>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/72c386c2a66a379e4c7eefeeefe24df077d1fcb1>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/7b6713c1f4a52e964f5db57eabef294b6d04e90e>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/7d4c667652f23f3a51353271e3800bca87ed3f68>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/8c70ebff5b78d704f1a46551977abc4f6d06aead>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/8d36a62f83db7f94097e27edb51306e17e0d40f3>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/91f9a5790718582d07742b7e28ed3765eb490523>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9380ee54faf9ee92c4f4ea00d9c9132fc5ce831f>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/93f73e69bb03d2928fcf758a253ef316becdf9b9>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9512099dadc4456834bcbf88af15fccc7554129c>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/958ee22381b731f42ee31551e061d78c282047ae>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9678e29dc284ba14312bf01cd0a581b960b77a08>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9adf9f5890592909cf3e67021ae7ab4f895a7745>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9d99864f3f3c3de336fe5a02b8db7032ac2e474d>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/aadbd67a77a624f073be2076627fb9dc883cbe48>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/b19f1113c59fce0aa3743160e2952dbb0b46c495>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/b3ec0655204c62a2531244aaeab12f1a2c5e5b5d>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/b8b696cbf9fa17e3447da768e0631bddfa17fddf>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/ba94cef889ef8df6c461af7786957a20b3271b97>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c0d17764e84e711728581fda7356a51e99a9040a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c1730b90b5f67fd4e0b6a93a4d751c57392c80e1>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c1d40f7102c8201949576e76be48b991b47958d9>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c9624a5c6ef5e71d0641ec41538432cef235c40e>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d4cc2cd3a9b6f5c07da7ea7ca2841eca22bfae8a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d4d4f2399b8cf2f615ac658920373b714726bed0>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d5d74574f70f9a979535f3624608f88180dd0c97>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d9c840264623f807d9d63d6cc1fbfdc0dfb65c53>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/da28472666d298998330cb159b2c1e90b4446250>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/db878f1cb93930f64561d0504123c66feacfad5a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/dbcf2adef675735c48b532392359af27af5e8b71>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/dede6a68a95ac0f43ca88def472d8fc001f86ebe>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/e2017f72421063cd9ff494011ec78f35f9632a4a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/ec458b5b609f8e8eda0ab24a6d0e586b1b88f7a1>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/f30149ffb6ec9d00dd5866b052105729fa27d02a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/f4d3e24a8374fe765ac04ca800506ff76a678ea8>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/f8b02efd063b8089b72ce9677a1e4a3488eeb9a9>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/fa45b941892059874f01a273decd78d38e4eea2a>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/fb8568b313de736f9184db23272b6317700e9e7e>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/fe2ffe0b50cc4c20954873d72d0f815713857ec8>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/ffc248f678a96192fc9993312b1cdea98a416bb6>;
+  shacl:targetClass <http://www.w3.org/ns/adms#Asset> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/018014f2768427f28128fcb3b1af2a192d03575a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.isreusedby";
+  shacl:description "The portal or repository reusing such Standard."@en;
+  shacl:name "is reused by"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path <http://data.europa.eu/m8g/isReusedBy> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/090276398be5438ae7147f6a4e2e8de8cc4a498b> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.distribution";
+  shacl:description "An available distribution of the dataset."@en;
+  shacl:name "distribution"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dcat:distribution .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/0944fa62349328c4c2ca98a1f0901447a0814c73> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.lovrank";
+  shacl:class xsd:nonNegativeInteger;
+  shacl:description "A numeric value that rank the Standard on the number of the reuse."@en;
+  shacl:name "lov rank"@en;
+  shacl:path <http://data.europa.eu/m8g/lovRank> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/0f6cb927d0d26f3819cba3fb903a075cd426180d> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.status";
+  shacl:class skos:Concept;
+  shacl:description "The status of the Standard."@en;
+  shacl:name "status"@en;
+  shacl:path <http://www.w3.org/ns/adms#status> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/16a39520e446e5b794a01467eaeb5fe3e10ab704> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.dateissued";
+  shacl:description "Date of formal issuance of the resource."@en;
+  shacl:name "date issued"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:issued .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/203c9e087d4af4374273c4e2bf22610d8642e403> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.datemodified";
+  shacl:description "Date on which the resource was changed."@en;
+  shacl:name "date modified"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:modified .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/22f1578dcd99ac6439079f483b4886754ddf6ec4> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.versioninfo";
+  shacl:datatype xsd:string;
+  shacl:description "A string giving information about this version."@en;
+  shacl:name "version info"@en;
+  shacl:path owl:versionInfo .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/236f0210baaf149903750c43bbe7012c21debb2a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.type";
+  shacl:description "The nature or genre of the Standard."@en;
+  shacl:maxCount 1;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/29ba27566ab1f32c8bb73f3492436d4bd868d3d2> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.language";
+  shacl:class skos:Concept;
+  shacl:description "A language of the resource."@en;
+  shacl:name "language"@en;
+  shacl:path dc:language .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/2bc917d85a4ffccfa9de4268bf84b517c322ce2c> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.status";
+  shacl:description "The status of the Standard."@en;
+  shacl:maxCount 1;
+  shacl:name "status"@en;
+  shacl:path <http://www.w3.org/ns/adms#status> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/2f24e5e77199a0d328c94cb874400d574fc8e87f> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.versioninfo";
+  shacl:description "A string giving information about this version."@en;
+  shacl:name "version info"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path owl:versionInfo .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/2fd3850ab494807d4d5cc3ac00cc92ede3ec5052> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.contributor";
+  shacl:description "An entity responsible for making contributions to the resource."@en;
+  shacl:name "contributor"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:contributor .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/322371a77364a50f049d46180f6192532eea26dc> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.type";
+  shacl:class skos:Concept;
+  shacl:description "The nature or genre of the Standard."@en;
+  shacl:name "type"@en;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/3894f9fa605c37b8ff4766859d3107f97cc5f934> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.keyword";
+  shacl:datatype rdf:langString;
+  shacl:description "A keyword or tag describing the Standard."@en;
+  shacl:name "keyword"@en;
+  shacl:path dcat:keyword .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/3bbdbd65941f58187b251bba520894472f60f953> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.dateissued";
+  shacl:description "Date of formal issuance of the resource."@en;
+  shacl:maxCount 1;
+  shacl:name "date issued"@en;
+  shacl:path dc:issued .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/3c1ab2e1170c5050c8b7742e97810027ddc104b1> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.status";
+  shacl:description "The status of the Standard."@en;
+  shacl:name "status"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://www.w3.org/ns/adms#status> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/488f0bcb1b2d7cb5288ca9952a7b94f106f95859> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.title";
+  shacl:datatype rdf:langString;
+  shacl:description "A name given to the resource."@en;
+  shacl:name "title"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/4f381639bb6e021939f65b4f41409d1edaeade9b> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.type";
+  shacl:description "The nature or genre of the Standard."@en;
+  shacl:name "type"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:type .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/5bc739112726cd993c279f81380611cafc3a9857> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.keyword";
+  shacl:description "A keyword or tag describing the Standard."@en;
+  shacl:name "keyword"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dcat:keyword .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/6631930d613b1d5b260d976a601d251efa561d7b> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.distribution";
+  shacl:class <http://www.w3.org/ns/adms#AssetDistribution>;
+  shacl:description "An available distribution of the dataset."@en;
+  shacl:name "distribution"@en;
+  shacl:path dcat:distribution .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/6c7c1bd2ab3b7761e5be759a078a9fd93f411a57> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.identifier";
+  shacl:description "An unambiguous reference to the resource within a given context."@en;
+  shacl:minCount 1;
+  shacl:name "identifier"@en;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/6cae9880e515253132af1452a38a8a5827165149> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.description";
+  shacl:description "An free-text account of the resource."@en;
+  shacl:name "description"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/72c386c2a66a379e4c7eefeeefe24df077d1fcb1> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.lovrank";
+  shacl:description "A numeric value that rank the Standard on the number of the reuse."@en;
+  shacl:name "lov rank"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path <http://data.europa.eu/m8g/lovRank> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/7b6713c1f4a52e964f5db57eabef294b6d04e90e> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.contactpoint";
+  shacl:class vcard:Kind;
+  shacl:description "Contact information that can be used for sending comments about the standard."@en;
+  shacl:name "contact point"@en;
+  shacl:path dcat:contactPoint .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/7d4c667652f23f3a51353271e3800bca87ed3f68> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.creator";
+  shacl:description "An entity responsible for making the resource."@en;
+  shacl:name "creator"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:creator .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/8c70ebff5b78d704f1a46551977abc4f6d06aead> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.preferrednamespaceURI";
+  shacl:datatype xsd:anyURI;
+  shacl:description "The preferred namespace URI of the Standard."@en;
+  shacl:name "preferred namespace URI"@en;
+  shacl:path <http://purl.org/vocab/vann/preferredNamespaceUri> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/8d36a62f83db7f94097e27edb51306e17e0d40f3> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.homepage";
+  shacl:description "A homepage for some thing."@en;
+  shacl:name "homepage"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path foaf:homepage .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/91f9a5790718582d07742b7e28ed3765eb490523> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.lovrank";
+  shacl:description "A numeric value that rank the Standard on the number of the reuse."@en;
+  shacl:maxCount 1;
+  shacl:name "lov rank"@en;
+  shacl:path <http://data.europa.eu/m8g/lovRank> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9380ee54faf9ee92c4f4ea00d9c9132fc5ce831f> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.datecreated";
+  shacl:datatype xsd:dateTime;
+  shacl:description "Date of creation of the resource."@en;
+  shacl:name "date created"@en;
+  shacl:path dc:created .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/93f73e69bb03d2928fcf758a253ef316becdf9b9> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.publisher";
+  shacl:description "An entity responsible for making the resource available."@en;
+  shacl:name "publisher"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:publisher .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9512099dadc4456834bcbf88af15fccc7554129c> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.versioninfo";
+  shacl:description "A string giving information about this version."@en;
+  shacl:maxCount 1;
+  shacl:name "version info"@en;
+  shacl:path owl:versionInfo .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/958ee22381b731f42ee31551e061d78c282047ae> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.datecreated";
+  shacl:description "Date of creation of the resource."@en;
+  shacl:name "date created"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:created .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9678e29dc284ba14312bf01cd0a581b960b77a08> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.theme";
+  shacl:description "A classification of the Standard."@en;
+  shacl:name "theme"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dcat:theme .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9adf9f5890592909cf3e67021ae7ab4f895a7745> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.contactpoint";
+  shacl:description "Contact information that can be used for sending comments about the standard."@en;
+  shacl:name "contact point"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dcat:contactPoint .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/9d99864f3f3c3de336fe5a02b8db7032ac2e474d> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.preferrednamespaceURI";
+  shacl:description "The preferred namespace URI of the Standard."@en;
+  shacl:maxCount 1;
+  shacl:name "preferred namespace URI"@en;
+  shacl:path <http://purl.org/vocab/vann/preferredNamespaceUri> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/aadbd67a77a624f073be2076627fb9dc883cbe48> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.identifier";
+  shacl:description "An unambiguous reference to the resource within a given context."@en;
+  shacl:name "identifier"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/b19f1113c59fce0aa3743160e2952dbb0b46c495> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.requires";
+  shacl:class <http://www.w3.org/ns/adms#Asset>;
+  shacl:description "A related resource that is required by the described resource to support its function, delivery, or coherence."@en;
+  shacl:name "requires"@en;
+  shacl:path dc:requires .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/b3ec0655204c62a2531244aaeab12f1a2c5e5b5d> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.publisher";
+  shacl:class foaf:Agent;
+  shacl:description "An entity responsible for making the resource available."@en;
+  shacl:name "publisher"@en;
+  shacl:path dc:publisher .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/b8b696cbf9fa17e3447da768e0631bddfa17fddf> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.requires";
+  shacl:description "A related resource that is required by the described resource to support its function, delivery, or coherence."@en;
+  shacl:name "requires"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:requires .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/ba94cef889ef8df6c461af7786957a20b3271b97> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.datecreated";
+  shacl:description "Date of creation of the resource."@en;
+  shacl:maxCount 1;
+  shacl:name "date created"@en;
+  shacl:path dc:created .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c0d17764e84e711728581fda7356a51e99a9040a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.identifier";
+  shacl:description "An unambiguous reference to the resource within a given context."@en;
+  shacl:maxCount 1;
+  shacl:name "identifier"@en;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c1730b90b5f67fd4e0b6a93a4d751c57392c80e1> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.datemodified";
+  shacl:datatype xsd:dateTime;
+  shacl:description "Date on which the resource was changed."@en;
+  shacl:name "date modified"@en;
+  shacl:path dc:modified .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c1d40f7102c8201949576e76be48b991b47958d9> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.creator";
+  shacl:class foaf:Agent;
+  shacl:description "An entity responsible for making the resource."@en;
+  shacl:name "creator"@en;
+  shacl:path dc:creator .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/c9624a5c6ef5e71d0641ec41538432cef235c40e> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.isreusedby";
+  shacl:datatype xsd:anyURI;
+  shacl:description "The portal or repository reusing such Standard."@en;
+  shacl:name "is reused by"@en;
+  shacl:path <http://data.europa.eu/m8g/isReusedBy> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d4cc2cd3a9b6f5c07da7ea7ca2841eca22bfae8a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.hasimplementation";
+  shacl:datatype xsd:anyURI;
+  shacl:description "The portal/repository implementing such Standard."@en;
+  shacl:name "has implementation"@en;
+  shacl:path <http://data.europa.eu/m8g/hasImplementation> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d4d4f2399b8cf2f615ac658920373b714726bed0> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.description";
+  shacl:datatype rdf:langString;
+  shacl:description "An free-text account of the resource."@en;
+  shacl:name "description"@en;
+  shacl:path dc:description .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d5d74574f70f9a979535f3624608f88180dd0c97> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.title";
+  shacl:description "A name given to the resource."@en;
+  shacl:name "title"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/d9c840264623f807d9d63d6cc1fbfdc0dfb65c53> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.preferrednamespaceURI";
+  shacl:description "The preferred namespace URI of the Standard."@en;
+  shacl:name "preferred namespace URI"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path <http://purl.org/vocab/vann/preferredNamespaceUri> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/da28472666d298998330cb159b2c1e90b4446250> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.homepage";
+  shacl:description "A homepage for some thing."@en;
+  shacl:maxCount 1;
+  shacl:name "homepage"@en;
+  shacl:path foaf:homepage .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/db878f1cb93930f64561d0504123c66feacfad5a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.language";
+  shacl:description "A language of the resource."@en;
+  shacl:name "language"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:language .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/dbcf2adef675735c48b532392359af27af5e8b71> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.licence";
+  shacl:class dc:LicenseDocument;
+  shacl:description "A licence under which the standard is made available."@en;
+  shacl:name "licence"@en;
+  shacl:path dc:license .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/dede6a68a95ac0f43ca88def472d8fc001f86ebe> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.theme";
+  shacl:class skos:Concept;
+  shacl:description "A classification of the Standard."@en;
+  shacl:name "theme"@en;
+  shacl:path dcat:theme .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/e2017f72421063cd9ff494011ec78f35f9632a4a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.identifier";
+  shacl:datatype xsd:string;
+  shacl:description "An unambiguous reference to the resource within a given context."@en;
+  shacl:name "identifier"@en;
+  shacl:path dc:identifier .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/ec458b5b609f8e8eda0ab24a6d0e586b1b88f7a1> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.datemodified";
+  shacl:description "Date on which the resource was changed."@en;
+  shacl:maxCount 1;
+  shacl:name "date modified"@en;
+  shacl:path dc:modified .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/f30149ffb6ec9d00dd5866b052105729fa27d02a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.licence";
+  shacl:description "A licence under which the standard is made available."@en;
+  shacl:name "licence"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path dc:license .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/f4d3e24a8374fe765ac04ca800506ff76a678ea8> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.dateissued";
+  shacl:datatype xsd:dateTime;
+  shacl:description "Date of formal issuance of the resource."@en;
+  shacl:name "date issued"@en;
+  shacl:path dc:issued .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/f8b02efd063b8089b72ce9677a1e4a3488eeb9a9> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.title";
+  shacl:description "A name given to the resource."@en;
+  shacl:minCount 1;
+  shacl:name "title"@en;
+  shacl:path dc:title .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/fa45b941892059874f01a273decd78d38e4eea2a> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.hasimplementation";
+  shacl:description "The portal/repository implementing such Standard."@en;
+  shacl:name "has implementation"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path <http://data.europa.eu/m8g/hasImplementation> .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/fb8568b313de736f9184db23272b6317700e9e7e> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.homepage";
+  shacl:class foaf:Document;
+  shacl:description "A homepage for some thing."@en;
+  shacl:name "homepage"@en;
+  shacl:path foaf:homepage .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/fe2ffe0b50cc4c20954873d72d0f815713857ec8> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.contributor";
+  shacl:class foaf:Agent;
+  shacl:description "An entity responsible for making contributions to the resource."@en;
+  shacl:name "contributor"@en;
+  shacl:path dc:contributor .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#AssetShape/ffc248f678a96192fc9993312b1cdea98a416bb6> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Asset.creator";
+  shacl:description "An entity responsible for making the resource."@en;
+  shacl:minCount 1;
+  shacl:name "creator"@en;
+  shacl:path dc:creator .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/0e79ef5fb9e3c47fc26e2c4054e70de85aeef448>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/2cdcbb307315722153ac5d6d26e8b8d299b2ad92>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/49cee4396d571117473d56c99f5101467cbe59d3>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/88b702e12401b15cdfbfb284e359477f384bce54>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/9caf9e629daa0e64ece77788576468821d7cff8c>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/d94c14fe5ee5bbb147447229b6bae0a2668fffd6>;
+  shacl:targetClass rdfs:Class .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/0e79ef5fb9e3c47fc26e2c4054e70de85aeef448> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.isdefinedby";
+  shacl:description "A resource defining the subject resource."@en;
+  shacl:name "is defined by"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path rdfs:isDefinedBy .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/263a563c5bed08cdaadf4a0fd0a5fb9874d742bc> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.name";
+  shacl:datatype rdf:langString;
+  shacl:description "The name of the class."@en;
+  shacl:name "name"@en;
+  shacl:path rdfs:label .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/2cdcbb307315722153ac5d6d26e8b8d299b2ad92> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.isdefinedby";
+  shacl:description "A resource defining the subject resource."@en;
+  shacl:minCount 1;
+  shacl:name "is defined by"@en;
+  shacl:path rdfs:isDefinedBy .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/49cee4396d571117473d56c99f5101467cbe59d3> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.isdefinedby";
+  shacl:class <http://www.w3.org/ns/adms#AssetDistribution>;
+  shacl:description "A resource defining the subject resource."@en;
+  shacl:name "is defined by"@en;
+  shacl:path rdfs:isDefinedBy .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/88b702e12401b15cdfbfb284e359477f384bce54> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.alternativelabel";
+  shacl:description "The alternative name for the class."@en;
+  shacl:name "alternative label"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path skos:altLabel .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/96cdcbb0489a41ab01fc39c521f5ed607a0b2c41> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.name";
+  shacl:description "The name of the class."@en;
+  shacl:minCount 1;
+  shacl:name "name"@en;
+  shacl:path rdfs:label .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/9caf9e629daa0e64ece77788576468821d7cff8c> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.name";
+  shacl:description "The name of the class."@en;
+  shacl:name "name"@en;
+  shacl:nodeKind shacl:Literal;
+  shacl:path rdfs:label .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#ClassShape/d94c14fe5ee5bbb147447229b6bae0a2668fffd6> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Class.alternativelabel";
+  shacl:datatype rdf:langString;
+  shacl:description "The alternative name for the class."@en;
+  shacl:name "alternative label"@en;
+  shacl:path skos:altLabel .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#CodeShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass skos:Concept .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#DateTimeShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass xsd:dateTime .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#DocumentShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass foaf:Document .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#EmailShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass vcard:Email .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#KindShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:property <https://semiceu.github.io/SRM/releases/1.0.0#KindShape/0867cf853418cb9d7d1fb8b906e353ec44462596>,
+    <https://semiceu.github.io/SRM/releases/1.0.0#KindShape/0c404fa56c64463c15f65878d02efa16eec065b0>;
+  shacl:targetClass vcard:Kind .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#KindShape/0867cf853418cb9d7d1fb8b906e353ec44462596> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Kind.hasemail";
+  shacl:class vcard:Email;
+  shacl:description "To specify the electronic mail address for communication with the object"@en;
+  shacl:name "has email"@en;
+  shacl:path vcard:hasEmail .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#KindShape/0c404fa56c64463c15f65878d02efa16eec065b0> rdfs:seeAlso "https://semiceu.github.io/SRM/releases/1.0.0#Kind.hasemail";
+  shacl:description "To specify the electronic mail address for communication with the object"@en;
+  shacl:name "has email"@en;
+  shacl:nodeKind shacl:BlankNodeOrIRI;
+  shacl:path vcard:hasEmail .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#LicenseDocumentShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass dc:LicenseDocument .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#LocationShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass dc:Location .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#NonNegativeIntegerShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass xsd:nonNegativeInteger .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#StringShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass xsd:string .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#TextShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass rdf:langString .
+
+<https://semiceu.github.io/SRM/releases/1.0.0#URIShape> a shacl:NodeShape;
+  shacl:closed false;
+  shacl:targetClass xsd:anyURI .

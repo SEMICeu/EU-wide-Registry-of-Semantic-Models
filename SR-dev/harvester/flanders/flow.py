@@ -126,26 +126,32 @@ def parallel_processing_flow():
     logger = get_run_logger()
     logger.info("Starting parallel processing flow...")
 
-    # # Task 1: Extract JSON-LD from a Vlaanderen standards page.
-    # jsonld = fetch_jsonld(config["web_source_url"])
+    # Task 1: Extract JSON-LD from a Vlaanderen standards page.
+    jsonld = fetch_jsonld(config["web_source_url"])
 
-    # #Task 2: Create a new repository in GraphDB. (Overwrite if repo exists)
-    # endpoint = initialize_graphdb_repo(config["graphDB_repo_name"],config["graphDB_config_file_path"],config["graphDB_host"])
+    #Task 2: Create a new repository in GraphDB. (Overwrite if repo exists)
+    endpoint = initialize_graphdb_repo(config["graphDB_repo_name"],config["graphDB_config_file_path"],config["graphDB_host"])
 
-    # # Task 3: Load JSON-LD into GraphDB as RDF triples.
-    # load_jsonld_to_graphdb(jsonld, endpoint)
+    # Task 3: Load JSON-LD into GraphDB as RDF triples.
+    load_jsonld_to_graphdb(jsonld, endpoint)
 
-    # # Task 4:     Task 4: Extract the Vocabularium and Application Profiles .
-    # list = query_voc_and_ap_list(endpoint, config["extract_query"])
+    # Task 4:     Task 4: Extract the Vocabularium and Application Profiles .
+    list = query_voc_and_ap_list(endpoint, config["extract_query"])
 
 
     # chunks = chunk_list(list)
 
     # Task 25 validate
 
-    list2 = construct_list("http://localhost:7200/repositories/oslo", config["construct_query"])
+    # list2 = construct_list("http://localhost:7200/repositories/oslo", config["construct_query"])
 
-    validated_futures = [validate_data_graph.submit(list2)]
+    validated_futures = [
+        validate_data_graph.submit(
+            list, 
+            config["validator"]["url"],
+            config["validator"]["payload"],
+            config["validator"]["headers"]
+        )]
     validated_results = [future.result() for future in validated_futures]
 
 

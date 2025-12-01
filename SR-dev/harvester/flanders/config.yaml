@@ -24,15 +24,15 @@ extract_query: |
     UNION
     { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium> }
     }
+
 construct_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX adms: <http://www.w3.org/ns/adms#>
     CONSTRUCT {
-    ?s a adms:Asset .
     ?s ?p ?o
-    }
+    } 
     WHERE {
-    ?s a dct:Standard .
-    ?s ?p ?o
+    ?s ?p ?o .
+    FILTER(?s = <$uri>)
     }
     

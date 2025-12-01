@@ -6,6 +6,8 @@ from pathlib import Path
 import requests
 import json
 
+from sqlalchemy import false
+
 
 @task(name="Extract JSON-LD", retries=3, retry_delay_seconds=120)
 def fetch_jsonld(web_url: str) -> dict:
@@ -92,7 +94,7 @@ def initialize_graphdb_repo(repo_name: str, config_file_path: str, host: str = "
 
 
 @task(name="Load JSON-LD into GraphDB")
-def load_jsonld_to_graphdb(jsonld_data: dict, graphdb_endpoint: str):
+def load_jsonld_to_graphdb(jsonld_data: dict, graphdb_endpoint: str) -> bool:
     """
     Task 3: Load JSON-LD into GraphDB as RDF triples.
 
@@ -113,4 +115,9 @@ def load_jsonld_to_graphdb(jsonld_data: dict, graphdb_endpoint: str):
                      headers={"Content-Type": "text/turtle"})
     response.raise_for_status()
 
-    logger.info("Upload to GraphDB completed") 
+    if response.status_code == 204:
+        logger.info("Upload to GraphDB completed")
+        return True
+    else:
+        logger.error(f"Upload failed with status {response.status_code}")
+        return False

@@ -20,13 +20,13 @@ def extract_conforms(jsonld: dict) -> bool | None:
     return None
 
 
-@task(name="Validate", retries=3, retry_delay_seconds=120)
+@task(name="Validate")
 def validate_data_graph(
     data: str,
     api_url: str,
     payload_template: Dict[str, Any],
     headers: Dict[str, str]
-) -> bool:    
+) -> dict[str,any]:    
     """
     Validate the enriched data using SHACL.
     """
@@ -38,36 +38,35 @@ def validate_data_graph(
     payload = payload_template.copy()
     payload["contentToValidate"] = data
 
-    g = Graph()
-    g.parse(data=data, format='turtle')
-
     try:
         response = requests.post(url=api_url, json=payload, headers=headers)
-        logger.info(f"SHACL response: {response.text}")
+        logger.info(f"---payload--- \n{payload}")
+        logger.info(f"---SHACL response--- {response.text}")
 
         if response.status_code != 200:
             logger.error(f"Validation failed (HTTP): {response.status_code}")
-            return False
+            raise ValueError(f"HTTP error {response.status_code}: {response.text}")
 
         try:
             json_data = response.json()
         except Exception:
             logger.error("Response is not valid JSON.")
-            return False
+            raise ValueError(f"Invalid JSON response: {response.text}") from e
 
         conforms = extract_conforms(json_data)
 
         if conforms is None:
             logger.error("Could not find sh:conforms in SHACL response.")
-            return False
+            raise ValueError("Missing sh:conforms in SHACL validation response")
 
         if conforms is True:
             logger.info("SHACL validation PASSED.")
-            return True
+            return payload
         else:
             logger.error("SHACL validation FAILED (conforms = false).")
-            return False
+            raise ValueError("SHACL validation failed: conforms = false")
+
 
     except Exception as e:
         logger.error(f"Connection Error: {e}")
-        return False
+        raise

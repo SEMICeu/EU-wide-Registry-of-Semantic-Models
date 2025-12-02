@@ -5,7 +5,6 @@ from SPARQLWrapper import TURTLE
 from string import Template
 
 
-
 @task(name="Extract List", retries=3, retry_delay_seconds=120)
 def query_voc_and_ap_list(db_path: str, extract_query: str) -> List[str]:
     """
@@ -53,7 +52,7 @@ def chunk_dict(list: List[str], chunk_size):
         yield list[i:i+chunk_size]
 
 
-@task(name="make batches", retries=3, retry_delay_seconds=120)
+@task(name="make batches")
 def make_batches(results_by_standard, batch_size=1):
     logger = get_run_logger()
     batches = list(chunk_dict(results_by_standard, batch_size))
@@ -79,7 +78,7 @@ async def construct_item(batch: str, db_path: str, construct_query: str) -> List
  
     try:
         template = Template(query_template)
-        query = template.substitute(uri=batch)
+        query = template.substitute(uri=batch[0])
         
         logger.info(f"Query to execute:\n{query[:500]}") 
 
@@ -93,6 +92,7 @@ async def construct_item(batch: str, db_path: str, construct_query: str) -> List
         
         result_size = len(results) if isinstance(results, (str, bytes)) else "unknown"
         logger.info(f"Query completed. Result size: {result_size} bytes")
+        logger.info(f"construct item result: {results}")
 
         return results
         

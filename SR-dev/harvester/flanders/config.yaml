@@ -24,12 +24,14 @@ extract_query: |
     UNION
     { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium> }
     }
+    LIMIT 10
 
 construct_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX adms: <http://www.w3.org/ns/adms#>
     CONSTRUCT {
-    ?s ?p ?o
+    ?s ?p ?o .
+    ?s a adms:Asset .
     } 
     WHERE {
     ?s ?p ?o .

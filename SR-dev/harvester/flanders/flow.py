@@ -6,6 +6,8 @@ from tasks.jsonld_ingest import fetch_jsonld, initialize_graphdb_repo, load_json
 from tasks.extract import query_voc_and_ap_list, construct_item, make_batches
 from tasks.validate import validate_data_graph
 from config import load_config
+from concurrent.futures import as_completed
+
 
 
 @flow(name="Parallel Processing Pipeline", task_runner=ConcurrentTaskRunner(max_workers=5))
@@ -38,16 +40,30 @@ def parallel_processing_flow():
 
     # Task 6: Process batches in parallel
     batch_futures = [
-        construct_item.submit(batch, endpoint, config["construct_query"])
+    construct_item.submit(batch, endpoint, config["construct_query"])
         for batch in batches
     ]
     
     # Wait for all batch processing to complete
-    results = [future.result() for future in batch_futures]
+    constructed_results = [future.result() for future in batch_futures]
     
-    logger.info(f"Completed processing {len(results)} batches")
+    logger.info(f"Completed processing {len(constructed_results)} batches")
+
+
+    validated_futures = [
+        validate_data_graph.submit(
+            constructed_item, 
+            config["validator"]["url"],
+            config["validator"]["payload"],
+            config["validator"]["headers"]
+        )
+            for constructed_item in constructed_results
+    ]
+
+
+    validated_results = [future.result() for future in validated_futures]
     
-    return results
+    # return results
  
  
 if __name__ == "__main__":

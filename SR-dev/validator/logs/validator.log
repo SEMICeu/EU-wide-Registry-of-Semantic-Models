@@ -1,136 +1,110 @@
-26/11/2025 12:20:40 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-26/11/2025 12:20:40 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 17.0.17 with PID 33003 (/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/validator.jar started by deanterneu in /home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator)
-26/11/2025 12:20:40 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
-26/11/2025 12:20:43 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-26/11/2025 12:20:43 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-26/11/2025 12:20:43 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
-26/11/2025 12:20:43 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
-26/11/2025 12:20:43 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
-26/11/2025 12:20:43 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3067 ms
-26/11/2025 12:20:43 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
-26/11/2025 12:20:43 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
-26/11/2025 12:20:43 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
-26/11/2025 12:20:46 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
-26/11/2025 12:20:46 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
-26/11/2025 12:20:47 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
-26/11/2025 12:20:48 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
-26/11/2025 12:20:48 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/./tmp/hydra]
-26/11/2025 12:20:50 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-26/11/2025 12:20:50 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
-26/11/2025 12:20:51 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 11.769 seconds (process running for 12.597)
-26/11/2025 12:21:19 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-26/11/2025 12:21:19 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-26/11/2025 12:21:23 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-26/11/2025 12:21:23 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 17.0.17 with PID 33085 (/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/validator.jar started by deanterneu in /home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator)
-26/11/2025 12:21:23 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
-26/11/2025 12:21:23 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-26/11/2025 12:21:23 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-26/11/2025 12:21:23 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
-26/11/2025 12:21:23 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
-26/11/2025 12:21:23 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
-26/11/2025 12:21:23 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 130 ms
-26/11/2025 12:21:24 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [mldcat-ap]
-26/11/2025 12:21:24 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [mldcat-ap]=[mldcat-ap]
-26/11/2025 12:21:24 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [mldcat-ap]
-26/11/2025 12:21:26 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
-26/11/2025 12:21:26 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
-26/11/2025 12:21:27 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /mldcat-ap/validation
-26/11/2025 12:21:28 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
-26/11/2025 12:21:29 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/./tmp/hydra]
-26/11/2025 12:21:31 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-26/11/2025 12:21:31 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
-26/11/2025 12:21:31 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 8.832 seconds (process running for 12.235)
-26/11/2025 12:27:04 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-26/11/2025 12:27:04 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-26/11/2025 12:27:15 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-26/11/2025 12:27:15 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 17.0.17 with PID 33323 (/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/validator.jar started by deanterneu in /home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator)
-26/11/2025 12:27:15 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
-26/11/2025 12:27:20 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-26/11/2025 12:27:20 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-26/11/2025 12:27:20 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
-26/11/2025 12:27:20 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
-26/11/2025 12:27:20 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
-26/11/2025 12:27:20 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5201 ms
-26/11/2025 12:27:21 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
-26/11/2025 12:27:21 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
-26/11/2025 12:27:21 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [srm] to only validation type provided [v1.0.0].
-26/11/2025 12:27:21 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
-26/11/2025 12:27:22 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
-26/11/2025 12:27:22 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
-26/11/2025 12:27:24 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
-26/11/2025 12:27:25 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
-26/11/2025 12:27:26 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/./tmp/hydra]
-26/11/2025 12:27:29 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-26/11/2025 12:27:29 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
-26/11/2025 12:27:29 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 15.912 seconds (process running for 17.445)
-26/11/2025 13:31:29 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-26/11/2025 13:31:29 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-26/11/2025 13:31:43 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-26/11/2025 13:31:43 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 17.0.17 with PID 33604 (/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/validator.jar started by deanterneu in /home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator)
-26/11/2025 13:31:43 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
-26/11/2025 13:31:46 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-26/11/2025 13:31:46 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-26/11/2025 13:31:46 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
-26/11/2025 13:31:46 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
-26/11/2025 13:31:46 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
-26/11/2025 13:31:46 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2473 ms
-26/11/2025 13:31:46 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [mldcat-ap]
-26/11/2025 13:31:46 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [mldcat-ap]=[mldcat-ap]
-26/11/2025 13:31:46 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [mldcat-ap] to only validation type provided [v3.0.0].
-26/11/2025 13:31:46 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [mldcat-ap]
-26/11/2025 13:31:46 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
-26/11/2025 13:31:46 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
-26/11/2025 13:31:48 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /mldcat-ap/validation
-26/11/2025 13:31:48 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
-26/11/2025 13:31:48 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/./tmp/hydra]
-26/11/2025 13:31:50 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-26/11/2025 13:31:50 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
-26/11/2025 13:31:50 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 7.775 seconds (process running for 8.744)
-26/11/2025 13:41:26 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-26/11/2025 13:41:26 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-26/11/2025 13:41:30 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-26/11/2025 13:41:30 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 17.0.17 with PID 33761 (/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/validator.jar started by deanterneu in /home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator)
-26/11/2025 13:41:30 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
-26/11/2025 13:41:33 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-26/11/2025 13:41:33 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-26/11/2025 13:41:33 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
-26/11/2025 13:41:33 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
-26/11/2025 13:41:33 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
-26/11/2025 13:41:33 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2663 ms
-26/11/2025 13:41:33 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
-26/11/2025 13:41:33 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
-26/11/2025 13:41:33 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [srm] to only validation type provided [v3.0.0].
-26/11/2025 13:41:33 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
-26/11/2025 13:41:33 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
-26/11/2025 13:41:33 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
-26/11/2025 13:41:34 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
-26/11/2025 13:41:35 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
-26/11/2025 13:41:35 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/./tmp/hydra]
-26/11/2025 13:41:36 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-26/11/2025 13:41:36 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
-26/11/2025 13:41:36 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 7.667 seconds (process running for 8.702)
-26/11/2025 16:01:30 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-26/11/2025 16:01:30 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-26/11/2025 16:02:20 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-26/11/2025 16:02:21 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 17.0.17 with PID 34716 (/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/validator.jar started by deanterneu in /home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator)
-26/11/2025 16:02:21 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
-26/11/2025 16:02:25 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-26/11/2025 16:02:25 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-26/11/2025 16:02:25 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
-26/11/2025 16:02:25 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
-26/11/2025 16:02:25 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
-26/11/2025 16:02:25 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3868 ms
-26/11/2025 16:02:25 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
-26/11/2025 16:02:25 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
-26/11/2025 16:02:25 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [srm] to only validation type provided [v3.0.0].
-26/11/2025 16:02:25 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
-26/11/2025 16:02:26 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
-26/11/2025 16:02:26 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
-26/11/2025 16:02:27 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
-26/11/2025 16:02:29 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
-26/11/2025 16:02:29 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [/home/deanterneu/PwC/Projects/SEMIC/SMR/EU-wide-Registry-of-Semantic-Models/SR-dev/validator/./tmp/hydra]
-26/11/2025 16:02:32 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-26/11/2025 16:02:32 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
-26/11/2025 16:02:32 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 13.359 seconds (process running for 15.109)
-26/11/2025 16:10:06 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-26/11/2025 16:10:06 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+03/12/2025 13:43:26 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+03/12/2025 13:43:26 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 21976 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+03/12/2025 13:43:26 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+03/12/2025 13:43:32 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+03/12/2025 13:43:32 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+03/12/2025 13:43:32 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+03/12/2025 13:43:32 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+03/12/2025 13:43:33 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+03/12/2025 13:43:33 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6487 ms
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [srm] to only validation type provided [v3.0.0].
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+03/12/2025 13:43:34 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+03/12/2025 13:43:34 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+03/12/2025 13:43:36 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+03/12/2025 13:43:39 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+03/12/2025 13:43:40 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+03/12/2025 13:43:46 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+03/12/2025 13:43:46 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+03/12/2025 13:43:46 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 23.234 seconds (process running for 25.788)
+03/12/2025 16:20:10 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+03/12/2025 16:20:10 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 24420 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+03/12/2025 16:20:10 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+03/12/2025 16:20:13 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+03/12/2025 16:20:13 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+03/12/2025 16:20:13 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+03/12/2025 16:20:13 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+03/12/2025 16:20:13 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+03/12/2025 16:20:13 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2701 ms
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [srm] to only validation type provided [v3.0.0].
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+03/12/2025 16:20:14 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+03/12/2025 16:20:14 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+03/12/2025 16:20:16 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+03/12/2025 16:20:17 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+03/12/2025 16:20:18 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+03/12/2025 16:20:21 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+03/12/2025 16:20:21 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+03/12/2025 16:20:21 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 12.02 seconds (process running for 12.872)
+03/12/2025 16:21:03 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+03/12/2025 16:21:03 INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+03/12/2025 16:21:03 INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.

@@ -1,8 +1,9 @@
 web_source_url: "https://data.vlaanderen.be/standaarden/"
 
 graphDB_host: "http://localhost:7200"
-graphDB_repo_name: "oslo"
 graphDB_config_file_path: "config_graphDB_repo.ttl"
+graphDB_source_repo_name: "oslo"
+graphDB_target_repo_name: "srm"
 
 validator:
   url: "http://localhost:8080/shacl/srm/api/validate"

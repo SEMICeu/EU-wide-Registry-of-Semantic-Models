@@ -1,0 +1,140 @@
+03/12/2025 13:43:26 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+03/12/2025 13:43:26 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 21976 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+03/12/2025 13:43:26 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+03/12/2025 13:43:32 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+03/12/2025 13:43:32 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+03/12/2025 13:43:32 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+03/12/2025 13:43:32 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+03/12/2025 13:43:33 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+03/12/2025 13:43:33 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6487 ms
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [srm] to only validation type provided [v3.0.0].
+03/12/2025 13:43:33 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+03/12/2025 13:43:34 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+03/12/2025 13:43:34 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+03/12/2025 13:43:36 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+03/12/2025 13:43:39 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+03/12/2025 13:43:40 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+03/12/2025 13:43:46 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+03/12/2025 13:43:46 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+03/12/2025 13:43:46 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 23.234 seconds (process running for 25.788)
+03/12/2025 16:20:10 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+03/12/2025 16:20:10 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 24420 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+03/12/2025 16:20:10 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+03/12/2025 16:20:13 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+03/12/2025 16:20:13 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+03/12/2025 16:20:13 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+03/12/2025 16:20:13 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+03/12/2025 16:20:13 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+03/12/2025 16:20:13 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2701 ms
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Setting default validation type for domain [srm] to only validation type provided [v3.0.0].
+03/12/2025 16:20:13 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+03/12/2025 16:20:14 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+03/12/2025 16:20:14 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+03/12/2025 16:20:16 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+03/12/2025 16:20:17 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+03/12/2025 16:20:18 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+03/12/2025 16:20:21 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+03/12/2025 16:20:21 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+03/12/2025 16:20:21 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 12.02 seconds (process running for 12.872)
+03/12/2025 16:21:03 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+03/12/2025 16:21:03 INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+03/12/2025 16:21:03 INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL.ttl]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:21:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:26:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+03/12/2025 16:42:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.

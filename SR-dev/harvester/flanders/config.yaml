@@ -32,10 +32,8 @@ construct_query: |
     PREFIX adms: <http://www.w3.org/ns/adms#>
     CONSTRUCT {
     ?s ?p ?o .
-    ?s a adms:Asset .
     } 
     WHERE {
     ?s ?p ?o .
     FILTER(?s = <$uri>)
     }
-    

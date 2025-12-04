@@ -7,6 +7,7 @@ from tasks.load.initialize_graphdb_repo import initialize_graphdb_repo
 from tasks.load.load_data_to_graphdb import load_data_to_graphdb
 from tasks.transform.construct_item import construct_item
 from tasks.transform.validate import validate_data_graph
+from tasks.transform.transform_item import transform_item
 from config import load_config
 from concurrent.futures import as_completed
 
@@ -47,18 +48,25 @@ def parallel_processing_flow():
     
     # Wait for all batch processing to complete
     constructed_results = [future.result() for future in batch_futures]
-    
-    logger.info(f"Completed processing {len(constructed_results)} batches")
+    logger.info(f"Completed constructing {len(constructed_results)} batches")
+
+    transformed_futures = [
+    transform_item.submit(constructed_batch)
+        for constructed_batch in constructed_results
+    ]
+
+    transformed_results = [future.result() for future in transformed_futures]
+    logger.info(f"Completed transformation {len(transformed_results)} batches")
 
     # Task 7: Validate each entry
     validated_futures = [
         validate_data_graph.submit(
-            constructed_item, 
+            transformed_item, 
             config["validator"]["url"],
             config["validator"]["payload"],
             config["validator"]["headers"]
         )
-            for constructed_item in constructed_results
+            for transformed_item in transformed_results
     ]
 
     validated_results = [future.result() for future in validated_futures]

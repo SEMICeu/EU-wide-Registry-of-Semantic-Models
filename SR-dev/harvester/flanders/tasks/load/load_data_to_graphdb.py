@@ -62,32 +62,3 @@ def load_data_to_graphdb(
     except requests.exceptions.RequestException as e:
         logger.error(f"Request failed: {e}")
         raise
-
-# @task(name="Load JSON-LD into GraphDB")
-# def load_jsonld_to_graphdb(jsonld_data: dict, graphdb_endpoint: str) -> bool:
-#     """
-#     Task 3: Load JSON-LD into GraphDB as RDF triples.
-
-#     :param dict jsonld_data: JSON-LD content to convert and upload.
-#     :param str graphdb_endpoint: SPARQL endpoint URL of the target repository.
-#     """
-
-#     logger = get_run_logger()
-#     g = Graph()
-#     g.parse(data=json.dumps(jsonld_data), format="json-ld")
-
-#     logger.info(f"Parsed {len(g)} RDF triples")
-
-#     turtle_data = g.serialize(format="turtle")
-
-#     response = requests.post(f"{graphdb_endpoint}/statements",
-#                      data=turtle_data,
-#                      headers={"Content-Type": "text/turtle"})
-#     response.raise_for_status()
-
-#     if response.status_code == 204:
-#         logger.info("Upload to GraphDB completed")
-#         return True
-#     else:
-#         logger.error(f"Upload failed with status {response.status_code}")
-#         return False

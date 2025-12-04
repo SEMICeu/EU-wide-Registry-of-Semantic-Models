@@ -20,7 +20,7 @@ async def construct_item(batch: str, db_path: str, construct_query: str) -> List
     :param construct_query: SPARQL query string used to construct the items.
     :return: List of strings representing the constructed items for the batch.
     """
-    
+
     logger = get_run_logger()
 
     query_template = construct_query
@@ -48,7 +48,7 @@ async def construct_item(batch: str, db_path: str, construct_query: str) -> List
         return results
         
     except Exception as e:
-        logger.error(f"FAILED for batch: {batch}")
+        logger.error(f"Constructing FAILED for batch: {batch}")
         logger.error(f"Error type: {type(e).__name__}")
         logger.error(f"Error message: {str(e)}")
         raise 

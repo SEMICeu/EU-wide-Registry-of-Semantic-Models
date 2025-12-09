@@ -2,11 +2,12 @@ from ast import parse
 from prefect import task, get_run_logger
 from typing import List
 
-from rdflib import Graph, RDF, Namespace, Literal
+from rdflib import Graph, RDF, Namespace, Literal, URIRef
 from rdflib.namespace import XSD
 from db.client import get_sparql_client
 from SPARQLWrapper import TURTLE
 from string import Template
+import requests
 
 
 @task(
@@ -24,53 +25,149 @@ async def transform_item(batch: str) -> str:
     logger.info(f"Transforming batch: {batch}")  
  
     try:
-       source_graph = Graph()
-       source_graph.parse(data=batch, format="turtle")
+        source_graph = Graph()
+        source_graph.parse(data=batch, format="turtle")
 
-       target_graph = Graph()
-       ADMS = Namespace("http://www.w3.org/ns/adms#")
-       DCT = Namespace("http://purl.org/dc/terms/")
-       target_graph.bind("adms", ADMS)
-       target_graph.bind("dct", DCT)
+        target_graph = Graph()
+        ADMS = Namespace("http://www.w3.org/ns/adms#")
+        DCT = Namespace("http://purl.org/dc/terms/")
+        VANN = Namespace("http://purl.org/vocab/vann/")
+        FOAF = Namespace("http://xmlns.com/foaf/0.1/")
+        SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
+        target_graph.bind("adms", ADMS)
+        target_graph.bind("dct", DCT)
+        target_graph.bind("vann", VANN)
+        target_graph.bind("foaf", FOAF)
+        target_graph.bind("skos", SKOS)
 
-       # adms:Asset
-       for s, p, o in source_graph.triples((None, RDF.type, DCT.Standard)):
+        # adms:Asset
+        for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
             target_graph.add((s, RDF.type, ADMS.Asset))
 
-       # adms:Asset/dct:created
-       for s, p , o in source_graph.triples((None, DCT.created, None)):
-            target_graph.add((s, DCT.created, o))
+        # adms:Asset/dct:created
+        for s, p, o in source_graph.triples((None, DCT.created, None)):
+            dateTime = str(o) + "T00:00:00"
+            target_graph.add((s, DCT.created, Literal(dateTime, datatype=XSD.dateTime)))
 
-       # adms:Asset/dct:identifier
-       for s, p , o in source_graph.triples((None, DCT.identifier, None)):
+        # adms:Asset/dct:identifier
+        for s, p, o in source_graph.triples((None, DCT.identifier, None)):
             target_graph.add((s, DCT.identifier, o))
 
-       # adms:Asset/dct:issued
-       dateList = [] 
-       for s, p, o in source_graph.triples((None, DCT.issued, None)):
+        # adms:Asset/dct:issued
+        dates_by_subject = {}
+
+        for s, p, o in source_graph.triples((None, DCT.issued, None)):
             if str(o) == "N.v.t.":
-                logger.info(f"Skipping N.v.t: {latest_date}")
+                logger.info(f"dct:issued - skipping N.v.t. for subject {s}")
                 continue
             try:
                 date_value = o.toPython()
-                dateList.append(date_value)
-            except:
-                logger.info(f"Could not convert date: {o}")
+                dates_by_subject.setdefault(s, []).append(date_value)
+            except Exception as e:
+                logger.info(f"dct:issued - could not convert date: {o} (error: {e})")
                 continue
 
-       if dateList:
-            latest_date = max(dateList)
-            logger.info(f"Latest date: {latest_date}")
-            latest_date_literal = Literal(latest_date, datatype=XSD.dateTime)
-            target_graph.add((s, DCT.issued, latest_date_literal))
+        for s, dates in dates_by_subject.items():
+            date_count = len(dates)
 
-       target_data = target_graph.serialize(format="turtle")
+            if date_count == 1:
+                dateTime = str(dates[0]) + "T00:00:00"
+                target_graph.add((s, DCT.issued, Literal(dateTime, datatype=XSD.dateTime)))
+            elif date_count > 1:
+                latest_date = max(dates)
+                dateTime = str(latest_date) + "T00:00:00"
 
-       logger.info(f"Transformed target Data: {target_data}")
-       return target_data
+                logger.info(f"dct:issued - subject {s} has {date_count} dates, keeping latest: {dateTime}")
+                target_graph.add((s, DCT.issued, Literal(dateTime, datatype=XSD.dateTime)))
+
+        # adms:Asset/dct:language
+        for s, p, o in source_graph.triples((None, DCT.language, None)):
+            target_graph.add((s, DCT.language, o))
+            target_graph.add((o, RDF.type, SKOS.Concept))
+
+        # adms:Asset/dct:modified
+        for s, p, o in source_graph.triples((None, DCT.modified, None)):
+            dateTime = str(o) + "T00:00:00"
+            target_graph.add((s, DCT.modified, Literal(dateTime, datatype=XSD.dateTime)))
+
+        # adms:Asset/vann:preferredNamespaceUri
+        for s, p, o in source_graph.triples((None, VANN.preferredNamespaceUri, None)):
+            target_graph.add((s, VANN.preferredNamespaceUri, o))
+
+        # adms:Asset/dct:title
+        titles_by_subject = {}
+        for s, p, o in source_graph.triples((None, DCT.title, None)):
+            titles_by_subject.setdefault(s, []).append(o)
+
+        for s, titles in titles_by_subject.items():
+            title_count = len(titles)
+            
+            if title_count == 1:
+                target_graph.add((s, DCT.title, titles[0]))
+            elif title_count > 1:
+                longest = max(titles, key=lambda t: len(str(t)))
+                logger.info(
+                    f"dct:title - more than 2 titles, keeping longest: '{longest}' "
+                    f"({len(str(longest))} chars)"
+                )
+                target_graph.add((s, DCT.title, longest))
+
+        # adms:Asset/dct:type
+        for s, p, o in source_graph.triples((None, DCT.type, None)):
+            assetType = ""
+            if str(o) == "https://data.vlaanderen.be/id/concept/StandaardType/Applicatieprofiel":
+               assetType = "http://www.w3.org/ns/dx/prof/Profile"
+            elif str(o) == "https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium":
+               assetType = "http://purl.org/vocommons/voaf#Vocabulary"
+            else:
+                logger.error("AssetType is empty")
+            
+            target_graph.add((s, DCT.type, URIRef(assetType)))
+            target_graph.add((URIRef(assetType), RDF.type, SKOS.Concept))
+
+
+
+        # adms:Asset/foaf:homepage/foaf:Document/
+        for s, p, o in source_graph.triples((None, FOAF.homepage, None)):
+            target_graph.add((s, FOAF.homepage, o))
+            target_graph.add((o, RDF.type, FOAF.Document))
+
+        # adms:Asset/dct:creator/foaf:Agent
+        for s, p, o in source_graph.triples((None, DCT.creator, None)):
+            target_graph.add((s, DCT.creator, o))
+            target_graph.add((o, RDF.type, FOAF.Agent))
+
+            url = o
+            if str(o).startswith("http://"):
+                logger.warning(f"url starting with http:// - {o}")
+                url = str(o).replace("http://","https://")
+                logger.info(f"transformed url to: {url}")
+
+
+            headers = {
+                "Accept" : "text/turtle"
+            }
+            response = requests.get(url,headers=headers)
+
+            org_graph = Graph()
+            org_graph.parse(data=response.text, format="turtle")
+        
+            if response.status_code == 200:
+                logger.info("Request Succesfull for foaf:Agent")
+                for a, b, c in org_graph.triples((URIRef(url), SKOS.prefLabel, None)):
+                    target_graph.add((o, FOAF.name, Literal(c, datatype=RDF.langString)))
+            else:
+                logger.error("Request FAILED for foaf:Agent")
+
+        
+        # adms:Asset/dct:creator/foaf:Agent/foaf:name
+        target_data = target_graph.serialize(format="turtle")
+
+        logger.info(f"Transformed target Data: {target_data}")
+        return target_data
         
     except Exception as e:
         logger.error(f"Transofrmation FAILED for batch: {batch}")
         logger.error(f"Error type: {type(e).__name__}")
         logger.error(f"Error message: {str(e)}")
-        raise 
+        raise

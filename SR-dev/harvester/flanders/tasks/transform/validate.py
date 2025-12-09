@@ -71,9 +71,9 @@ def validate_data_graph(
             return payload
         else:
             logger.error("SHACL validation FAILED (conforms = false).")
-            #TODO temporary disable exception + return payload to test loading data
-            # raise ValueError("SHACL validation failed: conforms = false")
-            return payload
+            # TODO temporary disable exception + return payload to test loading data
+            raise ValueError("SHACL validation failed: conforms = false")
+            # return payload
 
 
 

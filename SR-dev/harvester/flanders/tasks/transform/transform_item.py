@@ -31,11 +31,12 @@ async def transform_item(batch: str) -> str:
         target_graph = Graph()
         ADMS = Namespace("http://www.w3.org/ns/adms#")
         DCT = Namespace("http://purl.org/dc/terms/")
+        DCAT = Namespace("http://www.w3.org/ns/dcat#")
         VANN = Namespace("http://purl.org/vocab/vann/")
         FOAF = Namespace("http://xmlns.com/foaf/0.1/")
         SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
         SCHEMA = Namespace("http://schema.org/")
-        VCARD = Namespace("http://www.w3.org/2006/vcard/ns#/")
+        VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
         M8G = Namespace("http://data.europa.eu/m8g/")
 
         target_graph.bind("adms", ADMS)
@@ -46,6 +47,8 @@ async def transform_item(batch: str) -> str:
         target_graph.bind("schema", SCHEMA)
         target_graph.bind("vcard", VCARD)
         target_graph.bind("m8g", M8G)
+        target_graph.bind("dcat", DCAT)
+
 
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
@@ -214,7 +217,7 @@ async def transform_item(batch: str) -> str:
         # adms:Asset/dcat:contactPoint/vcard:Kind
         # adms:Asset/dcat:contactPoint/vcard:Kind/vcard:hasEmail
         for s, p, o in source_graph.triples((None, M8G.contactPoint, None)):
-            target_graph.add((s, DCT.contactPoint, o))
+            target_graph.add((s, DCAT.contactPoint, o))
             target_graph.add((o, RDF.type, VCARD.Kind))
         
             url = o
@@ -222,7 +225,6 @@ async def transform_item(batch: str) -> str:
                 logger.warning(f"url starting with http:// - {o}")
                 url = str(o).replace("http://","https://")
                 logger.info(f"transformed url to: {url}")
-
 
             headers = {
                 "Accept" : "text/turtle"
@@ -238,7 +240,10 @@ async def transform_item(batch: str) -> str:
                 for a, b, c in contactPoint_graph.triples((None, SCHEMA.email, None)):
                     if (a, RDF.type, SCHEMA.ContactPoint) in contactPoint_graph:
                         logger.info(f"Found email: {c} for contact point: {a}")
-                        target_graph.add((o, VCARD.hasEmail, Literal(c, datatype=RDF.langString)))
+                        emailURI =  "mailto:" + c
+                        target_graph.add((o, VCARD.hasEmail, URIRef(emailURI)))
+                        target_graph.add((URIRef(emailURI), RDF.type, VCARD.Email,))
+
             else:
                 logger.error(f"Request FAILED for vcard:Kind - Status: {response.status_code}")
 

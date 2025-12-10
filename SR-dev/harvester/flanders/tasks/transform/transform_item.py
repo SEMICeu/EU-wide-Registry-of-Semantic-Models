@@ -34,27 +34,56 @@ async def transform_item(batch: str) -> str:
         VANN = Namespace("http://purl.org/vocab/vann/")
         FOAF = Namespace("http://xmlns.com/foaf/0.1/")
         SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
+        SCHEMA = Namespace("http://schema.org/")
+        VCARD = Namespace("http://www.w3.org/2006/vcard/ns#/")
+        M8G = Namespace("http://data.europa.eu/m8g/")
+
         target_graph.bind("adms", ADMS)
         target_graph.bind("dct", DCT)
         target_graph.bind("vann", VANN)
         target_graph.bind("foaf", FOAF)
         target_graph.bind("skos", SKOS)
+        target_graph.bind("schema", SCHEMA)
+        target_graph.bind("vcard", VCARD)
+        target_graph.bind("m8g", M8G)
 
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
             target_graph.add((s, RDF.type, ADMS.Asset))
 
         # adms:Asset/dct:created
+        created_by_subject = {}
+
         for s, p, o in source_graph.triples((None, DCT.created, None)):
-            dateTime = str(o) + "T00:00:00"
-            target_graph.add((s, DCT.created, Literal(dateTime, datatype=XSD.dateTime)))
+            if str(o) == "N.v.t.":
+                logger.info(f"dct:created - skipping N.v.t. for subject {s}")
+                continue
+            try:
+                date_value = o.toPython()
+                created_by_subject.setdefault(s, []).append(date_value)
+            except Exception as e:
+                logger.info(f"dct:created - could not convert date: {o} (error: {e})")
+                continue
+
+        for s, dates in created_by_subject.items():
+            date_count = len(dates)
+
+            if date_count == 1:
+                dateTime = str(dates[0]) + "T00:00:00"
+                target_graph.add((s, DCT.created, Literal(dateTime, datatype=XSD.dateTime)))
+            elif date_count > 1:
+                latest_date = max(dates)
+                dateTime = str(latest_date) + "T00:00:00"
+
+                logger.info(f"dct:created - subject {s} has {date_count} dates, keeping latest: {dateTime}")
+                target_graph.add((s, DCT.created, Literal(dateTime, datatype=XSD.dateTime)))
 
         # adms:Asset/dct:identifier
         for s, p, o in source_graph.triples((None, DCT.identifier, None)):
             target_graph.add((s, DCT.identifier, o))
 
         # adms:Asset/dct:issued
-        dates_by_subject = {}
+        issued_by_subject = {}
 
         for s, p, o in source_graph.triples((None, DCT.issued, None)):
             if str(o) == "N.v.t.":
@@ -62,12 +91,12 @@ async def transform_item(batch: str) -> str:
                 continue
             try:
                 date_value = o.toPython()
-                dates_by_subject.setdefault(s, []).append(date_value)
+                issued_by_subject.setdefault(s, []).append(date_value)
             except Exception as e:
                 logger.info(f"dct:issued - could not convert date: {o} (error: {e})")
                 continue
 
-        for s, dates in dates_by_subject.items():
+        for s, dates in issued_by_subject.items():
             date_count = len(dates)
 
             if date_count == 1:
@@ -86,9 +115,31 @@ async def transform_item(batch: str) -> str:
             target_graph.add((o, RDF.type, SKOS.Concept))
 
         # adms:Asset/dct:modified
+        modified_by_subject = {}
+
         for s, p, o in source_graph.triples((None, DCT.modified, None)):
-            dateTime = str(o) + "T00:00:00"
-            target_graph.add((s, DCT.modified, Literal(dateTime, datatype=XSD.dateTime)))
+            if str(o) == "N.v.t.":
+                logger.info(f"dct:modified - skipping N.v.t. for subject {s}")
+                continue
+            try:
+                date_value = o.toPython()
+                modified_by_subject.setdefault(s, []).append(date_value)
+            except Exception as e:
+                logger.info(f"dct:modified - could not convert date: {o} (error: {e})")
+                continue
+
+        for s, dates in modified_by_subject.items():
+            date_count = len(dates)
+
+            if date_count == 1:
+                dateTime = str(dates[0]) + "T00:00:00"
+                target_graph.add((s, DCT.modified, Literal(dateTime, datatype=XSD.dateTime)))
+            elif date_count > 1:
+                latest_date = max(dates)
+                dateTime = str(latest_date) + "T00:00:00"
+
+                logger.info(f"dct:modified - subject {s} has {date_count} dates, keeping latest: {dateTime}")
+                target_graph.add((s, DCT.modified, Literal(dateTime, datatype=XSD.dateTime)))
 
         # adms:Asset/vann:preferredNamespaceUri
         for s, p, o in source_graph.triples((None, VANN.preferredNamespaceUri, None)):
@@ -132,7 +183,7 @@ async def transform_item(batch: str) -> str:
             target_graph.add((s, FOAF.homepage, o))
             target_graph.add((o, RDF.type, FOAF.Document))
 
-        # adms:Asset/dct:creator/foaf:Agent
+        # adms:Asset/dct:creator/foaf:Agent + adms:Asset/dct:creator/foaf:Agent/foaf:name
         for s, p, o in source_graph.triples((None, DCT.creator, None)):
             target_graph.add((s, DCT.creator, o))
             target_graph.add((o, RDF.type, FOAF.Agent))
@@ -160,7 +211,38 @@ async def transform_item(batch: str) -> str:
                 logger.error("Request FAILED for foaf:Agent")
 
         
-        # adms:Asset/dct:creator/foaf:Agent/foaf:name
+        # adms:Asset/dcat:contactPoint/vcard:Kind
+        # adms:Asset/dcat:contactPoint/vcard:Kind/vcard:hasEmail
+        for s, p, o in source_graph.triples((None, M8G.contactPoint, None)):
+            target_graph.add((s, DCT.contactPoint, o))
+            target_graph.add((o, RDF.type, VCARD.Kind))
+        
+            url = o
+            if str(o).startswith("http://"):
+                logger.warning(f"url starting with http:// - {o}")
+                url = str(o).replace("http://","https://")
+                logger.info(f"transformed url to: {url}")
+
+
+            headers = {
+                "Accept" : "text/turtle"
+            }
+            response = requests.get(url,headers=headers)
+
+            if response.status_code == 200:
+                logger.info("Request Successful for vcard:Kind")
+                
+                contactPoint_graph = Graph()
+                contactPoint_graph.parse(data=response.text, format="turtle")
+                
+                for a, b, c in contactPoint_graph.triples((None, SCHEMA.email, None)):
+                    if (a, RDF.type, SCHEMA.ContactPoint) in contactPoint_graph:
+                        logger.info(f"Found email: {c} for contact point: {a}")
+                        target_graph.add((o, VCARD.hasEmail, Literal(c, datatype=RDF.langString)))
+            else:
+                logger.error(f"Request FAILED for vcard:Kind - Status: {response.status_code}")
+
+
         target_data = target_graph.serialize(format="turtle")
 
         logger.info(f"Transformed target Data: {target_data}")

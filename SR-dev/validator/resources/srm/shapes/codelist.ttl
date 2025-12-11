@@ -1,0 +1,228 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix srm: <https://semiceu.github.io/SRM/releases/1.0.0/codelist/> .
+
+# Import external vocabularies
+srm:imports rdf:type owl:Ontology ;
+    owl:imports <http://publications.europa.eu/resource/authority/language> ;
+    owl:imports <http://publications.europa.eu/resource/authority/licence> ;
+    owl:imports <https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf> ; 
+    owl:imports <http://publications.europa.eu/resource/authority/data-theme> ;
+    owl:imports <http://publications.europa.eu/resource/authority/organization-type> ; 
+    owl:imports <http://publications.europa.eu/resource/authority/corporate-body-classification> ;
+    owl:imports <https://www.w3.org/ns/dx/prof/role/index.ttl> ;
+	owl:imports <http://publications.europa.eu/resource/authority/file-type> ;
+    owl:imports <http://publications.europa.eu/resource/authority/country> .
+
+# Shape for language validation
+srm:AssetLanguageShape 
+    a sh:NodeShape ;
+    sh:targetClass adms:Asset ;
+    rdfs:label "Asset Language Shape"@en ;
+    rdfs:comment "The language must be in the EU Publications Office language authority table"@en ;
+    sh:property [
+		sh:name "language"@en ;
+		sh:description "verify the dct:language property"@en ;
+        sh:path dct:language ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "in scheme"@en ;
+                sh:description "verify the skos:inScheme property"@en ;
+                sh:path skos:inScheme ;
+                sh:hasValue <http://publications.europa.eu/resource/authority/language> ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The language must be in the EU Publications Office language authority table" ;
+    ] .
+
+srm:AssetLicenceShape
+    a sh:NodeShape ;
+    sh:targetClass adms:Asset ;
+    rdfs:label "Asset Licence Shape"@en ;
+    rdfs:comment "The licence must be in the EU Publications Office language authority table"@en ;
+    sh:property [
+		sh:name "license"@en ;
+		sh:description "verify the dct:license property"@en ;
+        sh:path dct:license ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "in scheme"@en ;
+                sh:description "verify the skos:inScheme property"@en ;
+                sh:path skos:inScheme ;
+                sh:hasValue <http://publications.europa.eu/resource/authority/licence> ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The licence must be in the EU Publications Office licence authority table" ;
+    ] .
+
+srm:AssetStatusShape
+    a sh:NodeShape ;
+    sh:targetClass adms:Asset ;
+    rdfs:label "Asset Status Shape"@en ;
+    rdfs:comment "The status must be in the ADSM status code list"@en ;
+    sh:property [
+		sh:name "status"@en ;
+		sh:description "verify the adms:status property"@en ;
+        sh:path adms:status ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "in scheme"@en ;
+                sh:description "verify the skos:inScheme property"@en ;
+                sh:path skos:inScheme ;
+                sh:hasValue <http://purl.org/adms/status/1.0> ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The status must be in the ADMS status code list" ;
+    ] .
+
+srm:AssetThemeShape
+    a sh:NodeShape ;
+    sh:targetClass adms:Asset ;
+    rdfs:label "Asset Theme Shape"@en ;
+    rdfs:comment "The theme must be in the EU Publications Office data theme authority table"@en ;
+    sh:property [
+		sh:name "theme"@en ;
+		sh:description "verify the dcat:theme property"@en ;
+        sh:path dcat:theme ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "in scheme"@en ;
+                sh:description "verify the skos:inScheme property"@en ;
+                sh:path skos:inScheme ;
+                sh:hasValue <http://publications.europa.eu/resource/authority/data-theme> ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The theme must be in the EU Publications Office data theme authority table" ;
+    ] .
+
+srm:AssetTypeShape
+    a sh:NodeShape ;
+    sh:targetClass adms:Asset ;
+    rdfs:label "Asset Type Shape"@en ;
+    rdfs:comment "The type must be either a VOAF Vocabulary or a PROF Profile"@en ;
+    sh:property [
+        sh:name "type"@en ;
+        sh:description "verify the dct:type property"@en ;
+        sh:path dct:type ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://purl.org/vocommons/voaf#Vocabulary>
+            <http://www.w3.org/ns/dx/prof/Profile>
+        ) ;
+        sh:message "The type must be either http://purl.org/vocommons/voaf#Vocabulary or http://www.w3.org/ns/dx/prof/Profile" ;
+    ] .
+
+srm:AgentSpatialShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Agent ;
+    rdfs:label "Agent Spatial Shape"@en ;
+    rdfs:comment "The spatial must be in the EU Publications Office county authority table"@en ;
+    sh:property [
+		sh:name "spatial"@en ;
+		sh:description "verify the dct:spatial property"@en ;
+        sh:path dct:spatial ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "in scheme"@en ;
+                sh:description "verify the skos:inScheme property"@en ;
+                sh:path skos:inScheme ;
+				sh:hasValue <http://publications.europa.eu/resource/authority/country> ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The spatial must be in the EU Publications Office county authority table" ;
+    ] .
+
+srm:AgentTypeShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Agent ;
+    rdfs:label "Agent Type Shape"@en ;
+    rdfs:comment "The type must be in one of the authorized EU Publications Office authority tables (organization-type or corporate-body-classification) or adms publisher type code list"@en ;
+    sh:property [
+		sh:name "type"@en ;
+		sh:description "verify the dct:type property"@en ;
+        sh:path dct:type ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "in scheme"@en ;
+                sh:description "verify the skos:inScheme property"@en ;
+                sh:path skos:inScheme ;
+                sh:in (
+                  <http://publications.europa.eu/resource/authority/organization-type>
+                  <http://publications.europa.eu/resource/authority/corporate-body-classification>
+                  <http://purl.org/adms/publishertype/1.0>
+                ) ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The type must be in one of the authorized EU Publications Office authority tables (organization-type or corporate-body-classification) or adms publisher type code list" ;
+    ] .
+
+srm:DistributionFormatShape
+    a sh:NodeShape ;
+    sh:targetClass adms:AssetDistribution ;
+    rdfs:label "Distribution Format Shape"@en ;
+    rdfs:comment "The format must be in the EU Publications Office file type authority table"@en ;
+    sh:property [
+		sh:name "format"@en ;
+		sh:description "verify the dct:format property"@en ;
+        sh:path dct:format ;
+        sh:class dct:MediaTypeOrExtent ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "in scheme"@en ;
+                sh:description "verify the skos:inScheme property"@en ;
+                sh:path skos:inScheme ;
+				sh:hasValue <http://publications.europa.eu/resource/authority/file-type> ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The format must be in the EU Publications Office file type authority table" ;
+    ] .
+
+srm:DistributionRoleShape
+    a sh:NodeShape ;
+    sh:targetClass adms:AssetDistribution ;
+    rdfs:label "Distribution Role Shape"@en ;
+    rdfs:comment "The role must be in the PROF role code list"@en ;
+    sh:property [
+		sh:name "role"@en ;
+		sh:description "verify the prof:hasRole property"@en ;
+        sh:path prof:hasRole ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+        sh:node [
+            sh:property [
+                sh:name "top concept of"@en ;
+                sh:description "verify the skos:topConceptOf property"@en ;
+                sh:path skos:topConceptOf ;
+				sh:hasValue <http://www.w3.org/ns/dx/prof/role/> ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "The role must be in the PROF role code list" ;
+    ] .

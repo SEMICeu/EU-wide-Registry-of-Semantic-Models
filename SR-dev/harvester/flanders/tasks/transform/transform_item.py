@@ -38,6 +38,7 @@ async def transform_item(batch: str) -> str:
         SCHEMA = Namespace("http://schema.org/")
         VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
         M8G = Namespace("http://data.europa.eu/m8g/")
+        ORG = Namespace("http://www.w3.org/ns/org#")
 
         target_graph.bind("adms", ADMS)
         target_graph.bind("dct", DCT)
@@ -48,7 +49,7 @@ async def transform_item(batch: str) -> str:
         target_graph.bind("vcard", VCARD)
         target_graph.bind("m8g", M8G)
         target_graph.bind("dcat", DCAT)
-
+        target_graph.bind("org", ORG)
 
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
@@ -174,22 +175,42 @@ async def transform_item(batch: str) -> str:
             elif str(o) == "https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium":
                assetType = "http://purl.org/vocommons/voaf#Vocabulary"
             else:
-                logger.error("AssetType is empty")
+                logger.error("assetType is empty")
             
             target_graph.add((s, DCT.type, URIRef(assetType)))
             target_graph.add((URIRef(assetType), RDF.type, SKOS.Concept))
 
-
+        # adms:Asset/adms:status
+        for s, p, o in source_graph.triples((None, ADMS.status, None)):
+            mappedStatus = ""
+            if str(o) == "https://data.vlaanderen.be/id/concept/StandaardStatus/HerroepenStandaard":
+                mappedStatus = "http://purl.org/adms/status/Withdrawn"
+            elif str(o) == "https://data.vlaanderen.be/id/concept/StandaardStatus/ErkendeStandaard":
+                mappedStatus = "http://purl.org/adms/status/Completed"
+            elif str(o) == "https://data.vlaanderen.be/id/concept/StandaardStatus/VerouderdeStandaard":
+                mappedStatus = "http://purl.org/adms/status/Deprecated"
+            elif str(o) == "https://data.vlaanderen.be/id/concept/StandaardStatus/KandidaatStandaard":
+                mappedStatus = "http://purl.org/adms/status/UnderDevelopment"
+            if len(mappedStatus) > 0:              
+                target_graph.add((s, ADMS.status, URIRef(mappedStatus)))
+                target_graph.add((URIRef(mappedStatus), RDF.type, SKOS.Concept))
 
         # adms:Asset/foaf:homepage/foaf:Document/
         for s, p, o in source_graph.triples((None, FOAF.homepage, None)):
             target_graph.add((s, FOAF.homepage, o))
             target_graph.add((o, RDF.type, FOAF.Document))
 
-        # adms:Asset/dct:creator/foaf:Agent + adms:Asset/dct:creator/foaf:Agent/foaf:name
+
+        # adms:Asset/dct:creator/foaf:Agent 
+        # adms:Asset/dct:creator/foaf:Agent/foaf:name
+        # adms:Asset/dct:creator/foaf:Agent/dct:spatial
         for s, p, o in source_graph.triples((None, DCT.creator, None)):
             target_graph.add((s, DCT.creator, o))
             target_graph.add((o, RDF.type, FOAF.Agent))
+
+            spatial_code = "http://publications.europa.eu/resource/authority/country/BEL"
+            target_graph.add((o, DCT.spatial, URIRef(spatial_code)))
+            target_graph.add((URIRef(spatial_code), RDF.type, DCT.Location))
 
             url = o
             if str(o).startswith("http://"):
@@ -210,6 +231,18 @@ async def transform_item(batch: str) -> str:
                 logger.info("Request Succesfull for foaf:Agent")
                 for a, b, c in org_graph.triples((URIRef(url), SKOS.prefLabel, None)):
                     target_graph.add((o, FOAF.name, Literal(c, datatype=RDF.langString)))
+                
+                for a, b, c in org_graph.triples((URIRef(url), ORG.classification, None)):
+                    agentType = ""
+                    if str(c) == "https://data.vlaanderen.be/doc/concept/organisatieclassificatie/de8494e0-f1a9-4a9f-9df2-60f958826821":
+                        agentType = "http://publications.europa.eu/resource/authority/organization-type/COMPANY"
+                    if str(c) == "https://data.vlaanderen.be/id/concept/organisatieclassificatie/7847213d-dc31-29d0-5877-45a6b81100cc":
+                        agentType = "http://publications.europa.eu/resource/authority/organization-type/GOV"
+                    if len(agentType) > 0:
+                        logger.info(f"agentType found: {agentType}")
+
+                        target_graph.add((o, DCT.type, URIRef(agentType)))
+                        target_graph.add((URIRef(agentType), RDF.type, SKOS.Concept))
             else:
                 logger.error("Request FAILED for foaf:Agent")
 

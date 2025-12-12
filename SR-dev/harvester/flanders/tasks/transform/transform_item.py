@@ -39,6 +39,7 @@ async def transform_item(batch: str) -> str:
         VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
         M8G = Namespace("http://data.europa.eu/m8g/")
         ORG = Namespace("http://www.w3.org/ns/org#")
+        PROF = Namespace("http://www.w3.org/ns/dx/prof/")
 
         target_graph.bind("adms", ADMS)
         target_graph.bind("dct", DCT)
@@ -50,6 +51,7 @@ async def transform_item(batch: str) -> str:
         target_graph.bind("m8g", M8G)
         target_graph.bind("dcat", DCAT)
         target_graph.bind("org", ORG)
+        target_graph.bind("prof", PROF)
 
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
@@ -200,7 +202,6 @@ async def transform_item(batch: str) -> str:
             target_graph.add((s, FOAF.homepage, o))
             target_graph.add((o, RDF.type, FOAF.Document))
 
-
         # adms:Asset/dct:creator/foaf:Agent 
         # adms:Asset/dct:creator/foaf:Agent/foaf:name
         # adms:Asset/dct:creator/foaf:Agent/dct:spatial
@@ -279,6 +280,39 @@ async def transform_item(batch: str) -> str:
 
             else:
                 logger.error(f"Request FAILED for vcard:Kind - Status: {response.status_code}")
+
+
+        # adms:Asset/dcat:distribution/adms:AssetDistribution
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/dct:format
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/dct:title
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/prof:hasRole
+        for s, p, o in source_graph.triples((None, DCAT.distribution, None)):
+            target_graph.add((s, DCAT.distribution, o))
+            target_graph.add((o, RDF.type, ADMS.AssetDistribution))
+
+            for a, b, c in source_graph.triples((o, DCT.title, None)):
+                target_graph.add((o, DCT.title, Literal(c, datatype=RDF.langString)))
+            
+            for a, b, c in source_graph.triples((o, DCAT.downloadURL, None)):
+                target_graph.add((o, DCAT.downloadURL, Literal(c, datatype=XSD.anyURI)))
+
+            for a, b, c in source_graph.triples((o, DCAT.mediaType, None)):
+                fileType = ""
+                hasRole = ""
+                if str(c) == "http://www.iana.org/assignments/media-types/text/html":
+                    fileType = "http://publications.europa.eu/resource/authority/file-type/HTML"
+                    hasRole = "http://www.w3.org/ns/dx/prof/role/specification"
+                elif str(c) == "http://www.iana.org/assignments/media-types/text/turtle":
+                    fileType = "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+                    hasRole = "http://www.w3.org/ns/dx/prof/role/vocabulary"
+                if len(fileType) > 0:
+                    target_graph.add((o, DCT['format'], URIRef(fileType)))
+                    target_graph.add((URIRef(fileType), RDF.type, SKOS.Concept))
+
+                    target_graph.add((o, PROF.hasRole, URIRef(hasRole)))
+                    target_graph.add((URIRef(hasRole), RDF.type, SKOS.Concept))
+                else:
+                    logger.error(f"No fileType found for adms:AssetDistribution {s}")
 
 
         target_data = target_graph.serialize(format="turtle")

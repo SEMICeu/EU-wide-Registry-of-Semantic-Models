@@ -19,7 +19,7 @@ validator:
     
 extract_query: |
     PREFIX dct: <http://purl.org/dc/terms/>
-    SELECT ?s ?o
+    SELECT ?s
     WHERE {
     { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Applicatieprofiel> }
     UNION
@@ -32,8 +32,10 @@ construct_query: |
     PREFIX adms: <http://www.w3.org/ns/adms#>
     CONSTRUCT {
     ?s ?p ?o .
+    ?o ?y ?z .
     } 
     WHERE {
     ?s ?p ?o .
+    ?o ?y ?z .
     FILTER(?s = <$uri>)
     }

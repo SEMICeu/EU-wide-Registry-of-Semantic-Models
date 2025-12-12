@@ -190,7 +190,7 @@ srm:DistributionFormatShape
 		sh:name "format"@en ;
 		sh:description "verify the dct:format property"@en ;
         sh:path dct:format ;
-        sh:class dct:MediaTypeOrExtent ;
+        sh:class skos:Concept ;
         sh:nodeKind sh:IRI ;
         sh:node [
             sh:property [

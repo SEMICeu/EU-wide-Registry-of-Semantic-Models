@@ -40,6 +40,8 @@ async def transform_item(batch: str) -> str:
         M8G = Namespace("http://data.europa.eu/m8g/")
         ORG = Namespace("http://www.w3.org/ns/org#")
         PROF = Namespace("http://www.w3.org/ns/dx/prof/")
+        OWL = Namespace("http://www.w3.org/2002/07/owl#")
+        RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 
         target_graph.bind("adms", ADMS)
         target_graph.bind("dct", DCT)
@@ -52,6 +54,9 @@ async def transform_item(batch: str) -> str:
         target_graph.bind("dcat", DCAT)
         target_graph.bind("org", ORG)
         target_graph.bind("prof", PROF)
+        target_graph.bind("owl", OWL)
+        target_graph.bind("rdfs", RDFS)
+
 
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
@@ -149,7 +154,7 @@ async def transform_item(batch: str) -> str:
 
         # adms:Asset/vann:preferredNamespaceUri
         for s, p, o in source_graph.triples((None, VANN.preferredNamespaceUri, None)):
-            target_graph.add((s, VANN.preferredNamespaceUri, o))
+            target_graph.add((s, VANN.preferredNamespaceUri, Literal(o, datatype=XSD.anyURI) ))
 
         # adms:Asset/dct:title
         titles_by_subject = {}
@@ -281,11 +286,13 @@ async def transform_item(batch: str) -> str:
             else:
                 logger.error(f"Request FAILED for vcard:Kind - Status: {response.status_code}")
 
-
         # adms:Asset/dcat:distribution/adms:AssetDistribution
         # adms:Asset/dcat:distribution/adms:AssetDistribution/dct:format
         # adms:Asset/dcat:distribution/adms:AssetDistribution/dct:title
         # adms:Asset/dcat:distribution/adms:AssetDistribution/prof:hasRole
+        # adms:AssetDistribution/rdfs:isDefinedBy/rdfs:Class
+        # adms:AssetDistribution/rdfs:isDefinedBy/rdfs:Class/rdfs:label
+
         for s, p, o in source_graph.triples((None, DCAT.distribution, None)):
             target_graph.add((s, DCAT.distribution, o))
             target_graph.add((o, RDF.type, ADMS.AssetDistribution))
@@ -295,24 +302,62 @@ async def transform_item(batch: str) -> str:
             
             for a, b, c in source_graph.triples((o, DCAT.downloadURL, None)):
                 target_graph.add((o, DCAT.downloadURL, Literal(c, datatype=XSD.anyURI)))
-
+                    
+            fileType = ""
+            hasRole = ""
+            downloadURL = ""
+            
             for a, b, c in source_graph.triples((o, DCAT.mediaType, None)):
-                fileType = ""
-                hasRole = ""
                 if str(c) == "http://www.iana.org/assignments/media-types/text/html":
                     fileType = "http://publications.europa.eu/resource/authority/file-type/HTML"
                     hasRole = "http://www.w3.org/ns/dx/prof/role/specification"
                 elif str(c) == "http://www.iana.org/assignments/media-types/text/turtle":
                     fileType = "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
                     hasRole = "http://www.w3.org/ns/dx/prof/role/vocabulary"
+                    
                 if len(fileType) > 0:
                     target_graph.add((o, DCT['format'], URIRef(fileType)))
                     target_graph.add((URIRef(fileType), RDF.type, SKOS.Concept))
 
                     target_graph.add((o, PROF.hasRole, URIRef(hasRole)))
                     target_graph.add((URIRef(hasRole), RDF.type, SKOS.Concept))
-                else:
-                    logger.error(f"No fileType found for adms:AssetDistribution {s}")
+            
+            for a, b, c in source_graph.triples((o, DCAT.downloadURL, None)):
+                downloadURL = str(c)
+            
+            if fileType == "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE" and downloadURL:
+                headers = {
+                    "Accept": "text/turtle"
+                }
+                
+                try:
+                    response = requests.get(downloadURL, headers=headers)
+
+                    if response.status_code == 200:
+                        content_type = response.headers.get('Content-Type', '').lower()
+
+                        if 'turtle' not in content_type:
+                            logger.warning(f"Expected Turtle but received {content_type} from {downloadURL}, skipping")
+                        else:
+                            logger.info(f"Request successful for downloadURL: {downloadURL}")
+
+                            class_graph = Graph()
+                            class_graph.parse(data=response.text, format="turtle")
+
+                            for x, y, z in class_graph.triples((None, RDF.type, OWL.Class)):
+                                logger.info(f"Found OWL Class: {x}")
+                                
+                                target_graph.add((x, RDFS.isDefinedBy, o))
+                                target_graph.add((x, RDF.type, RDFS.Class))
+                                
+                                for _, _, l in class_graph.triples((x, RDFS.label, None)):
+                                    logger.info(f"Found rdfs:label: {x}")
+
+                                    target_graph.add((x, RDFS.label, l))
+                    else:
+                        logger.warning(f"Request failed for {downloadURL}, status: {response.status_code}")
+                except Exception as e:
+                    logger.error(f"Error processing {downloadURL}: {e}")
 
 
         target_data = target_graph.serialize(format="turtle")

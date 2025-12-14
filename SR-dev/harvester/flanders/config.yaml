@@ -25,7 +25,6 @@ extract_query: |
       UNION
       { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium> }
     }
-    LIMIT 10
 
 construct_query: |
     CONSTRUCT {

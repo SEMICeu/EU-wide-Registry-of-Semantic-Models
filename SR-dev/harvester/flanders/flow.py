@@ -69,25 +69,50 @@ def parallel_processing_flow():
             for transformed_item in transformed_results
     ]
 
-    validated_results = [future.result() for future in validated_futures]
-    
-    # Task 8: Load validated entries in GraphDB (TODO emporary SRM in GraphDB)
-    endpoint_target = initialize_graphdb_repo(
-        config["graphDB_target_repo_name"],
-        config["graphDB_config_file_path"],
-        config["graphDB_host"]
-    )
+    # Task 7: Validate each entry
+    validated_futures = [
+        validate_data_graph.submit(
+            transformed_item, 
+            config["validator"]["url"],
+            config["validator"]["payload"],
+            config["validator"]["headers"]
+        )
+        for transformed_item in transformed_results
+    ]
 
-    loaded_results = [
-    load_data_to_graphdb.submit(
-        validated_result["contentToValidate"], 
-        endpoint_target,
-        format="turtle"  
-    )
-    for validated_result in validated_results
-]
-    load_status = [future.result() for future in loaded_results]
-    logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
+    # Collect validation results, handling failures gracefully
+    validated_results = []
+    for i, future in enumerate(validated_futures):
+        try:
+            result = future.result()
+            validated_results.append(result)
+        except Exception as e:
+            logger.error(f"Validation failed for entry {i}: {e}")
+            # Continue processing other entries
+    
+    logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
+    
+    # Task 8: Load validated entries in GraphDB (only if we have valid results)
+    if validated_results:
+        endpoint_target = initialize_graphdb_repo(
+            config["graphDB_target_repo_name"],
+            config["graphDB_config_file_path"],
+            config["graphDB_host"]
+        )
+
+        loaded_results = [
+            load_data_to_graphdb.submit(
+                validated_result["contentToValidate"], 
+                endpoint_target,
+                format="turtle"  
+            )
+            for validated_result in validated_results
+        ]
+        
+        load_status = [future.result() for future in loaded_results]
+        logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
+    else:
+        logger.warning("No validated entries to load into GraphDB")
 
 
  

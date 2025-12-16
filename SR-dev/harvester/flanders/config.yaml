@@ -26,6 +26,7 @@ extract_query: |
       { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium> }
     }
 
+
 construct_query: |
     CONSTRUCT {
       ?s ?p ?o .

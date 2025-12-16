@@ -186,8 +186,7 @@ async def transform_item(batch: str) -> str:
                 target_graph.add((URIRef(assetType), RDF.type, SKOS.Concept))
             else:
                 logger.error("assetType is empty")
-            
-            
+                
         # adms:Asset/adms:status
         for s, p, o in source_graph.triples((None, ADMS.status, None)):
             mappedStatus = ""
@@ -212,37 +211,34 @@ async def transform_item(batch: str) -> str:
         # adms:Asset/dct:creator/foaf:Agent/foaf:name
         # adms:Asset/dct:creator/foaf:Agent/dct:spatial
         for s, p, o in source_graph.triples((None, DCT.creator, None)):
-            target_graph.add((s, DCT.creator, o))
-            target_graph.add((o, RDF.type, FOAF.Agent))
-
-            spatial_code = "http://publications.europa.eu/resource/authority/country/BEL"
-            target_graph.add((o, DCT.spatial, URIRef(spatial_code)))
-            target_graph.add((URIRef(spatial_code), RDF.type, DCT.Location))
-
             url = o
             if str(o).startswith("http://"):
-                logger.warning(f"url starting with http:// - {o}")
                 url = str(o).replace("http://","https://")
-                logger.info(f"transformed url to: {url}")
+                logger.info(f"foaf:Agent: replaced url containing 'http://' to 'https://': {o} -> {url}")
+            if url.startswith("https://data.vlaanderen.be/doc/organisatie"):
+                url = url.replace("https://data.vlaanderen.be/doc/organisatie","https://data.vlaanderen.be/id/organisatie")
+                logger.info(f"foaf:Agent: replaced url containing 'doc' to 'id': {o} -> {url}")
+        
+            target_graph.add((s, DCT.creator, URIRef(url)))
+            target_graph.add((URIRef(url), RDF.type, FOAF.Agent))
 
+            spatial_code = "http://publications.europa.eu/resource/authority/country/BEL"
+            target_graph.add((URIRef(url), DCT.spatial, URIRef(spatial_code)))
+            target_graph.add((URIRef(spatial_code), RDF.type, DCT.Location))
 
             headers = {
-                "Accept" : "text/turtle"
-            }
+                    "Accept" : "text/turtle"
+                }
             response = requests.get(url,headers=headers)
 
             org_graph = Graph()
             org_graph.parse(data=response.text, format="turtle")
-        
+
             if response.status_code == 200:
                 logger.info("Request Succesfull for foaf:Agent")
-                for a, b, c in org_graph.triples((URIRef(url), SKOS.prefLabel, None)):
-                    if str(o).startswith("https://data.vlaanderen.be/doc/organisatie"):
-                        url = str(o).replace("https://data.vlaanderen.be/doc/organisatie","https://data.vlaanderen.be/id/organisatie")
-                        logger.info(f"foaf:Agent: replaced url containing doc to id: {o} -> {url}")
+                for a, b, c in org_graph.triples((URIRef(url), SKOS.prefLabel, None)):              
                     target_graph.add((URIRef(url), FOAF.name, Literal(str(c), lang="nl")))
-                    
-                
+                                      
                 for a, b, c in org_graph.triples((URIRef(url), ORG.classification, None)):
                     agentType = ""
                     if str(c) == "https://data.vlaanderen.be/doc/concept/organisatieclassificatie/de8494e0-f1a9-4a9f-9df2-60f958826821":
@@ -252,23 +248,23 @@ async def transform_item(batch: str) -> str:
                     if len(agentType) > 0:
                         logger.info(f"agentType found: {agentType}")
 
-                        target_graph.add((o, DCT.type, URIRef(agentType)))
+                        target_graph.add((URIRef(url), DCT.type, URIRef(agentType)))
                         target_graph.add((URIRef(agentType), RDF.type, SKOS.Concept))
             else:
                 logger.error("Request FAILED for foaf:Agent")
-
         
         # adms:Asset/dcat:contactPoint/vcard:Kind
         # adms:Asset/dcat:contactPoint/vcard:Kind/vcard:hasEmail
         for s, p, o in source_graph.triples((None, M8G.contactPoint, None)):
-            target_graph.add((s, DCAT.contactPoint, o))
-            target_graph.add((o, RDF.type, VCARD.Kind))
-        
             url = o
             if str(o).startswith("http://"):
-                logger.warning(f"url starting with http:// - {o}")
                 url = str(o).replace("http://","https://")
-                logger.info(f"transformed url to: {url}")
+                logger.info(f"foaf:Agent: replaced url containing 'http://' to 'https://': {o} -> {url}")
+            if url.startswith("https://data.vlaanderen.be/doc/organisatie"):
+                url = url.replace("https://data.vlaanderen.be/doc/organisatie","https://data.vlaanderen.be/id/organisatie")
+                logger.info(f"foaf:Agent: replaced url containing 'doc' to 'id': {o} -> {url}")
+            target_graph.add((s, DCAT.contactPoint, URIRef(url)))
+            target_graph.add((URIRef(url), RDF.type, VCARD.Kind))
 
             headers = {
                 "Accept" : "text/turtle"
@@ -285,7 +281,7 @@ async def transform_item(batch: str) -> str:
                     if (a, RDF.type, SCHEMA.ContactPoint) in contactPoint_graph:
                         logger.info(f"Found email: {c} for contact point: {a}")
                         emailURI =  "mailto:" + c
-                        target_graph.add((o, VCARD.hasEmail, URIRef(emailURI)))
+                        target_graph.add((URIRef(url), VCARD.hasEmail, URIRef(emailURI)))
                         target_graph.add((URIRef(emailURI), RDF.type, VCARD.Email,))
 
             else:

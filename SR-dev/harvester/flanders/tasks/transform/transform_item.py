@@ -181,12 +181,13 @@ async def transform_item(batch: str) -> str:
                assetType = "http://www.w3.org/ns/dx/prof/Profile"
             elif str(o) == "https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium":
                assetType = "http://purl.org/vocommons/voaf#Vocabulary"
+            if len(assetType) > 0:
+                target_graph.add((s, DCT.type, URIRef(assetType)))
+                target_graph.add((URIRef(assetType), RDF.type, SKOS.Concept))
             else:
                 logger.error("assetType is empty")
             
-            target_graph.add((s, DCT.type, URIRef(assetType)))
-            target_graph.add((URIRef(assetType), RDF.type, SKOS.Concept))
-
+            
         # adms:Asset/adms:status
         for s, p, o in source_graph.triples((None, ADMS.status, None)):
             mappedStatus = ""
@@ -236,7 +237,11 @@ async def transform_item(batch: str) -> str:
             if response.status_code == 200:
                 logger.info("Request Succesfull for foaf:Agent")
                 for a, b, c in org_graph.triples((URIRef(url), SKOS.prefLabel, None)):
-                    target_graph.add((o, FOAF.name, Literal(c, datatype=RDF.langString)))
+                    if str(o).startswith("https://data.vlaanderen.be/doc/organisatie"):
+                        url = str(o).replace("https://data.vlaanderen.be/doc/organisatie","https://data.vlaanderen.be/id/organisatie")
+                        logger.info(f"foaf:Agent: replaced url containing doc to id: {o} -> {url}")
+                    target_graph.add((URIRef(url), FOAF.name, Literal(str(c), lang="nl")))
+                    
                 
                 for a, b, c in org_graph.triples((URIRef(url), ORG.classification, None)):
                     agentType = ""
@@ -324,7 +329,7 @@ async def transform_item(batch: str) -> str:
             
             for a, b, c in source_graph.triples((o, DCAT.downloadURL, None)):
                 downloadURL = str(c)
-            
+                
             if fileType == "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE" and downloadURL:
                 headers = {
                     "Accept": "text/turtle"
@@ -344,16 +349,45 @@ async def transform_item(batch: str) -> str:
                             class_graph = Graph()
                             class_graph.parse(data=response.text, format="turtle")
 
+                            uri_ontology = ""
+                            for e, d, f in class_graph.triples((None, RDF.type, OWL.Ontology)):
+                                logger.info(f"Found OWL Ontology: {e}")
+                                uri_ontology = str(e)
+
+
                             for x, y, z in class_graph.triples((None, RDF.type, OWL.Class)):
                                 logger.info(f"Found OWL Class: {x}")
-                                
-                                target_graph.add((x, RDFS.isDefinedBy, o))
-                                target_graph.add((x, RDF.type, RDFS.Class))
-                                
-                                for _, _, l in class_graph.triples((x, RDFS.label, None)):
-                                    logger.info(f"Found rdfs:label: {x}")
 
-                                    target_graph.add((x, RDFS.label, l))
+                                isDefinedBy = list(class_graph.triples((x, RDFS.isDefinedBy, None)))
+
+                                if isDefinedBy:
+                                    for j, k, l in isDefinedBy:
+                                        logger.info(f"Found rdfs:isDefinedBy for {x}: {o}")
+                                        logger.info(f"isDefinedBy : {j} - {k} - {o}")
+
+                                        if str(l) == uri_ontology:
+                                            logger.info(f"uri of owl:Ontology = object of isDefinedBy {uri_ontology} = {str(l)}")
+
+                                            target_graph.add((x, RDFS.isDefinedBy, o))
+                                            target_graph.add((x, RDF.type, RDFS.Class))
+
+                                            labels = list(class_graph.triples((x, RDFS.label, None)))
+                                            
+                                            if labels:
+                                                for _, _, label in labels:
+                                                    logger.info(f"Found rdfs:label : {label}")
+                                                    if str(j) == str(x):
+                                                        logger.info(f"AssetDistribution matches isDefinedBy: {x} = {j}")
+                                                        target_graph.add((x, RDFS.label, label))
+                                                    else:
+                                                        logger.error(f"AssetDistribution does not match isDefinedBy: {x} = {j}")
+                                            else:
+                                                uri_str = str(x)
+                                                if '#' in uri_str:
+                                                    label = uri_str.split('#')[-1]
+                                                
+                                                    logger.info(f"No rdfs:label found for {x}, using generated label: {label}")
+                                                    target_graph.add((x, RDFS.label, Literal(label, lang="en")))
                     else:
                         logger.warning(f"Request failed for {downloadURL}, status: {response.status_code}")
                 except Exception as e:

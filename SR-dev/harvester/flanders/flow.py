@@ -66,17 +66,6 @@ def parallel_processing_flow():
             config["validator"]["payload"],
             config["validator"]["headers"]
         )
-            for transformed_item in transformed_results
-    ]
-
-    # Task 7: Validate each entry
-    validated_futures = [
-        validate_data_graph.submit(
-            transformed_item, 
-            config["validator"]["url"],
-            config["validator"]["payload"],
-            config["validator"]["headers"]
-        )
         for transformed_item in transformed_results
     ]
 
@@ -88,7 +77,6 @@ def parallel_processing_flow():
             validated_results.append(result)
         except Exception as e:
             logger.error(f"Validation failed for entry {i}: {e}")
-            # Continue processing other entries
     
     logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
     

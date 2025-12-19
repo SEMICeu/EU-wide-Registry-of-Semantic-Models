@@ -1,4 +1,5 @@
 from prefect import flow, get_run_logger
+from prefect.context import FlowRunContext
 from prefect.task_runners import ConcurrentTaskRunner
 from tasks.extract.make_batches import make_batches
 from tasks.extract.query_voc_and_ap_list import query_voc_and_ap_list
@@ -17,6 +18,10 @@ def parallel_processing_flow():
     """
     Main flow that orchestrates all tasks with parallel processing
     """
+    context = FlowRunContext.get()
+    print(f"Flow ID: {context.flow.id}")
+    print(f"Flow Run ID: {context.flow_run.id}")
+
     config = load_config()
     logger = get_run_logger()
     logger.info("Starting parallel processing flow...")

@@ -5,6 +5,22 @@ graphDB_config_file_path: "config_graphDB_repo.ttl"
 graphDB_source_repo_name: "oslo"
 graphDB_target_repo_name: "srm"
 
+transformation:
+  namespaces:
+    adms: "http://www.w3.org/ns/adms#"
+    dct: "http://purl.org/dc/terms/"
+    dcat: "http://www.w3.org/ns/dcat#"
+    vann: "http://purl.org/vocab/vann/"
+    foaf: "http://xmlns.com/foaf/0.1/"
+    skos: "http://www.w3.org/2004/02/skos/core#"
+    schema: "http://schema.org/"
+    vcard: "http://www.w3.org/2006/vcard/ns#"
+    m8g: "http://data.europa.eu/m8g/"
+    org: "http://www.w3.org/ns/org#"
+    prof: "http://www.w3.org/ns/dx/prof/"
+    owl: "http://www.w3.org/2002/07/owl#"
+    rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+
 validator:
   url: "http://localhost:8080/shacl/srm/api/validate"
 

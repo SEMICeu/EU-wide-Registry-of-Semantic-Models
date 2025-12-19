@@ -1,14 +1,13 @@
-from ast import parse
 from prefect import task, get_run_logger
-from typing import List
 
 from rdflib import Graph, RDF, Namespace, Literal, URIRef
 from rdflib.namespace import XSD
-from db.client import get_sparql_client
-from SPARQLWrapper import TURTLE
-from string import Template
+from pathlib import Path
 import requests
+import sys
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from config import load_config
 
 @task(
     name="transform item", 
@@ -18,30 +17,34 @@ import requests
 )
 async def transform_item(batch: str) -> str:
     """
-    ...
+    Transforming each entry to conform to the latest model of SRM
+
+    :param batch: A batch of identifiers or input items to process.
+    :return: RDF string representing transformed data
     """
     
     logger = get_run_logger()
     logger.info(f"Transforming batch: {batch}")  
+    config = load_config()
  
     try:
         source_graph = Graph()
         source_graph.parse(data=batch, format="turtle")
 
         target_graph = Graph()
-        ADMS = Namespace("http://www.w3.org/ns/adms#")
-        DCT = Namespace("http://purl.org/dc/terms/")
-        DCAT = Namespace("http://www.w3.org/ns/dcat#")
-        VANN = Namespace("http://purl.org/vocab/vann/")
-        FOAF = Namespace("http://xmlns.com/foaf/0.1/")
-        SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
-        SCHEMA = Namespace("http://schema.org/")
-        VCARD = Namespace("http://www.w3.org/2006/vcard/ns#")
-        M8G = Namespace("http://data.europa.eu/m8g/")
-        ORG = Namespace("http://www.w3.org/ns/org#")
-        PROF = Namespace("http://www.w3.org/ns/dx/prof/")
-        OWL = Namespace("http://www.w3.org/2002/07/owl#")
-        RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
+        ADMS   = Namespace(config["transformation"]["namespaces"]["adms"])
+        DCT    = Namespace(config["transformation"]["namespaces"]["dct"])
+        DCAT   = Namespace(config["transformation"]["namespaces"]["dcat"])
+        VANN   = Namespace(config["transformation"]["namespaces"]["vann"])
+        FOAF   = Namespace(config["transformation"]["namespaces"]["foaf"])
+        SKOS   = Namespace(config["transformation"]["namespaces"]["skos"])
+        SCHEMA = Namespace(config["transformation"]["namespaces"]["schema"])
+        VCARD  = Namespace(config["transformation"]["namespaces"]["vcard"])
+        M8G    = Namespace(config["transformation"]["namespaces"]["m8g"])
+        ORG    = Namespace(config["transformation"]["namespaces"]["org"])
+        PROF   = Namespace(config["transformation"]["namespaces"]["prof"])
+        OWL    = Namespace(config["transformation"]["namespaces"]["owl"])
+        RDFS   = Namespace(config["transformation"]["namespaces"]["rdfs"])
 
         target_graph.bind("adms", ADMS)
         target_graph.bind("dct", DCT)
@@ -56,7 +59,6 @@ async def transform_item(batch: str) -> str:
         target_graph.bind("prof", PROF)
         target_graph.bind("owl", OWL)
         target_graph.bind("rdfs", RDFS)
-
 
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
@@ -293,7 +295,6 @@ async def transform_item(batch: str) -> str:
         # adms:Asset/dcat:distribution/adms:AssetDistribution/prof:hasRole
         # adms:AssetDistribution/rdfs:isDefinedBy/rdfs:Class
         # adms:AssetDistribution/rdfs:isDefinedBy/rdfs:Class/rdfs:label
-
         for s, p, o in source_graph.triples((None, DCAT.distribution, None)):
             target_graph.add((s, DCAT.distribution, o))
             target_graph.add((o, RDF.type, ADMS.AssetDistribution))
@@ -400,3 +401,4 @@ async def transform_item(batch: str) -> str:
         logger.error(f"Error type: {type(e).__name__}")
         logger.error(f"Error message: {str(e)}")
         raise
+

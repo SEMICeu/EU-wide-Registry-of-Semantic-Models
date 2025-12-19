@@ -1,6 +1,6 @@
 from prefect import task, get_run_logger
 from typing import  List
-from db.client import get_sparql_client
+from ...db.client import get_sparql_client
 
 
 @task(name="Extract List", retries=3, retry_delay_seconds=120)

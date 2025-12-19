@@ -1,0 +1,55 @@
+web_source_url: "https://data.vlaanderen.be/standaarden/"
+
+graphDB_host: "http://localhost:7200"
+graphDB_config_file_path: "config_graphDB_repo.ttl"
+graphDB_source_repo_name: "oslo"
+graphDB_target_repo_name: "srm"
+
+transformation:
+  namespaces:
+    adms: "http://www.w3.org/ns/adms#"
+    dct: "http://purl.org/dc/terms/"
+    dcat: "http://www.w3.org/ns/dcat#"
+    vann: "http://purl.org/vocab/vann/"
+    foaf: "http://xmlns.com/foaf/0.1/"
+    skos: "http://www.w3.org/2004/02/skos/core#"
+    schema: "http://schema.org/"
+    vcard: "http://www.w3.org/2006/vcard/ns#"
+    m8g: "http://data.europa.eu/m8g/"
+    org: "http://www.w3.org/ns/org#"
+    prof: "http://www.w3.org/ns/dx/prof/"
+    owl: "http://www.w3.org/2002/07/owl#"
+    rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+
+validator:
+  url: "http://localhost:8080/shacl/srm/api/validate"
+
+  payload:
+    validationType: "v1.0.0"
+    contentSyntax: "text/turtle"
+    contentToValidate: "__CONTENT__"
+
+  headers:
+    Accept: "application/ld+json"
+    Content-Type: "application/json"
+    
+extract_query: |
+    PREFIX dct: <http://purl.org/dc/terms/>
+    SELECT ?s
+    WHERE {
+      { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Applicatieprofiel> }
+      UNION
+      { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium> }
+    } LIMIT 5
+
+
+construct_query: |
+    CONSTRUCT {
+      ?s ?p ?o .
+      ?o ?y ?z .
+    } 
+    WHERE {
+      ?s ?p ?o .
+      ?o ?y ?z .
+      FILTER(?s = <$uri>)
+    }

@@ -119,7 +119,7 @@ The following steps demonstrate how to run the harvester using Flanders as an ex
 
    http://127.0.0.1:4200/runs
 
-   [prefext_flow](prefect_flow.png)
+[prefext_flow](prefect_flow.png)
 
 ## Confifuration files
 
@@ -135,8 +135,19 @@ The harvester includes two provenance tracking mechanisms located in `SR-dev/har
 
 ### Provenance Adapters
 
+You can enable or disable provenance trackers by modifying the boolean parameters on lines 15-16 in:
+
+`SR-dev/harvester/provenance/tracker.py`
+```python
+def __init__(self, 
+             enable_graph_storage: bool = True,
+             enable_prefect_artifacts: bool = False)
+```
+
 - **Prefect Artifacts** (`SR-dev/harvester/provenance/adapters/prefect_adapter.py`): 
   Custom artifacts integrated with Prefect, visible in the "Artifacts" tab of the Prefect dashboard for monitoring pipeline execution metadata.
+
+[prefext_artifact](resources/prefect_artifacts.png)
 
 - **Graph RDF** (`SR-dev/harvester/provenance/adapters/graph_adapter.py`): 
   Generates an RDF file containing complete provenance information about the harvesting process.

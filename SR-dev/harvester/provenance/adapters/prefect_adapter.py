@@ -17,12 +17,12 @@ class PrefectArtifactAdapter:
             "flow_name": lineage.title,
             "task_type": lineage.task.name if lineage.task else None,
             "status": lineage.status.name if lineage.status else None, 
-            "started_at": lineage.start_time.isoformat(),
+            "started_at": lineage.start_time.isoformat() if lineage.start_time else None,
             # "loaded_input": current / total,
             # "transformed": current / total,
             # "validated": current / total,
             # "loaded_output": current / total,
-            "ended_at": lineage.end_time.isoformat(),
+            "ended_at": lineage.end_time.isoformat() if lineage.end_time else None,
 
         }]
         

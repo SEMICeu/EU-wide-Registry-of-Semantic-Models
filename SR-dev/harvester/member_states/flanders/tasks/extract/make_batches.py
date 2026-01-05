@@ -15,8 +15,14 @@ def chunk_dict(list: List[str], chunk_size):
 
 
 @task(name="make batches")
-def make_batches(results_by_standard, batch_size=1):
+def make_batches(results_list, batch_size=1):
+    """
+    Split a list of strings into batches.
+
+    :param results_list: List of vocabularies and application profiles returned from the exctract query executed on the Flanders Register data.
+    :return: A generator that yields lists of strings, each of length up to chunk_size.
+    """
     logger = get_run_logger()
-    batches = list(chunk_dict(results_by_standard, batch_size))
+    batches = list(chunk_dict(results_list, batch_size))
     logger.info(f"Creating {len(batches)} batches of size {batch_size}")
     return batches

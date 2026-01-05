@@ -1,15 +1,16 @@
-from pathlib import Path
 from prefect.artifacts import create_table_artifact
-import sys
-
-from ..model import TransformationExecution, Transformation, TransformationReport, JobStatus
+from ..model import TransformationExecution
 
 class PrefectArtifactAdapter:
-    """Adapter: PROV -> Prefect Artifacts"""
+    """
+    Adapter: PROV -> Prefect Artifacts
+    """
     
     @staticmethod
     def create_summary_table(lineage: TransformationExecution):
-        """Create a summary table for Prefect UI"""
+        """
+        Create a summary table for Prefect UI
+        """
         
         summary_data = [{
             "flow_run_id": str(lineage.id),

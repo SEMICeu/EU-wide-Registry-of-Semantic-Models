@@ -5,6 +5,12 @@ import requests
 
 
 def extract_conforms(jsonld: dict) -> bool | None:
+    """
+    Extract 'conforms' property from the JSON-LD object returned by the ITB SHACL validation.
+
+    :param jsonld: JSON-LD object returned by the ITB SHACL validation.
+    :return: boolean.
+    """
 
     logger = get_run_logger()
     nodes = jsonld.get("@graph", [jsonld])

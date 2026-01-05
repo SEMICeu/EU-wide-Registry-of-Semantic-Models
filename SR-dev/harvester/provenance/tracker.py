@@ -1,8 +1,6 @@
 from typing import Optional
-from uuid import UUID
 from datetime import datetime
-from pendulum import now
-from .model import TransformationExecution, Transformation, TransformationReport, JobStatus, TaskType
+from .model import TransformationExecution, Transformation, JobStatus, TaskType
 from prefect.context import get_run_context
 from prefect import get_run_logger
 from .adapters.prefect_adapter import PrefectArtifactAdapter
@@ -44,9 +42,10 @@ class ProvenanceTracker:
 
         return activity
 
-    def update_activity_task(self,
-                             task: TaskType):
-        """Update a transformation task"""
+    def update_activity_task(self, task: TaskType):
+        """
+        Update a transformation task
+        """
         logger = get_run_logger()
         if self.lineage is None:
             logger.warning("Cannot update task: no active lineage")
@@ -56,7 +55,10 @@ class ProvenanceTracker:
         logger.info(f"✓ Updated task type to {task}")
 
     def update_status(self,status: JobStatus):
-        """Update status"""
+        """
+        Update status of the transformation execution.
+        """
+
         logger = get_run_logger()
         if self.lineage is None:
             logger.warning("Cannot update status: no active lineage")
@@ -72,8 +74,14 @@ class ProvenanceTracker:
         
 
     def publish(self):
-        """Mark activity complete and publish to all backends"""
+        """
+        Mark activity complete and publish to all backends
+        """
+
         logger = get_run_logger()
+        if self.lineage is None:
+            logger.warning("Cannot update status: no active lineage")
+            return
 
         # Publish to Prefect artifacts
         if self.enable_prefect_artifacts:
@@ -83,12 +91,14 @@ class ProvenanceTracker:
             except Exception as e:
                 logger.warning(f"Failed to create Prefect artifacts: {e}")
 
+        # Publish to graph triple store
         if self.enable_graph_storage:
             try:
-                rdf = self.graph_adapter.create_rdf(self.lineage)
+                self.graph_adapter.create_rdf(self.lineage)
                 logger.info("✓ Published to graph triple store")
+            except Exception as e:
+                logger.warning(f"Failed to create graph rdf: {e}")
                 
-
             except Exception as e:
                 logger.warning(f"Failed to publish to graph triple store: {e}")
         

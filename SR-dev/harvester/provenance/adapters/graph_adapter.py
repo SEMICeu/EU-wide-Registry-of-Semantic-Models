@@ -1,15 +1,18 @@
-from pathlib import Path
-import sys
 from prefect import get_run_logger
+from ..model import TransformationExecution, TransformationExecutionDTO
 import json
-from ..model import TransformationExecution, Transformation, TransformationReport, JobStatus, TransformationExecutionDTO
 
 class GraphAdapter:
-    """Adapter: PROV -> Graph triple store"""
+    """
+    Adapter: PROV -> Graph triple store
+    """
     
     @staticmethod
     def create_rdf(lineage: TransformationExecution):
-        """Create a summary table for Graph triples"""
+        """
+        Create an rdf summary for Graph triples
+        """
+
         logger = get_run_logger()
 
         url = "http://localhost:4200/runs/flow-run/" + lineage.id

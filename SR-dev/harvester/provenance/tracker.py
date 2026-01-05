@@ -14,8 +14,8 @@ class ProvenanceTracker:
     """
     
     def __init__(self, 
-                 enable_graph_storage: bool = False,
-                 enable_prefect_artifacts: bool = True):
+                 enable_graph_storage: bool = True,
+                 enable_prefect_artifacts: bool = False):
         
         self.enable_graph_storage = enable_graph_storage
         self.enable_prefect_artifacts = enable_prefect_artifacts
@@ -85,8 +85,10 @@ class ProvenanceTracker:
 
         if self.enable_graph_storage:
             try:
-                self.graph_adapter.create_summary_table(self.lineage)
+                rdf = self.graph_adapter.create_rdf(self.lineage)
                 logger.info("✓ Published to graph triple store")
+                
+
             except Exception as e:
                 logger.warning(f"Failed to publish to graph triple store: {e}")
         

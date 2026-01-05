@@ -1,5 +1,5 @@
 from uuid import UUID
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Optional
 from datetime import datetime
 from enum import Enum
@@ -35,4 +35,17 @@ class TransformationExecution(BaseModel):
     status: JobStatus
     task: Optional[TaskType] = None
     transformation: Transformation
+    generated: Optional[TransformationReport] = None
+
+class TransformationExecutionDTO(BaseModel):
+
+    model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
+
+    id: str = Field(alias="@id")
+    title: Optional[str] = Field(None, alias="@title")
+    start_time: datetime = Field(alias="@startedAtTime")
+    end_time: Optional[datetime] = Field(default=None, alias="@endedAtTime")
+    status: JobStatus = Field(alias="@status")
+    task: Optional[TaskType] = Field(default=None, alias="@task")
+    transformation: Optional[Transformation] = None
     generated: Optional[TransformationReport] = None

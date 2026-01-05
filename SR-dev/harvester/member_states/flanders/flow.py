@@ -13,21 +13,6 @@ from ...provenance.tracker import ProvenanceTracker
 from ...provenance.model import JobStatus, TaskType
 
 
-
-@flow(name="provenance flow", task_runner=ConcurrentTaskRunner(max_workers=5))
-def provenance_flow():
-
-    logger = get_run_logger()
-    tracker = ProvenanceTracker()
-
-    tracker.start_activity()
-
-    logger.info("extracting...")
-    tracker.update_activity_task(TaskType.extract)
-
-    tracker.publish()
-
-
 @flow(name="Parallel Processing Pipeline", task_runner=ConcurrentTaskRunner(max_workers=5))
 def parallel_processing_flow():
     """

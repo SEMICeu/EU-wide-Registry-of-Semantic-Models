@@ -1,0 +1,20 @@
+services:
+  graphdb:
+    image: ontotext/graphdb:10.7.3
+    container_name: graphdb
+    ports:
+      - "7200:7200"
+    volumes:
+      - graphdb-data:/opt/graphdb/home
+      - graphdb-import:/root/graphdb-import
+    environment:
+      - GDB_HEAP_SIZE=2g
+      - GDB_MIN_MEM=1g
+      - GDB_MAX_MEM=2g
+    restart: unless-stopped
+
+volumes:
+  graphdb-data:
+    driver: local
+  graphdb-import:
+    driver: local

@@ -12,8 +12,8 @@ class ProvenanceTracker:
     """
     
     def __init__(self, 
-                 enable_graph_storage: bool = False,
-                 enable_prefect_artifacts: bool = True):
+                 enable_graph_storage: bool = True,
+                 enable_prefect_artifacts: bool = False):
         
         self.enable_graph_storage = enable_graph_storage
         self.enable_prefect_artifacts = enable_prefect_artifacts

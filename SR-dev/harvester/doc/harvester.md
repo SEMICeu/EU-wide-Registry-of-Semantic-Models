@@ -151,3 +151,5 @@ def __init__(self,
 
 - **Graph RDF** (`SR-dev/harvester/provenance/adapters/graph_adapter.py`): 
   Generates an RDF file containing complete provenance information about the harvesting process.
+
+  

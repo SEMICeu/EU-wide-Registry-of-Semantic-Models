@@ -3,7 +3,9 @@ from typing import List
 from ...db.client import get_sparql_client
 from SPARQLWrapper import TURTLE
 from string import Template
-
+import ssl
+import urllib3
+import os
 
 @task(
     name="construct item", 
@@ -34,6 +36,15 @@ async def construct_item(batch: str, db_path: str, construct_query: str) -> List
         logger.info(f"Query to execute:\n{query[:500]}") 
 
         sparql = get_sparql_client(db_path)
+
+        # Disable SSL warnings
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        ssl._create_default_https_context = ssl._create_unverified_context
+
+        os.environ['CURL_CA_BUNDLE'] = ''
+        os.environ['REQUESTS_CA_BUNDLE'] = ''
+        os.environ['PYTHONHTTPSVERIFY'] = '0'
+
         sparql.setQuery(query)
         sparql.setReturnFormat(TURTLE)
         sparql.setTimeout(120) 

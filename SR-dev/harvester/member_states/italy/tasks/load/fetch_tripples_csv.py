@@ -50,6 +50,7 @@ def fetch_sparql_to_csv(web_url: str, format_params: str, sparql_query: str) -> 
             df = pd.read_csv(StringIO(response.text))
             
             logger.info(f"CSV file counts {df.shape[0]} rows")
+            logger.info(f"Top 5 rows: \n {df.head}")
 
             return df
         else:

@@ -1,4 +1,5 @@
-web_source_url: "https://schema.gov.it/sparql?default-graph-uri=&query="
+web_source_url: "https://schema.gov.it/sparql?default-graph-uri="
+web_source_query_url: "https://schema.gov.it/sparql?default-graph-uri=&query="
 format_params: "&format=text%2Fcsv&timeout=0&signal_void=on"
 
 fetch_query: | 

@@ -1,8 +1,8 @@
 from prefect import flow, get_run_logger
 from prefect.task_runners import ConcurrentTaskRunner
 from .tasks.extract.make_batches import make_batches
-from .tasks.extract.query_voc_and_ap_list import query_voc_and_ap_list
-from .tasks.load.fetch_jsonld import fetch_sparql_to_csv
+from .tasks.extract.extract_ontologies import extract_list_from_result
+from .tasks.load.fetch_tripples_csv import fetch_sparql_to_csv
 from .tasks.load.initialize_graphdb_repo import initialize_graphdb_repo
 from .tasks.load.load_data_to_graphdb import load_data_to_graphdb
 from .tasks.transform.construct_item import construct_item
@@ -27,41 +27,49 @@ def parallel_processing_flow():
     tracker = ProvenanceTracker()
     tracker.start_activity()
 
-    # Task 1: Extract JSON-LD from a Vlaanderen standards page.
-    url = fetch_sparql_to_csv(config["web_source_url"],config["format_params"],config["fetch_query"])
+    # Task 1: Extract results from schema.gov.it.
+    df = fetch_sparql_to_csv(config["web_source_query_url"],config["format_params"],config["fetch_query"])
 
+    # TODO split step by adding governance
+    # Task 2: Provenance step
+    list_result = extract_list_from_result(df)
 
-    # # Task 2: Create a new repository in GraphDB. (Overwrite if repo exists)
-    # tracker.update_activity_task(TaskType.extract)
-    # endpoint_source = initialize_graphdb_repo(
-    #     config["graphDB_source_repo_name"],
-    #     config["graphDB_config_file_path"],
-    #     config["graphDB_host"]
-    # )
-    # tracker.publish()
+    # Task 3: Create a new repository in GraphDB. (Overwrite if repo exists)
+    tracker.update_activity_task(TaskType.extract)
+    endpoint_source = initialize_graphdb_repo(
+        config["graphDB_source_repo_name"],
+        config["graphDB_config_file_path"],
+        config["graphDB_host"]
+    )
+    tracker.publish()
 
-    # # Task 3: Load JSON-LD into GraphDB as RDF triples.
-    # tracker.update_activity_task(TaskType.load_input)
-    # load_data_to_graphdb(jsonld, endpoint_source)
-    # tracker.publish()
-
-    # # Task 4: Extract the Vocabularium and Application Profiles.
-    # list_result = query_voc_and_ap_list(endpoint_source, config["extract_query"])
-    # tracker.publish()
-
-    # # Task 5: Create batches
-    # batches = make_batches(list_result)
-    # tracker.publish()
+    list_result = list_result[0:2]
+    # Task 4: Create batches
+    batches = make_batches(list_result)
+    tracker.publish()
     
-    # # Task 6: Process batches in parallel
-    # tracker.update_activity_task(TaskType.transform)
-    # batch_futures = [
-    # construct_item.submit(batch, endpoint_source, config["construct_query"])
-    #     for batch in batches
-    # ]
+   # Task 5: Process batches in parallel
+    tracker.update_activity_task(TaskType.transform)
+    batch_futures = [
+        construct_item.submit(batch, config["web_source_url"], config["construct_query"])
+        for batch in batches
+    ]
 
-    # constructed_results = [future.result() for future in batch_futures]
-    # logger.info(f"Completed constructing {len(constructed_results)} batches")
+    constructed_results = [future.result() for future in batch_futures]
+    logger.info(f"Completed constructing {len(constructed_results)} batches")
+
+    # Task 6: Load data into GraphDB as RDF triples - wait for all constructs to complete first
+    tracker.update_activity_task(TaskType.load_input)
+    load_futures = [
+        load_data_to_graphdb.submit(entry, endpoint_source)
+        for entry in constructed_results
+    ]
+
+    # Wait for all loads to complete
+    load_results = [future.result() for future in load_futures]
+    logger.info(f"Successfully loaded {len(load_results)} out of {len(load_futures)} entries")
+    tracker.publish()
+
 
     # transformed_futures = [
     # transform_item.submit(constructed_batch)

@@ -1,35 +1,1463 @@
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
-06/01/2026 22:03:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
-06/01/2026 22:03:59 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
-06/01/2026 22:03:59 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
-06/01/2026 22:03:59 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
-06/01/2026 22:03:59 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
-06/01/2026 22:03:59 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-06/01/2026 22:03:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:29:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:29:05 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:05 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:06 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:06 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:06 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/MU]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:06 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/l0]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:29:06 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:07 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:08 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:08 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:09 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:10 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:10 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/TI]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:10 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/l0]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:29:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:29:10 ERROR [srm] e.e.e.i.v.c.w.rest.BaseErrorHandler - Caught ValidatorException: An error occurred while reading the provided content: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+eu.europa.ec.itb.validation.commons.error.ValidatorException: An error occurred while reading the provided content: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.getDataModel(SHACLValidator.java:607)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateShacl(SHACLValidator.java:387)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateAgainstShacl(SHACLValidator.java:350)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateAll(SHACLValidator.java:121)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.executeValidationProcess(RestValidationController.java:317)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.lambda$validate$1(RestValidationController.java:186)
+	at eu.europa.ec.itb.shacl.validation.ThroughputThrottler.proceed(ThroughputThrottler.java:72)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.validate(RestValidationController.java:176)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.war.filters.LoggingFilter.doFilter(LoggingFilter.java:37)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:66)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.web.filters.HeaderFilter.doFilterInternal(HeaderFilter.java:65)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.web.filters.DomainCheckFilter.doFilterInternal(DomainCheckFilter.java:81)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at eu.europa.ec.itb.validation.commons.web.CSPNonceFilter.doFilter(CSPNonceFilter.java:52)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:733)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.NullPointerException: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+	at eu.europa.ec.itb.shacl.CustomJenaFileManager.getFromCache(CustomJenaFileManager.java:97)
+	at org.apache.jena.ontology.OntDocumentManager.getModel(OntDocumentManager.java:474)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.createImportedModels(SHACLValidator.java:488)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.getDataModel(SHACLValidator.java:598)
+	... 122 common frames omitted
+08/01/2026 10:31:35 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+08/01/2026 10:31:35 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+08/01/2026 10:31:43 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+08/01/2026 10:31:43 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 25508 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+08/01/2026 10:31:43 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+08/01/2026 10:31:47 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+08/01/2026 10:31:47 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+08/01/2026 10:31:47 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+08/01/2026 10:31:47 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+08/01/2026 10:31:47 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+08/01/2026 10:31:47 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3246 ms
+08/01/2026 10:31:47 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+08/01/2026 10:31:47 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+08/01/2026 10:31:47 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+08/01/2026 10:31:48 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+08/01/2026 10:31:48 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+08/01/2026 10:31:49 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+08/01/2026 10:31:50 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+08/01/2026 10:31:51 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+08/01/2026 10:31:53 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+08/01/2026 10:31:53 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+08/01/2026 10:31:53 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 10.525 seconds (process running for 11.441)
+08/01/2026 10:32:29 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+08/01/2026 10:32:29 INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+08/01/2026 10:32:29 INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+08/01/2026 10:32:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:32:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:32:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:32:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:32:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:32:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:32:39 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:32:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:32:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:32:39 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:32:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:32:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:32:40 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:41 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:41 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:41 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:41 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/MU]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:41 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/l0]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:42 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:42 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:32:43 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:44 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:44 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:45 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:46 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:46 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/TI]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:46 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/MU]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:32:46 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:32:46 ERROR [srm] e.e.e.i.v.c.w.rest.BaseErrorHandler - Caught ValidatorException: An error occurred while reading the provided content: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+eu.europa.ec.itb.validation.commons.error.ValidatorException: An error occurred while reading the provided content: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.getDataModel(SHACLValidator.java:607)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateShacl(SHACLValidator.java:387)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateAgainstShacl(SHACLValidator.java:350)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateAll(SHACLValidator.java:121)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.executeValidationProcess(RestValidationController.java:317)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.lambda$validate$1(RestValidationController.java:186)
+	at eu.europa.ec.itb.shacl.validation.ThroughputThrottler.proceed(ThroughputThrottler.java:72)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.validate(RestValidationController.java:176)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.war.filters.LoggingFilter.doFilter(LoggingFilter.java:37)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:66)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.web.filters.HeaderFilter.doFilterInternal(HeaderFilter.java:65)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.web.filters.DomainCheckFilter.doFilterInternal(DomainCheckFilter.java:81)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at eu.europa.ec.itb.validation.commons.web.CSPNonceFilter.doFilter(CSPNonceFilter.java:52)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:733)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.NullPointerException: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+	at eu.europa.ec.itb.shacl.CustomJenaFileManager.getFromCache(CustomJenaFileManager.java:97)
+	at org.apache.jena.ontology.OntDocumentManager.getModel(OntDocumentManager.java:474)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.createImportedModels(SHACLValidator.java:488)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.getDataModel(SHACLValidator.java:598)
+	... 122 common frames omitted
+08/01/2026 10:37:53 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:37:53 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:37:53 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:37:53 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:37:53 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:37:53 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:37:54 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:37:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:37:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:37:54 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:37:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:37:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:37:55 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:55 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:55 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:55 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/MU]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:55 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/l0]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:56 ERROR [srm] org.apache.jena.riot - [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:56 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/TI]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:37:56 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [https://w3id.org/italia/onto/l0]: [line: 1, col: 1 ] Content is not allowed in prolog.
+08/01/2026 10:37:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:37:56 ERROR [srm] e.e.e.i.v.c.w.rest.BaseErrorHandler - Caught ValidatorException: An error occurred while reading the provided content: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+eu.europa.ec.itb.validation.commons.error.ValidatorException: An error occurred while reading the provided content: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.getDataModel(SHACLValidator.java:607)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateShacl(SHACLValidator.java:387)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateAgainstShacl(SHACLValidator.java:350)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.validateAll(SHACLValidator.java:121)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.executeValidationProcess(RestValidationController.java:317)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.lambda$validate$1(RestValidationController.java:186)
+	at eu.europa.ec.itb.shacl.validation.ThroughputThrottler.proceed(ThroughputThrottler.java:72)
+	at eu.europa.ec.itb.shacl.rest.RestValidationController.validate(RestValidationController.java:176)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.war.filters.LoggingFilter.doFilter(LoggingFilter.java:37)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:66)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.web.filters.HeaderFilter.doFilterInternal(HeaderFilter.java:65)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at eu.europa.ec.itb.validation.commons.web.filters.DomainCheckFilter.doFilterInternal(DomainCheckFilter.java:81)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at eu.europa.ec.itb.validation.commons.web.CSPNonceFilter.doFilter(CSPNonceFilter.java:52)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.valves.RemoteIpValve.invoke(RemoteIpValve.java:733)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.NullPointerException: Cannot read field "nonCachedModels" because the return value of "java.lang.ThreadLocal.get()" is null
+	at eu.europa.ec.itb.shacl.CustomJenaFileManager.getFromCache(CustomJenaFileManager.java:97)
+	at org.apache.jena.ontology.OntDocumentManager.getModel(OntDocumentManager.java:474)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.createImportedModels(SHACLValidator.java:488)
+	at eu.europa.ec.itb.shacl.validation.SHACLValidator.getDataModel(SHACLValidator.java:598)
+	... 122 common frames omitted
+08/01/2026 10:44:31 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+08/01/2026 10:44:31 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+08/01/2026 10:44:36 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+08/01/2026 10:44:36 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 12272 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+08/01/2026 10:44:36 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+08/01/2026 10:44:39 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+08/01/2026 10:44:39 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+08/01/2026 10:44:39 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+08/01/2026 10:44:39 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+08/01/2026 10:44:39 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+08/01/2026 10:44:39 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2492 ms
+08/01/2026 10:44:39 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+08/01/2026 10:44:39 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+08/01/2026 10:44:39 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+08/01/2026 10:44:40 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+08/01/2026 10:44:40 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+08/01/2026 10:44:41 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+08/01/2026 10:44:41 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+08/01/2026 10:44:42 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+08/01/2026 10:44:44 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+08/01/2026 10:44:44 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+08/01/2026 10:44:44 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 8.608 seconds (process running for 9.38)
+08/01/2026 10:45:04 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+08/01/2026 10:45:04 INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+08/01/2026 10:45:04 INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+08/01/2026 10:45:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:45:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:45:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:45:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:45:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:45:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:45:11 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:45:11 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:45:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:45:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:45:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:45:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:48:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:48:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:48:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:48:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:48:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:48:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:52:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:52:44 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+08/01/2026 10:52:45 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+08/01/2026 10:52:56 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+08/01/2026 10:52:56 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 11556 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+08/01/2026 10:52:56 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+08/01/2026 10:52:59 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+08/01/2026 10:52:59 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+08/01/2026 10:52:59 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+08/01/2026 10:52:59 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+08/01/2026 10:52:59 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+08/01/2026 10:52:59 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3071 ms
+08/01/2026 10:52:59 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+08/01/2026 10:52:59 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+08/01/2026 10:52:59 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+08/01/2026 10:53:00 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+08/01/2026 10:53:00 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+08/01/2026 10:53:01 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+08/01/2026 10:53:02 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+08/01/2026 10:53:02 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+08/01/2026 10:53:04 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+08/01/2026 10:53:04 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+08/01/2026 10:53:05 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 9.561 seconds (process running for 10.255)
+08/01/2026 10:53:38 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+08/01/2026 10:53:38 INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+08/01/2026 10:53:38 INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:53:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 10:53:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:53:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:53:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:53:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:53:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 10:54:05 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:54:05 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:54:05 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:54:05 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:54:05 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 10:54:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 10:54:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:54:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:54:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:54:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 10:54:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:32 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:36 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:03:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:36 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:36 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:36 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:36 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:36 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:38 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:49 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:09:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:03 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:10:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Loading imports...
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:22:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:23:45 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+08/01/2026 11:23:45 INFO  [] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+08/01/2026 11:23:49 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+08/01/2026 11:23:49 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 7124 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
+08/01/2026 11:23:49 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
+08/01/2026 11:23:54 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+08/01/2026 11:23:54 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+08/01/2026 11:23:54 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
+08/01/2026 11:23:54 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+08/01/2026 11:23:54 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
+08/01/2026 11:23:54 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5259 ms
+08/01/2026 11:23:55 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
+08/01/2026 11:23:55 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
+08/01/2026 11:23:55 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
+08/01/2026 11:23:56 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
+08/01/2026 11:23:56 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
+08/01/2026 11:23:58 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
+08/01/2026 11:24:00 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
+08/01/2026 11:24:00 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
+08/01/2026 11:24:04 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+08/01/2026 11:24:04 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
+08/01/2026 11:24:04 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 15.655 seconds (process running for 16.419)
+08/01/2026 11:24:24 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+08/01/2026 11:24:24 INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+08/01/2026 11:24:24 INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:24:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.0.ttl]
+08/01/2026 11:24:39 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 11:24:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:24:39 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 11:24:39 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 11:24:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:24:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:24:40 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 11:24:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:24:40 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
+08/01/2026 11:24:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:24:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:24:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:24:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:24:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:24:41 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:31:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:31:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:31:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:31:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:31:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:31:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:47:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:47:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 11:47:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:47:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 11:47:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 11:47:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 12:13:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 12:13:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 12:13:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 12:13:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 12:13:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 12:13:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 12:19:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 12:19:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 12:19:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 12:19:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 12:19:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 12:19:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 13:27:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 13:27:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 13:27:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 13:27:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 13:27:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 13:27:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+08/01/2026 13:37:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.

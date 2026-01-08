@@ -71,38 +71,38 @@ def parallel_processing_flow():
     tracker.publish()
 
 
-    # transformed_futures = [
-    # transform_item.submit(constructed_batch)
-    #     for constructed_batch in constructed_results
-    # ]
+    transformed_futures = [
+    transform_item.submit(constructed_batch)
+        for constructed_batch in constructed_results
+    ]
 
-    # transformed_results = [future.result() for future in transformed_futures]
-    # logger.info(f"Completed transformation {len(transformed_results)} batches")
-    # tracker.publish()
+    transformed_results = [future.result() for future in transformed_futures]
+    logger.info(f"Completed transformation {len(transformed_results)} batches")
+    tracker.publish()
 
-    # # Task 7: Validate each entry
-    # tracker.update_activity_task(TaskType.validate)
-    # validated_futures = [
-    #     validate_data_graph.submit(
-    #         transformed_item, 
-    #         config["validator"]["url"],
-    #         config["validator"]["payload"],
-    #         config["validator"]["headers"]
-    #     )
-    #     for transformed_item in transformed_results
-    # ]
+    # Task 7: Validate each entry
+    tracker.update_activity_task(TaskType.validate)
+    validated_futures = [
+        validate_data_graph.submit(
+            transformed_item, 
+            config["validator"]["url"],
+            config["validator"]["payload"],
+            config["validator"]["headers"]
+        )
+        for transformed_item in transformed_results
+    ]
 
-    # # Collect validation results, handling failures gracefully
-    # validated_results = []
-    # for i, future in enumerate(validated_futures):
-    #     try:
-    #         result = future.result()
-    #         validated_results.append(result)
-    #     except Exception as e:
-    #         logger.error(f"Validation failed for entry {i}: {e}")
+    # Collect validation results, handling failures gracefully
+    validated_results = []
+    for i, future in enumerate(validated_futures):
+        try:
+            result = future.result()
+            validated_results.append(result)
+        except Exception as e:
+            logger.error(f"Validation failed for entry {i}: {e}")
     
-    # logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
-    # tracker.publish()
+    logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
+    tracker.publish()
 
     # # Task 8: Load validated entries in GraphDB (only if we have valid results)
     # tracker.update_activity_task(TaskType.load_output)

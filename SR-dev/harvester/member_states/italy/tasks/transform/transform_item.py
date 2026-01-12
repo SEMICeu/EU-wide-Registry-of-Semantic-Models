@@ -1,10 +1,12 @@
 from prefect import task, get_run_logger
 
+from prefect.flows import R
 from rdflib import Graph, RDF, Namespace, Literal, URIRef
 from rdflib.namespace import XSD
 from pathlib import Path
 from rdflib import Literal, XSD
 from datetime import datetime, timezone
+from .construct_item import get_class_label
 import requests
 import sys
 
@@ -77,10 +79,92 @@ async def transform_item(batch: str) -> str:
                 target_graph.add((s, DCT.identifier, Literal(str(s))))
                 logger.info(f"No officialURI for {s}, using ontology URI as identifier")
 
+            # adms:Asset/dct:license
+            for a, _, distribution_uri in source_graph.triples((s, ADMSAPIT.hasSemanticAssetDistribution, None)):
+                try:
+
+                    target_graph.add((a, ADMSAPIT.hasSemanticAssetDistribution, URIRef(distribution_uri)))
+                    target_graph.add((URIRef(distribution_uri), RDF.type, DCT.distribution))
+
+                    # adms:Asset/dcat:distribution/dcat:isDefinedBy/rdfs:Class
+                    for _, _, classUri in source_graph.triples((None, ADMSAPIT.hasKeyClass, None)):
+                        target_graph.add((URIRef(classUri), RDFS.isDefinedBy, URIRef(distribution_uri)))
+                        target_graph.add((URIRef(classUri), RDF.type, RDFS.Class))
+
+                        logger.info(f"rdfs label {str(RDFS.label)}")
+
+                        result = get_class_label(
+                            str(classUri), 
+                            str(RDFS.label),
+                            config["web_source_url"],
+                            config["construct_rdfs_class_query"],
+                            )
+
+                        class_graph = Graph()
+                        class_graph.parse(data=result, format="turtle")
+
+                        # adms:Asset/dcat:distribution/dcat:isDefinedBy/rdfs:Class/rdfs:label
+                        for _, _, label in class_graph.triples((None, RDFS.label, None)):
+                            target_graph.add((URIRef(classUri), RDFS.label, label))
+
+                    logger.info("Requesting admsapit:hasSemanticAssetDistribution...")
+                
+                    headers = {
+                    "Accept" : "text/turtle"
+                    }
+                    response = requests.get(str(distribution_uri),headers=headers)
+
+                    distribution_graph = Graph()
+                    distribution_graph.parse(data=response.text, format="turtle")
+
+                    if response.status_code == 200:
+                        logger.info("Request Succesfull for admsapit:hasSemanticAssetDistribution")
+
+                        for _, b, c in distribution_graph.triples((distribution_uri, None, None)):
+        
+                            # adms:Asset/dct:license
+                            if b == DCT.license:
+                                license_str = str(c)
+                                if license_str in ["https://w3id.org/italia/controlled-vocabulary/licences/A21_CCBY40", "http://creativecommons.org/licenses/by/4.0/"]:
+                                    license_url = "http://publications.europa.eu/resource/authority/license/CC_BY_4_0"
+                                    logger.info(f"transforming license url {license_str} to {license_url}")
+                                    
+                                    target_graph.add((s, DCT.license, URIRef(license_url)))
+                                    target_graph.add((URIRef(license_url), RDF.type, DCT.LicenseDocument))
+                                    target_graph.add((URIRef(license_url), RDF.type, SKOS.Concept))
+                                    target_graph.add((URIRef(license_url), SKOS.inScheme, URIRef("http://publications.europa.eu/resource/authority/license")))
+                                else:
+                                    logger.error(f"license url not recognized {license_str}")
+                            
+                            # adms:Asset/dcat:distribution/dcat:downloadURL
+                            elif b == DCAT.downloadURL:
+                                logger.info(f"extracting dcat:downloadURL")
+                                target_graph.add((distribution_uri, DCAT.downloadURL, URIRef(c)))
+                            
+                            # adms:Asset/dcat:distribution/dct:format
+                            elif b == DCT['format']:
+                                logger.info(f"extracting dct:format")
+                                target_graph.add((distribution_uri, DCT['format'], URIRef(c)))
+                            
+                            # adms:Asset/dcat:distribution/dct:title
+                            elif b == DCT.title:     
+                                logger.info(f"extracting dct:title")                          
+                                target_graph.add((distribution_uri, DCT.title, Literal(c, datatype=RDF.langString)))
+
+
+                        
+                except requests.exceptions.RequestException as e:
+                    logger.error(f"Failed to check distribution {distribution_uri}: {e}")
+                    
+
+
         # adms:Asset/dct:description
         for s, p, o in source_graph.triples((None, DCT.description, None)):
             target_graph.add((s, DCT.description, o))
 
+        # adms:Asset/m8g:isReusedBy
+        for s, p, o in source_graph.triples((None, ADMSAPIT.semanticAssetInUse, None)):
+            target_graph.add((s, M8G.isReusedBy,  Literal(o, datatype=XSD.anyURI)))
 
         # adms:Asset/dct:issued
         for s, p, o in source_graph.triples((None, DCT.issued, None)):
@@ -106,11 +190,80 @@ async def transform_item(batch: str) -> str:
                 logger.info(f"dct:issued - could not convert date: {o} (error: {e})")
                 continue
                 
+        # adms:Asset/dcat:keyword
+        for s, p, o in source_graph.triples((None, DCAT.keyword, None)):
+            if isinstance(o, Literal) and o.language is None:
+                target_graph.add((s, DCAT.keyword, Literal(str(o), lang='it')))
+        else:
+            target_graph.add((s, DCAT.keyword, o))
 
         # adms:Asset/dct:language
         for s, p, o in source_graph.triples((None, DCT.language, None)):
             target_graph.add((s, DCT.language, o))
             target_graph.add((o, RDF.type, SKOS.Concept))
+
+        # adms:Asset/dct:modified
+        for s, p, o in source_graph.triples((None, DCT.modified, None)):
+            try:
+                value = str(o)
+
+                if "T" in value:
+                    dateTime = value.replace("+00:00", "Z")
+
+                    if "." in dateTime and not dateTime.endswith("Z"):
+                        dateTime = dateTime.split(".")[0] + "Z"
+
+                    if not dateTime.endswith("Z"):
+                        dateTime = dateTime + "Z"
+
+                elif len(value) == 10:
+                    dateTime = value + "T00:00:00Z"
+
+                else:
+                    logger.info(f"dct:modified - unsupported format: {o}")
+                    continue
+
+                target_graph.add((s,DCT.modified,Literal(dateTime, datatype=XSD.dateTime)))
+
+            except Exception as e:
+                logger.info(f"dct:modified - could not convert date: {o} (error: {e})")
+                continue
+
+        # adms:Asset/adms:status
+        for s, p, o in source_graph.triples((None, ADMSAPIT.status, None)):
+            mappedStatus = ""
+            status_value = str(o)
+
+            if status_value in ["published", "catalogued"]:
+                mappedStatus = "http://purl.org/adms/status/Completed"
+            elif status_value in ["initial draft", "draft", "final draft"]:
+                mappedStatus = "http://purl.org/adms/status/UnderDevelopment"
+            else:
+                logger.warning(f"Could not identify status code: {status_value}")
+            
+            if len(mappedStatus) > 0:              
+                target_graph.add((s, ADMS.status, URIRef(mappedStatus)))
+                target_graph.add((URIRef(mappedStatus), RDF.type, SKOS.Concept))
+
+        # adms:Asset/dct:theme
+        for s, p, o in source_graph.triples((None, DCAT.theme, None)):
+            target_graph.add((s, DCAT.theme, o))
+            target_graph.add((o, RDF.type, SKOS.Concept))
+
+        # adms:Asset/dct:title
+        for s, p, o in source_graph.triples((None, DCT.title, None)):
+            target_graph.add((s, DCT.title, Literal(o, datatype=RDF.langString)))
+
+        # adms:Asset/owl:versionInfo
+        for s, p, o in source_graph.triples((None, OWL.versionInfo, None)):
+            if isinstance(o, Literal) and o.language == "en":
+                logger.info("adding owl:versionInfo with 'en' language tag")
+                target_graph.add((s, OWL.versionInfo, Literal(str(o), datatype=XSD.string))) 
+
+        # adms:Asset/dct:license
+        # for s, p, o in source_graph.triples((None, ADMSAPIT.hasSemanticAssetDistribution, None)):
+        #     target_graph.add((s, DCT.license, o))
+    
 
         # # adms:Asset/dct:modified
         # modified_by_subject = {}

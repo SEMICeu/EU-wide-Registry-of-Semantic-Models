@@ -13,7 +13,7 @@
 # Import external vocabularies
 srm:imports rdf:type owl:Ontology ;
     owl:imports <http://publications.europa.eu/resource/authority/language> ;
-    owl:imports <http://publications.europa.eu/resource/authority/licence> ;
+    owl:imports <http://publications.europa.eu/resource/authority/license> ;
     owl:imports <https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf> ; 
     owl:imports <http://publications.europa.eu/resource/authority/data-theme> ;
     owl:imports <http://publications.europa.eu/resource/authority/organization-type> ; 
@@ -45,11 +45,11 @@ srm:AssetLanguageShape
         sh:message "The language must be in the EU Publications Office language authority table" ;
     ] .
 
-srm:AssetLicenceShape
+srm:AssetLicenseShape
     a sh:NodeShape ;
     sh:targetClass adms:Asset ;
-    rdfs:label "Asset Licence Shape"@en ;
-    rdfs:comment "The licence must be in the EU Publications Office language authority table"@en ;
+    rdfs:label "Asset license Shape"@en ;
+    rdfs:comment "The license must be in the EU Publications Office language authority table"@en ;
     sh:property [
 		sh:name "license"@en ;
 		sh:description "verify the dct:license property"@en ;
@@ -60,11 +60,11 @@ srm:AssetLicenceShape
                 sh:name "in scheme"@en ;
                 sh:description "verify the skos:inScheme property"@en ;
                 sh:path skos:inScheme ;
-                sh:hasValue <http://publications.europa.eu/resource/authority/licence> ;
+                sh:hasValue <http://publications.europa.eu/resource/authority/license> ;
                 sh:minCount 1 ;
             ]
         ] ;
-        sh:message "The licence must be in the EU Publications Office licence authority table" ;
+        sh:message "The license must be in the EU Publications Office license authority table" ;
     ] .
 
 srm:AssetStatusShape

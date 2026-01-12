@@ -67,3 +67,13 @@ construct_query: |
       ?s ?p ?o .
       FILTER(?s = <$uri>)
     }
+
+construct_rdfs_class_query: |
+    CONSTRUCT {
+      ?s ?p ?o .
+    } 
+    WHERE {
+      ?s ?p ?o .
+      FILTER(?s = <$uri>)
+      FILTER(?p = <$label>)
+    }

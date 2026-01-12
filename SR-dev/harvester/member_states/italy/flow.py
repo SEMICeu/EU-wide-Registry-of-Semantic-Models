@@ -43,7 +43,7 @@ def parallel_processing_flow():
     )
     tracker.publish()
 
-    list_result = list_result[0:2]
+    list_result = list_result[0:5]
     # Task 4: Create batches
     batches = make_batches(list_result)
     tracker.publish()

@@ -109,7 +109,7 @@ async def get_class_label(class_uri, predicate, db_path: str, construct_query: s
         logger.info(f"Query completed. Result size: {result_size} bytes")
         logger.info(f"construct item result: {results}")
 
-        return str(results)
+        return results
         
     except Exception as e:
         logger.error(f"Constructing FAILED for batch: {class_uri}")

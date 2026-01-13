@@ -25,7 +25,7 @@ validator:
   url: "http://localhost:8080/shacl/srm/api/validate"
 
   payload:
-    validationType: "v1.0.0"
+    validationType: "v1.0.1"
     contentSyntax: "text/turtle"
     contentToValidate: "__CONTENT__"
 

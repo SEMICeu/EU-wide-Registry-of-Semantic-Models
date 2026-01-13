@@ -1,0 +1,3 @@
+@prefix shacl: <http://www.w3.org/ns/shacl#> .
+
+<https://semiceu.github.io/SRM/releases/1.0.1#AssetShape/b19f1113c59fce0aa3743160e2952dbb0b46c495> shacl:deactivated true .

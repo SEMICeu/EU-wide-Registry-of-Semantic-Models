@@ -83,8 +83,8 @@ async def transform_item(batch: str) -> str:
             for a, _, distribution_uri in source_graph.triples((s, ADMSAPIT.hasSemanticAssetDistribution, None)):
                 try:
 
-                    target_graph.add((a, ADMSAPIT.hasSemanticAssetDistribution, URIRef(distribution_uri)))
-                    target_graph.add((URIRef(distribution_uri), RDF.type, DCT.distribution))
+                    target_graph.add((a, DCAT.distribution, URIRef(distribution_uri)))
+                    target_graph.add((URIRef(distribution_uri), RDF.type, ADMS.AssetDistribution))
 
                     # adms:Asset/dcat:distribution/dcat:isDefinedBy/rdfs:Class
                     for _, _, classUri in source_graph.triples((None, ADMSAPIT.hasKeyClass, None)):
@@ -93,7 +93,7 @@ async def transform_item(batch: str) -> str:
 
                         logger.info(f"rdfs label {str(RDFS.label)}")
 
-                        result = get_class_label(
+                        result = await get_class_label(
                             str(classUri), 
                             str(RDFS.label),
                             config["web_source_url"],
@@ -126,7 +126,7 @@ async def transform_item(batch: str) -> str:
                             if b == DCT.license:
                                 license_str = str(c)
                                 if license_str in ["https://w3id.org/italia/controlled-vocabulary/licences/A21_CCBY40", "http://creativecommons.org/licenses/by/4.0/"]:
-                                    license_url = "http://publications.europa.eu/resource/authority/license/CC_BY_4_0"
+                                    license_url = "http://publications.europa.eu/resource/authority/licence/CC_BY_4_0"
                                     logger.info(f"transforming license url {license_str} to {license_url}")
                                     
                                     target_graph.add((s, DCT.license, URIRef(license_url)))
@@ -139,24 +139,21 @@ async def transform_item(batch: str) -> str:
                             # adms:Asset/dcat:distribution/dcat:downloadURL
                             elif b == DCAT.downloadURL:
                                 logger.info(f"extracting dcat:downloadURL")
-                                target_graph.add((distribution_uri, DCAT.downloadURL, URIRef(c)))
+                                target_graph.add((distribution_uri, DCAT.downloadURL, Literal(c, datatype=XSD.anyURI)))
                             
                             # adms:Asset/dcat:distribution/dct:format
                             elif b == DCT['format']:
                                 logger.info(f"extracting dct:format")
                                 target_graph.add((distribution_uri, DCT['format'], URIRef(c)))
+                                target_graph.add((URIRef(c), RDF.type, DCT.MediaTypeOrExtent))
                             
                             # adms:Asset/dcat:distribution/dct:title
                             elif b == DCT.title:     
                                 logger.info(f"extracting dct:title")                          
                                 target_graph.add((distribution_uri, DCT.title, Literal(c, datatype=RDF.langString)))
 
-
-                        
                 except requests.exceptions.RequestException as e:
-                    logger.error(f"Failed to check distribution {distribution_uri}: {e}")
-                    
-
+                    logger.error(f"Failed to check distribution {distribution_uri}: {e}")                   
 
         # adms:Asset/dct:description
         for s, p, o in source_graph.triples((None, DCT.description, None)):
@@ -259,6 +256,11 @@ async def transform_item(batch: str) -> str:
             if isinstance(o, Literal) and o.language == "en":
                 logger.info("adding owl:versionInfo with 'en' language tag")
                 target_graph.add((s, OWL.versionInfo, Literal(str(o), datatype=XSD.string))) 
+
+        # adms:Asset/dct:requires
+        for s, p, o in source_graph.triples((None, OWL.imports, None)):
+            target_graph.add((s, DCT.requires, URIRef(o)))
+            # target_graph.add((o, RDF.type, ADMS.Asset))
 
         # adms:Asset/dct:license
         # for s, p, o in source_graph.triples((None, ADMSAPIT.hasSemanticAssetDistribution, None)):

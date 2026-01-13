@@ -12,8 +12,7 @@ fetch_query: |
     OPTIONAL {
       ?s dct:modified ?modified
     }
-  }
-    
+  }   
 
 graphDB_host: "http://localhost:7200"
 graphDB_config_file_path: "config_graphDB_repo.ttl"
@@ -41,7 +40,7 @@ validator:
   url: "http://localhost:8080/shacl/srm/api/validate"
 
   payload:
-    validationType: "v1.0.0"
+    validationType: "v1.0.1"
     contentSyntax: "text/turtle"
     contentToValidate: "__CONTENT__"
 

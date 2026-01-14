@@ -284,7 +284,7 @@ async def transform_item(batch: str) -> str:
                         logger.info(f"Found email: {c} for contact point: {a}")
                         emailURI =  "mailto:" + c
                         target_graph.add((URIRef(url), VCARD.hasEmail, URIRef(emailURI)))
-                        target_graph.add((URIRef(emailURI), RDF.type, VCARD.Email,))
+                        target_graph.add((URIRef(emailURI), RDF.type, VCARD.Email))
 
             else:
                 logger.error(f"Request FAILED for vcard:Kind - Status: {response.status_code}")
@@ -319,7 +319,7 @@ async def transform_item(batch: str) -> str:
                     
                 if len(fileType) > 0:
                     target_graph.add((o, DCT['format'], URIRef(fileType)))
-                    target_graph.add((URIRef(fileType), RDF.type, SKOS.Concept))
+                    target_graph.add((URIRef(fileType), RDF.type, DCT.MediaTypeOrExtent))
 
                     target_graph.add((o, PROF.hasRole, URIRef(hasRole)))
                     target_graph.add((URIRef(hasRole), RDF.type, SKOS.Concept))

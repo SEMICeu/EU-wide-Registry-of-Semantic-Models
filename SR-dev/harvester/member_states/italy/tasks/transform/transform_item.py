@@ -6,7 +6,7 @@ from rdflib.namespace import XSD
 from pathlib import Path
 from rdflib import Literal, XSD
 from datetime import datetime, timezone
-from .construct_item import get_class_label
+from .construct_item import get_property
 import requests
 import sys
 
@@ -93,11 +93,11 @@ async def transform_item(batch: str) -> str:
 
                         logger.info(f"rdfs label {str(RDFS.label)}")
 
-                        result = await get_class_label(
+                        result = await get_property(
                             str(classUri), 
                             str(RDFS.label),
                             config["web_source_url"],
-                            config["construct_rdfs_class_query"],
+                            config["construct_custom_query"],
                             )
 
                         class_graph = Graph()
@@ -261,6 +261,53 @@ async def transform_item(batch: str) -> str:
         for s, p, o in source_graph.triples((None, OWL.imports, None)):
             target_graph.add((s, DCT.requires, URIRef(o)))
             # target_graph.add((o, RDF.type, ADMS.Asset))
+
+        # adms:Asset/dcat:contactPoint
+        # adms:Asset/dcat:contactPoint/vcard:Kind
+        for s, p, o in source_graph.triples((None, DCAT.contactPoint, None)):
+
+            result = await get_property(
+                        str(o), 
+                        str(VCARD.hasEmail),
+                        config["web_source_url"],
+                        config["construct_custom_query"],
+                        )
+
+            vcard_graph = Graph()
+            vcard_graph.parse(data=result, format="turtle")
+
+            target_graph.add((s, DCAT.contactPoint, URIRef(o)))
+            target_graph.add((URIRef(o), RDF.type, VCARD.Kind))
+
+
+            for a, _, hasEmail in vcard_graph.triples((None, VCARD.hasEmail, None)):
+                logger.info(f"Found email: {hasEmail} for contact point: {a}")       
+                target_graph.add((hasEmail, RDF.type, VCARD.Email))
+                target_graph.add((URIRef(o), VCARD.hasEmail, URIRef(hasEmail)))
+
+        # adms:Asset/dct:creator
+        # adms:Asset/dct:creator/foaf:Agent/foaf:name
+        for s, p, o in source_graph.triples((None, DCT.creator, None)):
+
+            result = await get_property(
+                        str(o), 
+                        str(DCT.creator),
+                        config["web_source_url"],
+                        config["construct_custom_query"],
+                        )
+
+            agent_graph = Graph()
+            agent_graph.parse(data=result, format="turtle")
+
+            target_graph.add((s, DCT.creator, URIRef(o)))
+            target_graph.add((URIRef(o), RDF.type, FOAF.Agent))
+
+            for a, _, name in agent_graph.triples((None, FOAF.name, None)):
+                logger.info(f"Found foaf:name: {name} for Agent: {a}")
+                target_graph.add((URIRef(o), VCARD.hasEmail, URIRef(name)))
+                target_graph.add((name, RDF.type, FOAF.name))
+
+                
 
         # adms:Asset/dct:license
         # for s, p, o in source_graph.triples((None, ADMSAPIT.hasSemanticAssetDistribution, None)):

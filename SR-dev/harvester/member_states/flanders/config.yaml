@@ -40,7 +40,7 @@ extract_query: |
       { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Applicatieprofiel> }
       UNION
       { ?s dct:type <https://data.vlaanderen.be/id/concept/StandaardType/Vocabularium> }
-    } LIMIT 5
+    }
 
 
 construct_query: |

@@ -66,15 +66,7 @@ async def construct_item(batch: str, db_path: str, construct_query: str) -> List
         raise 
 
 
-async def get_class_label(class_uri, predicate, db_path: str, construct_query: str) -> List[str]:
-    """
-    Construct items from a batch using a SPARQL query.
-
-    :param batch: A batch of identifiers or input items to process.
-    :param db_path: Path or endpoint of the GraphDB repository.
-    :param construct_query: SPARQL query string used to construct the items.
-    :return: List of strings representing the constructed items for the batch.
-    """
+async def get_property(class_uri, predicate, db_path: str, construct_query: str) -> List[str]:
 
     logger = get_run_logger()
 
@@ -84,7 +76,7 @@ async def get_class_label(class_uri, predicate, db_path: str, construct_query: s
  
     try:
         template = Template(query_template)
-        query = template.substitute(uri=class_uri, label=predicate)
+        query = template.substitute(uri=class_uri, property=predicate)
         
         logger.info(f"Query to execute:\n{query[:500]}") 
 

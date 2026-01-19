@@ -2,6 +2,9 @@ web_source_url: "https://schema.gov.it/sparql?default-graph-uri="
 web_source_query_url: "https://schema.gov.it/sparql?default-graph-uri=&query="
 format_params: "&format=text%2Fcsv&timeout=0&signal_void=on"
 
+enable_provenance_history: True
+keep_latest_entries_provenance: 2
+
 fetch_query: | 
   PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -18,6 +21,7 @@ graphDB_host: "http://localhost:7200"
 graphDB_config_file_path: "config_graphDB_repo.ttl"
 graphDB_source_repo_name: "italy"
 graphDB_target_repo_name: "srm"
+graphDB_provenance_repo_name: "italy_prov"
 
 transformation:
   namespaces:
@@ -77,3 +81,40 @@ construct_custom_query: |
       FILTER(?p = <$property>)
     }
   
+select_last_provenance_date_query: |
+    PREFIX prov: <http://www.w3.org/ns/prov#>
+    SELECT ?endTime
+    WHERE {
+      ?execution prov:endedAtTime ?endTime .
+    }
+    ORDER BY DESC(?endTime)
+    LIMIT 1
+
+# delete_old_entries_provenance_query: |
+#     PREFIX prov: <http://www.w3.org/ns/prov#>
+
+#     DELETE {
+#       ?oldExecution ?p ?o .
+#     }
+#     WHERE {
+#       {
+#         SELECT ?oldExecution
+#         WHERE {
+#           ?oldExecution prov:endedAtTime ?oldEndTime .
+          
+#           {
+#             SELECT ?oldExecution (COUNT(DISTINCT ?newerExecution) AS ?newerCount)
+#             WHERE {
+#               ?oldExecution prov:endedAtTime ?oldEndTime .
+#               ?newerExecution prov:endedAtTime ?newerEndTime .
+#               FILTER(?newerEndTime > ?oldEndTime)
+#             }
+#             GROUP BY ?oldExecution ?oldEndTime
+#           }
+          
+#           FILTER(?newerCount >= $keep_latest)
+#         }
+#       }
+      
+#       ?oldExecution ?p ?o .
+#     }

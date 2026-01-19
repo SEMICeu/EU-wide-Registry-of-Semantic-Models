@@ -81,10 +81,10 @@ class TransformationExecutionDTO(BaseModel):
     model_config = ConfigDict(validate_by_name=True, validate_by_alias=True)
 
     id: str = Field(alias="@id")
-    title: Optional[str] = Field(None, alias="@title")
-    start_time: datetime = Field(alias="@startedAtTime")
-    end_time: Optional[datetime] = Field(default=None, alias="@endedAtTime")
-    status: JobStatus = Field(alias="@status")
-    task: Optional[TaskType] = Field(default=None, alias="@task")
+    title: Optional[str] = Field(None, alias="title")
+    start_time: datetime = Field(alias="startedAtTime")
+    end_time: Optional[datetime] = Field(default=None, alias="endedAtTime")
+    status: JobStatus = Field(alias="status")
+    task: Optional[TaskType] = Field(default=None, alias="task")
     transformation: Optional[Transformation] = None
     generated: Optional[TransformationReport] = None

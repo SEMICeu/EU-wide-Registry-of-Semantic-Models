@@ -2,6 +2,8 @@ from prefect import get_run_logger
 from ..model import TransformationExecution, TransformationExecutionDTO
 import json
 
+
+
 class GraphAdapter:
     """
     Adapter: PROV -> Graph triple store
@@ -16,6 +18,7 @@ class GraphAdapter:
         logger = get_run_logger()
 
         url = "http://localhost:4200/runs/flow-run/" + lineage.id
+        # status_url = "http://purl.org/adms/status/" + lineage.status
 
         dto = TransformationExecutionDTO(
             id= url,
@@ -38,8 +41,9 @@ class GraphAdapter:
                 "NonNegativeInteger": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
                 "String": "http://www.w3.org/2001/XMLSchema#string",
                 "Text": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-                "TransfomationExecution": "https://data.europa.eu/m8g/transform-validate-ontology#TransformationExecution",
+                "TransformationExecution": "https://data.europa.eu/m8g/transform-validate-ontology#TransformationExecution",
                 "Transformation": "https://data.europa.eu/m8g/transform-validate-ontology#Transformation",
+                "Task": "https://data.europa.eu/m8g/transform-validate-ontology#Task",
                 "TransformationReport": "https://data.europa.eu/m8g/transform-validate-ontology#TransformationReport",
                 "URI": "http://www.w3.org/2001/XMLSchema#anyURI",
                 "declaresOutputDistribution": {
@@ -47,38 +51,42 @@ class GraphAdapter:
                 "@type": "@id"
                 },
                 "endedAtTime": {
-                "@id": "http://www.w3.org/ns/prov#endedAtTime",
-                "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+                    "@id": "http://www.w3.org/ns/prov#endedAtTime",
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+                },
+                "task": {
+                    "@id": "https://data.europa.eu/m8g/transform-validate-ontology#Task", 
+                    "@type": "http://www.w3.org/2001/XMLSchema#string"
                 },
                 "executedTransformation": {
-                "@container": "@set",
-                "@id": "https://data.europa.eu/m8g/transform-validate-ontology#executedTransformation",
-                "@type": "@id"
+                    "@container": "@set",
+                    "@id": "https://data.europa.eu/m8g/transform-validate-ontology#executedTransformation",
+                    "@type": "@id"
                 },
                 "generated": {
-                "@id": "http://www.w3.org/ns/prov#generated",
-                "@type": "@id"
+                    "@id": "http://www.w3.org/ns/prov#generated",
+                    "@type": "@id"
                 },
                 "hadInputSource": {
-                "@id": "https://data.europa.eu/m8g/transform-validate-ontology#hadInputSource",
-                "@type": "@id"
+                    "@id": "https://data.europa.eu/m8g/transform-validate-ontology#hadInputSource",
+                    "@type": "@id"
                 },
                 "identifier": {
-                "@id": "http://purl.org/dc/terms/identifier",
-                "@type": "http://www.w3.org/2001/XMLSchema#string"
+                    "@id": "http://purl.org/dc/terms/identifier",
+                    "@type": "http://www.w3.org/2001/XMLSchema#string"
                 },
                 "startedAtTime": {
-                "@id": "http://www.w3.org/ns/prov#startedAtTime",
-                "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+                    "@id": "http://www.w3.org/ns/prov#startedAtTime",
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
                 },
                 "status": {
-                "@id": "http://www.w3.org/ns/adms#status",
-                "@type": "@id"
+                    "@id": "http://www.w3.org/ns/adms#status",
+                    "@type": "@id"
                 },
                 "title": {
-                "@container": "@set",
-                "@id": "http://purl.org/dc/terms/title",
-                "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+                    "@container": "@set",
+                    "@id": "http://purl.org/dc/terms/title",
+                    "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
                 }
         },    
             **dto.model_dump(by_alias=True, mode='json')
@@ -87,4 +95,4 @@ class GraphAdapter:
         output =  json.dumps(json_ld, indent=2)
         logger.info(f"output {output}")
 
-        
+        return output

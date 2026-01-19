@@ -1,6 +1,4 @@
 from prefect import task, get_run_logger
-from SPARQLWrapper import TURTLE
-from rdflib import Graph
 from typing import Union
 import requests
 import json

@@ -18,16 +18,15 @@ def initialize_graphdb_repo(repo_name: str, config_file_path: str, host: str = "
 
     check_url = f"{host}/rest/repositories/{repo_name}"
     check_response = requests.get(check_url)
+
+    repo_url= f"{host}/repositories/{repo_name}"
     
     if check_response.status_code == 200:
-        logger.info(f"Repository '{repo_name}' already exists. Deleting it...")
-        delete_response = requests.delete(check_url)
-        
-        if delete_response.status_code in (200, 204):
-            logger.info(f"Repository '{repo_name}' deleted successfully")
-        else:
-            logger.warning(f"Failed to delete repository: {delete_response.status_code}, {delete_response.text}")
+        logger.info(f"Repository '{repo_name}' already exists.")
+        return repo_url
 
+
+    logger.info(f"Repository '{repo_name}' does not exists, creating new repo...")
     
     config_file = Path(__file__).parents[2] / config_file_path
 
@@ -49,4 +48,4 @@ def initialize_graphdb_repo(repo_name: str, config_file_path: str, host: str = "
 
     logger.info(f"Repository '{repo_name}' created successfully")
 
-    return f"{host}/repositories/{repo_name}"
+    return repo_url

@@ -5,6 +5,7 @@ from prefect.context import get_run_context
 from prefect import get_run_logger
 from .adapters.prefect_adapter import PrefectArtifactAdapter
 from .adapters.graph_adapter import GraphAdapter
+from .utils import load_data_to_prov_graphdb
 
 class ProvenanceTracker:
     """
@@ -73,7 +74,7 @@ class ProvenanceTracker:
             logger.info(f"✓ Updated end_time to {end_time}")
         
 
-    def publish(self):
+    def publish(self, graphdb_endpoint: str ):
         """
         Mark activity complete and publish to all backends
         """
@@ -94,8 +95,15 @@ class ProvenanceTracker:
         # Publish to graph triple store
         if self.enable_graph_storage:
             try:
-                self.graph_adapter.create_rdf(self.lineage)
-                logger.info("✓ Published to graph triple store")
+                rdf_string = self.graph_adapter.create_rdf(self.lineage)
+            
+                load_data_to_prov_graphdb(
+                    rdf_data=rdf_string,
+                    graphdb_endpoint=graphdb_endpoint,
+                    format="json-ld"
+                )
+
+                logger.info("✓ Published to provenance graph triple store")
             except Exception as e:
                 logger.warning(f"Failed to create graph rdf: {e}")
                 

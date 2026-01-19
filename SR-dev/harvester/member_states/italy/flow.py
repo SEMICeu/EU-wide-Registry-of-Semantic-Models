@@ -1,13 +1,14 @@
 from prefect import flow, get_run_logger
 from prefect.task_runners import ConcurrentTaskRunner
 from .tasks.extract.make_batches import make_batches
-from .tasks.extract.extract_ontologies import extract_list_from_result
+from .tasks.extract.extract_ontologies import extract_list_from_result, extract_last_provenance_date
 from .tasks.load.fetch_tripples_csv import fetch_sparql_to_csv
 from .tasks.load.initialize_graphdb_repo import initialize_graphdb_repo
 from .tasks.load.load_data_to_graphdb import load_data_to_graphdb
 from .tasks.transform.construct_item import construct_item
 from .tasks.transform.validate import validate_data_graph
 from .tasks.transform.transform_item import transform_item
+from .provenance.provenance import cleanup_provenance_graphdb
 from config import load_config
 from ...provenance.tracker import ProvenanceTracker
 from ...provenance.model import JobStatus, TaskType
@@ -30,9 +31,17 @@ def parallel_processing_flow():
     # Task 1: Extract results from schema.gov.it.
     df = fetch_sparql_to_csv(config["web_source_query_url"],config["format_params"],config["fetch_query"])
 
-    # TODO split step by adding governance
-    # Task 2: Provenance step
-    list_result = extract_list_from_result(df)
+    # Task 2: Provenance step / extracting Ontologies to transform
+
+    enable_provenance_history = config["enable_provenance_history"]
+
+    if enable_provenance_history:
+        provenance_date = extract_last_provenance_date(repo_name=config["graphDB_provenance_repo_name"],extract_provenance_date_query= config["select_last_provenance_date_query"])
+        list_result = extract_list_from_result(df, provenance_date=provenance_date)
+
+    else:
+        list_result = extract_list_from_result(df, provenance_date=None, enable_provenance=False)
+
 
     # Task 3: Create a new repository in GraphDB. (Overwrite if repo exists)
     tracker.update_activity_task(TaskType.extract)
@@ -41,12 +50,18 @@ def parallel_processing_flow():
         config["graphDB_config_file_path"],
         config["graphDB_host"]
     )
-    tracker.publish()
 
-    # list_result = list_result[0:2]
+    endpoint_provenance = initialize_graphdb_repo(
+        config["graphDB_provenance_repo_name"],
+        config["graphDB_config_file_path"],
+        config["graphDB_host"]
+    )
+    tracker.publish(endpoint_provenance)
+
+    list_result = list_result[0:2]
     # Task 4: Create batches
     batches = make_batches(list_result)
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
     
    # Task 5: Process batches in parallel
     tracker.update_activity_task(TaskType.transform)
@@ -68,7 +83,7 @@ def parallel_processing_flow():
     # Wait for all loads to complete
     load_results = [future.result() for future in load_futures]
     logger.info(f"Successfully loaded {len(load_results)} out of {len(load_futures)} entries")
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
 
 
     transformed_futures = [
@@ -78,7 +93,7 @@ def parallel_processing_flow():
 
     transformed_results = [future.result() for future in transformed_futures]
     logger.info(f"Completed transformation {len(transformed_results)} batches")
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
 
     # Task 7: Validate each entry
     tracker.update_activity_task(TaskType.validate)
@@ -102,37 +117,39 @@ def parallel_processing_flow():
             logger.error(f"Validation failed for entry {i}: {e}")
     
     logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
 
-    # # Task 8: Load validated entries in GraphDB (only if we have valid results)
-    # tracker.update_activity_task(TaskType.load_output)
-    # if validated_results:
-    #     endpoint_target = initialize_graphdb_repo(
-    #         config["graphDB_target_repo_name"],
-    #         config["graphDB_config_file_path"],
-    #         config["graphDB_host"]
-    #     )
+    # Task 8: Load validated entries in GraphDB (only if we have valid results)
+    tracker.update_activity_task(TaskType.load_output)
+    if validated_results:
+        endpoint_target = initialize_graphdb_repo(
+            config["graphDB_target_repo_name"],
+            config["graphDB_config_file_path"],
+            config["graphDB_host"]
+        )
 
-    #     loaded_results = [
-    #         load_data_to_graphdb.submit(
-    #             validated_result["contentToValidate"], 
-    #             endpoint_target,
-    #             format="turtle"  
-    #         )
-    #         for validated_result in validated_results
-    #     ]
+        loaded_results = [
+            load_data_to_graphdb.submit(
+                validated_result["contentToValidate"], 
+                endpoint_target,
+                format="turtle"  
+            )
+            for validated_result in validated_results
+        ]
         
-    #     load_status = [future.result() for future in loaded_results]
-    #     logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
-    #     tracker.update_status(JobStatus.completed)
+        load_status = [future.result() for future in loaded_results]
+        logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
+        
+    
 
-    #     tracker.publish()
+    else:
+        logger.warning("No validated entries to load into GraphDB")
 
-    # else:
-    #     logger.warning("No validated entries to load into GraphDB")
+    tracker.update_status(JobStatus.completed)
+    tracker.publish(endpoint_provenance)
+    cleanup_provenance_graphdb(config["graphDB_provenance_repo_name"],config["delete_old_entries_provenance_query"],config["keep_latest_entries_provenance"],config["graphDB_host"])
 
 
- 
 if __name__ == "__main__":
 
     result = parallel_processing_flow()

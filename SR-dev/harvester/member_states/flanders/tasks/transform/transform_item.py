@@ -5,6 +5,7 @@ from rdflib.namespace import XSD
 from pathlib import Path
 import requests
 import sys
+from bs4 import BeautifulSoup
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from config import load_config
@@ -63,6 +64,45 @@ async def transform_item(batch: str) -> str:
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, ADMS.Asset)):
             target_graph.add((s, RDF.type, ADMS.Asset))
+
+             #adms:Asset/dct:description
+            logger.info(f"Requesting html page for extracting samenvating for dct:description: {s}")
+                
+            try:
+                headers = {
+                    "Accept": "text/html"
+                }
+
+                asset_url = str(s)
+                logger.info(f"Asset URL: {asset_url}")
+
+                response = requests.get(asset_url, headers=headers, timeout=30)
+                response.raise_for_status()
+
+                soup = BeautifulSoup(response.text, "html.parser")
+
+                summary_div = soup.find("div", id="summary")
+
+                if summary_div:
+                    paragraphs = summary_div.find_all("p")
+                    summary = "\n".join(
+                        p.get_text(strip=True) for p in paragraphs if p.get_text(strip=True)
+                    )
+
+                    if summary:
+                        logger.info(f"Summary extracted ({len(summary)} chars)")
+                        target_graph.add((s, DCT.description, Literal(summary, lang="nl")))
+                    else:
+                        logger.warning("Summary div found but contains no text")
+
+                else:
+                    logger.warning("No summary section found in HTML")
+
+            except requests.exceptions.RequestException as e:
+                logger.error(f"HTTP error while retrieving asset page {asset_url}", exc_info=True)
+
+            except Exception as e:
+                logger.error(f"Unexpected error while extracting samenvatting from {asset_url}")
 
         # adms:Asset/dct:created
         created_by_subject = {}

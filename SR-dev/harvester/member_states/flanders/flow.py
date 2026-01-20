@@ -37,20 +37,26 @@ def parallel_processing_flow():
         config["graphDB_config_file_path"],
         config["graphDB_host"]
     )
-    tracker.publish()
+
+    endpoint_provenance = initialize_graphdb_repo(
+        config["graphDB_provenance_repo_name"],
+        config["graphDB_config_file_path"],
+        config["graphDB_host"]
+    )
+    tracker.publish(endpoint_provenance)
 
     # Task 3: Load JSON-LD into GraphDB as RDF triples.
     tracker.update_activity_task(TaskType.load_input)
     load_data_to_graphdb(jsonld, endpoint_source)
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
 
     # Task 4: Extract the Vocabularium and Application Profiles.
     list_result = query_voc_and_ap_list(endpoint_source, config["extract_query"])
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
 
     # Task 5: Create batches
     batches = make_batches(list_result)
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
     
     # Task 6: Process batches in parallel
     tracker.update_activity_task(TaskType.transform)
@@ -69,7 +75,7 @@ def parallel_processing_flow():
 
     transformed_results = [future.result() for future in transformed_futures]
     logger.info(f"Completed transformation {len(transformed_results)} batches")
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
 
     # Task 7: Validate each entry
     tracker.update_activity_task(TaskType.validate)
@@ -93,7 +99,7 @@ def parallel_processing_flow():
             logger.error(f"Validation failed for entry {i}: {e}")
     
     logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
-    tracker.publish()
+    tracker.publish(endpoint_provenance)
 
     # Task 8: Load validated entries in GraphDB (only if we have valid results)
     tracker.update_activity_task(TaskType.load_output)
@@ -117,7 +123,7 @@ def parallel_processing_flow():
         logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
         tracker.update_status(JobStatus.completed)
 
-        tracker.publish()
+        tracker.publish(endpoint_provenance)
 
     else:
         logger.warning("No validated entries to load into GraphDB")

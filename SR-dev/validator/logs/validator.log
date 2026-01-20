@@ -1,370 +1,651 @@
-19/01/2026 09:33:33 INFO  [] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-19/01/2026 09:33:33 INFO  [] eu.europa.ec.itb.shacl.Application - Starting Application using Java 21.0.8 with PID 23248 (C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\validator.jar started by Dean Terneu in C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator)
-19/01/2026 09:33:33 INFO  [] eu.europa.ec.itb.shacl.Application - No active profile set, falling back to 1 default profile: "default"
-19/01/2026 09:33:35 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-19/01/2026 09:33:35 INFO  [] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-19/01/2026 09:33:35 INFO  [] o.a.catalina.core.StandardService - Starting service [Tomcat]
-19/01/2026 09:33:35 INFO  [] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
-19/01/2026 09:33:35 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring embedded WebApplicationContext
-19/01/2026 09:33:35 INFO  [] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2688 ms
-19/01/2026 09:33:36 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domains: [srm]
-19/01/2026 09:33:36 INFO  [] e.e.e.i.v.c.config.ApplicationConfig - Loaded validation domain names: [srm]=[srm]
-19/01/2026 09:33:36 INFO  [] e.e.e.i.v.c.config.DomainConfigCache - Loaded configuration for domain [srm]
-19/01/2026 09:33:36 INFO  [] e.e.e.i.s.v.ThroughputThrottler - Validation throttling allows 10 validations to proceed in parallel
-19/01/2026 09:33:36 INFO  [] o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://www.gitb.com/vs/v1/}ValidationService from class com.gitb.vs.ValidationService
-19/01/2026 09:33:37 INFO  [] org.apache.cxf.endpoint.ServerImpl - Setting the server's publish address to be /srm/validation
-19/01/2026 09:33:38 INFO  [] e.e.e.i.v.plugin.PluginManager - No plugins found
-19/01/2026 09:33:38 INFO  [] e.e.e.i.s.r.HydraDocumentationConfig - Generated hydra documentation files in [C:\Users\Dean Terneu\Documents\PwC\EU-wide-Registry-of-Semantic-Models\SR-dev\validator\.\tmp\hydra]
-19/01/2026 09:33:39 INFO  [] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-19/01/2026 09:33:39 INFO  [] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/shacl'
-19/01/2026 09:33:39 INFO  [] eu.europa.ec.itb.shacl.Application - Started Application in 7.835 seconds (process running for 8.852)
-19/01/2026 09:36:01 INFO  [] o.a.c.c.C.[.[localhost].[/shacl] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-19/01/2026 09:36:01 INFO  [] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-19/01/2026 09:36:01 INFO  [] o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-19/01/2026 09:36:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 09:36:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 09:36:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.1.ttl]
-19/01/2026 09:36:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [srm-SHACL-1.0.1.ttl]
-19/01/2026 09:36:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.1.ttl]
-19/01/2026 09:36:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [codelist-1.0.1.ttl]
-19/01/2026 09:36:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [ignore-requires-1.0.1.ttl]
-19/01/2026 09:36:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Validating against [ignore-requires-1.0.1.ttl]
-19/01/2026 09:36:06 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
-19/01/2026 09:36:06 WARN  [srm] e.e.e.i.s.validation.SHACLValidator - Failed to load import [http://publications.europa.eu/ontology/euvoc]: 404 - Not Found
-19/01/2026 09:36:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 09:36:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 09:36:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 09:36:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 09:46:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 09:46:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 09:46:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 09:46:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 09:46:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 09:46:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 09:59:46 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 09:59:46 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 09:59:46 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 09:59:46 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 09:59:46 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 09:59:46 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 10:12:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 10:12:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 10:12:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 10:12:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 10:12:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 10:12:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 10:27:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 10:27:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 10:27:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 10:27:58 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 10:27:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 10:27:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:34:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:34:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:34:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:34:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:34:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:34:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:39:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:39:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:39:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:39:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:39:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:39:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:45:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:45:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:45:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:45:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:45:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:45:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:48:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:48:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 11:48:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:48:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 11:48:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 11:48:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 13:17:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 13:17:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 13:17:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 13:17:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 13:17:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 13:17:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 13:25:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 13:25:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 13:25:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 13:25:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 13:25:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 13:25:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 13:59:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 13:59:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 13:59:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 13:59:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 13:59:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 13:59:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:04:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:04:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:04:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:04:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:04:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:04:56 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:24:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:24:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:24:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:24:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:24:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:24:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:30:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:30:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:30:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:30:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:30:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:30:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:35:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:08 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:11 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:14 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:18 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:20 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:22 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:29 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
-19/01/2026 14:44:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 15:48:51 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 15:48:51 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 15:48:51 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 15:48:51 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 15:48:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:15:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:22:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:22:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:22:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:22:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:22:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:22:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:38:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:38:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:38:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:38:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:38:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:38:54 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:49:59 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:01 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:04 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:06 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:09 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:12 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:15 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:16 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:19 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:24 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:26 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:28 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:31 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:35 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:47 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:48 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:48 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:48 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:50 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:52 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:55 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:50:57 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:00 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:02 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:05 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:07 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:10 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:13 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:17 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:21 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:23 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:25 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:27 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:30 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:33 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:34 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:37 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:39 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:40 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:42 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:43 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:43 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:44 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Starting validation..
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Using provided data content type [text/turtle] as [Turtle]
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.
+20/01/2026 16:51:45 INFO  [srm] e.e.e.i.s.validation.SHACLValidator - Completed validation.

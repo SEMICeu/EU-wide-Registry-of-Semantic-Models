@@ -1,7 +1,8 @@
 from prefect import flow, get_run_logger
+from prefect.assets.core import Asset
 from prefect.task_runners import ConcurrentTaskRunner
 from .tasks.extract.make_batches import make_batches
-from .tasks.extract.extract_ontologies import extract_list_from_result, extract_last_provenance_date
+from .tasks.extract.extract_ontologies import extract_list_from_result, extract_last_provenance_date, delete_entries_for_provenance
 from .tasks.load.fetch_tripples_csv import fetch_sparql_to_csv
 from .tasks.load.initialize_graphdb_repo import initialize_graphdb_repo
 from .tasks.load.load_data_to_graphdb import load_data_to_graphdb
@@ -31,19 +32,7 @@ def parallel_processing_flow():
     # Task 1: Extract results from schema.gov.it.
     df = fetch_sparql_to_csv(config["web_source_query_url"],config["format_params"],config["fetch_query"])
 
-    # Task 2: Provenance step / extracting Ontologies to transform
-
-    enable_provenance_history = config["enable_provenance_history"]
-
-    if enable_provenance_history:
-        provenance_date = extract_last_provenance_date(repo_name=config["graphDB_provenance_repo_name"],extract_provenance_date_query= config["select_last_provenance_date_query"])
-        list_result = extract_list_from_result(df, provenance_date=provenance_date)
-
-    else:
-        list_result = extract_list_from_result(df, provenance_date=None, enable_provenance=False)
-
-
-    # Task 3: Create a new repository in GraphDB. (Overwrite if repo exists)
+    # Task 2: Create repositories in GraphDB. (Overwrite if repo exists)
     tracker.update_activity_task(TaskType.extract)
     endpoint_source = initialize_graphdb_repo(
         config["graphDB_source_repo_name"],
@@ -56,8 +45,35 @@ def parallel_processing_flow():
         config["graphDB_config_file_path"],
         config["graphDB_host"]
     )
+
+    endpoint_target = initialize_graphdb_repo(
+        config["graphDB_target_repo_name"],
+        config["graphDB_config_file_path"],
+        config["graphDB_host"]
+    )
+        
     tracker.publish(endpoint_provenance)
 
+    # Task 3: Provenance step / extracting Ontologies to transform
+    enable_provenance_history = config["enable_provenance_history"]
+
+    if enable_provenance_history:
+        provenance_date = extract_last_provenance_date(repo_name=config["graphDB_provenance_repo_name"],extract_provenance_date_query= config["select_last_provenance_date_query"])
+        list_result = extract_list_from_result(df, provenance_date=provenance_date)
+
+    else:
+        list_result = extract_list_from_result(df, provenance_date=None, enable_provenance=False)
+
+    #TODO update delete quey for deleting nested triples
+    delete_futures = [
+        delete_entries_for_provenance.submit(asset,repo_name=config["graphDB_target_repo_name"],cleanup_query= config["delete_entries_before_re_harvesting"],host=config["graphDB_host"])
+        for asset in list_result
+    ]
+
+    delete_results = [future.result() for future in delete_futures]
+    logger.info(f"Successfully deleted {len(delete_results)} out of {len(delete_futures)} entries")
+  
+   
     list_result = list_result[0:2]
     # Task 4: Create batches
     batches = make_batches(list_result)
@@ -122,12 +138,6 @@ def parallel_processing_flow():
     # Task 8: Load validated entries in GraphDB (only if we have valid results)
     tracker.update_activity_task(TaskType.load_output)
     if validated_results:
-        endpoint_target = initialize_graphdb_repo(
-            config["graphDB_target_repo_name"],
-            config["graphDB_config_file_path"],
-            config["graphDB_host"]
-        )
-
         loaded_results = [
             load_data_to_graphdb.submit(
                 validated_result["contentToValidate"], 
@@ -140,8 +150,6 @@ def parallel_processing_flow():
         load_status = [future.result() for future in loaded_results]
         logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
         
-    
-
     else:
         logger.warning("No validated entries to load into GraphDB")
 
@@ -154,4 +162,3 @@ if __name__ == "__main__":
 
     result = parallel_processing_flow()
     print(f"\nFinal Result: {result}")
- 

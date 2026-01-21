@@ -90,6 +90,11 @@ select_last_provenance_date_query: |
     ORDER BY DESC(?endTime)
     LIMIT 1
 
+delete_entries_before_re_harvesting: |
+    DELETE WHERE {
+      <$uri> ?p ?o .
+    }
+    
 delete_old_entries_provenance_query: |
     PREFIX prov: <http://www.w3.org/ns/prov#>
 

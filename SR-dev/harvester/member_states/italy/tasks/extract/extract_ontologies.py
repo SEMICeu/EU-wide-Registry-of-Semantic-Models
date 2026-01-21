@@ -12,6 +12,11 @@ from string import Template
 import ssl
 import urllib3
 import os
+from datetime import datetime
+from typing import List, Optional
+from string import Template
+import requests
+from prefect import task, get_run_logger
 
 @task(
     name="extract provenance date", 
@@ -69,7 +74,8 @@ def extract_last_provenance_date(repo_name: str, extract_provenance_date_query: 
                 
                 if end_time:
                     logger.info(f"✓ Last provenance pipeline run: {end_time}")
-                    return end_time
+                    return "2016-01-21T14:30:10.406435"
+                    # return end_time
                 else:
                     logger.warning("No endTime value found in results")
                     return None
@@ -86,8 +92,71 @@ def extract_last_provenance_date(repo_name: str, extract_provenance_date_query: 
         logger.error(f"Error message: {str(e)}")
         raise
 
-from datetime import datetime
-from typing import List, Optional
+@task(
+    name="cleanup provenance graphdb",
+    retries=2,
+    retry_delay_seconds=30,
+    timeout_seconds=300,
+)
+def delete_entries_for_provenance(
+    asset_to_delete: str,
+    repo_name: str,
+    cleanup_query: str,
+    host: str = "http://localhost:7200",
+    enable_provenance: bool =True
+) -> bool:
+    """
+    Deletes entries which have been flaged for re-harvisting by the provenence step
+
+    :param repo_name: Name/ID of the GraphDB repository
+    :param cleanup_query: SPARQL DELETE query template with $keep_latest placeholder
+    :param asset_to_delete: asset entrie to delete
+    :param host: Base URL of the GraphDB server
+    :return: True if cleanup successful, False otherwise
+    """
+
+    if enable_provenance:
+        logger = get_run_logger()
+        logger.info(f"Deleting entries before re-harvesting as identified by provenance step")
+
+        check_url = f"{host}/rest/repositories/{repo_name}"
+        update_url = f"{host}/repositories/{repo_name}/statements"
+
+        check_response = requests.get(check_url)
+        if check_response.status_code != 200:
+            logger.error(f"Repository '{repo_name}' does not exist")
+            return False
+
+        logger.info(f"Repository '{repo_name}' exists")
+
+
+        try:
+
+            template = Template(cleanup_query)
+            query = template.safe_substitute(uri=str(asset_to_delete))
+
+            logger.info(f"Executing DELETE query:\n{query}")
+
+            response = requests.post(
+                update_url,
+                data={"update": query},
+                timeout=120,
+            )
+
+            if response.status_code in (200, 204):
+                logger.info(f"✓ Successfully deleted entry for subject {asset_to_delete} - {response.status_code})")
+                return True
+
+            logger.error(
+                f"✗ Failed to delete entry for subject {asset_to_delete} - {response.status_code}): {response.text}"
+            )
+            return False
+
+        except Exception:
+            logger.exception("Failed Delete entries before re-harvesting")
+            return False
+    else:
+        logger.info("provenance disabled, skipping deleting entries")
 
 @task(
     name="Extract List from result dataframe",

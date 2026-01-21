@@ -90,31 +90,21 @@ select_last_provenance_date_query: |
     ORDER BY DESC(?endTime)
     LIMIT 1
 
-# delete_old_entries_provenance_query: |
-#     PREFIX prov: <http://www.w3.org/ns/prov#>
+delete_old_entries_provenance_query: |
+    PREFIX prov: <http://www.w3.org/ns/prov#>
 
-#     DELETE {
-#       ?oldExecution ?p ?o .
-#     }
-#     WHERE {
-#       {
-#         SELECT ?oldExecution
-#         WHERE {
-#           ?oldExecution prov:endedAtTime ?oldEndTime .
-          
-#           {
-#             SELECT ?oldExecution (COUNT(DISTINCT ?newerExecution) AS ?newerCount)
-#             WHERE {
-#               ?oldExecution prov:endedAtTime ?oldEndTime .
-#               ?newerExecution prov:endedAtTime ?newerEndTime .
-#               FILTER(?newerEndTime > ?oldEndTime)
-#             }
-#             GROUP BY ?oldExecution ?oldEndTime
-#           }
-          
-#           FILTER(?newerCount >= $keep_latest)
-#         }
-#       }
+    DELETE {
+      ?s ?p ?o .
+    }
+    WHERE {
+      ?s ?p ?o .
       
-#       ?oldExecution ?p ?o .
-#     }
+      MINUS {
+        SELECT ?s
+        WHERE {
+          ?s prov:endedAtTime ?endTime .
+        }
+        ORDER BY DESC(?endTime)
+        LIMIT $keep_latest
+      }
+    }

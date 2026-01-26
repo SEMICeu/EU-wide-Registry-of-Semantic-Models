@@ -1,27 +1,29 @@
-web_source_url: "https://schema.gov.it/sparql?default-graph-uri="
-web_source_query_url: "https://schema.gov.it/sparql?default-graph-uri=&query="
-format_params: "&format=text%2Fcsv&timeout=0&signal_void=on"
+web_source_url: "https://data.norge.no/nb/sparql"
+web_source_query_url: "https://sparql.fellesdatakatalog.digdir.no/?query="
 
-enable_provenance_history: True
+enable_provenance_history: False
 keep_latest_entries_provenance: 2
 
 fetch_query: | 
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
   PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX owl: <http://www.w3.org/2002/07/owl#>
+  PREFIX modelldcatno: <https://data.norge.no/vocabulary/modelldcatno#>
+
   select ?s ?issued ?modified
   where {
-    ?s rdf:type owl:Ontology .
-    ?s dct:issued ?issued .
-    OPTIONAL {
-      ?s dct:modified ?modified
+    ?s rdf:type modelldcatno:InformationModel .
+        ?s dct:issued ?issued .
+        OPTIONAL {
+        ?s dct:modified ?modified
     }
-  }   
+  } 
 
 graphDB_host: "http://localhost:7200"
 graphDB_config_file_path: "config_graphDB_repo.ttl"
-graphDB_source_repo_name: "italy"
+graphDB_source_repo_name: "norway"
 graphDB_target_repo_name: "srm"
-graphDB_provenance_repo_name: "italy_prov"
+graphDB_provenance_repo_name: "norway_prov"
 
 transformation:
   namespaces:

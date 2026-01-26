@@ -99,14 +99,9 @@ The following steps demonstrate how to run the harvester using Flanders as an ex
 
    **Note:** The Prefect dashboard will be accessible at http://127.0.0.1:4200
 
-4. Open a new terminal and navigate to the SR-dev directory:
+4. Open a new terminal and run the Flanders harvester flow:
 ```bash
-   cd SR-dev
-```
-
-5. Run the Flanders harvester flow:
-```bash
-   python -m harvester.member_states.flanders.flow
+   python -m SR-dev.harvester.member_states.flanders.flow
 ```
 **Note:** You can adjust the number of concurrent workers by modifying the `max_workers` parameter on line 16 of the flow configuration file:
 
@@ -115,7 +110,7 @@ The following steps demonstrate how to run the harvester using Flanders as an ex
 @flow(name="Parallel Processing Pipeline", task_runner=ConcurrentTaskRunner(max_workers=5))
 ```
 
-6. Monitor the pipeline execution in the Prefect dashboard:
+5. Monitor the pipeline execution in the Prefect dashboard:
 
    http://127.0.0.1:4200/runs
 
@@ -126,30 +121,30 @@ The following steps demonstrate how to run the harvester using Flanders as an ex
 There are multiple configuration files:
 
    - [config.yaml](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/enricher/enricher-api/app/config_log.yaml) : Contains all the reusable variables, such as, endpoints, queries, namespaces, etc
-   - [config_graphDB_repo.ttl](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/harvester/member_states/flanders/config_graphDB_repo.ttl) : for creating and deleting a GraphDB repository
+   - [config_graphDB_repo.ttl](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-devmember_states/flanders/config_graphDB_repo.ttl) : for creating and deleting a GraphDB repository
    - [config.properties (validator)](https://github.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/blob/main/SR-dev/validator/resources/srm/config.properties) : to configure the local ITB-Shacl validator
 
 ## Provenance
 
-The harvester includes two provenance tracking mechanisms located in `SR-dev/harvester/provenance`:
+The harvester includes two provenance tracking mechanisms located in `SR-dev/provenance`:
 
 ### Provenance Adapters
 
 You can enable or disable provenance trackers by modifying the boolean parameters on lines 15-16 in:
 
-`SR-dev/harvester/provenance/tracker.py`
+`SR-dev/provenance/tracker.py`
 ```python
 def __init__(self, 
              enable_graph_storage: bool = True,
              enable_prefect_artifacts: bool = False)
 ```
 
-- **Prefect Artifacts** (`SR-dev/harvester/provenance/adapters/prefect_adapter.py`): 
+- **Prefect Artifacts** (`SR-dev/provenance/adapters/prefect_adapter.py`): 
   Custom artifacts integrated with Prefect, visible in the "Artifacts" tab of the Prefect dashboard for monitoring pipeline execution metadata.
 
 [prefext_artifact](resources/prefect_artifacts.png)
 
-- **Graph RDF** (`SR-dev/harvester/provenance/adapters/graph_adapter.py`): 
+- **Graph RDF** (`SR-dev/provenance/adapters/graph_adapter.py`): 
   Generates an RDF file containing complete provenance information about the harvesting process.
 
   

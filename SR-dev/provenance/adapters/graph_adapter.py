@@ -2,8 +2,6 @@ from prefect import get_run_logger
 from ..model import TransformationExecution, TransformationExecutionDTO
 import json
 
-
-
 class GraphAdapter:
     """
     Adapter: PROV -> Graph triple store
@@ -92,7 +90,7 @@ class GraphAdapter:
             **dto.model_dump(by_alias=True, mode='json')
         }
 
-        output =  json.dumps(json_ld, indent=2)
+        output = json.dumps(json_ld, indent=2)
         logger.info(f"output {output}")
 
         return output

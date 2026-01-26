@@ -11,8 +11,8 @@ from .tasks.transform.validate import validate_data_graph
 from .tasks.transform.transform_item import transform_item
 from .provenance.provenance import cleanup_provenance_graphdb
 from config import load_config
-from ...provenance.tracker import ProvenanceTracker
-from ...provenance.model import JobStatus, TaskType
+from ....provenance.tracker import ProvenanceTracker
+from ....provenance.model import JobStatus, TaskType
 
 
 @flow(name="Parallel Processing Pipeline", task_runner=ConcurrentTaskRunner(max_workers=5))

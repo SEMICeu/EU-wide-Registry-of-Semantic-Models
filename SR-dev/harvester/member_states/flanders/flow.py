@@ -9,8 +9,8 @@ from .tasks.transform.construct_item import construct_item
 from .tasks.transform.validate import validate_data_graph
 from .tasks.transform.transform_item import transform_item
 from config import load_config
-from ...provenance.tracker import ProvenanceTracker
-from ...provenance.model import JobStatus, TaskType
+from ....provenance.tracker import ProvenanceTracker
+from ....provenance.model import JobStatus, TaskType
 
 
 @flow(name="Parallel Processing Pipeline", task_runner=ConcurrentTaskRunner(max_workers=5))

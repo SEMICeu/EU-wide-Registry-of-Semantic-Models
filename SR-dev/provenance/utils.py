@@ -1,6 +1,4 @@
 from prefect import get_run_logger
-import json
-from typing import Union, List
 import requests
 
 def load_data_to_prov_graphdb(

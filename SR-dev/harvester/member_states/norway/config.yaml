@@ -41,6 +41,7 @@ transformation:
     prof: "http://www.w3.org/ns/dx/prof/"
     owl: "http://www.w3.org/2002/07/owl#"
     rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+    modelldcatno: "https://data.norge.no/vocabulary/modelldcatno#"
 
 validator:
   url: "http://localhost:8080/shacl/srm/api/validate"

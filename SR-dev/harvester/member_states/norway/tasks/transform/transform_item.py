@@ -15,8 +15,6 @@ from config import load_config
 
 @task(
     name="transform item", 
-    retries=3, 
-    retry_delay_seconds=60,
     timeout_seconds=300
 )
 async def transform_item(batch: str) -> str:
@@ -35,41 +33,55 @@ async def transform_item(batch: str) -> str:
         source_graph = Graph()
         source_graph.parse(data=batch, format="turtle")
 
-        # target_graph = Graph()
-        # ADMS   = Namespace(config["transformation"]["namespaces"]["adms"])
-        # ADMSAPIT   = Namespace(config["transformation"]["namespaces"]["admsapit"])
-        # DCT    = Namespace(config["transformation"]["namespaces"]["dct"])
-        # DCAT   = Namespace(config["transformation"]["namespaces"]["dcat"])
-        # VANN   = Namespace(config["transformation"]["namespaces"]["vann"])
-        # FOAF   = Namespace(config["transformation"]["namespaces"]["foaf"])
-        # SKOS   = Namespace(config["transformation"]["namespaces"]["skos"])
-        # SCHEMA = Namespace(config["transformation"]["namespaces"]["schema"])
-        # VCARD  = Namespace(config["transformation"]["namespaces"]["vcard"])
-        # M8G    = Namespace(config["transformation"]["namespaces"]["m8g"])
-        # ORG    = Namespace(config["transformation"]["namespaces"]["org"])
-        # PROF   = Namespace(config["transformation"]["namespaces"]["prof"])
-        # OWL    = Namespace(config["transformation"]["namespaces"]["owl"])
-        # RDFS   = Namespace(config["transformation"]["namespaces"]["rdfs"])
+        target_graph = Graph()
+        ADMS   = Namespace(config["transformation"]["namespaces"]["adms"])
+        ADMSAPIT   = Namespace(config["transformation"]["namespaces"]["admsapit"])
+        DCT    = Namespace(config["transformation"]["namespaces"]["dct"])
+        DCAT   = Namespace(config["transformation"]["namespaces"]["dcat"])
+        VANN   = Namespace(config["transformation"]["namespaces"]["vann"])
+        FOAF   = Namespace(config["transformation"]["namespaces"]["foaf"])
+        SKOS   = Namespace(config["transformation"]["namespaces"]["skos"])
+        SCHEMA = Namespace(config["transformation"]["namespaces"]["schema"])
+        VCARD  = Namespace(config["transformation"]["namespaces"]["vcard"])
+        M8G    = Namespace(config["transformation"]["namespaces"]["m8g"])
+        ORG    = Namespace(config["transformation"]["namespaces"]["org"])
+        PROF   = Namespace(config["transformation"]["namespaces"]["prof"])
+        OWL    = Namespace(config["transformation"]["namespaces"]["owl"])
+        RDFS   = Namespace(config["transformation"]["namespaces"]["rdfs"])
+        MODELLDCATNO = Namespace(config["transformation"]["namespaces"]["modelldcatno"])
 
-        # target_graph.bind("adms", ADMS)
-        # target_graph.bind("admsapit", ADMSAPIT)
-        # target_graph.bind("dct", DCT)
-        # target_graph.bind("vann", VANN)
-        # target_graph.bind("foaf", FOAF)
-        # target_graph.bind("skos", SKOS)
-        # target_graph.bind("schema", SCHEMA)
-        # target_graph.bind("vcard", VCARD)
-        # target_graph.bind("m8g", M8G)
-        # target_graph.bind("dcat", DCAT)
-        # target_graph.bind("org", ORG)
-        # target_graph.bind("prof", PROF)
-        # target_graph.bind("owl", OWL)
-        # target_graph.bind("rdfs", RDFS)
+        target_graph.bind("adms", ADMS)
+        target_graph.bind("admsapit", ADMSAPIT)
+        target_graph.bind("dct", DCT)
+        target_graph.bind("vann", VANN)
+        target_graph.bind("foaf", FOAF)
+        target_graph.bind("skos", SKOS)
+        target_graph.bind("schema", SCHEMA)
+        target_graph.bind("vcard", VCARD)
+        target_graph.bind("m8g", M8G)
+        target_graph.bind("dcat", DCAT)
+        target_graph.bind("org", ORG)
+        target_graph.bind("prof", PROF)
+        target_graph.bind("owl", OWL)
+        target_graph.bind("rdfs", RDFS)
+        target_graph.bind("modelldcatno", MODELLDCATNO)
 
-        # # adms:Asset
-        # # adms:Asset/dct:identifier
-        # for s, p, o in source_graph.triples((None, RDF.type, OWL.Ontology)):
-        #     target_graph.add((s, RDF.type, ADMS.Asset))
+        # adms:Asset
+        for s, p, o in source_graph.triples((None, RDF.type, MODELLDCATNO.InformationModel)):
+            logger.info(f"modelcattno:InformationModel: {s} - TRANSFORMATION STARTED...")
+            target_graph.add((s, RDF.type, ADMS.Asset))
+
+            for _, p2, o2 in source_graph.triples((s, None, None)):
+
+                # adms:Asset/dct:description
+                if p2 == DCT.description:
+                    logger.info(f"dct:description: {o2}")
+                    target_graph.add((s, DCT.description, o2))
+
+                # adms:Asset/dct:identifier
+                if p2 == DCT.identifier:
+                    logger.info(f"dct:identifier: {o2}")
+                    target_graph.add((s, DCT.identifier, o2))
 
         #     official_uri = source_graph.value(s, ADMSAPIT.officialURI)
             
@@ -168,7 +180,7 @@ async def transform_item(batch: str) -> str:
         #         except requests.exceptions.RequestException as e:
         #             logger.error(f"Failed to check distribution {distribution_uri}: {e}")                   
 
-        # # adms:Asset/dct:description
+        # adms:Asset/dct:description
         # for s, p, o in source_graph.triples((None, DCT.description, None)):
         #     if str(o).endswith(".png") or str(o).endswith(".jpg"):
         #         logger.info(" dct:description: found a .png or .jpg, description will not be added")
@@ -366,9 +378,10 @@ async def transform_item(batch: str) -> str:
         #             target_graph.add((URIRef(o), FOAF.name, Literal(name, datatype=RDF.langString)))
         # target_data = target_graph.serialize(format="turtle")
 
-        # logger.info(f"Transformed target Data: {target_data}")
 
-        target_data = source_graph.serialize(format="turtle")
+        target_data = target_graph.serialize(format="turtle")
+        logger.info(f"Transformed target Data: {target_data}")
+        
         return target_data
         
     except Exception as e:

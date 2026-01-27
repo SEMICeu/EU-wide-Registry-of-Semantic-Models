@@ -2,7 +2,6 @@ from prefect import task, get_run_logger
 from typing import  List
 import pandas as pd
 from ...db.client import get_sparql_client
-from cProfile import label
 from prefect import task, get_run_logger
 from typing import List, Optional
 from ...db.client import get_sparql_client

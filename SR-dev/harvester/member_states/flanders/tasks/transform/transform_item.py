@@ -1,7 +1,7 @@
 from prefect import task, get_run_logger
 
 from rdflib import Graph, RDF, Namespace, Literal, URIRef
-from rdflib.namespace import XSD
+from rdflib.namespace import XSD, split_uri
 from pathlib import Path
 import requests
 import sys
@@ -194,9 +194,6 @@ async def transform_item(batch: str) -> str:
                 logger.info(f"dct:modified - subject {s} has {date_count} dates, keeping latest: {dateTime}")
                 target_graph.add((s, DCT.modified, Literal(dateTime, datatype=XSD.dateTime)))
 
-        # adms:Asset/vann:preferredNamespaceUri
-        for s, p, o in source_graph.triples((None, VANN.preferredNamespaceUri, None)):
-            target_graph.add((s, VANN.preferredNamespaceUri, Literal(o, datatype=XSD.anyURI) ))
 
         # adms:Asset/dct:title
         titles_by_subject = {}
@@ -391,7 +388,6 @@ async def transform_item(batch: str) -> str:
                                 logger.info(f"Found OWL Ontology: {e}")
                                 uri_ontology = str(e)
 
-
                             for x, y, z in class_graph.triples((None, RDF.type, OWL.Class)):
                                 logger.info(f"Found OWL Class: {x}")
 
@@ -401,6 +397,10 @@ async def transform_item(batch: str) -> str:
                                     for j, k, l in isDefinedBy:
                                         logger.info(f"Found rdfs:isDefinedBy for {x}: {o}")
                                         logger.info(f"isDefinedBy : {j} - {k} - {o}")
+
+                                        base, local = split_uri(l)
+                                        logger.info(f"vann:preferredNamespace: base URI derived from isDefinedBy: {base}")                        
+                                        target_graph.add((s, VANN.preferredNamespaceUri, Literal(base, datatype=XSD.anyURI) ))
 
                                         if str(l) == uri_ontology:
                                             logger.info(f"uri of owl:Ontology = object of isDefinedBy {uri_ontology} = {str(l)}")
@@ -425,11 +425,23 @@ async def transform_item(batch: str) -> str:
                                                 
                                                     logger.info(f"No rdfs:label found for {x}, using generated label: {label}")
                                                     target_graph.add((x, RDFS.label, Literal(label, lang="en")))
+
+                                if not isDefinedBy:
+                                    logger.info(f"vann:preferredNamespace No isDefinedBy for {s}, using ontology URI as preferredNamespace")
+                                    target_graph.add((s,VANN.preferredNamespaceUri, Literal(s, datatype=XSD.anyURI)))
                     else:
                         logger.warning(f"Request failed for {downloadURL}, status: {response.status_code}")
                 except Exception as e:
                     logger.error(f"Error processing {downloadURL}: {e}")
 
+
+        # adms:Asset/vann:preferredNamespaceUri ( extracted from isDefinedBy which is only found in Vocabulariums, will take the string value of the Asset when not set)
+        for s, p, o in target_graph.triples((None, RDF.type, ADMS.Asset)):
+            isDefinedBy = target_graph.value(s, VANN.preferredNamespaceUri)
+            
+            if not isDefinedBy:
+                logger.info(f"vann:preferredNamespace not set for {s}, using ontology URI as preferredNamespace")
+                target_graph.add((s,VANN.preferredNamespaceUri, Literal(s, datatype=XSD.anyURI)))
 
         target_data = target_graph.serialize(format="turtle")
 

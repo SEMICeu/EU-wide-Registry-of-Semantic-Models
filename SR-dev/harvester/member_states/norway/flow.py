@@ -61,17 +61,17 @@ def parallel_processing_flow():
         provenance_date = extract_last_provenance_date(repo_name=config["graphDB_provenance_repo_name"],extract_provenance_date_query= config["select_last_provenance_date_query"])
         list_result = extract_list_from_result(df, provenance_date=provenance_date)
 
+        #TODO update delete quey for deleting nested triples
+        delete_futures = [
+            delete_entries_for_provenance.submit(asset,repo_name=config["graphDB_target_repo_name"],cleanup_query= config["delete_entries_before_re_harvesting"],host=config["graphDB_host"])
+            for asset in list_result
+        ]
+
+        delete_results = [future.result() for future in delete_futures]
+        logger.info(f"Successfully deleted {len(delete_results)} out of {len(delete_futures)} entries")
+
     else:
         list_result = extract_list_from_result(df, provenance_date=None, enable_provenance=False)
-
-    #TODO update delete quey for deleting nested triples
-    delete_futures = [
-        delete_entries_for_provenance.submit(asset,repo_name=config["graphDB_target_repo_name"],cleanup_query= config["delete_entries_before_re_harvesting"],host=config["graphDB_host"])
-        for asset in list_result
-    ]
-
-    delete_results = [future.result() for future in delete_futures]
-    logger.info(f"Successfully deleted {len(delete_results)} out of {len(delete_futures)} entries")
   
    
     list_result = list_result[0:2]

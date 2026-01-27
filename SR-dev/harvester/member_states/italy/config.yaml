@@ -2,7 +2,7 @@ web_source_url: "https://schema.gov.it/sparql?default-graph-uri="
 web_source_query_url: "https://schema.gov.it/sparql?default-graph-uri=&query="
 format_params: "&format=text%2Fcsv&timeout=0&signal_void=on"
 
-enable_provenance_history: True
+enable_provenance_history: False
 keep_latest_entries_provenance: 2
 
 fetch_query: | 
@@ -20,7 +20,7 @@ fetch_query: |
 graphDB_host: "http://localhost:7200"
 graphDB_config_file_path: "config_graphDB_repo.ttl"
 graphDB_source_repo_name: "italy"
-graphDB_target_repo_name: "srm"
+graphDB_target_repo_name: "italy_final"
 graphDB_provenance_repo_name: "italy_prov"
 
 transformation:

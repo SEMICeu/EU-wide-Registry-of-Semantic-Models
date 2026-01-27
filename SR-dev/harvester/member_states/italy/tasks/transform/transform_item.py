@@ -2,13 +2,14 @@ from prefect import task, get_run_logger
 
 from prefect.flows import R
 from rdflib import Graph, RDF, Namespace, Literal, URIRef
-from rdflib.namespace import XSD
+from rdflib.namespace import XSD, split_uri
 from pathlib import Path
 from rdflib import Literal, XSD
 from datetime import datetime, timezone
 from .construct_item import get_property
 import requests
 import sys
+
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from config import load_config
@@ -75,6 +76,7 @@ async def transform_item(batch: str) -> str:
             
             if official_uri:
                 target_graph.add((s, DCT.identifier,Literal(str(official_uri))))
+               
             else:
                 target_graph.add((s, DCT.identifier, Literal(str(s))))
                 logger.info(f"No officialURI for {s}, using ontology URI as identifier")
@@ -82,12 +84,26 @@ async def transform_item(batch: str) -> str:
             # adms:Asset/dct:license
             for a, _, distribution_uri in source_graph.triples((s, ADMSAPIT.hasSemanticAssetDistribution, None)):
                 try:
-
+                    
+                    
+                    # adms:Asset/dcat:distribution
                     target_graph.add((a, DCAT.distribution, URIRef(distribution_uri)))
                     target_graph.add((URIRef(distribution_uri), RDF.type, ADMS.AssetDistribution))
 
                     # adms:Asset/dcat:distribution/dcat:isDefinedBy/rdfs:Class
+                    # adms:Asset/vann:preferredNamespaceUri
+                    hasKeyClass = source_graph.value(s, ADMSAPIT.hasKeyClass)
+            
+                    if not hasKeyClass:
+                        logger.info(f"vann:preferredNamespace No hasKeyClass for {s}, using ontology URI as preferredNamespace")
+                        target_graph.add((s,VANN.preferredNamespaceUri, Literal(s, datatype=XSD.anyURI)))
+
                     for _, _, classUri in source_graph.triples((None, ADMSAPIT.hasKeyClass, None)):
+
+                        base, local = split_uri(classUri)
+                        logger.info(f"vann:preferredNamespace: base URI derived from hasKeyClass: {base}")                        
+                        target_graph.add((s, VANN.preferredNamespaceUri, Literal(base, datatype=XSD.anyURI) ))
+
                         target_graph.add((URIRef(classUri), RDFS.isDefinedBy, URIRef(distribution_uri)))
                         target_graph.add((URIRef(classUri), RDF.type, RDFS.Class))
 

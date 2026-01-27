@@ -1,4 +1,4 @@
-web_source_url: "https://data.norge.no/nb/sparql"
+web_source_url: "https://sparql.fellesdatakatalog.digdir.no"
 web_source_query_url: "https://sparql.fellesdatakatalog.digdir.no/?query="
 
 enable_provenance_history: False

@@ -89,69 +89,69 @@ def parallel_processing_flow():
     constructed_results = [future.result() for future in batch_futures]
     logger.info(f"Completed constructing {len(constructed_results)} batches")
 
-#     # Task 6: Load data into GraphDB as RDF triples - wait for all constructs to complete first
-#     tracker.update_activity_task(TaskType.load_input)
-#     load_futures = [
-#         load_data_to_graphdb.submit(entry, endpoint_source)
-#         for entry in constructed_results
-#     ]
+    # Task 6: Load data into GraphDB as RDF triples - wait for all constructs to complete first
+    tracker.update_activity_task(TaskType.load_input)
+    load_futures = [
+        load_data_to_graphdb.submit(entry, endpoint_source)
+        for entry in constructed_results
+    ]
 
-#     # Wait for all loads to complete
-#     load_results = [future.result() for future in load_futures]
-#     logger.info(f"Successfully loaded {len(load_results)} out of {len(load_futures)} entries")
-#     tracker.publish(endpoint_provenance)
+    # Wait for all loads to complete
+    load_results = [future.result() for future in load_futures]
+    logger.info(f"Successfully loaded {len(load_results)} out of {len(load_futures)} entries")
+    tracker.publish(endpoint_provenance)
 
 
-#     transformed_futures = [
-#     transform_item.submit(constructed_batch)
-#         for constructed_batch in constructed_results
-#     ]
+    transformed_futures = [
+    transform_item.submit(constructed_batch)
+        for constructed_batch in constructed_results
+    ]
 
-#     transformed_results = [future.result() for future in transformed_futures]
-#     logger.info(f"Completed transformation {len(transformed_results)} batches")
-#     tracker.publish(endpoint_provenance)
+    transformed_results = [future.result() for future in transformed_futures]
+    logger.info(f"Completed transformation {len(transformed_results)} batches")
+    tracker.publish(endpoint_provenance)
 
-#     # Task 7: Validate each entry
-#     tracker.update_activity_task(TaskType.validate)
-#     validated_futures = [
-#         validate_data_graph.submit(
-#             transformed_item, 
-#             config["validator"]["url"],
-#             config["validator"]["payload"],
-#             config["validator"]["headers"]
-#         )
-#         for transformed_item in transformed_results
-#     ]
+    # Task 7: Validate each entry
+    tracker.update_activity_task(TaskType.validate)
+    validated_futures = [
+        validate_data_graph.submit(
+            transformed_item, 
+            config["validator"]["url"],
+            config["validator"]["payload"],
+            config["validator"]["headers"]
+        )
+        for transformed_item in transformed_results
+    ]
 
-#     # Collect validation results, handling failures gracefully
-#     validated_results = []
-#     for i, future in enumerate(validated_futures):
-#         try:
-#             result = future.result()
-#             validated_results.append(result)
-#         except Exception as e:
-#             logger.error(f"Validation failed for entry {i}: {e}")
+    # Collect validation results, handling failures gracefully
+    validated_results = []
+    for i, future in enumerate(validated_futures):
+        try:
+            result = future.result()
+            validated_results.append(result)
+        except Exception as e:
+            logger.error(f"Validation failed for entry {i}: {e}")
     
-#     logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
-#     tracker.publish(endpoint_provenance)
+    logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
+    tracker.publish(endpoint_provenance)
 
-#     # Task 8: Load validated entries in GraphDB (only if we have valid results)
-#     tracker.update_activity_task(TaskType.load_output)
-#     if validated_results:
-#         loaded_results = [
-#             load_data_to_graphdb.submit(
-#                 validated_result["contentToValidate"], 
-#                 endpoint_target,
-#                 format="turtle"  
-#             )
-#             for validated_result in validated_results
-#         ]
+    # Task 8: Load validated entries in GraphDB (only if we have valid results)
+    tracker.update_activity_task(TaskType.load_output)
+    if validated_results:
+        loaded_results = [
+            load_data_to_graphdb.submit(
+                validated_result["contentToValidate"], 
+                endpoint_target,
+                format="turtle"  
+            )
+            for validated_result in validated_results
+        ]
         
-#         load_status = [future.result() for future in loaded_results]
-#         logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
+        load_status = [future.result() for future in loaded_results]
+        logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
         
-#     else:
-#         logger.warning("No validated entries to load into GraphDB")
+    else:
+        logger.warning("No validated entries to load into GraphDB")
 
     tracker.update_status(JobStatus.completed)
     tracker.publish(endpoint_provenance)

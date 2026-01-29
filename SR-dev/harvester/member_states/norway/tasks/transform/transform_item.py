@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 from .construct_item import get_property
 import requests
 import sys
+import json
+
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from config import load_config
@@ -66,13 +68,19 @@ async def transform_item(batch: str) -> str:
         target_graph.bind("rdfs", RDFS)
         target_graph.bind("modelldcatno", MODELLDCATNO)
 
+        BASE_DIR = Path(__file__).resolve().parent
+        MAPPING_FILE = BASE_DIR / "asset_theme_mapping.json"
+
+        with open(MAPPING_FILE, "r", encoding="utf-8") as f:
+            theme_mapping = json.load(f)
+
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, MODELLDCATNO.InformationModel)):
             logger.info(f"modelcattno:InformationModel: {s} - TRANSFORMATION STARTED...")
             target_graph.add((s, RDF.type, ADMS.Asset))
 
             for _, p2, o2 in source_graph.triples((s, None, None)):
-
+ 
                 # adms:Asset/dct:description
                 if p2 == DCT.description:
                     logger.info(f"dct:description: {o2}")
@@ -81,7 +89,131 @@ async def transform_item(batch: str) -> str:
                 # adms:Asset/dct:identifier
                 if p2 == DCT.identifier:
                     logger.info(f"dct:identifier: {o2}")
-                    target_graph.add((s, DCT.identifier, o2))
+                    target_graph.add((s, DCT.identifier, Literal(str(o2))))
+
+                # adms:Asset/dct:issued
+                # adms:Asset/dct:modified
+                if p2 == DCT.issued or p2 == DCT.modified:
+                    if p2 == DCT.issued:
+                        logger.info(f"dct:issued: {o2}")
+                    elif p2 == DCT.modified:
+                        logger.info(f"dct:modified: {o2}")
+
+                    date_str = str(o2)
+                    
+                    try:                        
+                        parsed_date = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+                        logger.info(f"Parsed as ISO datetime: {parsed_date}")
+                    except ValueError as e:
+                        try:
+                            parsed_date = datetime.strptime(date_str, '%Y/%m/%d')
+                            logger.info(f"Parsed as date (YYYY/MM/DD): {parsed_date}")
+                        except ValueError as e:
+                            logger.error(f"Failed to parse date in any format: {date_str} (error: {e})")
+                            continue
+                    
+                    target_graph.add((s, p2, Literal(parsed_date, datatype=XSD.dateTime)))
+
+                # adms:Asset/dcat:keyword
+                if p2 == DCAT.keyword:
+                    logger.info(f"dcat:keyword: {o2}")
+                    target_graph.add((s, DCAT.keyword, o2))
+
+                # adms:Asset/dct:language
+                if p2 == DCT.language:
+                    logger.info(f"dct:language: {o2}")
+                    target_graph.add((s, DCT.language, URIRef(str(o2))))
+                    target_graph.add((URIRef(str(o2)), RDF.type, SKOS.Concept))
+                
+                # adms:Asset/dct:language
+                if p2 == DCT.license:
+                    logger.info(f"dct:license: {o2}")
+                    target_graph.add((s, DCT.license, URIRef(o2)))
+                    target_graph.add((URIRef(o2), RDF.type, DCT.LicenseDocument))
+
+                # adms:Asset/dct:title
+                if p2 == DCT.title:     
+                    logger.info(f"dct:title: {o2}")                          
+                    target_graph.add((s, DCT.title, Literal(o2, datatype=RDF.langString)))
+
+                # adms:Asset/owl:versionInfo
+                if p2 == OWL.versionInfo:     
+                    logger.info(f"owl:versionInfo: {o2}")                          
+                    target_graph.add((s, OWL.versionInfo, Literal(str(o2), datatype=XSD.string))) 
+
+                # adms:Asset/adms:status
+                if p2 == ADMS.status:    
+                    logger.info(f"adms:status: {o2}") 
+                    target_graph.add((s, ADMS.status, URIRef(o2)))
+                    target_graph.add((URIRef(o2), RDF.type, SKOS.Concept))  
+
+                # adms:Asset/adms:status
+                if p2 == DCAT.theme:    
+                    logger.info(f"dcat:theme: {o2}") 
+
+                    try:
+                        mapped_theme = theme_mapping[str(o2)]
+                        logger.info(f"dcat:theme: {o2} mapped to {mapped_theme}") 
+
+                        target_graph.add((s, DCAT.theme, o2))
+                        target_graph.add((o2, RDF.type, SKOS.Concept))
+                    except KeyError:
+                        logger.error(f"No theme mapping found for dcat:theme {o2}")
+
+                # adms:Asset/dct:creator
+                # adms:Asset/dct:publisher
+                if p2 == DCT.publisher:    
+                    logger.info(f"dct:publisher: {o2}") 
+                    target_graph.add((s, DCT.publisher, URIRef(o2)))
+                    target_graph.add((URIRef(o2), RDF.type, FOAF.Agent)) 
+
+                    logger.warning(f"dct:publisher will be also used as dct:creator") 
+                    target_graph.add((s, DCT.creator, URIRef(o2)))
+                    target_graph.add((URIRef(o2), RDF.type, FOAF.Agent))
+
+                # adms:Asset/dcat:contactPoint
+                if p2 == DCAT.contactPoint:    
+                    logger.info(f"dcat:contactPoint: {o2}") 
+
+                    try:
+                        result = await get_property(
+                            str(o2), 
+                            str(VCARD.hasEmail),
+                            config["web_source_url"],
+                            config["construct_custom_query"],
+                        )
+
+                        if result:
+                            logger.info(f"Successfully reached endpoint for dct:contactPoint {o2}")
+
+                            target_graph.add((s, DCAT.contactPoint, URIRef(o2)))
+                            target_graph.add((URIRef(o2), RDF.type, VCARD.Kind))
+
+                            vcard_graph = Graph()
+                            vcard_graph.parse(data=result, format="turtle")
+
+                            for _, _, hasEmail in vcard_graph.triples((None, VCARD.hasEmail, None)):
+                                logger.info(f"Found email: {hasEmail} for contact point: {o2}")       
+                                target_graph.add((URIRef(o2), VCARD.hasEmail, URIRef(hasEmail)))
+                                target_graph.add((URIRef(hasEmail), RDF.type, VCARD.Email))
+
+                            
+                            logger.info(f"Successfully transformed contact point: {o2}")
+                        else:
+                            logger.warning(f"No result returned for contact point: {o2}")
+                        
+                    except Exception as e:
+                        logger.error(f"Failed to process contact point {o2}: {e}")
+
+                # adms:Asset/foaf:homepage
+                # adms:Asset/foaf:homepage/foaf:Document
+                if p2 == FOAF.homepage:
+                    logger.info(f"foaf:homepage: {o2}")
+                    target_graph.add((s, FOAF.homepage, o2))
+                    target_graph.add((o2, RDF.type, FOAF.Document))
+
+
+
 
         #     official_uri = source_graph.value(s, ADMSAPIT.officialURI)
             

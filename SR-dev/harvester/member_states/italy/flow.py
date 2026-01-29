@@ -9,7 +9,6 @@ from .tasks.load.load_data_to_graphdb import load_data_to_graphdb
 from .tasks.transform.construct_item import construct_item
 from .tasks.transform.validate import validate_data_graph
 from .tasks.transform.transform_item import transform_item
-from .provenance.provenance import cleanup_provenance_graphdb
 from config import load_config
 from ....provenance.tracker import ProvenanceTracker
 from ....provenance.model import JobStatus, TaskType
@@ -154,7 +153,7 @@ def parallel_processing_flow():
 
     tracker.update_status(JobStatus.completed)
     tracker.publish(endpoint_provenance)
-    cleanup_provenance_graphdb(config["graphDB_provenance_repo_name"],config["delete_old_entries_provenance_query"],config["keep_latest_entries_provenance"],config["graphDB_host"])
+    tracker.clean_db(config["graphDB_provenance_repo_name"],config["delete_old_entries_provenance_query"],config["keep_latest_entries_provenance"],config["graphDB_host"])
 
 
 if __name__ == "__main__":

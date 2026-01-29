@@ -1,6 +1,9 @@
 from prefect import get_run_logger
 from ..model import TransformationExecution, TransformationExecutionDTO
 import json
+from prefect import get_run_logger
+from string import Template
+import requests
 
 class GraphAdapter:
     """
@@ -94,3 +97,105 @@ class GraphAdapter:
         logger.info(f"output {output}")
 
         return output
+
+    @staticmethod
+    def load_data_to_prov_graphdb(
+        rdf_data: str, 
+        graphdb_endpoint: str, 
+        format: str = "json-ld"
+    ) -> bool:
+        """
+        Load provenance RDF data into GraphDB.
+
+        :param rdf_data: RDF content as string (Turtle, N-Triples, JSON-LD, etc.)
+        :param graphdb_endpoint: SPARQL endpoint URL
+        :param format: RDF format ("turtle", "json-ld", "xml", "nt", "n3")
+        :return: True if upload successful, False otherwise
+        """
+        logger = get_run_logger()
+        
+        content_types = {
+            "turtle": "text/turtle",
+            "json-ld": "application/ld+json",
+            "xml": "application/rdf+xml",
+            "nt": "application/n-triples",
+            "n3": "text/n3"
+        }
+        
+        content_type = content_types.get(format, "application/ld+json")
+        
+        logger.info(f"Uploading {len(rdf_data)} bytes as {format}")
+        
+        try:
+            response = requests.post(
+                f"{graphdb_endpoint}/statements",
+                data=rdf_data,
+                headers={"Content-Type": content_type}
+            )
+            response.raise_for_status()
+
+            if response.status_code == 204:
+                logger.info("Upload to provenance GraphDB completed")
+                return True
+            else:
+                logger.error(f"Upload failed with status {response.status_code}")
+                return False
+                
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Request failed: {e}")
+            raise
+
+    @staticmethod
+    def cleanup_provenance_graphdb(
+        repo_name: str,
+        cleanup_query: str,
+        keep_latest: int = 2,
+        host: str = "http://localhost:7200",
+    ) -> bool:
+        """
+        Clean up provenance GraphDB using a SPARQL DELETE query.
+        Keeps only the N most recent executions based on endedAtTime.
+
+        :param repo_name: Name/ID of the GraphDB repository
+        :param cleanup_query: SPARQL DELETE query template with $keep_latest placeholder
+        :param keep_latest: Number of latest executions to keep
+        :param host: Base URL of the GraphDB server
+        :return: True if cleanup successful, False otherwise
+        """
+        logger = get_run_logger()
+        logger.info(f"Starting provenance cleanup – keeping latest {keep_latest} executions")
+
+        check_url = f"{host}/rest/repositories/{repo_name}"
+        update_url = f"{host}/repositories/{repo_name}/statements"
+
+        check_response = requests.get(check_url)
+        if check_response.status_code != 200:
+            logger.error(f"Repository '{repo_name}' does not exist")
+            return False
+
+        logger.info(f"Repository '{repo_name}' exists")
+
+        try:
+            template = Template(cleanup_query)
+            query = template.safe_substitute(keep_latest=keep_latest)
+
+            logger.info(f"Executing DELETE query:\n{query}")
+
+            response = requests.post(
+                update_url,
+                data={"update": query},
+                timeout=120,
+            )
+
+            if response.status_code in (200, 204):
+                logger.info(f"✓ Cleanup completed successfully (status {response.status_code})")
+                return True
+
+            logger.error(
+                f"✗ Cleanup failed (status {response.status_code}): {response.text}"
+            )
+            return False
+
+        except Exception:
+            logger.exception("Failed to cleanup provenance GraphDB")
+            return False

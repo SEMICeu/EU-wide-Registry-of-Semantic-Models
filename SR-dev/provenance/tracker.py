@@ -5,7 +5,6 @@ from prefect.context import get_run_context
 from prefect import get_run_logger
 from .adapters.prefect_adapter import PrefectArtifactAdapter
 from .adapters.graph_adapter import GraphAdapter
-from .utils import load_data_to_prov_graphdb
 
 class ProvenanceTracker:
     """
@@ -97,7 +96,7 @@ class ProvenanceTracker:
             try:
                 rdf_string = self.graph_adapter.create_rdf(self.lineage)
             
-                load_data_to_prov_graphdb(
+                self.graph_adapter.load_data_to_prov_graphdb(
                     rdf_data=rdf_string,
                     graphdb_endpoint=graphdb_endpoint,
                     format="json-ld"
@@ -109,5 +108,33 @@ class ProvenanceTracker:
                 
             except Exception as e:
                 logger.warning(f"Failed to publish to graph triple store: {e}")
+
+    def clean_db(self, repo_name: str, cleanup_query: str, keep_latest: int, host: str):
+        """
+        call for deleting old entries in the provenance DB
+        """
+
+        logger = get_run_logger()
+        if self.lineage is None:
+            logger.warning("Cannot update status: no active lineage")
+            return
+
+        if self.enable_graph_storage:
+            try:
+
+                self.graph_adapter.cleanup_provenance_graphdb(
+                    repo_name=repo_name,
+                    cleanup_query=cleanup_query,
+                    keep_latest=keep_latest,
+                    host=host,
+                )
+
+                logger.info("✓ Published to provenance graph triple store")
+            except Exception as e:
+                logger.warning(f"Failed to create graph rdf: {e}")
+                
+            except Exception as e:
+                logger.warning(f"Failed to publish to graph triple store: {e}")
+        
         
        

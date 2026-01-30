@@ -4,6 +4,8 @@ format_params: "&format=text%2Fcsv&timeout=0&signal_void=on"
 
 enable_provenance_history: False
 keep_latest_entries_provenance: 2
+provenance_report_path: SR-dev\harvester\doc\reports\italy_harvesting_report.md
+
 
 fetch_query: | 
   PREFIX dct: <http://purl.org/dc/terms/>

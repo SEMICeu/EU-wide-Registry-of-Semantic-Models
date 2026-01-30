@@ -9,7 +9,7 @@ from .tasks.load.load_data_to_graphdb import load_data_to_graphdb
 from .tasks.transform.construct_item import construct_item
 from .tasks.transform.validate import validate_data_graph
 from .tasks.transform.transform_item import transform_item
-from config import load_config
+from config import load_config, SOURCE_ACCES_URL, TARGET_ACCES_URL, PROVENANCE_ACCES_URL
 from ....provenance.tracker import ProvenanceTracker
 from ....provenance.model import JobStatus, TaskType
 
@@ -26,7 +26,7 @@ def parallel_processing_flow():
 
     # Initialize provenance tracker
     tracker = ProvenanceTracker()
-    tracker.start_activity()
+    tracker.start_activity(SOURCE_ACCES_URL)
 
     # Task 1: Extract results from schema.gov.it.
     df = fetch_sparql_to_csv(config["web_source_query_url"],config["fetch_query"])
@@ -87,6 +87,7 @@ def parallel_processing_flow():
 
     constructed_results = [future.result() for future in batch_futures]
     logger.info(f"Completed constructing {len(constructed_results)} batches")
+    
 
     # Task 6: Load data into GraphDB as RDF triples - wait for all constructs to complete first
     tracker.update_activity_task(TaskType.load_input)
@@ -98,6 +99,7 @@ def parallel_processing_flow():
     # Wait for all loads to complete
     load_results = [future.result() for future in load_futures]
     logger.info(f"Successfully loaded {len(load_results)} out of {len(load_futures)} entries")
+    tracker.update_transformation(TaskType.load_input, len(load_results))
     tracker.publish(endpoint_provenance)
 
 
@@ -108,6 +110,7 @@ def parallel_processing_flow():
 
     transformed_results = [future.result() for future in transformed_futures]
     logger.info(f"Completed transformation {len(transformed_results)} batches")
+    tracker.update_transformation(TaskType.transform, len(transformed_results))
     tracker.publish(endpoint_provenance)
 
     # Task 7: Validate each entry
@@ -117,22 +120,32 @@ def parallel_processing_flow():
             transformed_item, 
             config["validator"]["url"],
             config["validator"]["payload"],
-            config["validator"]["headers"]
+            config["validator"]["headers"],
+            tracker=tracker
         )
         for transformed_item in transformed_results
     ]
 
     # Collect validation results, handling failures gracefully
     validated_results = []
+    failed_results = []
     for i, future in enumerate(validated_futures):
         try:
             result = future.result()
             validated_results.append(result)
-        except Exception as e:
+
+        except ValueError as e:
             logger.error(f"Validation failed for entry {i}: {e}")
+            failed_results.append(str(e))
+
+        except Exception as e:
+            logger.error(f"Validation failed: {e}")
+
     
     logger.info(f"Successfully validated {len(validated_results)} out of {len(validated_futures)} entries")
+    tracker.update_transformation(TaskType.validate, len(validated_results))
     tracker.publish(endpoint_provenance)
+
 
     # Task 8: Load validated entries in GraphDB (only if we have valid results)
     tracker.update_activity_task(TaskType.load_output)
@@ -148,11 +161,15 @@ def parallel_processing_flow():
         
         load_status = [future.result() for future in loaded_results]
         logger.info(f"Loaded {sum(load_status)} out of {len(load_status)} entries successfully")
+        tracker.update_transformation(TaskType.load_output, len(load_status))
+        tracker.publish(endpoint_provenance)
         
     else:
         logger.warning("No validated entries to load into GraphDB")
 
+
     tracker.update_status(JobStatus.completed)
+    tracker.update_completed(TARGET_ACCES_URL, PROVENANCE_ACCES_URL)
     tracker.publish(endpoint_provenance)
     tracker.clean_db(config["graphDB_provenance_repo_name"],config["delete_old_entries_provenance_query"],config["keep_latest_entries_provenance"],config["graphDB_host"])
 

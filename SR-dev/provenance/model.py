@@ -37,10 +37,19 @@ class Transformation(BaseModel):
 
         input_source: Distribution of the input resource.
         output_source: Distribution of the output resource.
+        extracted_assets: amount of assets extracted from the source
+        transformed_assets: amount of assets transformed to conform with Semantic Registry Model
+        validated_assets: amount of assets validated by the SHACL validation
+        loaded_assets: amount of assets loaded in the Semantic Registry
     """
 
     input_source: Optional[Distribution] = None
     output_source: Optional[Distribution] = None
+
+    extracted_assets_from_source: int = 0
+    transformed_assets : int = 0
+    succesfuly_validated_assets: int = 0
+    loaded_assets: int = 0
 
 class TransformationReport(BaseModel):
     """

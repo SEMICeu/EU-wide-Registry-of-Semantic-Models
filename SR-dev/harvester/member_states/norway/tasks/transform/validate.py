@@ -1,7 +1,9 @@
 from typing import Dict, Any
 from prefect import flow, task, get_run_logger
-from rdflib import Graph
+from ...config import load_config
+from ......provenance.tracker import ProvenanceTracker
 import requests
+import json
 
 
 def extract_conforms(jsonld: dict) -> bool | None:
@@ -31,7 +33,8 @@ def validate_data_graph(
     data: str,
     api_url: str,
     payload_template: Dict[str, Any],
-    headers: Dict[str, str]
+    headers: Dict[str, str],
+    tracker: ProvenanceTracker
 ) -> dict[str,any]:    
     """
     Validate enriched data using SHACL.
@@ -40,10 +43,13 @@ def validate_data_graph(
     :param api_url: URL of the SHACL validation service.
     :param payload_template: Template for the validation request payload.
     :param headers: HTTP headers for the validation request.
+    :param tracker: provenanceTracker for writing failed entries to a report
+
     :return: Dictionary containing the validation results and status.
     """
     
     logger = get_run_logger()
+    config = load_config()
 
     if isinstance(data, bytes):
         data = data.decode("utf-8")
@@ -77,10 +83,16 @@ def validate_data_graph(
             return payload
         else:
             logger.error("SHACL validation FAILED (conforms = false).")
-            # TODO temporary disable exception + return payload to test loading data
-            raise ValueError("SHACL validation failed: conforms = false")
-            # return payload
 
+            shacl_report = json.dumps(json_data, indent=2)
+
+            tracker.write_failed_validation_to_report(
+                member_state=config["member_state"],
+                failed_validation=shacl_report,
+                report_path=config["provenance_report_path"]
+            )
+
+            raise ValueError("SHACL validation failed: conforms = false")
 
 
     except Exception as e:

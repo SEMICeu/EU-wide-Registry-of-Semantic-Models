@@ -18,7 +18,7 @@ For more information about the data model, see the [Semantic Registry Model (SRM
 The pipeline executes the following steps:
 
 1. **Extract** source triples from the member state (implementation varies by member state depending on data exposure)
-2. **Load** source triples into the triple store
+2. **Load** source triples into a temporary triple store
 3. **Transform** triples to conform to the Semantic Registry Model (implementation varies by member state depending on their data model)
 4. **Validate** triples using the ITB-SHACL validator
 5. **Load** validated triples into the semantic registry
@@ -147,4 +147,13 @@ def __init__(self,
 - **Graph RDF** (`SR-dev/provenance/adapters/graph_adapter.py`): 
   Generates an RDF file containing complete provenance information about the harvesting process.
 
-  
+### Provenance Config
+
+Inside the config you will find:
+
+- **`enable_provenance_history`**: A developer feature you may want to disable. Provenance will look at the dates from `dct:issued` and `dct:modified` to decide whether or not entries should be re-harvested. When testing, you might want to set this to `False` to always harvest all entries.
+- **`keep_latest_entries_provenance`**: The number of entries to keep in the provenance GraphDB. The default is set to keep the data from the last 2 pipeline runs.
+
+### Provenance Report
+
+- [reports](SR-dev/harvester/doc/reports): Contains an automatically generated report (upon pipeline completion) which can be delevired to the respective Member State, including run metadata, the number of transformed and validated entries, as well as all SHACL reports from failed entries.

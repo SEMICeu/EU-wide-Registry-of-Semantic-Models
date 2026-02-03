@@ -5,6 +5,7 @@ from prefect.context import get_run_context
 from prefect import get_run_logger
 from .adapters.prefect_adapter import PrefectArtifactAdapter
 from .adapters.graph_adapter import GraphAdapter
+import re
 
 class ProvenanceTracker:
     """
@@ -83,7 +84,7 @@ class ProvenanceTracker:
 
         logger = get_run_logger()
         if self.lineage is None:
-            logger.warning("Cannot update task: no active lineage")
+            logger.warning("Cannot update transformation: no active lineage")
             return
 
         if task == TaskType.load_input:
@@ -95,18 +96,22 @@ class ProvenanceTracker:
         if task == TaskType.validate:
             self.lineage.transformation.succesfuly_validated_assets = amount
             logger.info(f"✓ Updated transformation: succesfuly_validated_assets: {amount}")
+            failed_validation_assets =  self.lineage.transformation.transformed_assets - amount
+            self.lineage.transformation.failed_validation_assets = failed_validation_assets
+            logger.info(f"✓ Updated transformation: failed_validation_assets: {failed_validation_assets}")
         if task == TaskType.load_output:
             self.lineage.transformation.loaded_output = amount
             logger.info(f"✓ Updated transformation: loaded output: {amount}")
 
 
-    def update_completed(self,  target_acces_url: str, provenance_acces_url: str ):
+    def update_completed(self,  target_acces_url: str, provenance_acces_url: str, member_state: str, report_path: str ):
         """
-        Update properties when the pipeline has finished
+        Update properties when the pipeline has finished + call to write the transformation to the report
         """
+
         logger = get_run_logger()
         if self.lineage is None:
-            logger.warning("Cannot update status: no active lineage")
+            logger.warning("Cannot update transformation properties: no active lineage")
             return
 
         if (self.lineage.status == JobStatus.completed):
@@ -121,6 +126,8 @@ class ProvenanceTracker:
             transformationReport = TransformationReport(accesURL=provenance_acces_url)
             self.lineage.generated = transformationReport
             logger.info(f"✓ Updated generated rdf to {provenance_acces_url}")
+
+            self.write_transformation_to_report(member_state, report_path)
         
 
     def publish(self, graphdb_endpoint: str ):
@@ -130,7 +137,7 @@ class ProvenanceTracker:
 
         logger = get_run_logger()
         if self.lineage is None:
-            logger.warning("Cannot update status: no active lineage")
+            logger.warning("Cannot publish provenance: no active lineage")
             return
 
         # Publish to Prefect artifacts
@@ -164,7 +171,7 @@ class ProvenanceTracker:
 
         logger = get_run_logger()
         if self.lineage is None:
-            logger.warning("Cannot update status: no active lineage")
+            logger.warning("Cannot clean provenance db: no active lineage")
             return
 
         if self.enable_graph_storage:
@@ -182,8 +189,76 @@ class ProvenanceTracker:
             except Exception as e:
                 logger.warning(f"Failed to clean provenance graph triple store: {e}")
 
+    
+    def initialise_report(self, member_state: str, provenance_report_dir: str) -> None:
+        """
+        Create or overwrite the provenanve report for a given member state.
+        """
 
-    def write_failed_validation_to_report(self, member_state: str, failed_validation: str, report_path):
+        logger = get_run_logger()
+
+        report_template = f"""
+# Harvesting Report {member_state}
+
+...
+
+## Transformation Report
+
+{{transformation_report}}
+
+## Failed entries
+
+"""
+
+        try:
+            report_path = f"{provenance_report_dir}/{member_state.lower()}_harvesting_report.md"
+
+            with open(report_path, 'w', encoding='utf-8') as f:
+                f.write(report_template)
+
+            logger.info(f"✓ Harvesting report initialised: {report_path}")
+
+        except Exception as e:
+            logger.warning(f"Failed to initialise report for {member_state}: {e}")
+        
+    def write_transformation_to_report(self, member_state: str, report_path: str):
+        """
+        Write properties which hold valuable information from the transformation to the report for the memberstates
+        """
+
+        logger = get_run_logger()
+        if self.lineage is None:
+            logger.warning("Cannot write transformation properties to report: no active lineage")
+            return
+
+        try:
+            
+            if not report_path:
+                logger.warning(f"No report path defined for member state: {member_state}")
+                return
+
+            if (self.lineage.status != JobStatus.completed):
+                logger.warning(f"Can only write transformation to report if the pipeline has finished! (JobStatus != completed)")
+                return
+            
+            with open(report_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            if "{transformation_report}" in content:
+                
+                content = content.replace("{transformation_report}", self.lineage.__str__())
+            else:
+                logger.warning("{transformation_report} not found in report")
+         
+            with open(report_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            
+        except Exception as e:
+            logger.warning(f"Failed to write transformation to report: {e}")
+
+
+    def write_failed_validation_to_report(self, member_state: str, failed_validation: str, report_path: str):
         """
         Write entries who failed the validation SHACL validation to a report. 
         This report is aimed to inform memberstates about issues regarding the quality of the data
@@ -191,10 +266,9 @@ class ProvenanceTracker:
 
         logger = get_run_logger()
         if self.lineage is None:
-            logger.warning("Cannot update status: no active lineage")
+            logger.warning("Cannot write failed validation entries to report: no active lineage")
             return
 
-        
         try:
             logger.info(f"SHACL validation failed for MS {member_state}: {failed_validation}")
             
@@ -205,17 +279,11 @@ class ProvenanceTracker:
             with open(report_path, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            if "{failed_entries}" in content:
-                failed_entry = f"\n### Failed Entry 1\n\n```\n{failed_validation}\n```\n"
-                content = content.replace("{failed_entries}", failed_entry + "\n{failed_entries}")
-            else:
-                import re
-                existing_entries = re.findall(r"### Failed Entry (\d+)", content)
-                next_number = len(existing_entries) + 1
-                
-                failed_entry = f"\n### Failed Entry {next_number}\n\n```\n{failed_validation}\n```\n"
-                
-                content = content.replace("{failed_entries}", failed_entry + "\n{failed_entries}")
+            existing_entries = re.findall(r"### Failed Entry (\d+)", content)
+            next_number = len(existing_entries) + 1
+
+            failed_entry = f"\n### Failed Entry {next_number}\n\n```\n{failed_validation}\n```\n"
+            content += failed_entry
             
             with open(report_path, 'w', encoding='utf-8') as f:
                 f.write(content)

@@ -40,6 +40,7 @@ class Transformation(BaseModel):
         extracted_assets: amount of assets extracted from the source
         transformed_assets: amount of assets transformed to conform with Semantic Registry Model
         validated_assets: amount of assets validated by the SHACL validation
+        failed_validation_assets: amount of assets that failed the SHACL validation
         loaded_assets: amount of assets loaded in the Semantic Registry
     """
 
@@ -49,6 +50,7 @@ class Transformation(BaseModel):
     extracted_assets_from_source: int = 0
     transformed_assets : int = 0
     succesfuly_validated_assets: int = 0
+    failed_validation_assets: int = 0
     loaded_assets: int = 0
 
 class TransformationReport(BaseModel):
@@ -81,6 +83,35 @@ class TransformationExecution(BaseModel):
     task: Optional[TaskType] = None
     transformation: Transformation
     generated: Optional[TransformationReport] = None
+
+    def __str__(self) -> str:
+        duration = None
+        if self.end_time:
+            duration = (self.end_time - self.start_time).total_seconds()
+        
+        return f"""
+TransformationExecution:
+    Start Time: {self.start_time}
+    End Time: {self.end_time or 'In Progress'}
+    Duration: {f'{duration}s' if duration else 'N/A'}
+
+Transformation:
+    Input Access URL: {self.transformation.input_source.accesURL if self.transformation.input_source else 'N/A'}
+    Output Access URL: {self.transformation.output_source.accesURL if self.transformation.output_source else 'N/A'}
+    Extracted Assets: {self.transformation.extracted_assets_from_source}
+    Transformed Assets: {self.transformation.transformed_assets}
+    Validated Assets: {self.transformation.succesfuly_validated_assets}
+    Failed Validation Assets: {self.transformation.failed_validation_assets}
+    Loaded Assets: {self.transformation.loaded_assets}
+
+Provenance Report: 
+    ProvenanceAccess URL: {self.generated.accesURL if self.generated else 'N/A'}
+"""
+# ID: {self.id}
+# Title: {self.title or 'N/A'}
+# Status: {self.status.value}
+# Task: {self.task.value if self.task else 'N/A'}
+# Generated Report: {self.generated.accesURL if self.generated else 'N/A'}
 
 class TransformationExecutionDTO(BaseModel):
     """

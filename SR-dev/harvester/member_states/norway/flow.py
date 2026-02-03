@@ -26,7 +26,8 @@ def parallel_processing_flow():
 
     # Initialize provenance tracker
     tracker = ProvenanceTracker()
-    tracker.start_activity(SOURCE_ACCES_URL)
+    tracker.initialise_report(config["member_state"], config["provenance_report_dir"])
+    tracker.start_activity(config["web_source_url"])
 
     # Task 1: Extract results from schema.gov.it.
     df = fetch_sparql_to_csv(config["web_source_query_url"],config["fetch_query"])
@@ -169,7 +170,7 @@ def parallel_processing_flow():
 
 
     tracker.update_status(JobStatus.completed)
-    tracker.update_completed(TARGET_ACCES_URL, PROVENANCE_ACCES_URL)
+    tracker.update_completed(TARGET_ACCES_URL, PROVENANCE_ACCES_URL, config["member_state"], config["provenance_report_path"])
     tracker.publish(endpoint_provenance)
     tracker.clean_db(config["graphDB_provenance_repo_name"],config["delete_old_entries_provenance_query"],config["keep_latest_entries_provenance"],config["graphDB_host"])
 

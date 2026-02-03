@@ -5,6 +5,7 @@ web_source_query_url: "https://sparql.fellesdatakatalog.digdir.no/?query="
 
 enable_provenance_history: False
 keep_latest_entries_provenance: 2
+provenance_report_dir: SR-dev\harvester\doc\reports
 provenance_report_path: SR-dev\harvester\doc\reports\norway_harvesting_report.md
 
 fetch_query: | 

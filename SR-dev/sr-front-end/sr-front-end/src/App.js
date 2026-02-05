@@ -145,8 +145,8 @@ function OntologyDetail({ ontologies }) {
     reuses: true,
     reusedBy: true
   });
-  const ontologyIdx = ontologies.findIndex(o => slugifyTitle(o.title) === slug);
-  const ontology = ontologyIdx !== -1 ? ontologies[ontologyIdx] : fetchedOntology;
+  const ontologyFromResults = ontologies.find(o => slugifyTitle(o.title) === slug);
+  const ontology = fetchedOntology || ontologyFromResults;
   const navigate = useNavigate();
 
   const toggleSection = (section) => {
@@ -157,34 +157,30 @@ function OntologyDetail({ ontologies }) {
   };
 
   useEffect(() => {
-    if (ontologyIdx === -1) {
-      setLoading(true);
-      setError(null);
-      fetch(`${API_BASE}/api/ontology`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug })
-      })
-        .then(res => {
-          if (!res.ok) throw new Error('Ontology not found');
-          return res.json();
-        })
-        .then(data => {
-          setFetchedOntology(data);
-          setLoading(false);
-        })
-        .catch(err => {
-          setError(err.message);
-          setLoading(false);
-        });
-    } else {
-      setFetchedOntology(null);
-      setLoading(false);
-      setError(null);
-    }
-  }, [slug, ontologyIdx]);
+    setLoading(true);
+    setError(null);
+    setFetchedOntology(null);
 
-  if (loading) return <div className="ontology-detail-bg"><div className="ontology-detail-card"><h2>Loading...</h2></div></div>;
+    fetch(`${API_BASE}/api/ontology`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug })
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Ontology not found');
+        return res.json();
+      })
+      .then(data => {
+        setFetchedOntology(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [slug]);
+
+  if (loading && !ontology) return <div className="ontology-detail-bg"><div className="ontology-detail-card"><h2>Loading...</h2></div></div>;
   if (!ontology) return <div className="ontology-detail-bg"><div className="ontology-detail-card"><h2>Ontology not found</h2>{error && <div style={{color:'#ff6b6b'}}>{error}</div>}</div></div>;
 
   return (

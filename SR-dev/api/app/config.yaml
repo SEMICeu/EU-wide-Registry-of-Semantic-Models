@@ -25,8 +25,8 @@ sparql_query: |
 
 lovrank_update_query: |
   WITH <http://italy.registry.eu>
-  DELETE WHERE {{ <{ontology_uri}> <http://example.org/LOVRank> ?o }} ;
-  INSERT DATA {{ <{ontology_uri}> <http://example.org/LOVRank> "{lovrank_value}"^^xsd:decimal }}
+  DELETE WHERE {{ <{ontology_uri}> <http://data.europa.eu/m8g/lovRank> ?o }} ;
+  INSERT DATA {{ <{ontology_uri}> <http://data.europa.eu/m8g/lovRank> "{lovrank_value}"^^xsd:decimal }}
 
 requires_update_query: |
   WITH <http://italy.registry.eu>

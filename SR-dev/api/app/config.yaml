@@ -14,7 +14,7 @@ sparql_query: |
   prefix adms: <http://www.w3.org/ns/adms#>
   SELECT ?s ?preferredNamespaceUri ?download
   WHERE {{
-    GRAPH <http://italy.registry.eu> {{
+    GRAPH <http://semic.registry.eu> {{
       ?s a adms:Asset .
       ?s vann:preferredNamespaceUri ?preferredNamespaceUri .
       ?s dcat:distribution ?resource .
@@ -24,10 +24,10 @@ sparql_query: |
   }}
 
 lovrank_update_query: |
-  WITH <http://italy.registry.eu>
+  WITH <http://semic.registry.eu>
   DELETE WHERE {{ <{ontology_uri}> <http://data.europa.eu/m8g/lovRank> ?o }} ;
   INSERT DATA {{ <{ontology_uri}> <http://data.europa.eu/m8g/lovRank> "{lovrank_value}"^^xsd:decimal }}
 
 requires_update_query: |
-  WITH <http://italy.registry.eu>
+  WITH <http://semic.registry.eu>
   INSERT DATA {{ <{subject_uri}> <http://purl.org/dc/terms/requires> <{object_uri}> }}

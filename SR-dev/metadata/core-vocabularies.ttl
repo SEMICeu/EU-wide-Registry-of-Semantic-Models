@@ -48,7 +48,7 @@ skos:Concept a skos:ConceptScheme;
   skos:hasTopConcept <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>,
     <http://www.w3.org/ns/dx/prof/role/vocabulary>, <http://publications.europa.eu/resource/authority/language/ENG> .
 
-<https://semiceu.github.io/Core-Person-Vocabulary/> a dct:Standard;
+<https://semiceu.github.io/Core-Person-Vocabulary/> a adms:Asset;
   cv:contactPoint cb:DIGIT;
   dct:creator cb:DIGIT;
   dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
@@ -62,7 +62,7 @@ skos:Concept a skos:ConceptScheme;
   dct:title "Core Person Vocabulary"@en;
   owl:versionInfo "2.1.1" .
 
-<https://semiceu.github.io/Core-Location-Vocabulary/> a dct:Standard;
+<https://semiceu.github.io/Core-Location-Vocabulary/> a adms:Asset;
   cv:contactPoint cb:DIGIT;
   dct:creator cb:DIGIT;
   dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
@@ -76,7 +76,7 @@ skos:Concept a skos:ConceptScheme;
   dct:title "Core Location Vocabulary"@en;
   owl:versionInfo "2.1.0" .
 
-<https://semiceu.github.io/Core-Business-Vocabulary/> a dct:Standard;
+<https://semiceu.github.io/Core-Business-Vocabulary/> a adms:Asset;
   cv:contactPoint cb:DIGIT;
   dct:creator cb:DIGIT;
   dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
@@ -90,7 +90,7 @@ skos:Concept a skos:ConceptScheme;
   dct:title "Core Business Vocabulary"@en;
   owl:versionInfo "2.2.0" .
 
-<https://semiceu.github.io/CCCEV/> a dct:Standard;
+<https://semiceu.github.io/CCCEV/> a adms:Asset;
   cv:contactPoint cb:DIGIT;
   dct:creator cb:DIGIT;
   dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
@@ -104,7 +104,7 @@ skos:Concept a skos:ConceptScheme;
   dct:title "Core Criterion and Core Evidence Vocabulary"@en;
   owl:versionInfo "2.1.0" .
 
-<https://semiceu.github.io/CPOV> a dct:Standard;
+<https://semiceu.github.io/CPOV> a adms:Asset;
   cv:contactPoint cb:DIGIT;
   dct:creator cb:DIGIT;
   dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;
@@ -118,7 +118,7 @@ skos:Concept a skos:ConceptScheme;
   dct:title "Core Public Organisation Vocabulary"@en;
   owl:versionInfo "2.1.1" .
 
-<https://semiceu.github.io/Core-Public-Event-Vocabulary/> a dct:Standard;
+<https://semiceu.github.io/Core-Public-Event-Vocabulary/> a adms:Asset;
   cv:contactPoint cb:DIGIT;
   dct:creator cb:DIGIT;
   dct:created "2024-05-06T00:00:00.000Z"^^xsd:dateTime;

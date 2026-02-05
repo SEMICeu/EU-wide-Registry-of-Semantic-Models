@@ -70,7 +70,7 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   rdfs:label "Concept"@en;
   rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
 
-<http://www.w3.org/ns/dcat#> a dct:Standard;
+<http://www.w3.org/ns/dcat#> a adms:Asset;
   cv:contactPoint <http://www.w3.org/data#W3C>;
   dct:creator <http://www.w3.org/data#W3C>;
   dct:created "2020-12-17T00:00:00.000Z"^^xsd:dateTime;
@@ -79,11 +79,12 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   foaf:homepage <https://www.w3.org/TR/vocab-dcat-3/>;
   dct:identifier "DCAT";
   dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  vann:preferredNamespaceUri <http://www.w3.org/ns/dcat#>;
   dct:publisher <http://www.w3.org/data#W3C>;
   dct:title "The data catalog vocabulary"@en;
   owl:versionInfo "3.0.0" .
 
-<http://xmlns.com/foaf/0.1/> a dct:Standard;
+<http://xmlns.com/foaf/0.1/> a adms:Asset;
   cv:contactPoint <https://danbri.org/foaf.rdf#danbri>, <http://data.semanticweb.org/person/libby-miller>;
   dct:creator <https://danbri.org/foaf.rdf#danbri>, <http://data.semanticweb.org/person/libby-miller>;
   dct:created "2014-01-14T00:00:00.000Z"^^xsd:dateTime;
@@ -92,11 +93,12 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   foaf:homepage <http://xmlns.com/foaf/spec/>;
   dct:identifier "FOAF";
   dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  vann:preferredNamespaceUri <http://xmlns.com/foaf/0.1/>;
   dct:publisher <https://danbri.org/foaf.rdf#danbri>, <http://data.semanticweb.org/person/libby-miller>;
   dct:title "Friend of a Friend (FOAF) vocabulary"@en;
   owl:versionInfo "0.99" .
 
-<http://purl.org/dc/terms/> a dct:Standard;
+<http://purl.org/dc/terms/> a adms:Asset;
   cv:contactPoint <http://purl.org/dc/aboutdcmi#DCMI>;
   dct:creator <http://purl.org/dc/aboutdcmi#DCMI>;
   dct:created "2012-06-14T00:00:00.000Z"^^xsd:dateTime;
@@ -105,11 +107,12 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   foaf:homepage <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/>;
   dct:identifier "DC Terms";
   dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  vann:preferredNamespaceUri <http://purl.org/dc/terms/>;
   dct:publisher <http://purl.org/dc/aboutdcmi#DCMI>;
   dct:title "DCMI Metadata Terms - other"@en;
   owl:versionInfo "2020-01-20" .
 
-<http://www.w3.org/ns/org#> a dct:Standard;
+<http://www.w3.org/ns/org#> a adms:Asset;
   cv:contactPoint <http://www.w3.org/data#W3C>;
   dct:creator <http://www.w3.org/data#W3C>;
   dct:created "2014-01-16T00:00:00.000Z"^^xsd:dateTime;
@@ -118,11 +121,12 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   foaf:homepage <https://www.w3.org/TR/vocab-org/>;
   dct:identifier "W3C Org";
   dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  vann:preferredNamespaceUri <http://www.w3.org/ns/org#>;
   dct:publisher <http://www.w3.org/data#W3C>;
   dct:title "Core organization ontology"@en;
   owl:versionInfo "0.08" .
 
-<http://www.w3.org/2006/vcard/ns#> a dct:Standard;
+<http://www.w3.org/2006/vcard/ns#> a adms:Asset;
   cv:contactPoint <http://www.w3.org/data#W3C>;
   dct:creator <http://www.w3.org/data#W3C>;
   dct:created "2014-05-22T00:00:00.000Z"^^xsd:dateTime;
@@ -131,11 +135,12 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   foaf:homepage <https://www.w3.org/TR/vcard-rdf/#Ontology>;
   dct:identifier "W3C vCard";
   dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  vann:preferredNamespaceUri <http://www.w3.org/2006/vcard/ns#>;
   dct:publisher <http://www.w3.org/data#W3C>;
   dct:title "Ontology for vCard"@en;
   owl:versionInfo "Final" .
 
-<http://www.w3.org/2004/02/skos/core> a dct:Standard;
+<http://www.w3.org/2004/02/skos/core> a adms:Asset;
   cv:contactPoint <http://www.w3.org/data#W3C>;
   dct:creator <http://www.w3.org/data#W3C>;
   dct:created "2009-08-18T00:00:00.000Z"^^xsd:dateTime;
@@ -144,11 +149,12 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   foaf:homepage <https://www.w3.org/TR/skos-reference/>;
   dct:identifier "SKOS";
   dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  vann:preferredNamespaceUri <http://www.w3.org/2004/02/skos/core>;
   dct:publisher <http://www.w3.org/data#W3C>;
   dct:title "SKOS Vocabulary"@en;
   owl:versionInfo "20090818" .
 
-<http://www.w3.org/2002/07/owl> a dct:Standard;
+<http://www.w3.org/2002/07/owl> a adms:Asset;
   cv:contactPoint <http://www.w3.org/data#W3C>;
   dct:creator <http://www.w3.org/data#W3C>;
   dct:created "2012-12-11T00:00:00.000Z"^^xsd:dateTime;
@@ -157,6 +163,7 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
   foaf:homepage <https://www.w3.org/TR/owl2-overview/>;
   dct:identifier "OWL 2";
   dct:language <http://publications.europa.eu/resource/authority/language/ENG>;
+  vann:preferredNamespaceUri <http://www.w3.org/2002/07/owl>;
   dct:publisher <http://www.w3.org/data#W3C>;
   dct:title "The OWL 2 Schema vocabulary (OWL 2)"@en;
   owl:versionInfo "20091115" .
@@ -717,46 +724,46 @@ owl:Thing a rdfs:Class;
   rdfs:label "Thing"@en;
   rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
 
-<https://www.w3.org/ns/dcat3.ttl> a prof:ResourceDescriptor;
+<https://www.w3.org/ns/dcat3.ttl> a adms:AssetDistribution;
   dcat:downloadURL "https://www.w3.org/ns/dcat3.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of DCAT"@en .
 
 <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl>
-  a prof:ResourceDescriptor;
+  a adms:AssetDistribution;
   dcat:downloadURL "https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of FOAF"@en .
 
 <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl>
-  a prof:ResourceDescriptor;
+  a adms:AssetDistribution;
   dcat:downloadURL "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of DC Terms"@en .
 
-<https://www.w3.org/ns/org.ttl> a prof:ResourceDescriptor;
+<https://www.w3.org/ns/org.ttl> a adms:AssetDistribution;
   dcat:downloadURL "https://www.w3.org/ns/org.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of W3C Organization"@en .
 
-<https://www.w3.org/2006/vcard/ns#> a prof:ResourceDescriptor;
+<https://www.w3.org/2006/vcard/ns#> a adms:AssetDistribution;
   dcat:downloadURL "https://www.w3.org/2006/vcard/ns#"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of W3C vCard"@en .
 
 <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/skos.ttl>
-  a prof:ResourceDescriptor;
+  a adms:AssetDistribution;
   dcat:downloadURL "https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/skos.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of W3C OWL 2"@en .
 
-<https://www.w3.org/2002/07/owl#> a prof:ResourceDescriptor;
+<https://www.w3.org/2002/07/owl#> a adms:AssetDistribution;
   dcat:downloadURL "https://www.w3.org/2002/07/owl#"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;

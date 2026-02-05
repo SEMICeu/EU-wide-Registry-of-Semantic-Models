@@ -2,7 +2,7 @@
 sparql:
   sparql_query_endpoint: "https://health.semic.eu/virtuoso/sparql"
   sparql_update_endpoint: "https://health.semic.eu/virtuoso/sparql" 
-  graph_uri: "http://semic.registry.eu"
+  graph_uri: "http://italy.registry.eu"
   bypass_ssl: true
 
 # SPARQL query for extracting download links
@@ -11,22 +11,23 @@ sparql_query: |
   prefix dcat: <http://www.w3.org/ns/dcat#>
   prefix prof: <http://www.w3.org/ns/dx/prof/>
   prefix vann: <http://purl.org/vocab/vann/>
+  prefix adms: <http://www.w3.org/ns/adms#>
   SELECT ?s ?preferredNamespaceUri ?download
   WHERE {{
-    GRAPH <http://semic.registry.eu> {{
-      ?s a dct:Standard .
+    GRAPH <http://italy.registry.eu> {{
+      ?s a adms:Asset .
       ?s vann:preferredNamespaceUri ?preferredNamespaceUri .
-      ?s prof:hasResource ?resource .
+      ?s dcat:distribution ?resource .
       ?resource dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> .
       ?resource dcat:downloadURL ?download .
     }}
   }}
 
 lovrank_update_query: |
-  WITH <http://semic.registry.eu>
+  WITH <http://italy.registry.eu>
   DELETE WHERE {{ <{ontology_uri}> <http://example.org/LOVRank> ?o }} ;
   INSERT DATA {{ <{ontology_uri}> <http://example.org/LOVRank> "{lovrank_value}"^^xsd:decimal }}
 
 requires_update_query: |
-  WITH <http://semic.registry.eu>
+  WITH <http://italy.registry.eu>
   INSERT DATA {{ <{subject_uri}> <http://purl.org/dc/terms/requires> <{object_uri}> }}

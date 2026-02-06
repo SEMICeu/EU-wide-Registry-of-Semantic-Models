@@ -1,6 +1,6 @@
 from cProfile import label
 from prefect import task, get_run_logger
-from typing import List
+from typing import List, Optional
 from ...db.client import get_sparql_client
 from SPARQLWrapper import TURTLE
 from string import Template
@@ -66,25 +66,32 @@ async def construct_item(batch: str, db_path: str, construct_query: str) -> List
         raise 
 
 
-async def get_property(uri, predicate, db_path: str, construct_query: str) -> List[str]:
+async def query_subject(uri: str, db_path: str, query: str, predicate: Optional[str] = None) -> List[str]:
     """
-    Construct items for retrieving a property for a URI.
+    Construct items for retrieving a property or object for a URI.
 
     :param uri: the URI as subject.
-    :param predicate: the property to extract
     :param db_path: Path or endpoint of the GraphDB repository.
     :param construct_query: SPARQL query string used to construct the items.
+    :param predicate: the property to extract
+
     """
 
     logger = get_run_logger()
 
-    query_template = construct_query
+    query_template = query
 
-    logger.info(f"retrieving property {predicate} for URI: {uri}")  
- 
+    if predicate:
+        logger.info(f"Retrieving property {predicate} for URI: {uri}")
+    else:
+        logger.info(f"Retrieving properties for URI: {uri}")
+
     try:
         template = Template(query_template)
-        query = template.substitute(uri=uri, property=predicate)
+        if predicate:
+            query = template.substitute(uri=uri, property=predicate)
+        else:
+            query = template.substitute(uri=uri)
         
         logger.info(f"Query to execute:\n{query[:500]}") 
 
@@ -107,7 +114,7 @@ async def get_property(uri, predicate, db_path: str, construct_query: str) -> Li
         
         result_size = len(results) if isinstance(results, (str, bytes)) else "unknown"
         logger.info(f"Query completed. Result size: {result_size} bytes")
-        logger.info(f"construct item result: {results}")
+        logger.info(f"result: {results}")
 
         return results
         

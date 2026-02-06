@@ -100,7 +100,7 @@ class ProvenanceTracker:
             self.lineage.transformation.failed_validation_assets = failed_validation_assets
             logger.info(f"✓ Updated transformation: failed_validation_assets: {failed_validation_assets}")
         if task == TaskType.load_output:
-            self.lineage.transformation.loaded_output = amount
+            self.lineage.transformation.loaded_assets = amount
             logger.info(f"✓ Updated transformation: loaded output: {amount}")
 
 

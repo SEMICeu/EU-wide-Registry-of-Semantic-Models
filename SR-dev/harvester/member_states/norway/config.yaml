@@ -46,6 +46,7 @@ transformation:
     owl: "http://www.w3.org/2002/07/owl#"
     rdfs: "http://www.w3.org/2000/01/rdf-schema#"
     modelldcatno: "https://data.norge.no/vocabulary/modelldcatno#"
+    rov: "http://www.w3.org/ns/regorg#"
 
 validator:
   url: "http://localhost:8080/shacl/srm/api/validate"
@@ -77,6 +78,22 @@ construct_custom_query: |
       FILTER(?s = <$uri>)
       FILTER(?p = <$property>)
     }
+
+construct_classes_belonging_to_model: |
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  PREFIX modelldcatno: <https://data.norge.no/vocabulary/modelldcatno#>
+  PREFIX dct: <http://purl.org/dc/terms/>
+
+  CONSTRUCT {
+    ?o dct:title ?title .
+  }
+        WHERE {
+        ?s rdf:type modelldcatno:InformationModel .
+        ?s modelldcatno:containsModelElement ?o .
+        ?o rdf:type modelldcatno:ObjectType .
+        ?o dct:title ?title
+        FILTER (?s = <$uri>)
+  }
   
 select_last_provenance_date_query: |
     PREFIX prov: <http://www.w3.org/ns/prov#>

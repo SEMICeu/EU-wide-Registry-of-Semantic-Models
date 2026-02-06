@@ -1,12 +1,12 @@
 from prefect import task, get_run_logger
 
 from prefect.flows import R
-from rdflib import Graph, RDF, Namespace, Literal, URIRef
-from rdflib.namespace import XSD
+from rdflib import BNode, Graph, RDF, Namespace, Literal, URIRef
+from rdflib.namespace import XSD, split_uri
 from pathlib import Path
 from rdflib import Literal, XSD
 from datetime import datetime, timezone
-from .construct_item import get_property
+from .construct_item import query_subject
 import requests
 import sys
 import json
@@ -50,6 +50,7 @@ async def transform_item(batch: str) -> str:
         PROF   = Namespace(config["transformation"]["namespaces"]["prof"])
         OWL    = Namespace(config["transformation"]["namespaces"]["owl"])
         RDFS   = Namespace(config["transformation"]["namespaces"]["rdfs"])
+        ROV   = Namespace(config["transformation"]["namespaces"]["rov"])
         MODELLDCATNO = Namespace(config["transformation"]["namespaces"]["modelldcatno"])
 
         target_graph.bind("adms", ADMS)
@@ -66,13 +67,19 @@ async def transform_item(batch: str) -> str:
         target_graph.bind("prof", PROF)
         target_graph.bind("owl", OWL)
         target_graph.bind("rdfs", RDFS)
+        target_graph.bind("rov", ROV)
         target_graph.bind("modelldcatno", MODELLDCATNO)
 
         BASE_DIR = Path(__file__).resolve().parent
-        MAPPING_FILE = BASE_DIR / "asset_theme_mapping.json"
+        MAPPING_THEME_FILE = BASE_DIR / "asset_theme_mapping.json"
+        MAPPING_ORG_TYPE_FILE = BASE_DIR / "org_type_mapping.json"
 
-        with open(MAPPING_FILE, "r", encoding="utf-8") as f:
+
+        with open(MAPPING_THEME_FILE, "r", encoding="utf-8") as f:
             theme_mapping = json.load(f)
+
+        with open(MAPPING_ORG_TYPE_FILE, "r", encoding="utf-8") as f:
+            org_type_mapping = json.load(f)
 
         # adms:Asset
         for s, p, o in source_graph.triples((None, RDF.type, MODELLDCATNO.InformationModel)):
@@ -162,6 +169,8 @@ async def transform_item(batch: str) -> str:
 
                 # adms:Asset/dct:creator
                 # adms:Asset/dct:publisher
+                # adms:Asset/dct:creator/foaf:Agent/foaf:name
+                # adms:Asset/dct:creator/foaf:Agent/dct:spatial
                 if p2 == DCT.publisher:    
                     logger.info(f"dct:publisher: {o2}") 
                     target_graph.add((s, DCT.publisher, URIRef(o2)))
@@ -171,16 +180,60 @@ async def transform_item(batch: str) -> str:
                     target_graph.add((s, DCT.creator, URIRef(o2)))
                     target_graph.add((URIRef(o2), RDF.type, FOAF.Agent))
 
+                    spatial_code = "http://publications.europa.eu/resource/authority/country/NOR"
+                    target_graph.add((URIRef(o2), DCT.spatial, URIRef(spatial_code)))
+                    target_graph.add((URIRef(spatial_code), RDF.type, DCT.Location))
+
+                    try:
+                        headers = {
+                        "Accept" : "text/turtle",
+                        "User-Agent": "SEMIC"
+                        }
+                        response = requests.get(str(o2),headers=headers)
+
+                        agent_graph = Graph()
+                        
+                        if response.status_code == 200:
+                            logger.info("Request Succesfull for foaf:Agent")
+                            agent_graph.parse(data=response.text, format="turtle")
+
+                            for _, _, name in agent_graph.triples((None, FOAF.name, None)):
+                                target_graph.add((URIRef(o2), FOAF.name, Literal(name, datatype=RDF.langString)))
+
+                        else:
+                            logger.error("Failed request for foaf:Agent {o2}")
+                            logger.error(f"URL:            {response.url}")
+                            logger.error(f"Status:         {response.status_code}")
+                            logger.error(f"Request headers: {response.request.headers}")
+                            logger.error(f"Response headers: {dict(response.headers)}")
+                            logger.error(f"Response body (first 500 chars): {response.text[:500]}")
+                    
+                    except Exception as e:
+                        logger.error(f"Failed requist for foaf:Agent - {str(e)}")
+                        
+
+                    for _, _, orgType in agent_graph.triples((None, ROV.orgType, None)):
+
+                        try:
+                            mapped_org_type = org_type_mapping[str(orgType)]
+                            logger.info(f"dct:type: {orgType} mapped to {mapped_org_type}") 
+
+                            target_graph.add((o2, DCT.type, URIRef(mapped_org_type)))
+                            target_graph.add((URIRef(mapped_org_type), RDF.type, SKOS.Concept))
+                        except KeyError:
+                            logger.error(f"No organisation_type mapping found for dcat:theme {o2}")
+                        
+
                 # adms:Asset/dcat:contactPoint
                 if p2 == DCAT.contactPoint:    
                     logger.info(f"dcat:contactPoint: {o2}") 
 
                     try:
-                        result = await get_property(
+                        result = await query_subject(
                             str(o2), 
-                            str(VCARD.hasEmail),
                             config["web_source_url"],
                             config["construct_custom_query"],
+                            str(VCARD.hasEmail),
                         )
 
                         if result:
@@ -212,303 +265,100 @@ async def transform_item(batch: str) -> str:
                     target_graph.add((s, FOAF.homepage, o2))
                     target_graph.add((o2, RDF.type, FOAF.Document))
 
+        # adms:Asset/dcat:distribution/adms:AssetDistribution
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/dcat:downloadURL
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/dct:format
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/dct:title
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/rdfs:isDefinedBy/rdfs:Class
+        # adms:Asset/dcat:distribution/adms:AssetDistribution/rdfs:isDefinedBy/rdfs:Class/rdfs:label
+        # adms:Asset/vann:preferredNamespaceUri
+        for s, p, o in target_graph.triples((None, RDF.type, ADMS.Asset)):
 
+            has_homepage = any(
+                target_graph.triples((s, FOAF.homepage, None))
+            )
 
-
-        #     official_uri = source_graph.value(s, ADMSAPIT.officialURI)
-            
-        #     if official_uri:
-        #         target_graph.add((s, DCT.identifier,Literal(str(official_uri))))
-        #     else:
-        #         target_graph.add((s, DCT.identifier, Literal(str(s))))
-        #         logger.info(f"No officialURI for {s}, using ontology URI as identifier")
-
-        #     # adms:Asset/dct:license
-        #     for a, _, distribution_uri in source_graph.triples((s, ADMSAPIT.hasSemanticAssetDistribution, None)):
-        #         try:
-
-        #             target_graph.add((a, DCAT.distribution, URIRef(distribution_uri)))
-        #             target_graph.add((URIRef(distribution_uri), RDF.type, ADMS.AssetDistribution))
-
-        #             # adms:Asset/dcat:distribution/dcat:isDefinedBy/rdfs:Class
-        #             for _, _, classUri in source_graph.triples((None, ADMSAPIT.hasKeyClass, None)):
-        #                 target_graph.add((URIRef(classUri), RDFS.isDefinedBy, URIRef(distribution_uri)))
-        #                 target_graph.add((URIRef(classUri), RDF.type, RDFS.Class))
-
-        #                 logger.info(f"rdfs label {str(RDFS.label)}")
-
-        #                 result = await get_property(
-        #                     str(classUri), 
-        #                     str(RDFS.label),
-        #                     config["web_source_url"],
-        #                     config["construct_custom_query"],
-        #                     )
-
-        #                 if result:
-        #                     class_graph = Graph()
-        #                     class_graph.parse(data=result, format="turtle")
-
-        #                     label_found = False
-        #                     # adms:Asset/dcat:distribution/dcat:isDefinedBy/rdfs:Class/rdfs:label
-        #                     for _, _, label in class_graph.triples((None, RDFS.label, None)):
-
-        #                         if isinstance(label, Literal):
-        #                             target_graph.add((URIRef(classUri), RDFS.label, label))
-        #                             label_found = True
-
-        #                     if not label_found:
-        #                         uri_str = str(classUri)
-        #                         if '/' in uri_str:
-        #                             label = uri_str.split('/')[-1]
-        #                             logger.info(f"No rdfs:label found in result for rdfs:Class {uri_str}, using generated label: {label}")
-        #                             target_graph.add((URIRef(classUri), RDFS.label, Literal(label, lang="en")))
-
-
-        #             logger.info("Requesting admsapit:hasSemanticAssetDistribution...")
-                
-        #             headers = {
-        #             "Accept" : "text/turtle"
-        #             }
-        #             response = requests.get(str(distribution_uri),headers=headers)
-
-        #             distribution_graph = Graph()
-        #             distribution_graph.parse(data=response.text, format="turtle")
-
-        #             if response.status_code == 200:
-        #                 logger.info("Request Succesfull for admsapit:hasSemanticAssetDistribution")
-
-        #                 for _, b, c in distribution_graph.triples((distribution_uri, None, None)):
+            has_distribution = any(
+                target_graph.triples((s, DCAT.distribution, None))
+            )
         
-        #                     # adms:Asset/dct:license
-        #                     if b == DCT.license:
-        #                         license_str = str(c)
-        #                         if license_str in ["https://w3id.org/italia/controlled-vocabulary/licences/A21_CCBY40", "http://creativecommons.org/licenses/by/4.0/"]:
-        #                             license_url = "http://publications.europa.eu/resource/authority/licence/CC_BY_4_0"
-        #                             logger.info(f"transforming license url {license_str} to {license_url}")
+            # ! ONLY FOR Assets PersonOgEnhet & AdresseModel -> here we use homepage to derive the properties mentioned above
+            if has_homepage and not has_distribution:
+                logger.info(f"INSIDE TARGET_GRAPH: {s} has foaf:homepage but no dcat:distribution")
+                logger.warning(f"foaf:homepage will be used to derive dct:distribution and adms:AssetDistribution")
+
+                for _, p2, o2 in source_graph.triples((s, None, None)):
+ 
+                    if p2 == FOAF.homepage:
+                        logger.info(f"dct:homepage: {o2}")
+
+                        distributionURI = BNode()
+
+                        target_graph.add((s, DCAT.distribution, distributionURI))
+                        target_graph.add((distributionURI, RDF.type, ADMS.AssetDistribution))
+
+                        #Todo extract form homepage URL
+                        target_graph.add((distributionURI, DCT.title, Literal(o2, datatype=RDF.langString)))
+
+                        target_graph.add((distributionURI, DCAT.downloadURL, Literal(o2, datatype=XSD.anyURI)))
+
+                        fileType = "http://publications.europa.eu/resource/authority/file-type/HTML"
+                        hasRole = "http://www.w3.org/ns/dx/prof/role/specification"
+
+                        target_graph.add((distributionURI, DCT['format'], URIRef(fileType)))
+                        target_graph.add((URIRef(fileType), RDF.type, DCT.MediaTypeOrExtent))
+
+                        target_graph.add((distributionURI, PROF.hasRole, URIRef(hasRole)))
+                        target_graph.add((URIRef(hasRole), RDF.type, SKOS.Concept))
+
+                        try:
+                            result = await query_subject(
+                                str(s), 
+                                config["web_source_url"],
+                                config["construct_classes_belonging_to_model"],
+                            )
+
+                            if result:
+                                logger.info(f"Successfully reached endpoint for modelldcatno:InformationModel: {s}")
+
+                                class_graph = Graph()
+                                class_graph.parse(data=result, format="turtle")
+
+                                preferredNamespaceUri = ""
+                                previous_namespace = None
+
+                                for classURI, _, title in class_graph.triples((None, DCT.title, None)):
+                                    logger.info(f"Found Class: {classURI} with title: {title}")       
+                                    target_graph.add((URIRef(classURI), RDFS.isDefinedBy, distributionURI))
+                                    target_graph.add((URIRef(classURI), RDF.type, RDFS.Class))
+
+                                    target_graph.add((URIRef(classURI), RDFS.label, Literal(title, datatype=RDF.langString)))
                                     
-        #                             target_graph.add((s, DCT.license, URIRef(license_url)))
-        #                             target_graph.add((URIRef(license_url), RDF.type, DCT.LicenseDocument))
-        #                             target_graph.add((URIRef(license_url), RDF.type, SKOS.Concept))
-        #                             target_graph.add((URIRef(license_url), SKOS.inScheme, URIRef("http://publications.europa.eu/resource/authority/license")))
-        #                         else:
-        #                             logger.error(f"license url not recognized {license_str}")
-                            
-        #                     # adms:Asset/dcat:distribution/dcat:downloadURL
-        #                     elif b == DCAT.downloadURL:
-        #                         logger.info(f"extracting dcat:downloadURL")
-        #                         target_graph.add((distribution_uri, DCAT.downloadURL, Literal(c, datatype=XSD.anyURI)))
-                            
-        #                     # adms:Asset/dcat:distribution/dct:format
-        #                     elif b == DCT['format']:
-        #                         logger.info(f"extracting dct:format")
-        #                         target_graph.add((distribution_uri, DCT['format'], URIRef(c)))
-        #                         target_graph.add((URIRef(c), RDF.type, DCT.MediaTypeOrExtent))
-                            
-        #                     # adms:Asset/dcat:distribution/dct:title
-        #                     elif b == DCT.title:     
-        #                         logger.info(f"extracting dct:title")                          
-        #                         target_graph.add((distribution_uri, DCT.title, Literal(c, datatype=RDF.langString)))
+                                    base, local = split_uri(classURI)
+                                    if previous_namespace is not None and base != previous_namespace:
+                                        logger.warning(f"preferredNamespaceUri changed from '{previous_namespace}' to '{base}' - last value will be used")
+                                    
+                                    preferredNamespaceUri = base
+                                    previous_namespace = base
+                                    logger.info(f"vann:preferredNamespaceUri: base URI derived from rdfs:Class namespace {base}")                 
+                                
+                                target_graph.add((s, VANN.preferredNamespaceUri, Literal(preferredNamespaceUri, datatype=XSD.anyURI) ))
 
-        #         except requests.exceptions.RequestException as e:
-        #             logger.error(f"Failed to check distribution {distribution_uri}: {e}")                   
+                                logger.info(f"Successfully transformed rdfs:Class for modelldcatno:InformationModel: {s}")
+                            else:
+                                logger.warning(f"No rdfs:Class result returned for modelldcatno:InformationModel: {s}")
+                        
+                        except Exception as e:
+                            logger.error(f"Failed to reach endpoint for modelldcatno:InformationModel: {s}") 
 
-        # adms:Asset/dct:description
-        # for s, p, o in source_graph.triples((None, DCT.description, None)):
-        #     if str(o).endswith(".png") or str(o).endswith(".jpg"):
-        #         logger.info(" dct:description: found a .png or .jpg, description will not be added")
+            # ! ONLY FOR other 11 Assets except from PersonOgEnhet & AdresseModel -> for these other assets we will...
+            if not has_homepage and not has_distribution:
+                logger.info(f"INSIDE TARGET_GRAPH: {s} does not contain foaf:homepage and no no dcat:distribution")
 
-        #     else:
-        #         target_graph.add((s, DCT.description, o))
+                logger.warning(f"No Classes for {s}, using ontology URI as preferredNamespace")
+                target_graph.add((s,VANN.preferredNamespaceUri, Literal(s, datatype=XSD.anyURI)))
 
-        # # adms:Asset/m8g:isReusedBy
-        # for s, p, o in source_graph.triples((None, ADMSAPIT.semanticAssetInUse, None)):
-        #     target_graph.add((s, M8G.isReusedBy,  Literal(o, datatype=XSD.anyURI)))
 
-        # # adms:Asset/dct:issued
-        # for s, p, o in source_graph.triples((None, DCT.issued, None)):
-        #     try:
-        #         value = str(o)
-
-        #         if "T" in value:
-        #             dateTime = value.replace("+00:00", "Z")
-
-        #             if not dateTime.endswith("Z"):
-        #                 dateTime = dateTime + "Z"
-
-        #         elif len(value) == 10:
-        #             dateTime = value + "T00:00:00Z"
-
-        #         else:
-        #             logger.info(f"dct:issued - unsupported format: {o}")
-        #             continue
-
-        #         target_graph.add((s,DCT.issued,Literal(dateTime, datatype=XSD.dateTime)))
-
-        #     except Exception as e:
-        #         logger.info(f"dct:issued - could not convert date: {o} (error: {e})")
-        #         continue
-                
-        # # adms:Asset/dcat:keyword
-        # for s, p, o in source_graph.triples((None, DCAT.keyword, None)):
-        #     if isinstance(o, Literal) and o.language is None:
-        #         target_graph.add((s, DCAT.keyword, Literal(str(o), lang='it')))
-        # else:
-        #     target_graph.add((s, DCAT.keyword, o))
-
-        # # adms:Asset/dct:language
-        # for s, p, o in source_graph.triples((None, DCT.language, None)):
-        #     target_graph.add((s, DCT.language, URIRef(str(o))))
-        #     target_graph.add((URIRef(str(o)), RDF.type, SKOS.Concept))
-
-        # # adms:Asset/dct:modified
-        # for s, p, o in source_graph.triples((None, DCT.modified, None)):
-        #     try:
-        #         value = str(o)
-
-        #         if "T" in value:
-        #             dateTime = value.replace("+00:00", "Z")
-
-        #             if "." in dateTime and not dateTime.endswith("Z"):
-        #                 dateTime = dateTime.split(".")[0] + "Z"
-
-        #             if not dateTime.endswith("Z"):
-        #                 dateTime = dateTime + "Z"
-
-        #         elif len(value) == 10:
-        #             dateTime = value + "T00:00:00Z"
-
-        #         else:
-        #             logger.info(f"dct:modified - unsupported format: {o}")
-        #             continue
-
-        #         target_graph.add((s,DCT.modified,Literal(dateTime, datatype=XSD.dateTime)))
-
-        #     except Exception as e:
-        #         logger.info(f"dct:modified - could not convert date: {o} (error: {e})")
-        #         continue
-
-        # # adms:Asset/adms:status
-        # for s, p, o in source_graph.triples((None, ADMSAPIT.status, None)):
-        #     mappedStatus = ""
-        #     status_value = str(o)
-
-        #     if status_value in ["published", "catalogued"]:
-        #         mappedStatus = "http://purl.org/adms/status/Completed"
-        #     elif status_value in ["initial draft", "draft", "final draft"]:
-        #         mappedStatus = "http://purl.org/adms/status/UnderDevelopment"
-        #     else:
-        #         logger.warning(f"Could not identify status code: {status_value}")
-            
-        #     if len(mappedStatus) > 0:              
-        #         target_graph.add((s, ADMS.status, URIRef(mappedStatus)))
-        #         target_graph.add((URIRef(mappedStatus), RDF.type, SKOS.Concept))
-
-        # # adms:Asset/dct:theme
-        # for s, p, o in source_graph.triples((None, DCAT.theme, None)):
-        #     target_graph.add((s, DCAT.theme, o))
-        #     target_graph.add((o, RDF.type, SKOS.Concept))
-
-        # # adms:Asset/dct:title
-        # for s, p, o in source_graph.triples((None, DCT.title, None)):
-        #     target_graph.add((s, DCT.title, Literal(o, datatype=RDF.langString)))
-
-        # # adms:Asset/owl:versionInfo
-        # for s, p, o in source_graph.triples((None, OWL.versionInfo, None)):
-        #     if isinstance(o, Literal) and o.language == "en":
-        #         logger.info("adding owl:versionInfo with 'en' language tag")
-        #         target_graph.add((s, OWL.versionInfo, Literal(str(o), datatype=XSD.string))) 
-
-        # # adms:Asset/dct:requires
-        # for s, p, o in source_graph.triples((None, OWL.imports, None)):
-        #     target_graph.add((s, DCT.requires, URIRef(o)))
-        #     # target_graph.add((o, RDF.type, ADMS.Asset))
-
-        # # adms:Asset/dcat:contactPoint
-        # # adms:Asset/dcat:contactPoint/vcard:Kind
-        # for s, p, o in source_graph.triples((None, DCAT.contactPoint, None)):
-
-        #     result = await get_property(
-        #                 str(o), 
-        #                 str(VCARD.hasEmail),
-        #                 config["web_source_url"],
-        #                 config["construct_custom_query"],
-        #                 )
-
-        #     vcard_graph = Graph()
-        #     vcard_graph.parse(data=result, format="turtle")
-
-        #     target_graph.add((s, DCAT.contactPoint, URIRef(o)))
-        #     target_graph.add((URIRef(o), RDF.type, VCARD.Kind))
-
-        #     for a, _, hasEmail in vcard_graph.triples((None, VCARD.hasEmail, None)):
-        #         logger.info(f"Found email: {hasEmail} for contact point: {a}")       
-        #         target_graph.add((hasEmail, RDF.type, VCARD.Email))
-        #         target_graph.add((URIRef(o), VCARD.hasEmail, URIRef(hasEmail)))
-
-        # # adms:Asset/dct:creator
-        # # adms:Asset/dct:creator/foaf:Agent/foaf:name
-        # # adms:Asset/dct:creator/foaf:Agent/dct:spatial
-        # for s, p, o in source_graph.triples((None, DCT.creator, None)):
-
-        #     result = await get_property(
-        #                 str(o), 
-        #                 str(FOAF.name),
-        #                 config["web_source_url"],
-        #                 config["construct_custom_query"],
-        #                 )
-
-        #     agent_graph = Graph()
-        #     agent_graph.parse(data=result, format="turtle")
-
-        #     target_graph.add((s, DCT.creator, URIRef(o)))
-        #     target_graph.add((URIRef(o), RDF.type, FOAF.Agent))
-
-        #     spatial_code = "http://publications.europa.eu/resource/authority/country/ITA"
-        #     target_graph.add((URIRef(o), DCT.spatial, URIRef(spatial_code)))
-        #     target_graph.add((URIRef(spatial_code), RDF.type, DCT.Location))
-
-        #     for a, _, name in agent_graph.triples((None, FOAF.name, None)):
-        #         logger.info(f"dct:creator: Found foaf:name: {name} for Agent: {a}")
-
-        #         if isinstance(name, Literal) and name.language == None:
-        #             logger.info(f"dct:creator: No language found for foaf:name: {name} for Agent: {a}")
-        #             target_graph.add((URIRef(o), FOAF.name, Literal(name, lang="it")))
-
-        #         else:
-        #             target_graph.add((URIRef(o), FOAF.name, Literal(name, datatype=RDF.langString)))
-
-        # # adms:Asset/dct:publisher
-        # # adms:Asset/dct:publisher/foaf:Agent/foaf:name
-        # # adms:Asset/dct:publisher/foaf:Agent/dct:spatial
-        # for s, p, o in source_graph.triples((None, DCT.publisher, None)):
-
-        #     result = await get_property(
-        #                 str(o), 
-        #                 str(FOAF.name),
-        #                 config["web_source_url"],
-        #                 config["construct_custom_query"],
-        #                 )
-
-        #     agent_graph = Graph()
-        #     agent_graph.parse(data=result, format="turtle")
-
-        #     target_graph.add((s, DCT.publisher, URIRef(o)))
-        #     target_graph.add((URIRef(o), RDF.type, FOAF.Agent))
-
-        #     spatial_code = "http://publications.europa.eu/resource/authority/country/ITA"
-        #     target_graph.add((URIRef(o), DCT.spatial, URIRef(spatial_code)))
-        #     target_graph.add((URIRef(spatial_code), RDF.type, DCT.Location))
-
-        #     for a, _, name in agent_graph.triples((None, FOAF.name, None)):
-        #         logger.info(f"dct:publisher: Found foaf:name: {name} for Agent: {a}")
-
-        #         if isinstance(name, Literal) and name.language == None:
-        #             logger.info(f"dct:publisher: No language found for foaf:name: {name} for Agent: {a}")
-        #             target_graph.add((URIRef(o), FOAF.name, Literal(name, lang="it")))
-
-        #         else:
-        #             target_graph.add((URIRef(o), FOAF.name, Literal(name, datatype=RDF.langString)))
-        # target_data = target_graph.serialize(format="turtle")
 
 
         target_data = target_graph.serialize(format="turtle")

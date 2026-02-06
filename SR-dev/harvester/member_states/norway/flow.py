@@ -74,7 +74,7 @@ def parallel_processing_flow():
         list_result = extract_list_from_result(df, provenance_date=None, enable_provenance=False)
   
    
-    # list_result = list_result[0:5]
+    # list_result = list_result[0:2]
     # Task 4: Create batches
     batches = make_batches(list_result)
     tracker.publish(endpoint_provenance)

@@ -29,21 +29,21 @@
 @prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
 
 <http://www.w3.org/data#W3C> a foaf:Agent, cv:ContactPoint;
-  dct:title "W3C"@en;
+  foaf:name "W3C"@en;
   cv:hasMail "contact@w3.org" .
 
 <https://danbri.org/foaf.rdf#danbri> a foaf:Agent, cv:ContactPoint;
-  dct:title "Dan Brickley"@en;
+  foaf:name "Dan Brickley"@en;
   dct:spatial <http://publications.europa.eu/resource/authority/country/GBR>;
   cv:hasMail "danbri@danbri.org" .
 
 <http://data.semanticweb.org/person/libby-miller> a foaf:Agent, cv:ContactPoint;
-  dct:title "Libby Miller"@en;
+  foaf:name "Libby Miller"@en;
   dct:spatial <http://publications.europa.eu/resource/authority/country/GBR>;
   cv:hasMail "libby@nicecupoftea.org" .
 
 <http://purl.org/dc/aboutdcmi#DCMI> a foaf:Agent, cv:ContactPoint;
-  dct:title "DCMI Usage Board"@en;
+  foaf:name "DCMI Usage Board"@en;
   dct:spatial <http://publications.europa.eu/resource/authority/country/IRL>;
   cv:hasMail "contact@dublincore.net" .
 

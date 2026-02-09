@@ -28,7 +28,7 @@
 @prefix skosxl: <http://www.w3.org/2008/05/skos-xl#> .
 
 cb:DIGIT a foaf:Agent, cv:ContactPoint;
-  dct:title "DIGIT"@en;
+  foaf:name "DIGIT"@en;
   dct:spatial <http://publications.europa.eu/resource/authority/country/EUR>;
   cv:hasMail "DIGIT-SEMIC-TEAM@ec.europa.eu" .
 
@@ -225,40 +225,40 @@ cv:PublicEvent a rdfs:Class;
   rdfs:isDefinedBy <https://semiceu.github.io/Core-Public-Event-Vocabulary/> .
 
 <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>
-  a "amds:AssetDistribution";
+  a adms:AssetDistribution;
   dcat:downloadURL "https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person-ap.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of Core Person Vocabulary"@en .
 
 <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location>
-  a "amds:AssetDistribution";
+  a adms:AssetDistribution;
   dcat:downloadURL "https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of Core Location Vocabulary"@en .
 
 <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business>
-  a "amds:AssetDistribution";
+  a adms:AssetDistribution;
   dcat:downloadURL "https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business-ap.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of Core Business Vocabulary"@en .
 
-<https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> a "amds:AssetDistribution";
+<https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> a adms:AssetDistribution;
   dcat:downloadURL "https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of Core Criterion and Core Evidence Vocabulary"@en .
 
-<https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation> a "amds:AssetDistribution";
+<https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation> a adms:AssetDistribution;
   dcat:downloadURL "https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation-ap.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;
   dct:title "RDF Turtle file of Core Public Organisation"@en .
 
 <https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event>
-  a "amds:AssetDistribution";
+  a adms:AssetDistribution;
   dcat:downloadURL "https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event.ttl"^^xsd:anyURI;
   dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>;
   prof:hasRole <http://www.w3.org/ns/dx/prof/role/vocabulary>;

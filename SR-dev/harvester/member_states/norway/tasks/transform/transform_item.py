@@ -162,8 +162,8 @@ async def transform_item(batch: str) -> str:
                         mapped_theme = theme_mapping[str(o2)]
                         logger.info(f"dcat:theme: {o2} mapped to {mapped_theme}") 
 
-                        target_graph.add((s, DCAT.theme, o2))
-                        target_graph.add((o2, RDF.type, SKOS.Concept))
+                        target_graph.add((s, DCAT.theme, URIRef(mapped_theme)))
+                        target_graph.add((URIRef(mapped_theme), RDF.type, SKOS.Concept))
                     except KeyError:
                         logger.error(f"No theme mapping found for dcat:theme {o2}")
 
@@ -351,14 +351,82 @@ async def transform_item(batch: str) -> str:
                         except Exception as e:
                             logger.error(f"Failed to reach endpoint for modelldcatno:InformationModel: {s}") 
 
-            # ! ONLY FOR other 11 Assets except from PersonOgEnhet & AdresseModel -> for these other assets we will...
+            # ! ONLY FOR other 11 Assets except from PersonOgEnhet & AdresseModel -> for these other assets we will use dct:hasFormat -> rdfs:seeAlso
             if not has_homepage and not has_distribution:
                 logger.info(f"INSIDE TARGET_GRAPH: {s} does not contain foaf:homepage and no no dcat:distribution")
 
                 logger.warning(f"No Classes for {s}, using ontology URI as preferredNamespace")
                 target_graph.add((s,VANN.preferredNamespaceUri, Literal(s, datatype=XSD.anyURI)))
 
+                for _, p2, o2 in source_graph.triples((s, None, None)):
+ 
+                    if p2 == DCT.hasFormat:
+                        logger.info(f"dct:hasFormat: {o2}")
 
+                        try:
+                            result = await query_subject(
+                                str(s), 
+                                config["web_source_url"],
+                                config["construct_dcat_distribution"],
+                            )
+
+                            if result:
+                                logger.info(f"Successfully reached endpoint for modelldcatno:InformationModel: {s}")
+                                
+
+                                format_graph = Graph()
+                                format_graph.parse(data=result, format="turtle")
+
+                                for hasFormat, _, seeAlso in format_graph.triples((None, RDFS.seeAlso, None)):
+                                    logger.info(
+                                        f"Found rdfs:seeAlso: {seeAlso} "
+                                        f"for dct:hasFormat: {hasFormat}"
+                                    )
+
+                                    try:
+                                        seeAlso_str = str(seeAlso)
+
+                                        if "#" in seeAlso_str:
+                                            distributionURI, distribution_title = seeAlso_str.split("#")
+                                            logger.info(f"Split on '#': distributionURI={distributionURI}, distribution_title={distribution_title}")
+                                        else:
+                                            parts = seeAlso_str.split("/")
+                                            spec_index = parts.index("specification")
+                                            distributionURI = "/".join(parts[:spec_index + 2])
+                                            distribution_title = parts[spec_index + 1]
+                                            logger.info(
+                                                f"No '#' found, truncated to specification base: "
+                                                f"distributionURI={distributionURI}, distribution_title={distribution_title}"
+                                            )
+                                    except (ValueError, IndexError) as e:
+                                        logger.error(
+                                            f"Failed to parse seeAlso URL: {seeAlso_str} — {e}, "
+                                            f"skipping distribution for {s}"
+                                        )
+                                        continue 
+
+                                    target_graph.add((s, RDFS.isDefinedBy, URIRef(distributionURI)))
+                                    target_graph.add((URIRef(distributionURI), RDF.type, ADMS.AssetDistribution))
+
+                                    target_graph.add((URIRef(distributionURI), DCT.title, Literal(distribution_title, lang="nb")))
+                                    #TODO check donwload URI
+                                    target_graph.add((URIRef(distributionURI), DCAT.downloadURL, Literal(distributionURI, datatype=XSD.anyURI)))
+
+                                    fileType = "http://publications.europa.eu/resource/authority/file-type/HTML"
+                                    hasRole = "http://www.w3.org/ns/dx/prof/role/specification"
+
+                                    target_graph.add((URIRef(distributionURI), DCT['format'], URIRef(fileType)))
+                                    target_graph.add((URIRef(fileType), RDF.type, DCT.MediaTypeOrExtent))
+
+                                    target_graph.add((URIRef(distributionURI), PROF.hasRole, URIRef(hasRole)))
+                                    target_graph.add((URIRef(hasRole), RDF.type, SKOS.Concept))
+
+                                logger.info(f"Successfully transformed dcat:distribution for modelldcatno:InformationModel: {s}")
+                            else:
+                                logger.warning(f"No dcat:hasFormat and rdfs:seeAlso result returned for modelldcatno:InformationModel: {s}")
+                        
+                        except Exception as e:
+                            logger.error(f"Failed to reach endpoint for modelldcatno:InformationModel: {s}") 
 
 
         target_data = target_graph.serialize(format="turtle")

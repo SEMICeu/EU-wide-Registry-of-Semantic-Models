@@ -14,7 +14,7 @@ from ....provenance.tracker import ProvenanceTracker
 from ....provenance.model import JobStatus, TaskType
 
 
-@flow(name="Parallel Processing Pipeline", task_runner=ConcurrentTaskRunner(max_workers=5))
+@flow(name="Parallel Processing Pipeline", task_runner=ConcurrentTaskRunner(max_workers=1))
 def parallel_processing_flow():
     """
     Main flow that orchestrates all tasks with parallel processing

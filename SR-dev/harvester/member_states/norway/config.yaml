@@ -26,7 +26,7 @@ fetch_query: |
 graphDB_host: "http://localhost:7200"
 graphDB_config_file_path: "config_graphDB_repo.ttl"
 graphDB_source_repo_name: "norway"
-graphDB_target_repo_name: "srm"
+graphDB_target_repo_name: "norway_final"
 graphDB_provenance_repo_name: "norway_prov"
 
 transformation:

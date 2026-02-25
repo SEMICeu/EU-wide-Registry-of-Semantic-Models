@@ -7,13 +7,13 @@
 
 
 TransformationExecution:
-    Start Time: 2026-02-24 13:24:07.745466
-    End Time: 2026-02-24 13:24:45.495516
-    Duration: 37.75005s
+    Start Time: 2026-02-25 10:17:26.528334
+    End Time: 2026-02-25 10:17:59.555615
+    Duration: 33.027281s
 
 Transformation:
     Input Access URL: https://sparql.fellesdatakatalog.digdir.no
-    Output Access URL: http://localhost:7200/repositories/srm
+    Output Access URL: http://localhost:7200/repositories/norway_final
     Extracted Assets: 13
     Transformed Assets: 13
     Validated Assets: 13

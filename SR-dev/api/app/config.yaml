@@ -2,7 +2,7 @@
 sparql:
   sparql_query_endpoint: "https://health.semic.eu/virtuoso/sparql"
   sparql_update_endpoint: "https://health.semic.eu/virtuoso/sparql" 
-  graph_uri: "http://italy.registry.eu"
+  graph_uri: "http://semic.registry.eu"
   bypass_ssl: true
 
 # SPARQL query for extracting download links

@@ -94,7 +94,7 @@ app.post(BASE_PATH + '/api/search', async (req, res) => {
       (GROUP_CONCAT(DISTINCT ?requiringPublisherName; SEPARATOR="||") AS ?requiringPublisherNames)
       (GROUP_CONCAT(DISTINCT STR(?requiringLocation); SEPARATOR="||") AS ?requiringLocations)
     WHERE {
-      GRAPH <http://italy.registry.eu> {
+      GRAPH <http://semic.registry.eu> {
         ?standard a adms:Asset .
         ?standard dct:title ?title .
         ?standard dct:description ?description .
@@ -228,7 +228,7 @@ app.post(BASE_PATH + '/api/ontology', async (req, res) => {
       (GROUP_CONCAT(DISTINCT CONCAT(STR(?downloadURL), "|", COALESCE(STR(?format), "")); SEPARATOR="||") AS ?distributions)
       (GROUP_CONCAT(DISTINCT COALESCE(?dataTheme, ?dataThemeGenerated); SEPARATOR="||") AS ?dataThemes)
     WHERE {
-      GRAPH <http://italy.registry.eu> {
+      GRAPH <http://semic.registry.eu> {
         ?asset a adms:Asset .
         ?asset dc:title ?title .
         ?asset dc:description ?description .

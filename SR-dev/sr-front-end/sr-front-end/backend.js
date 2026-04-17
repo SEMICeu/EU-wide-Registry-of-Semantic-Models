@@ -81,6 +81,56 @@ app.use((req, res, next) => {
   next();
 });
 
+// --- Registry summary stats (1-hour server-side cache) ---
+let _statsCache = null;
+let _statsCacheAt = 0;
+
+app.get(BASE_PATH + '/api/stats', async (_req, res) => {
+  if (_statsCache && (Date.now() - _statsCacheAt) < 3_600_000) {
+    return res.json(_statsCache);
+  }
+  if (!SparqlClient) {
+    return res.status(500).json({ error: 'SPARQL client not initialized' });
+  }
+  const client = createClient();
+  function runSelect(q) {
+    return new Promise((resolve, reject) => {
+      const stream = client.query.select(q, { operation: 'postUrlencoded' });
+      const rows = [];
+      stream.on('data', r => rows.push(r));
+      stream.on('end', () => resolve(rows));
+      stream.on('error', reject);
+    });
+  }
+  try {
+    const [r1, r2, r3] = await Promise.all([
+      runSelect(`SELECT (COUNT(DISTINCT ?a) AS ?n) WHERE {
+        GRAPH <${GRAPH1}> { ?a a <http://www.w3.org/ns/adms#Asset> } }`),
+      runSelect(`SELECT (COUNT(DISTINCT ?loc) AS ?n) WHERE {
+        GRAPH <${GRAPH1}> {
+          ?a a <http://www.w3.org/ns/adms#Asset> .
+          ?a <http://purl.org/dc/terms/creator> ?c .
+          ?c <http://purl.org/dc/terms/spatial> ?loc .
+        } }`),
+      runSelect(`SELECT (COUNT(DISTINCT ?t) AS ?n) WHERE {
+        { GRAPH <${GRAPH1}> { [] <http://www.w3.org/ns/dcat#theme> ?t } }
+        UNION
+        { GRAPH <${GRAPH2}> { [] <http://www.w3.org/ns/dcat#theme> ?t } }
+      }`),
+    ]);
+    _statsCache = {
+      ontologies:   parseInt(r1[0]?.n?.value ?? 0),
+      memberStates: parseInt(r2[0]?.n?.value ?? 0),
+      dataDomains:  parseInt(r3[0]?.n?.value ?? 0),
+    };
+    _statsCacheAt = Date.now();
+    res.json(_statsCache);
+  } catch (err) {
+    console.error('Stats SPARQL error:', err);
+    res.status(500).json({ error: 'Failed to fetch stats' });
+  }
+});
+
 app.post(BASE_PATH + '/api/search', async (req, res) => {
   if (!SparqlClient) {
     return res.status(500).json({ error: 'SPARQL client not initialized' });

@@ -90,97 +90,6 @@ body {
   font-weight: 500;
 }
 
-.about-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  font-weight: 1000;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.3s ease;
-}
-
-.about-button:hover {
-  color: #288EBF; /* lighter on hover */
-}
-
-.about-container {
-  background-color: white; /* PAGE BACKGROUND */
-  color: black; /* Default text color */
-  min-height: 100vh;
-  padding: 2rem 3rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 1050px;
-  margin: 0 auto;
-}
-
-.about-heading {
-  color: #0E1F2F; /* MAIN DARK BLUE */
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.about-subheading {
-  color: #075CA8; /* ACCENT BLUE */
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.about-paragraph {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  color: black; /* Ensure paragraphs are black */
-}
-
-.rating-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.rating-row {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.rating-button {
-  background-color: #075CA8; /* Light blue accent */
-  border: none;
-  border-radius: 6px;
-  padding: 0.75rem 1.25rem;
-  color: white;
-  cursor: default;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 200px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease;
-}
-
-.rating-stars {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.rating-title {
-  font-weight: 700;
-  margin-top: 0.25rem;
-  font-size: 1rem;
-}
-
-.rating-description {
-  flex: 1;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  color: black; /* Ensure explanation text is black */
-}
 
 .main-content {
   width: 100%;
@@ -296,31 +205,6 @@ body {
   margin: 0;
   margin-bottom: 1rem;
 }
-.ontology-card-ranking {
-  color: #075CA8;
-  background: #ffffff;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 4px 14px;
-  margin-left: 16px;
-  min-width: 60px;
-  text-align: center;
-}
-
-.reuse-count {
-  font-size: 0.8rem;
-  color: #6c757d;
-  font-weight: 400;
-  margin-top: 2px;
-}
-.ontology-card-meta {
-  display: flex;
-  gap: 18px;
-  font-size: 1.01rem;
-  color: #288EBF;
-  margin-bottom: 2px;
-}
 .ontology-card-description {
   color: #374785;
   font-size: 1.07rem;
@@ -373,22 +257,6 @@ body {
   padding: 4px 12px;
   font-size: 0.98rem;
   font-weight: 500;
-}
-.ontology-card-themes {
-  margin-top: 6px;
-}
-.ontology-card-themes-title {
-  font-weight: bold;
-  margin-right: 5px;
-}
-.ontology-card-theme-tag {
-  display: inline-block;
-  background: #e6f0ff;
-  color: #0056b3;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-right: 4px;
-  font-size: 0.85em;
 }
 
 .no-results {
@@ -514,33 +382,6 @@ body {
   font-weight: 700;
 }
 
-.ontology-detail-publisher {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.ontology-detail-publisher-label {
-  font-weight: bold;
-  min-width: 80px;
-  flex-shrink: 0;
-}
-
-.publisher-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.publisher-tag {
-  background-color: #e3eafc;
-  color: #22345a;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-}
 
 .ontology-detail-description {
   color: #374785;
@@ -564,17 +405,6 @@ body {
   color: #1a6a99;
 }
 
-.ontology-detail-info-box {
-  background: #22345a;
-  color: #288EBF;
-  border-left: 4px solid #288EBF;
-  border-radius: 8px;
-  padding: 16px 18px;
-  margin-bottom: 28px;
-  font-size: 1.05rem;
-  display: flex;
-  align-items: center;
-}
 
 .ontology-detail-section {
   margin-bottom: 28px;
@@ -587,16 +417,6 @@ body {
   font-weight: 700;
 }
 
-.ontology-detail-subsection {
-  margin-bottom: 20px;
-}
-
-.ontology-detail-subsection h4 {
-  color: #075CA8;
-  font-size: 1.05rem;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
 
 .ontology-detail-table {
   width: 100%;
@@ -663,90 +483,6 @@ body {
   word-break: break-all;
 }
 
-.ontology-detail-reuses-box {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px #0E1F2F11;
-  border: 1.5px solid #e3eafc;
-  padding: 18px 20px 14px 20px;
-  color: #0E1F2F;
-  font-size: 1.05rem;
-  margin-bottom: 18px;
-  width: 100%;
-  text-align: left;
-}
-.ontology-detail-reuses-title {
-  color: #0E1F2F;
-  font-weight: 700;
-  margin-bottom: 8px;
-  font-size: 1.08rem;
-  text-align: left;
-}
-.ontology-detail-reuses-list {
-  /* Remove list-style: none to show bullets */
-  padding-left: 20px;
-  margin: 0;
-  text-align: left;
-}
-.ontology-detail-reuses-list li {
-  margin-bottom: 4px;
-  text-align: left;
-}
-.ontology-detail-reuses-list button {
-  background: none;
-  border: none;
-  color: #075CA8;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
-}
-.ontology-detail-reuses-list button:hover {
-  color: #0E1F2F;
-}
-.ontology-detail-reuses-list span {
-  color: #288EBF;
-  font-size: 1rem;
-}
-
-.ontology-detail-publishers-list {
-  margin-top: 8px;
-}
-
-.ontology-detail-publisher-item {
-  margin-bottom: 12px;
-  padding: 8px 12px;
-  background: #f8f9fa;
-  border-radius: 6px;
-  border-left: 3px solid #075CA8;
-}
-
-.publisher-name {
-  font-weight: 600;
-  color: #0E1F2F;
-  margin-bottom: 4px;
-}
-
-.publisher-count {
-  font-weight: 400;
-  color: #6c757d;
-  font-size: 0.9rem;
-}
-
-.publisher-countries {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.country-tag {
-  background: #e3eafc;
-  color: #075CA8;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
 
 .intro-section {
   width: 100%;
@@ -770,6 +506,40 @@ body {
   margin: 0;
   font-size: 1.08rem;
   color: #374785;
+}
+
+/* ── Registry summary stats ───────────────────────────────── */
+.registry-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.registry-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e3eafc;
+  border-radius: 10px;
+  padding: 12px 24px;
+  min-width: 100px;
+  flex: 1;
+}
+
+.registry-stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #075CA8;
+  line-height: 1;
+}
+
+.registry-stat-label {
+  font-size: 0.85rem;
+  color: #374785;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ── Compare view ─────────────────────────────────────────── */
@@ -828,14 +598,6 @@ body {
   gap: 32px;
 }
 
-.compare-section-placeholder {
-  background: #f5f7fa;
-  border-radius: 10px;
-  padding: 24px;
-  color: #374785;
-  font-size: 1rem;
-  text-align: center;
-}
 
 /* ── Compare selector (two search slots) ─────────────────── */
 .compare-selector {

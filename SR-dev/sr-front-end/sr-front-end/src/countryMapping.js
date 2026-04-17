@@ -23,9 +23,3 @@ export const countryLabels = {
     }
     return null;
   }
-  
-  export const allCountries = Object.entries(countryLabels).map(([iri, entry]) => ({
-    iri,
-    code: entry.code,
-    name: entry.name
-  }));

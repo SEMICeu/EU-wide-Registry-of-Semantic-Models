@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getLanguageLabel } from './languageMapping';
 import { getFormatLabel } from './formatMapping';
 import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
-import { allPublishers, getPublisherLabel } from './publisherMapping';
+import { allPublishers } from './publisherMapping';
 import 'flag-icons/css/flag-icons.min.css';
 import { getCountryLabel, getCountryCode } from './countryMapping';
 
@@ -414,6 +414,14 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
   const [selectedTheme, setSelectedTheme] = useState('');
   const [selectedPublisher, setSelectedPublisher] = useState('');
   const [compareSelection, setCompareSelection] = useState([]);
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/stats`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setStats(data); })
+      .catch(() => {});
+  }, []);
 
   // Clear selection whenever a new set of results arrives
   useEffect(() => { setCompareSelection([]); }, [results]);
@@ -489,6 +497,22 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
         <p>
           The Semantic Registry contains technical, implementation and relationship information, that are intended to promote the increasing convergence to semantic interoperability. The information can be used in support to the semantic modelling task as evidence to guide the selection of the semantic elements that will overall increase the semantic interoperability of the adopters.
         </p>
+        {stats && (
+          <div className="registry-stats">
+            <div className="registry-stat">
+              <span className="registry-stat-number">{stats.ontologies}</span>
+              <span className="registry-stat-label">ontologies</span>
+            </div>
+            <div className="registry-stat">
+              <span className="registry-stat-number">{stats.memberStates}</span>
+              <span className="registry-stat-label">member states</span>
+            </div>
+            <div className="registry-stat">
+              <span className="registry-stat-number">{stats.dataDomains}</span>
+              <span className="registry-stat-label">data domains</span>
+            </div>
+          </div>
+        )}
       </div>
       <div className="search-filter-container">
         <div className="search-bar">

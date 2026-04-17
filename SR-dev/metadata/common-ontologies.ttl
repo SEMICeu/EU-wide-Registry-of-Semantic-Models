@@ -68,7 +68,7 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
     <http://www.w3.org/ns/dx/prof/role/vocabulary>, <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>,
     <http://publications.europa.eu/resource/authority/file-type/RDF>;
   rdfs:label "Concept"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 <http://www.w3.org/ns/dcat#> a adms:Asset;
   cv:contactPoint <http://www.w3.org/data#W3C>;
@@ -170,559 +170,559 @@ skos:Concept a skos:ConceptScheme, rdfs:Class;
 
 dcat:Catalog a rdfs:Class;
   rdfs:label "Catalogue"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:CatalogedResource a rdfs:Class;
   rdfs:label "Catalogued Resource"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:CatalogRecord a rdfs:Class;
   rdfs:label "Catalog Record"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:Dataset a rdfs:Class;
   rdfs:label "Dataset"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:DataService a rdfs:Class;
   rdfs:label "Data Service"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:DatasetSeries a rdfs:Class;
   rdfs:label "Dataset Series"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:Distribution a rdfs:Class;
   rdfs:label "Distribution"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:Relationship a rdfs:Class;
   rdfs:label "Relationship"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:Resource a rdfs:Class;
   rdfs:label "Resource"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 dcat:Role a rdfs:Class;
   rdfs:label "Role"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/dcat#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/dcat3.ttl> .
 
 foaf:Agent a rdfs:Class;
   rdfs:label "Agent"@en;
-  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl> .
 
 foaf:Person a rdfs:Class;
   rdfs:label "Person"@en;
-  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl> .
 
 foaf:Project a rdfs:Class;
   rdfs:label "Project"@en;
-  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl> .
 
 foaf:Organization a rdfs:Class;
   rdfs:label "Organization"@en;
-  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl> .
 
 foaf:Group a rdfs:Class;
   rdfs:label "Group"@en;
-  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl> .
 
 foaf:Document a rdfs:Class;
   rdfs:label "Document"@en;
-  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl> .
 
 foaf:Image a rdfs:Class;
   rdfs:label "Image"@en;
-  rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/foaf.ttl> .
 
 dct:Agent a rdfs:Class;
   rdfs:label "Agent"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:AgentClass a rdfs:Class;
   rdfs:label "Agent Class"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:BibliographicResource a rdfs:Class;
   rdfs:label "Bibliographic Resource"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:FileFormat a rdfs:Class;
   rdfs:label "File Format"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:Frequency a rdfs:Class;
   rdfs:label "Frequency"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:Jurisdiction a rdfs:Class;
   rdfs:label "Jurisdiction"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:LicenseDocument a rdfs:Class;
   rdfs:label "License Document"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:LinguisticSystem a rdfs:Class;
   rdfs:label "Linguistic System"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:Location a rdfs:Class;
   rdfs:label "Location"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:LocationPeriodOrJurisdiction a rdfs:Class;
   rdfs:label "Location Period Or Jurisdiction"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:MediaType a rdfs:Class;
   rdfs:label "Media Type"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:MediaTypeOrExtent a rdfs:Class;
   rdfs:label "Media Type Or Extent"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:MethodOfAccrual a rdfs:Class;
   rdfs:label "Method Of Accrual"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:MethodOfInstruction a rdfs:Class;
   rdfs:label "Method Of Instruction"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:PeriodOfTime a rdfs:Class;
   rdfs:label "Period Of Time"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:PhysicalMedium a rdfs:Class;
   rdfs:label "Physical Medium"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:PhysicalResource a rdfs:Class;
   rdfs:label "Physical Resource"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:Policy a rdfs:Class;
   rdfs:label "Policy"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:ProvenanceStatement a rdfs:Class;
   rdfs:label "Provenance Statement"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:RightsStatement a rdfs:Class;
   rdfs:label "Rights Statement"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:SizeOrDuration a rdfs:Class;
   rdfs:label "Size Or Duration"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 dct:Standard a rdfs:Class;
   rdfs:label "Standard"@en;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> .
 
 org:Organization a rdfs:Class;
   rdfs:label "Organization"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:FormalOrganization a rdfs:Class;
   rdfs:label "Formal Organization"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:OrganizationalUnit a rdfs:Class;
   rdfs:label "Organizational Unit"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:Membership a rdfs:Class;
   rdfs:label "Membership"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:Role a rdfs:Class;
   rdfs:label "Role"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:Post a rdfs:Class;
   rdfs:label "Post"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:Site a rdfs:Class;
   rdfs:label "Site"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:OrganizationalCollaboration a rdfs:Class;
   rdfs:label "Organizational Collaboration"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 org:ChangeEvent a rdfs:Class;
   rdfs:label "Change Event"@en;
-  rdfs:isDefinedBy <http://www.w3.org/ns/org#> .
+  rdfs:isDefinedBy <https://www.w3.org/ns/org.ttl> .
 
 vcard:Acquaintance a rdfs:Class;
   rdfs:label "Acquaintance"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Address a rdfs:Class;
   rdfs:label "Address"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Agent a rdfs:Class;
   rdfs:label "Agent"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:BBS a rdfs:Class;
   rdfs:label "BBS"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Car a rdfs:Class;
   rdfs:label "Car"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Cell a rdfs:Class;
   rdfs:label "Cell"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Child a rdfs:Class;
   rdfs:label "Child"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Colleague a rdfs:Class;
   rdfs:label "Colleague"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Contact a rdfs:Class;
   rdfs:label "Contact"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Correspondent a rdfs:Class;
   rdfs:label "Correspondent"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Coworker a rdfs:Class;
   rdfs:label "Coworker"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Crush a rdfs:Class;
   rdfs:label "Crush"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Date a rdfs:Class;
   rdfs:label "Date"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Dom a rdfs:Class;
   rdfs:label "Dom"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Email a rdfs:Class;
   rdfs:label "Email"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Enemy a rdfs:Class;
   rdfs:label "Enemy"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Fax a rdfs:Class;
   rdfs:label "Fax"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Female a rdfs:Class;
   rdfs:label "Female"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Friend a rdfs:Class;
   rdfs:label "Friend"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Gender a rdfs:Class;
   rdfs:label "Gender"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Group a rdfs:Class;
   rdfs:label "Group"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Home a rdfs:Class;
   rdfs:label "Home"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Individual a rdfs:Class;
   rdfs:label "Individual"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Internet a rdfs:Class;
   rdfs:label "Internet"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Intl a rdfs:Class;
   rdfs:label "Intl"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:ISDN a rdfs:Class;
   rdfs:label "ISDN"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Kin a rdfs:Class;
   rdfs:label "Kin"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Kind a rdfs:Class;
   rdfs:label "Kind"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Label a rdfs:Class;
   rdfs:label "Label"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Location a rdfs:Class;
   rdfs:label "Location"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Male a rdfs:Class;
   rdfs:label "Male"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Me a rdfs:Class;
   rdfs:label "Me"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Met a rdfs:Class;
   rdfs:label "Met"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Modem a rdfs:Class;
   rdfs:label "Modem"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Msg a rdfs:Class;
   rdfs:label "Msg"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Muse a rdfs:Class;
   rdfs:label "Muse"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Name a rdfs:Class;
   rdfs:label "Name"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Neighbor a rdfs:Class;
   rdfs:label "Neighbor"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:None a rdfs:Class;
   rdfs:label "None"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Organization a rdfs:Class;
   rdfs:label "Organization"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Other a rdfs:Class;
   rdfs:label "Other"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Pager a rdfs:Class;
   rdfs:label "Pager"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Parcel a rdfs:Class;
   rdfs:label "Parcel"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Parent a rdfs:Class;
   rdfs:label "Parent"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:PCS a rdfs:Class;
   rdfs:label "PCS"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Phone a rdfs:Class;
   rdfs:label "Phone"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Postal a rdfs:Class;
   rdfs:label "Postal"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Pref a rdfs:Class;
   rdfs:label "Pref"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:RelationType a rdfs:Class;
   rdfs:label "Relation Type"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Sibling a rdfs:Class;
   rdfs:label "Sibling"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Spouse a rdfs:Class;
   rdfs:label "Spouse"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Sweetheart a rdfs:Class;
   rdfs:label "Sweetheart"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Tel a rdfs:Class;
   rdfs:label "Tel"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Text a rdfs:Class;
   rdfs:label "Text"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Textphone a rdfs:Class;
   rdfs:label "Textphone"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Type a rdfs:Class;
   rdfs:label "Type"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Unknown a rdfs:Class;
   rdfs:label "Unknown"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:VCard a rdfs:Class;
   rdfs:label "VCard"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Video a rdfs:Class;
   rdfs:label "Video"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Voice a rdfs:Class;
   rdfs:label "Voice"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:Work a rdfs:Class;
   rdfs:label "Work"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 vcard:X400 a rdfs:Class;
   rdfs:label "X400"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#> .
+  rdfs:isDefinedBy <https://www.w3.org/2006/vcard/ns#> .
 
 skos:ConceptScheme a rdfs:Class;
   rdfs:label "Concept Scheme"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/skos.ttl> .
 
 skos:Collection a rdfs:Class;
   rdfs:label "Collection"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/skos.ttl> .
 
 skos:OrderedCollection a rdfs:Class;
   rdfs:label "Ordered Collection"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core> .
+  rdfs:isDefinedBy <https://raw.githubusercontent.com/SEMICeu/EU-wide-Registry-of-Semantic-Models/refs/heads/main/SR-dev/skos.ttl> .
 
 owl:AllDifferent a rdfs:Class;
   rdfs:label "All Different"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:AllDisjointClasses a rdfs:Class;
   rdfs:label "All Disjoint Classes"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:AllDisjointProperties a rdfs:Class;
   rdfs:label "All Disjoint Properties"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:Annotation a rdfs:Class;
   rdfs:label "Annotation"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:AnnotationProperty a rdfs:Class;
   rdfs:label "Annotation Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:AsymmetricProperty a rdfs:Class;
   rdfs:label "Asymmetric Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:Axiom a rdfs:Class;
   rdfs:label "Axiom"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:Class a rdfs:Class;
   rdfs:label "Class"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:DataRange a rdfs:Class;
   rdfs:label "Data Range"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:DatatypeProperty a rdfs:Class;
   rdfs:label "Datatype Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:DeprecatedClass a rdfs:Class;
   rdfs:label "Deprecated Class"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:DeprecatedProperty a rdfs:Class;
   rdfs:label "Deprecated Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:FunctionalProperty a rdfs:Class;
   rdfs:label "Functional Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:InverseFunctionalProperty a rdfs:Class;
   rdfs:label "Inverse Functional Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:IrreflexiveProperty a rdfs:Class;
   rdfs:label "Irreflexive Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:NamedIndividual a rdfs:Class;
   rdfs:label "Named Individual"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:NegativePropertyAssertion a rdfs:Class;
   rdfs:label "Negative Property Assertion"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:Nothing a rdfs:Class;
   rdfs:label "Nothing"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:ObjectProperty a rdfs:Class;
   rdfs:label "Object Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:Ontology a rdfs:Class;
   rdfs:label "Ontology"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:OntologyProperty a rdfs:Class;
   rdfs:label "Ontology Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:ReflexiveProperty a rdfs:Class;
   rdfs:label "Reflexive Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:Restriction a rdfs:Class;
   rdfs:label "Restriction"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:SymmetricProperty a rdfs:Class;
   rdfs:label "Symmetric Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:TransitiveProperty a rdfs:Class;
   rdfs:label "Transitive Property"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 owl:Thing a rdfs:Class;
   rdfs:label "Thing"@en;
-  rdfs:isDefinedBy <http://www.w3.org/2002/07/owl> .
+  rdfs:isDefinedBy <https://www.w3.org/2002/07/owl#> .
 
 <https://www.w3.org/ns/dcat3.ttl> a adms:AssetDistribution;
   dcat:downloadURL "https://www.w3.org/ns/dcat3.ttl"^^xsd:anyURI;

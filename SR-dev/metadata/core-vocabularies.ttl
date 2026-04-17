@@ -134,95 +134,99 @@ skos:Concept a skos:ConceptScheme;
 
 locn:Address a rdfs:Class;
   rdfs:label "Address"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/>, <https://semiceu.github.io/Core-Location-Vocabulary/>,
-    <https://semiceu.github.io/Core-Business-Vocabulary/>, <https://semiceu.github.io/CPOV>,
-    <https://semiceu.github.io/Core-Public-Event-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>,
+    <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location>,
+    <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business>,
+    <https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation>, <https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event> .
 
 cv:ContactPoint a rdfs:Class;
   rdfs:label "Contact Point"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/>, <https://semiceu.github.io/Core-Business-Vocabulary/>,
-    <https://semiceu.github.io/CPOV>, <https://semiceu.github.io/Core-Public-Event-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>,
+    <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business>,
+    <https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation>, <https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event> .
 
 adms:Identifier a rdfs:Class;
   rdfs:label "Identifier"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/>, <https://semiceu.github.io/Core-Business-Vocabulary/>,
-    <https://semiceu.github.io/CPOV> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>,
+    <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business>,
+    <https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation> .
 
 dct:Location a rdfs:Class;
   rdfs:label "Location"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/>, <https://semiceu.github.io/Core-Location-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>,
+    <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location> .
 
 person:Person a rdfs:Class;
   rdfs:label "Person"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person> .
 
 cv:AdminUnit a rdfs:Class;
   rdfs:label "Administrative Unit"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Location-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location> .
 
 locn:Geometry a rdfs:Class;
   rdfs:label "Geometry"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Location-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location> .
 
 ad:LocatorDesignator a rdfs:Class;
   rdfs:label "Locator Designator"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Location-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Location-Vocabulary/releases/2.1.0/voc/core-location> .
 
 cv:AccountingDocument a rdfs:Class;
   rdfs:label "Accounting Document"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Business-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business> .
 
 legal:LegalEntity a rdfs:Class;
   rdfs:label "Legal Entity"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Business-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Business-Vocabulary/releases/2.2.0/voc/core-business> .
 
 cv:Constraint a rdfs:Class;
   rdfs:label "Constraint"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:Criterion a rdfs:Class;
   rdfs:label "Criterion"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:Evidence a rdfs:Class;
   rdfs:label "Evidence"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:EvidenceType a rdfs:Class;
   rdfs:label "Evidence Type"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:EvidenceTypeList a rdfs:Class;
   rdfs:label "Evidence Type List"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:InformationConcept a rdfs:Class;
   rdfs:label "Information Concept"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:InformationRequirement a rdfs:Class;
   rdfs:label "Information Requirement"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:ReferenceFramework a rdfs:Class;
   rdfs:label "Reference Framework"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:Requirement a rdfs:Class;
   rdfs:label "Requirement"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CCCEV/releases/2.1.0/voc/cccev> .
 
 cv:PublicOrganisation a rdfs:Class;
   rdfs:label "Public Organisation"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/CPOV> .
+  rdfs:isDefinedBy <https://semiceu.github.io/CPOV/releases/2.1.1/voc/core-public-organisation> .
 
 cv:Participation a rdfs:Class;
   rdfs:label "Participation"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Public-Event-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event> .
 
 cv:PublicEvent a rdfs:Class;
   rdfs:label "Public Event"@en;
-  rdfs:isDefinedBy <https://semiceu.github.io/Core-Public-Event-Vocabulary/> .
+  rdfs:isDefinedBy <https://semiceu.github.io/Core-Public-Event-Vocabulary/releases/1.1.0/voc/core-public-event> .
 
 <https://semiceu.github.io/Core-Person-Vocabulary/releases/2.1.1/voc/core-person>
   a adms:AssetDistribution;

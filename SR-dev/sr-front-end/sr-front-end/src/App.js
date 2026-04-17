@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, useLocation, useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getLanguageLabel } from './languageMapping';
 import { getFormatLabel } from './formatMapping';
@@ -22,108 +22,23 @@ function slugifyTitle(titleOrUri) {
     .replace(/(^-|-$)/g, '');
 }
 
-// Helper function to extract unique publishers and countries from requiring standards
-function extractUniquePublishersAndCountries(requiringStandards) {
-  if (!requiringStandards || requiringStandards.length === 0) {
-    return [];
-  }
-
-  const publisherMap = new Map();
-
-  requiringStandards.forEach(standard => {
-    const publisher = standard.publisher;
-    const location = standard.location;
-    
-    if (publisher && publisher.trim() !== '') {
-      // Clean up the publisher name (remove any URI prefixes if present)
-      const cleanPublisher = publisher.replace(/^https?:\/\/[^\/]+\//, '').replace(/^http:\/\/[^\/]+\//, '');
-      
-      if (!publisherMap.has(cleanPublisher)) {
-        publisherMap.set(cleanPublisher, {
-          publisher: cleanPublisher,
-          countries: new Set(),
-          count: 0
-        });
-      }
-      
-      const entry = publisherMap.get(cleanPublisher);
-      entry.count++;
-      
-      if (location && location.trim() !== '') {
-        // Clean up the location name (remove any URI prefixes if present)
-        const cleanLocation = location.replace(/^https?:\/\/[^\/]+\//, '').replace(/^http:\/\/[^\/]+\//, '');
-        entry.countries.add(cleanLocation);
-      }
-    }
-  });
-
-  return Array.from(publisherMap.values()).map(entry => ({
-    publisher: entry.publisher,
-    countries: Array.from(entry.countries),
-    count: entry.count
-  }));
-}
-
-// New function to extract unique publishers from requiring standards
-function getUniquePublishersFromRequiringStandards(requiringStandards) {
-  if (!requiringStandards || requiringStandards.length === 0) {
-    return [];
-  }
-
-  console.log('Raw requiring standards data:', requiringStandards);
-
-  const uniquePublishers = new Set();
-  
-  requiringStandards.forEach((standard, index) => {
-    console.log(`Standard ${index}:`, standard);
-    console.log(`Standard ${index} publisher field:`, standard.publisher);
-    
-    if (standard.publisher && standard.publisher.trim() !== '') {
-      // Clean up the publisher name (remove any URI prefixes if present)
-      const cleanPublisher = standard.publisher.replace(/^https?:\/\/[^\/]+\//, '').replace(/^http:\/\/[^\/]+\//, '');
-      console.log(`Standard ${index} clean publisher:`, cleanPublisher);
-      uniquePublishers.add(cleanPublisher);
-    }
-  });
-
-  const result = Array.from(uniquePublishers);
-  console.log('Final unique publishers:', result);
-  return result;
-}
-
-// Simple function to get unique publisher names from the dedicated field
+// Get unique publisher names from the requiringPublisherNames field
 function getUniqueRequiringPublisherNames(requiringPublisherNames) {
-  if (!requiringPublisherNames || requiringPublisherNames.length === 0) {
-    return [];
-  }
-
-  console.log('Raw requiring publisher names:', requiringPublisherNames);
-  
-  // Filter out empty strings and get unique values
-  const uniquePublishers = [...new Set(requiringPublisherNames.filter(name => name && name.trim() !== ''))];
-  
-  console.log('Final unique requiring publisher names:', uniquePublishers);
-  return uniquePublishers;
+  if (!requiringPublisherNames || requiringPublisherNames.length === 0) return [];
+  return [...new Set(requiringPublisherNames.filter(name => name && name.trim() !== ''))];
 }
 
-// Simple function to get unique requiring locations (countries) from the dedicated field
+// Get unique requiring locations (country URIs) from the requiringLocations field
 function getUniqueRequiringLocations(requiringLocations) {
-  if (!requiringLocations || requiringLocations.length === 0) {
-    console.log('No requiring locations data available');
-    return [];
-  }
+  if (!requiringLocations || requiringLocations.length === 0) return [];
+  return [...new Set(requiringLocations.filter(location => location && location.trim() !== ''))];
+}
 
-  console.log('Raw requiring locations:', requiringLocations);
-  console.log('Requiring locations length:', requiringLocations.length);
-  
-  // Filter out empty strings and get unique values, keep full URIs for mapping
-  const uniqueLocations = [...new Set(requiringLocations
-    .filter(location => location && location.trim() !== '')
-  )];
-  
-  console.log('Filtered locations:', requiringLocations.filter(location => location && location.trim() !== ''));
-  console.log('Final unique requiring locations:', uniqueLocations);
-  return uniqueLocations;
+// Helper function to truncate publisher name to 30 characters
+function truncatePublisher(name, maxChars = 30) {
+  if (!name) return '';
+  if (name.length <= maxChars) return name;
+  return name.slice(0, maxChars) + '...';
 }
 
 // Helper function to truncate text to 50 words
@@ -132,6 +47,58 @@ function truncateToWords(text, maxWords = 50) {
   const words = text.split(' ');
   if (words.length <= maxWords) return text;
   return words.slice(0, maxWords).join(' ') + '...';
+}
+
+// Map of known RDF namespace URIs to their conventional prefixes
+const KNOWN_PREFIXES = [
+  ['http://www.w3.org/2002/07/owl#',                'owl'],
+  ['http://www.w3.org/2000/01/rdf-schema#',         'rdfs'],
+  ['http://www.w3.org/1999/02/22-rdf-syntax-ns#',   'rdf'],
+  ['http://www.w3.org/ns/dcat#',                    'dcat'],
+  ['http://purl.org/dc/terms/',                     'dct'],
+  ['http://xmlns.com/foaf/0.1/',                    'foaf'],
+  ['http://data.europa.eu/m8g/',                    'cv'],
+  ['http://www.w3.org/ns/adms#',                    'adms'],
+  ['http://schema.org/',                            'schema'],
+  ['http://www.w3.org/2004/02/skos/core#',          'skos'],
+  ['http://www.w3.org/ns/org#',                     'org'],
+  ['http://www.w3.org/2006/time#',                  'time'],
+  ['http://purl.org/vocab/cpsv#',                   'cpsv'],
+  ['http://data.europa.eu/eli/ontology#',           'eli'],
+  ['http://www.w3.org/ns/locn#',                    'locn'],
+  ['http://www.opengis.net/ont/geosparql#',         'geo'],
+  ['http://purl.org/dc/elements/1.1/',              'dc'],
+  ['http://www.w3.org/2006/vcard/ns#',              'vcard'],
+  ['http://www.w3.org/ns/prov#',                    'prov'],
+  ['http://purl.org/linked-data/cube#',             'qb'],
+  ['http://www.w3.org/ns/person#',                  'person']
+];
+
+// Convert a full class URI to prefix:LocalName notation (e.g. cv:ContactPoint).
+// Falls back to just the local name if the namespace is unknown.
+function uriToQName(uri) {
+  if (!uri) return uri;
+  const splitIdx = Math.max(uri.lastIndexOf('#'), uri.lastIndexOf('/'));
+  if (splitIdx === -1) return uri;
+  const namespace = uri.slice(0, splitIdx + 1);
+  const localName = uri.slice(splitIdx + 1);
+  if (!localName) return uri;
+  const match = KNOWN_PREFIXES.find(([ns]) => ns === namespace);
+  return match ? `${match[1]}:${localName}` : localName;
+}
+
+// Compute the diff between two arrays, matching items by a key function.
+// Returns { onlyInA, shared, onlyInB } where shared items come from listA.
+function computeDiff(listA, listB, keyFn) {
+  const a = listA || [];
+  const b = listB || [];
+  const keysB = new Set(b.map(keyFn));
+  const keysA = new Set(a.map(keyFn));
+  return {
+    onlyInA:  a.filter(item => !keysB.has(keyFn(item))),
+    shared:   a.filter(item =>  keysB.has(keyFn(item))),
+    onlyInB:  b.filter(item => !keysA.has(keyFn(item))),
+  };
 }
 
 // About page removed
@@ -145,6 +112,7 @@ function OntologyDetail({ ontologies }) {
     reuses: true,
     reusedBy: true
   });
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const ontologyFromResults = ontologies.find(o => slugifyTitle(o.title) === slug);
   const ontology = fetchedOntology || ontologyFromResults;
   const navigate = useNavigate();
@@ -202,14 +170,37 @@ function OntologyDetail({ ontologies }) {
           )}
         </div>
         <div className="ontology-detail-description">
-          {ontology.description}
+          {(() => {
+            const words = ontology.description ? ontology.description.split(/\s+/) : [];
+            const isLong = words.length > 200;
+            const displayed = isLong && !descriptionExpanded
+              ? words.slice(0, 200).join(' ') + '...'
+              : ontology.description;
+            return (
+              <>
+                {displayed}
+                {isLong && (
+                  <button
+                    className="description-toggle-btn"
+                    onClick={() => setDescriptionExpanded(prev => !prev)}
+                  >
+                    {descriptionExpanded ? 'Hide full description' : 'Show full description'}
+                  </button>
+                )}
+              </>
+            );
+          })()}
         </div>
         <div className="ontology-detail-section">
           <h3>Main Classes</h3>
           {ontology.mainClasses && ontology.mainClasses.length > 0 ? (
             <ul className="ontology-detail-keywords">
               {ontology.mainClasses.map((cls, idx) => (
-                <li key={idx}>{cls}</li>
+                <li key={idx}>
+                  <a href={cls.uri} target="_blank" rel="noopener noreferrer" className="class-uri-link">
+                    {uriToQName(cls.uri) || cls.label || cls.uri}
+                  </a>
+                </li>
               ))}
             </ul>
           ) : (
@@ -300,18 +291,18 @@ function OntologyDetail({ ontologies }) {
           </div>
         )}
         
-        {ontology.requiringStandards && ontology.requiringStandards.length > 0 && (
+        {ontology.requiringAssets && ontology.requiringAssets.length > 0 && (
           <div className="ontology-detail-section">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}
                  onClick={() => toggleSection('reusedBy')}>
-              <h3>This ontology is reused by ({ontology.requiringStandards.length})</h3>
+              <h3>This ontology is reused by ({ontology.requiringAssets.length})</h3>
               <span style={{ fontSize: '1.2rem', color: '#075CA8' }}>
                 {expandedSections.reusedBy ? '−' : '+'}
               </span>
             </div>
             {expandedSections.reusedBy && (
               <ul className="ontology-detail-keywords">
-                {ontology.requiringStandards.map((onto, idx) => {
+                {ontology.requiringAssets.map((onto, idx) => {
                   return (
                     <li key={idx}>
                       <button style={{ background: 'none', border: 'none', color: '#075CA8', textDecoration: 'underline', cursor: 'pointer', padding: 0 }}
@@ -327,6 +318,13 @@ function OntologyDetail({ ontologies }) {
         )}
       </div>
       <aside className="ontology-detail-meta">
+        <button
+          className="ontology-detail-meta-box compare-with-box"
+          onClick={() => navigate(`/compare?a=${encodeURIComponent(ontology.uri)}`)}
+        >
+          ⇄ 
+          Click here to compare ontologies
+        </button>
         <div className="ontology-detail-meta-box">
           <div><b>Created:</b> {ontology.created ? new Date(ontology.created).toLocaleDateString() : <span style={{color:'#7eb6ff'}}>Unknown</span>}</div>
           <div><b>Landing Page:</b> {ontology.homepage ? <a href={ontology.homepage} target="_blank" rel="noopener noreferrer">{ontology.homepage}</a> : <span style={{color:'#7eb6ff'}}>None</span>}</div>
@@ -345,7 +343,7 @@ function OntologyDetail({ ontologies }) {
         </div>
         </div>
         <div className="ontology-detail-meta-box">
-            {ontology.requiringStandards && ontology.requiringStandards.length > 0 && (
+            {ontology.requiringAssets && ontology.requiringAssets.length > 0 && (
               <div style={{ marginTop: '16px' }}>
                 <div style={{ fontWeight: 'bold', marginBottom: '8px', color: '#0E1F2F' }}>Reused by</div>
                 <div style={{ marginBottom: '12px' }}>
@@ -415,6 +413,19 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState('');
   const [selectedPublisher, setSelectedPublisher] = useState('');
+  const [compareSelection, setCompareSelection] = useState([]);
+
+  // Clear selection whenever a new set of results arrives
+  useEffect(() => { setCompareSelection([]); }, [results]);
+
+  const toggleCompare = (e, onto) => {
+    e.stopPropagation();
+    setCompareSelection(prev => {
+      if (prev.some(s => s.uri === onto.uri)) return prev.filter(s => s.uri !== onto.uri);
+      if (prev.length >= 2) return prev;
+      return [...prev, onto];
+    });
+  };
   const handleKeyDown = async (e) => {
     if (e.key === 'Enter') {
       setSubmittedQuery(search);
@@ -544,22 +555,33 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
           {results.length === 0 ? (
             <p className="no-results">No ontologies found.</p>
           ) : (
-            results.map((onto, idx) => (
+            results.map((onto, idx) => {
+              const isSelected = compareSelection.some(s => s.uri === onto.uri);
+              const isDisabled = !isSelected && compareSelection.length >= 2;
+              return (
                 <div
-                  className="ontology-card"
+                  className={`ontology-card${isSelected ? ' ontology-card--selected' : ''}`}
                   key={idx}
                   style={{ cursor: 'pointer' }}
-                  onClick={() => navigate(`/ontology/${slugifyTitle(onto.title)}`)}
+                  onClick={() => navigate(`/ontology/${encodeURIComponent(onto.uri)}`)}
                 >
                   <div className="ontology-card-header">
                     <span className="ontology-card-title">{onto.title}</span>
+                    <button
+                      className={`compare-toggle${isSelected ? ' compare-toggle--checked' : ''}${isDisabled ? ' compare-toggle--disabled' : ''}`}
+                      onClick={e => toggleCompare(e, onto)}
+                      disabled={isDisabled}
+                      title={isSelected ? 'Remove from comparison' : isDisabled ? 'Deselect one to add this' : 'Add to comparison'}
+                    >
+                      {isSelected ? '✓' : '+'}
+                    </button>
                   </div>
                   {onto.publishers && onto.publishers.length > 0 && (
                     <div className="ontology-card-main-classes">
                       <span className="ontology-card-main-classes-title">Publisher</span>
                       {onto.publishers.slice(0, 3).map((publisher, i) => (
-                        <span className="ontology-card-main-class-tag" key={i}>
-                          {publisher}
+                        <span className="ontology-card-main-class-tag" key={i} title={publisher.length > 30 ? publisher : undefined}>
+                          {truncatePublisher(publisher)}
                         </span>
                       ))}
                     </div>
@@ -569,7 +591,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                       {truncateToWords(onto.description)}
                     </div>
                   )}
-                  {onto.requiringStandards && onto.requiringStandards.length > 0 && (
+                  {onto.requiringAssets && onto.requiringAssets.length > 0 && (
                     <div className="ontology-card-main-classes">
                       <div className="ontology-card-subsection-title">Reused by</div>
                       <div className="ontology-card-subsection">
@@ -596,8 +618,8 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                         {(() => {
                           const uniquePublishers = getUniqueRequiringPublisherNames(onto.requiringPublisherNames);
                           return uniquePublishers.slice(0, 3).map((pub, i) => (
-                            <span className="ontology-card-main-class-tag" key={i}>
-                              {pub}
+                            <span className="ontology-card-main-class-tag" key={i} title={pub.length > 30 ? pub : undefined}>
+                              {truncatePublisher(pub)}
                             </span>
                           ));
                         })()}
@@ -613,10 +635,385 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
                     </div>
                   )}
                 </div>
-              ))
+              );
+            })
           )}
         </div>
       )}
+
+      {compareSelection.length > 0 && (
+        <div className="compare-sticky-bar">
+          <div className="compare-sticky-selection">
+            {compareSelection.length === 1 ? (
+              <>
+                <span className="compare-sticky-item">{compareSelection[0].title}</span>
+                <span className="compare-sticky-hint">— select one more to compare</span>
+              </>
+            ) : (
+              <>
+                <span className="compare-sticky-item">{compareSelection[0].title}</span>
+                <span className="compare-sticky-vs">vs</span>
+                <span className="compare-sticky-item">{compareSelection[1].title}</span>
+              </>
+            )}
+          </div>
+          <div className="compare-sticky-actions">
+            <button className="compare-sticky-clear" onClick={() => setCompareSelection([])}>
+              ✕ Clear
+            </button>
+            {compareSelection.length === 2 && (
+              <button
+                className="compare-sticky-btn"
+                onClick={() => navigate(`/compare?a=${encodeURIComponent(compareSelection[0].uri)}&b=${encodeURIComponent(compareSelection[1].uri)}`)}
+              >
+                Compare →
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CompareView() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const slugA = searchParams.get('a');
+  const slugB = searchParams.get('b');
+
+  const [ontoA, setOntoA] = useState(null);
+  const [ontoB, setOntoB] = useState(null);
+  const [loadingA, setLoadingA] = useState(false);
+  const [loadingB, setLoadingB] = useState(false);
+  const [errorA, setErrorA] = useState(null);
+  const [errorB, setErrorB] = useState(null);
+
+  const [queryA, setQueryA] = useState('');
+  const [queryB, setQueryB] = useState('');
+  const [suggestionsA, setSuggestionsA] = useState([]);
+  const [suggestionsB, setSuggestionsB] = useState([]);
+  const [searchingA, setSearchingA] = useState(false);
+  const [searchingB, setSearchingB] = useState(false);
+  const debounceA = useRef(null);
+  const debounceB = useRef(null);
+
+  // Fetch ontology A whenever its slug changes
+  useEffect(() => {
+    if (!slugA) { setOntoA(null); setErrorA(null); return; }
+    setLoadingA(true);
+    setErrorA(null);
+    fetch(`${API_BASE}/api/ontology`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: slugA })
+    })
+      .then(res => { if (!res.ok) throw new Error('Ontology not found'); return res.json(); })
+      .then(data => { setOntoA(data); setLoadingA(false); })
+      .catch(err => { setErrorA(err.message); setLoadingA(false); });
+  }, [slugA]);
+
+  // Fetch ontology B whenever its slug changes
+  useEffect(() => {
+    if (!slugB) { setOntoB(null); setErrorB(null); return; }
+    setLoadingB(true);
+    setErrorB(null);
+    fetch(`${API_BASE}/api/ontology`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: slugB })
+    })
+      .then(res => { if (!res.ok) throw new Error('Ontology not found'); return res.json(); })
+      .then(data => { setOntoB(data); setLoadingB(false); })
+      .catch(err => { setErrorB(err.message); setLoadingB(false); });
+  }, [slugB]);
+
+  const doSearch = (query, setSuggestions, setSearching, debounceRef) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (!query.trim()) { setSuggestions([]); return; }
+    debounceRef.current = setTimeout(async () => {
+      setSearching(true);
+      try {
+        const res = await fetch(`${API_BASE}/api/search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        });
+        const data = await res.json();
+        setSuggestions(Array.isArray(data) ? data.slice(0, 8) : []);
+      } catch {
+        setSuggestions([]);
+      } finally {
+        setSearching(false);
+      }
+    }, 300);
+  };
+
+  const selectOntology = (slot, onto) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev);
+      next.set(slot, onto.uri);  // URLSearchParams encodes automatically
+      return next;
+    });
+    if (slot === 'a') { setQueryA(''); setSuggestionsA([]); }
+    else              { setQueryB(''); setSuggestionsB([]); }
+  };
+
+  const clearSlot = (slot) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev);
+      next.delete(slot);
+      return next;
+    });
+  };
+
+  const renderSlot = (
+    label, slot,
+    slug, onto, loading, error,
+    query, setQuery, suggestions, setSuggestions, searching, setSearching, debounceRef
+  ) => (
+    <div className="compare-slot">
+      <div className="compare-slot-label">{label}</div>
+      {slug && onto ? (
+        <div className="compare-slot-selected">
+          <span className="compare-slot-title">{onto.title}</span>
+          <button className="compare-slot-clear" onClick={() => clearSlot(slot)} title="Change selection">✕</button>
+        </div>
+      ) : slug && loading ? (
+        <div className="compare-slot-selected compare-slot-loading">Loading…</div>
+      ) : slug && error ? (
+        <div className="compare-slot-selected compare-slot-error">{error}</div>
+      ) : (
+        <div className="compare-slot-search">
+          <input
+            type="text"
+            className="compare-slot-input"
+            placeholder="Search for an ontology…"
+            value={query}
+            onChange={e => {
+              setQuery(e.target.value);
+              doSearch(e.target.value, setSuggestions, setSearching, debounceRef);
+            }}
+            onBlur={() => setTimeout(() => setSuggestions([]), 150)}
+          />
+          {(searching || suggestions.length > 0) && (
+            <ul className="compare-slot-dropdown">
+              {searching && <li className="compare-slot-dropdown-loading">Searching…</li>}
+              {suggestions.map((s, i) => (
+                <li
+                  key={i}
+                  className="compare-slot-dropdown-item"
+                  onMouseDown={() => selectOntology(slot, s)}
+                >
+                  <span className="compare-slot-dropdown-title">{s.title}</span>
+                  {s.publishers && s.publishers.length > 0 && (
+                    <span className="compare-slot-dropdown-publisher">
+                      {truncatePublisher(s.publishers[0])}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="compare-view">
+      <div className="compare-view-header">
+        <button className="compare-back-btn" onClick={() => navigate('/')}>
+          ← Back to search
+        </button>
+        <h2>Compare Ontologies</h2>
+      </div>
+
+      <div className="compare-selector">
+        {renderSlot('Ontology A', 'a', slugA, ontoA, loadingA, errorA, queryA, setQueryA, suggestionsA, setSuggestionsA, searchingA, setSearchingA, debounceA)}
+        <div className="compare-vs">vs</div>
+        {renderSlot('Ontology B', 'b', slugB, ontoB, loadingB, errorB, queryB, setQueryB, suggestionsB, setSuggestionsB, searchingB, setSearchingB, debounceB)}
+      </div>
+
+      {!slugA || !slugB ? (
+        <div className="compare-placeholder">
+          <p>Select two ontologies above to start comparing.</p>
+        </div>
+      ) : (loadingA || loadingB) ? (
+        <div className="compare-placeholder"><p>Loading…</p></div>
+      ) : (errorA || errorB) ? (
+        <div className="compare-placeholder compare-error"><p>{errorA || errorB}</p></div>
+      ) : ontoA && ontoB ? (
+        <div className="compare-content">
+
+          {/* ── Section 1: Metadata ─────────────────────────────── */}
+          <div className="compare-section">
+            <h3 className="compare-section-title">Overview</h3>
+            <div className="compare-columns">
+
+              {[ontoA, ontoB].map((onto, i) => (
+                <div key={i} className="compare-meta-card">
+                  <div className="compare-meta-title">{onto.title}</div>
+
+                  <div className="compare-meta-row">
+                    <span className="compare-meta-label">Publisher</span>
+                    {onto.publishers && onto.publishers.length > 0 ? (
+                      <span className="compare-meta-value">
+                        {onto.publishers.join(', ')}
+                      </span>
+                    ) : (
+                      <span className="compare-meta-empty">Not listed</span>
+                    )}
+                  </div>
+
+                  <div className="compare-meta-row">
+                    <span className="compare-meta-label">Reused by</span>
+                    {(() => {
+                      const locs = getUniqueRequiringLocations(onto.requiringLocations);
+                      return locs.length > 0 ? (
+                        <span className="compare-meta-value compare-meta-flags">
+                          {locs.map((loc, j) => {
+                            const code = getCountryCode(loc);
+                            const name = getCountryLabel(loc);
+                            return (
+                              <span key={j} className="compare-meta-flag-tag">
+                                {code && <span className={`fi fi-${code}`}></span>}
+                                {name}
+                              </span>
+                            );
+                          })}
+                        </span>
+                      ) : (
+                        <span className="compare-meta-empty">None on record</span>
+                      );
+                    })()}
+                  </div>
+
+                  <div className="compare-meta-row compare-meta-desc-row">
+                    <span className="compare-meta-label">Description</span>
+                    <span className="compare-meta-value compare-meta-desc">
+                      {truncateToWords(onto.description, 50) || <em className="compare-meta-empty">No description</em>}
+                    </span>
+                  </div>
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+          {/* ── Section 2: Structural Metadata (Reused Ontologies) ── */}
+          {(() => {
+            const { onlyInA, shared, onlyInB } = computeDiff(
+              ontoA.reusedOntologies,
+              ontoB.reusedOntologies,
+              item => item.uri
+            );
+            const renderDiffItem = (item) => (
+              <li key={item.uri} className="compare-diff-item">
+                <button
+                  className="compare-diff-link"
+                  onClick={() => navigate(`/ontology/${encodeURIComponent(item.uri)}`)}
+                >
+                  {item.title || item.uri}
+                </button>
+              </li>
+            );
+            return (
+              <div className="compare-section">
+                <h3 className="compare-section-title">Reused Ontologies</h3>
+                <div className="compare-diff-columns">
+
+                  <div className="compare-diff-col compare-diff-col--unique">
+                    <div className="compare-diff-col-header">
+                      <span className="compare-diff-col-onto-label">{ontoA.title}</span>
+                      <span className="compare-diff-count">{onlyInA.length}</span>
+                    </div>
+                    {onlyInA.length === 0
+                      ? <span className="compare-meta-empty">None unique</span>
+                      : <ul className="compare-diff-list">{onlyInA.map(renderDiffItem)}</ul>}
+                  </div>
+
+                  <div className="compare-diff-col compare-diff-col--shared">
+                    <div className="compare-diff-col-header">
+                      <span>In both</span>
+                      <span className="compare-diff-count">{shared.length}</span>
+                    </div>
+                    {shared.length === 0
+                      ? <span className="compare-meta-empty">No overlap</span>
+                      : <ul className="compare-diff-list">{shared.map(renderDiffItem)}</ul>}
+                  </div>
+
+                  <div className="compare-diff-col compare-diff-col--unique">
+                    <div className="compare-diff-col-header">
+                      <span className="compare-diff-col-onto-label">{ontoB.title}</span>
+                      <span className="compare-diff-count">{onlyInB.length}</span>
+                    </div>
+                    {onlyInB.length === 0
+                      ? <span className="compare-meta-empty">None unique</span>
+                      : <ul className="compare-diff-list">{onlyInB.map(renderDiffItem)}</ul>}
+                  </div>
+
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* ── Section 3: Semantic Metadata (Classes) ─────────── */}
+          {(() => {
+            const { onlyInA, shared, onlyInB } = computeDiff(
+              ontoA.mainClasses || [],
+              ontoB.mainClasses || [],
+              item => item.uri
+            );
+            const renderClassItem = (item) => (
+              <li key={item.uri} className="compare-diff-item">
+                <a href={item.uri} target="_blank" rel="noopener noreferrer" className="compare-class-tag class-uri-link">
+                  {uriToQName(item.uri) || item.label || item.uri}
+                </a>
+              </li>
+            );
+            return (
+              <div className="compare-section">
+                <h3 className="compare-section-title">Classes</h3>
+                <div className="compare-diff-columns">
+
+                  <div className="compare-diff-col compare-diff-col--unique">
+                    <div className="compare-diff-col-header">
+                      <span className="compare-diff-col-onto-label">{ontoA.title}</span>
+                      <span className="compare-diff-count">{onlyInA.length}</span>
+                    </div>
+                    {onlyInA.length === 0
+                      ? <span className="compare-meta-empty">None unique</span>
+                      : <ul className="compare-diff-list">{onlyInA.map(renderClassItem)}</ul>}
+                  </div>
+
+                  <div className="compare-diff-col compare-diff-col--shared">
+                    <div className="compare-diff-col-header">
+                      <span>In both</span>
+                      <span className="compare-diff-count">{shared.length}</span>
+                    </div>
+                    {shared.length === 0
+                      ? <span className="compare-meta-empty">No overlap</span>
+                      : <ul className="compare-diff-list">{shared.map(renderClassItem)}</ul>}
+                  </div>
+
+                  <div className="compare-diff-col compare-diff-col--unique">
+                    <div className="compare-diff-col-header">
+                      <span className="compare-diff-col-onto-label">{ontoB.title}</span>
+                      <span className="compare-diff-count">{onlyInB.length}</span>
+                    </div>
+                    {onlyInB.length === 0
+                      ? <span className="compare-meta-empty">None unique</span>
+                      : <ul className="compare-diff-list">{onlyInB.map(renderClassItem)}</ul>}
+                  </div>
+
+                </div>
+              </div>
+            );
+          })()}
+
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -639,6 +1036,8 @@ function App() {
     navigate('/');
   };
 
+  const location = useLocation();
+
   return (
     <>
       <nav className="navbar">
@@ -650,6 +1049,14 @@ function App() {
               className="navbar-logo"
             />
             <h1 onClick={handleTitleClick}>The Semantic Registry</h1>
+          </div>
+          <div className="navbar-links">
+            <Link
+              to="/compare"
+              className={`navbar-link${location.pathname === '/compare' ? ' navbar-link--active' : ''}`}
+            >
+              ⇄ Compare
+            </Link>
           </div>
         </div>
       </nav>
@@ -669,6 +1076,7 @@ function App() {
           />
         } />
         <Route path="/ontology/:slug" element={<OntologyDetail ontologies={results} />} />
+        <Route path="/compare" element={<CompareView />} />
       </Routes>
     </>
   );

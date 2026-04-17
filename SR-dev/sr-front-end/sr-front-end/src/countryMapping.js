@@ -4,6 +4,7 @@ export const countryLabels = {
     "http://publications.europa.eu/resource/authority/country/IRL": { code: "ie", name: "Ireland" },
     "http://publications.europa.eu/resource/authority/country/ITA": { code: "it", name: "Italy" },
     "http://publications.europa.eu/resource/authority/country/USA": { code: "us", name: "United States" },
+    "http://publications.europa.eu/resource/authority/country/BEL": { code: "be", name: "Belgium" },
     "http://publications.europa.eu/resource/authority/country/NOR": { code: "no", name: "Norway" }
   };
   

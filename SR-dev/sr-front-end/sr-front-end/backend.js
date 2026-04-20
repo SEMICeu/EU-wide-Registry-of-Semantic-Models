@@ -8,6 +8,7 @@ const VIRTUOSO_ENDPOINT = 'https://health.semic.eu/virtuoso/sparql';
 const app = express();
 const PORT = process.env.PORT || 4000;
 const BASE_PATH = '/semantic-registry';
+const CHATBOT_INTERNAL_URL = process.env.CHATBOT_INTERNAL_URL || 'http://chatbot:8050';
 
 const GRAPH1 = 'http://semic.registry.eu';
 const GRAPH2 = 'http://semic.registry2.eu';
@@ -55,6 +56,14 @@ function createClient() {
 
 app.set('trust proxy', true);
 app.use(cors());
+
+// Proxy chat API before body parsing so request streams/bodies are preserved.
+app.use(BASE_PATH + '/api/chat', createProxyMiddleware({
+  target: CHATBOT_INTERNAL_URL,
+  changeOrigin: true,
+  pathRewrite: (_path, req) => req.originalUrl.replace(BASE_PATH, '')
+}));
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {

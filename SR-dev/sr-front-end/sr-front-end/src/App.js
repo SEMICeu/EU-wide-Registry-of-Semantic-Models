@@ -8,6 +8,7 @@ import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
 import { allPublishers } from './publisherMapping';
 import 'flag-icons/css/flag-icons.min.css';
 import { getCountryLabel, getCountryCode } from './countryMapping';
+import ChatbotWidget from './components/ChatbotWidget';
 
 // Hardcoded base path for the app
 const BASE_PATH = '/semantic-registry';
@@ -1102,6 +1103,7 @@ function App() {
         <Route path="/ontology/:slug" element={<OntologyDetail ontologies={results} />} />
         <Route path="/compare" element={<CompareView />} />
       </Routes>
+      <ChatbotWidget />
     </>
   );
 }

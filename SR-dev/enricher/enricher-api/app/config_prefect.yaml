@@ -1,6 +1,6 @@
 sparql:
   source_endpoint: "https://health.semic.eu/virtuoso/sparql"
-  source_graph_uri: "http://semic.registry.eu"
+  source_graph_uri: "http://italy.registry.eu"
   target_graph_uri: "http://semic.registry2.eu"
   authentication: True
   auth_endpoint: "https://health.semic.eu/virtuoso/sparql-auth"
@@ -8,19 +8,22 @@ sparql:
 
 classify:
   fetch_themes_to_classify_query: |
+    PREFIX adms: <http://www.w3.org/ns/adms#>
     PREFIX dct: <http://purl.org/dc/terms/> 
-    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#> 
     SELECT DISTINCT ?standard ?description (GROUP_CONCAT(DISTINCT ?lowLabel; separator=",") AS ?labels) (GROUP_CONCAT(DISTINCT ?lowKeyword; separator=",") AS ?keywords)
     FROM <$graph_uri>
+    FROM <http://semic.registry2.eu>
     WHERE {
-      ?standard a dct:Standard .
+      ?standard a adms:Asset .
       ?standard dct:description ?description .
-      FILTER(lang(?description) = "en") .
+      FILTER(lang(?description) = "en" || STRSTARTS(lang(?description),"en") ) .
       FILTER NOT EXISTS { ?standard dcat:theme ?theme}
       OPTIONAL {
           SELECT ?standard (LCASE(?label) AS ?lowLabel)
           WHERE {
-              ?standard dct:hasPart ?class .
+              ?standard dcat:distribution ?distribution .
+              ?class rdfs:isDefinedBy ?distribution .
               ?class rdfs:label ?label .
               FILTER(lang(?label) = "en")
           }
@@ -58,15 +61,17 @@ classify:
 
 synonyms:
   fetch_labels_to_synonyms_query: |
+    PREFIX adms: <http://www.w3.org/ns/adms#>
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     select distinct ?class (group_concat(distinct ?lowLabel;separator=",") as ?labels) ?description
     FROM <$graph_uri>
     where {
-      ?standard a dct:Standard .
+      ?standard a adms:Asset .
       ?standard dct:description ?description .
       FILTER(lang(?description) = "en") .
-      ?standard dct:hasPart ?class .
+      ?standard dcat:distribution ?distribution .
+      ?class rdfs:isDefinedBy ?distribution .
       ?class rdfs:label ?label .
       BIND(LCASE(?label) as ?lowLabel) .
       FILTER(lang(?label) = "en")
@@ -96,6 +101,7 @@ synonyms:
 
 translate:
   delete_source_descriptions_query: |
+    PREFIX adms: <http://www.w3.org/ns/adms#>
     PREFIX dct: <http://purl.org/dc/terms/>
     DELETE {
       GRAPH <$graph_uri> {
@@ -104,7 +110,7 @@ translate:
     }
     WHERE {
       GRAPH <$graph_uri> {
-        ?s a dct:Standard .
+        ?s a adms:Asset .
         ?s dct:description ?description .
         FILTER (STRSTARTS(?description, "test-"))
       }
@@ -149,11 +155,12 @@ translate:
     - ga   # Irish (~0.1M native, wider as L2)
     - mt   # Maltese (~0.5M)
   fetch_descriptions_query: |
+    PREFIX adms: <http://www.w3.org/ns/adms#>
     PREFIX dct: <http://purl.org/dc/terms/>
     SELECT DISTINCT ?standard ?existingLang
     FROM <$graph_uri>
     WHERE {
-        ?standard a dct:Standard .
+        ?standard a adms:Asset .
         ?standard dct:description ?existingDesc .
         BIND(lang(?existingDesc) AS ?existingLang)
 

@@ -1,0 +1,9 @@
+**/node_modules
+**/venv
+**/.venv
+**/build
+**/.git
+**/.idea
+**/.vscode
+**/*.log
+**/.DS_Store

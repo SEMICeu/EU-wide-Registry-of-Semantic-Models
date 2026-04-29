@@ -1,0 +1,17 @@
+{
+  "name": "semantic-registry-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express backend for the semantic registry.",
+  "scripts": {
+    "start": "node backend.js",
+    "start-backend": "node backend.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^3.0.5",
+    "sparql-http-client": "^3.0.1"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "the-semantic-registry",
+  "homepage": "/semantic-registry",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A React.js frontend for searching semantic ontologies.",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "start-backend": "npm --prefix ../sr-backend run start-backend"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "flag-icons": "^7.5.0",
+    "http-proxy-middleware": "^3.0.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "^5.0.1",
+    "sparql-http-client": "^3.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

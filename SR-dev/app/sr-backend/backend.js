@@ -146,7 +146,7 @@ app.post(BASE_PATH + '/api/search', async (req, res) => {
     return res.status(500).json({ error: 'SPARQL client not initialized' });
   }
 
-  const { query, theme, publisher } = req.body;
+  const { query, theme, country } = req.body;
 
   if (!query || typeof query !== 'string') {
     return res.status(400).json({ error: 'Missing or invalid search query' });
@@ -161,7 +161,7 @@ app.post(BASE_PATH + '/api/search', async (req, res) => {
       UNION
       { GRAPH <${GRAPH2}> { ?asset dcat:theme <${theme}> . } }
     }` : '';
-  const publisherPattern = publisher ? `?asset dct:creator <${publisher}> .` : '';
+  const countryPattern = country ? `?asset dct:creator ?_filterAgent . ?_filterAgent dct:spatial <${country}> .` : '';
 
   const client = createClient();
 
@@ -185,7 +185,7 @@ app.post(BASE_PATH + '/api/search', async (req, res) => {
         ?asset a adms:Asset .
         OPTIONAL { ?asset cv:lovRank ?lovRank . }
         ${isUri ? `FILTER(?asset = <${query}>)` : ''}
-        ${publisherPattern}
+        ${countryPattern}
       }
       ${themePattern}
       ${!isUri && query && query !== '*' ? `

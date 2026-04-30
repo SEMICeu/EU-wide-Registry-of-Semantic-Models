@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 import { getLanguageLabel } from './languageMapping';
 import { getFormatLabel } from './formatMapping';
 import { allDataThemes, getDataThemeLabel } from './dataThemeMapping';
-import { allPublishers } from './publisherMapping';
 import 'flag-icons/css/flag-icons.min.css';
-import { getCountryLabel, getCountryCode } from './countryMapping';
+import { getCountryLabel, getCountryCode, allCountries } from './countryMapping';
 import ChatbotWidget from './components/ChatbotWidget';
 
 // Hardcoded base path for the app
@@ -413,7 +412,7 @@ function OntologyDetail({ ontologies }) {
 function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, results, setResults, loading, setLoading, error, setError }) {
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState('');
-  const [selectedPublisher, setSelectedPublisher] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
   const [compareSelection, setCompareSelection] = useState([]);
   const [stats, setStats] = useState(null);
 
@@ -445,10 +444,10 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
         const response = await fetch(`${API_BASE}/api/search`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             query: search,
             theme: selectedTheme || null,
-            publisher: selectedPublisher || null
+            country: selectedCountry || null
           })
         });
         if (!response.ok) {
@@ -463,9 +462,9 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       }
     }
   };
-  const handleFilterChange = async (newTheme = selectedTheme, newPublisher = selectedPublisher) => {
+  const handleFilterChange = async (newTheme = selectedTheme, newCountry = selectedCountry) => {
     if (!search.trim()) return; // Don't search if search box is empty
-    
+
     setSubmittedQuery(search);
     setLoading(true);
     setError(null);
@@ -474,10 +473,10 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
       const response = await fetch(`${API_BASE}/api/search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           query: search,
           theme: newTheme || null,
-          publisher: newPublisher || null
+          country: newCountry || null
         })
       });
       if (!response.ok) {
@@ -537,7 +536,7 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
               const newTheme = e.target.value;
               setSelectedTheme(newTheme);
               if (search.trim()) {
-                handleFilterChange(newTheme, selectedPublisher);
+                handleFilterChange(newTheme, selectedCountry);
               }
             }}
           >
@@ -549,25 +548,25 @@ function SearchPage({ search, setSearch, submittedQuery, setSubmittedQuery, resu
             ))}
           </select>
 
-          {/* Publisher Filter */}
-          <label htmlFor="publisher-select" className="sr-only">
-            Filter by publisher
+          {/* Country Filter */}
+          <label htmlFor="country-select" className="sr-only">
+            Filter by country
           </label>
           <select
-          id="publisher-select"
-          value={selectedPublisher}
-          onChange={e => {
-            const newPublisher = e.target.value;
-            setSelectedPublisher(newPublisher);
-            if (search.trim()) {
-              handleFilterChange(selectedTheme, newPublisher);
-            }
-          }}
+            id="country-select"
+            value={selectedCountry}
+            onChange={e => {
+              const newCountry = e.target.value;
+              setSelectedCountry(newCountry);
+              if (search.trim()) {
+                handleFilterChange(selectedTheme, newCountry);
+              }
+            }}
           >
-            <option value="">All Publishers</option>
-            {allPublishers.map(publisher => (
-              <option key={publisher.iri} value={publisher.iri}>
-                {publisher.label}
+            <option value="">All Countries</option>
+            {allCountries.map(country => (
+              <option key={country.iri} value={country.iri}>
+                {country.label}
               </option>
             ))}
           </select>

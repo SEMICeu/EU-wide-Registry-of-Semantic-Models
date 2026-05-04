@@ -1,218 +1,280 @@
 # SR-GraphRAG (SRM)
 
-GraphRAG assistant for the SEMIC Semantic Registry Model (SRM), with:
-- Neo4j + n10s RDF ingestion from TTL
-- Prompt-driven routing (`GRAPH` / `VECTOR` / `HYBRID`) plus follow-up `CHAT` mode
-- Chainlit UI and FastAPI backend with streaming events
+GraphRAG assistant for the SEMIC **Semantic Registry Model (SRM)**. RDF (TTL) is loaded into **Neo4j** with **n10s**; the service answers questions using **graph traversal**, **vector search**, or **hybrid** retrieval, orchestrated by LLM routing. Ships as a **FastAPI** backend (`/api/chat`) and an optional **Chainlit** app for local testing.
 
-## Entrypoints
+## Table of contents
 
-- `graph_rag/main.py`: FastAPI app entrypoint
-- `graph_rag/main_chainlit.py`: Chainlit runtime app entrypoint
-- `graph_rag/setup/setup.py`: setup/ingestion entrypoint (`KnowledgeGraphIngestion.run_ingestion()`)
-- `graph_rag/setup/ingestion.py`: ingestion + embedding/index pipeline implementation
-- `graph_rag/setup/bootstrap_backend.py`: Docker startup bootstrap (wait Neo4j -> ingest -> verify)
+- [Overview](#overview)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Architecture](#architecture)
+- [API](#api)
+- [Data & ingestion](#data--ingestion)
+- [Project structure](#project-structure)
+- [Key entrypoints](#key-entrypoints)
 
-## Runtime Flow
-Current request flow in `graph_rag/api/service.py` (used by both API and Chainlit):
+---
 
+## Overview
 
-1. Save user turn in per-session memory.
-2. Build recent conversation context.
-3. Resolve follow-up to standalone question (`resolve_user_question`) when context exists.
-4. If clarification is required, ask and stop.
-5. Classify + plan route in one call (`classify_and_plan_route`), with `allow_chat=resolved.detected_follow_up`.
-6. Handle intent:
-   - `CHAT`: context-only answer (no retrieval), allowed only for follow-up turns
-   - `OUT_OF_SCOPE`: refusal
-   - `SPEC`: answer from `SRM.md`
-   - `DATA`: execute `GRAPH` / `VECTOR` / `HYBRID`
-7. Emit streaming events (`status`, `routing`, `debug`, `final`/`error`) and persist assistant turn.
+| Layer | Role |
+|--------|------|
+| **Data** | SRM TTL files → Neo4j graph + embeddings / vector indexes |
+| **Runtime** | Session memory → intent + route (`GRAPH` / `VECTOR` / `HYBRID` / chat / spec) → answer + SSE events |
+| **Delivery** | FastAPI on port `8050` (Docker) or your chosen port locally; Chainlit for dev UI |
 
-```mermaid
-flowchart TD
-    U[User message] --> M[ConversationMemory save + context]
-    M --> R[Follow-up resolver]
-    R --> C{Needs clarification?}
-    C -->|Yes| Q[Ask clarification]
-    C -->|No| IR[Intent + strategy router]
-    IR -->|CHAT| CH[Chat reply]
-    IR -->|OUT_OF_SCOPE| O[Refusal]
-    IR -->|SPEC| S[Answer from SRM.md]
-    IR -->|DATA| X[run_with_plan]
-    X --> F[Final answer]
-    CH --> P[Persist assistant turn]
-    O --> P
-    S --> P
-    Q --> P
-    F --> P
-```
+Docker startup **blocks** until Neo4j is reachable, **ingestion** has run, and the graph has at least one node—only then does the HTTP API start (`Dockerfile` CMD: `bootstrap_backend && uvicorn …`).
 
-## API Endpoints
+---
 
-Base router: `graph_rag/api/router.py` (`/api/chat`)
+## Features
 
-- `POST /api/chat/session`: returns `{session_id, welcome_message, suggested_prompts}`
-- `POST /api/chat`: one-shot JSON response
-- `POST /api/chat/stream`: SSE stream with intermediate events
-- `GET /health`: API liveness
-- `GET /health/ready`: readiness (Neo4j connected + non-zero ingested nodes)
+- TTL ingestion via Neo4j n10s (`data_SRM.ttl`, `enriched_SRM.ttl` by default; configurable).
+- LLM-driven routing: graph-only, vector-only, hybrid, conversational follow-up (`CHAT`), answers from `SRM.md` (`SPEC`), and out-of-scope handling.
+- Streaming chat over **Server-Sent Events** (`/api/chat/stream`).
+- Health: liveness (`/health`) and readiness with graph check (`/health/ready`).
 
-## Route Execution
+---
 
-`graph_rag/router/graph_strategy_router.py`:
+## Prerequisites
 
-- `GRAPH`: runs graph traversal query path (`run_graph_traversal_query`)
-- `VECTOR`: runs vector retrieval + vector final-answer generation
-- `HYBRID`: runs graph and vector in parallel, then fuses both outputs with one final LLM call
-- `OUT_OF_SCOPE`: fixed SRM-only refusal
+- **Python** 3.12+ (see `Dockerfile` for container baseline).
+- **Neo4j** 5.x with APOC + n10s (Compose in this repo wires that up).
+- **LLM / embeddings** via PwC-compatible OpenAI API (`PWC_URL`, `PWC_API_KEY`) and models set in `.env`.
 
-```mermaid
-flowchart LR
-    Q[Question + Plan] --> ST{Strategy}
-    ST -->|GRAPH| G[Graph traversal]
-    ST -->|VECTOR| V[Vector retrieval + answer]
-    ST -->|HYBRID| H1[Graph future]
-    ST -->|HYBRID| H2[Vector future]
-    H1 --> HF[Hybrid fuse LLM]
-    H2 --> HF
-    G --> A[Answer payload]
-    V --> A
-    HF --> A
-```
+---
 
-## Graph Traversal + Retry
+## Installation
 
-Graph path (`graph_rag/traversal/graph_traversal.py`):
+1. **Clone / open this repo** and go to the chatbot app directory (the folder that contains `requirements.txt` and `graph_rag/`).
 
-- Uses a cached singleton `GraphCypherQAChain`
-- Runs `invoke_with_repair(..., max_attempts=3)`
-- Extracts generated Cypher from intermediate steps
-- Builds final user answer from graph context with `SRM_GRAPH_FINAL_PROMPT`
+2. **Create a virtual environment** (recommended):
 
-Retry loop (`graph_rag/traversal/retry/retry_loop.py`):
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate
+   ```
 
-- On Cypher failure, retries with repair instructions including previous query + Neo4j error
-- Validates generated query and payload shape
-- Empty result sets are retried up to max attempts, then returned as `no_results`
-- Hard failures raise `GraphRetryExhaustedError` with per-round diagnostics
-- Chat service catches traversal retry failures and returns user-facing fallback/error events instead of crashing UI/API loops.
+   On macOS/Linux: `source .venv/bin/activate`
 
-## Ingestion Pipeline
+3. **Install dependencies:**
 
-Setup entrypoint:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-python -m graph_rag.setup.setup
-```
+4. **Configure environment:** copy or edit `.env` with Neo4j and model variables (see [Configuration](#configuration)).
 
-Pipeline in `graph_rag/setup/ingestion.py` (default `USE_RDF_GRAPH_ONLY = True`):
+5. **Start Neo4j** (or use Docker Compose so Neo4j and the app start together).
 
-1. Load env and validate Neo4j/PWC credentials
-2. Connect to Neo4j
-3. Ensure n10s uniqueness constraint + graph config
-4. Import TTL files via `n10s.rdf.import.inline` (default order: `data_SRM.ttl`, `enriched_SRM.ttl`)
-5. Seed session IDs from imported graph
-6. Create embeddings and vector indexes
-7. Verify embedding/index results
+6. **Load graph data** (first time or after wiping the DB):
+
+   ```bash
+   python -m graph_rag.setup.setup
+   ```
+
+7. **Run the API** (see [Usage](#usage)).
+
+---
 
 ## Configuration
 
-### Runtime models (`config.py`)
-- `LLM_MODEL_OPUS`: primary model for final answers
-- `LLM_MODEL_GPT_MINI`: fast model for resolver/router tasks
-- `EMBEDDING_MODEL`: embeddings model
-- Credentials: `PWC_API_KEY`, `PWC_URL`
+| Variable | Purpose |
+|----------|---------|
+| `PWC_API_KEY`, `PWC_URL` | API key and base URL for chat + embedding calls |
+| `LLM_MODEL_OPUS` | Primary model for final answers |
+| `LLM_MODEL_GPT_MINI` | Faster model for routing / rewrite steps |
+| `EMBEDDING_MODEL` | Embedding model name |
+| `NEO4J_URI`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` | Neo4j Bolt connection |
+| `NEO4J_TTL_FILES` | Optional comma-separated TTL basenames (default `data_SRM.ttl,enriched_SRM.ttl`) |
 
-### Runtime UX knobs (`graph_rag/main.py`)
-- `GRAPH_RAG_DEBUG_UI` (default `true`)
-- `GRAPH_RAG_MAX_CONTEXT_TOKENS` (default `12000`)
-- `GRAPH_RAG_RESPONSE_RESERVE_TOKENS` (default `2000`)
-- `GRAPH_RAG_RECENT_TURNS_LIMIT` (default `8`)
+Optional tuning (read in application code): `GRAPH_RAG_DEBUG_UI`, `GRAPH_RAG_MAX_CONTEXT_TOKENS`, `GRAPH_RAG_RESPONSE_RESERVE_TOKENS`, `GRAPH_RAG_RECENT_TURNS_LIMIT`.
 
-### Neo4j connection
-- Runtime graph modules read Neo4j from environment-backed `config.py` values.
-- Setup/ingestion validates `NEO4J_URI`, `NEO4J_USERNAME`, `NEO4J_PASSWORD` from environment.
+Shared settings are loaded in `config.py` (uses `python-dotenv`).
 
-## Run
+---
 
-Install dependencies:
+## Usage
 
-```bash
-pip install -r requirements.txt
-```
+### Option A — Docker (Neo4j + chatbot)
 
-### Standalone Chainlit test mode
-
-```bash
-chainlit run graph_rag/main_chainlit.py -w
-```
-
-Use this when you want to test the assistant interactively without frontend integration.
-
-### FastAPI backend mode
-
-```bash
-uvicorn graph_rag.main:app --reload --port 8000
-```
-
-Use this when connecting a custom frontend.
-
-Important:
-- `graph_rag/main_chainlit.py` is a Chainlit script (run with `chainlit run`).
-- `graph_rag/main.py` is the ASGI app (run with `uvicorn graph_rag.main:app`).
-
-### API quickstart
-
-1. Create session:
-   - `POST /api/chat/session`
-2. Send one-shot message:
-   - `POST /api/chat`
-3. Or stream events:
-   - `POST /api/chat/stream` (SSE: `status`, `routing`, `debug`, `final`, `error`)
-
-Docker Compose (Neo4j + chatbot bootstrap):
+From this directory:
 
 ```bash
 docker compose up --build
 ```
 
-`chatbot` container startup flow:
-1. Wait until Neo4j is reachable
-2. Run ingestion (`python -m graph_rag.setup.bootstrap_backend` -> `graph_rag.setup.setup`)
-3. Verify graph has ingested data (`MATCH (n) RETURN count(n)`)
-4. Start FastAPI on port `8050`
+- Neo4j: browser typically on host port mapped in `docker-compose.yml` (e.g. `7555` → 7474).
+- Chatbot API: **8050** after bootstrap finishes.
 
-## Project Structure
+### Option B — FastAPI only (local dev)
+
+Requires Neo4j running and data ingested (`python -m graph_rag.setup.setup`).
+
+```bash
+uvicorn graph_rag.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Use this when integrating with another frontend or the semantic-registry app.
+
+### Option C — Chainlit (interactive UI)
+
+```bash
+chainlit run graph_rag/main_chainlit.py -w
+```
+
+Chainlit uses the same chat service stack as the API for behaviour parity during development.
+
+---
+
+## Architecture
+
+### Startup (Docker / production container)
+
+```mermaid
+flowchart LR
+  subgraph compose["Docker Compose"]
+    N[Neo4j]
+    C[chatbot container]
+  end
+  N -->|healthcheck OK| C
+  C --> W[Wait for Bolt]
+  W --> I[Run bootstrap_backend]
+  I --> S[Ingest TTL + indexes]
+  S --> V[Verify node count > 0]
+  V --> U[uvicorn :8050]
+```
+
+### Chat request pipeline
+
+Orchestration: `graph_rag/api/service.py`.
+
+```mermaid
+flowchart TD
+  U[User message] --> M[Session memory + context]
+  M --> R[Follow-up resolver]
+  R --> C{Clarification needed?}
+  C -->|Yes| Q[Clarification reply]
+  C -->|No| P[classify_and_plan_route]
+  P --> I{Intent / plan}
+  I -->|CHAT| CH[Context-only answer]
+  I -->|OUT_OF_SCOPE| O[Refusal]
+  I -->|SPEC| SP[Answer from SRM.md]
+  I -->|DATA| X[GRAPH / VECTOR / HYBRID]
+  X --> F[Final answer + debug payload]
+  CH --> E[SSE events + persist]
+  O --> E
+  SP --> E
+  Q --> E
+  F --> E
+```
+
+### Retrieval strategies (`DATA` path)
+
+```mermaid
+flowchart LR
+  Q[Question + plan] --> ST{Strategy}
+  ST -->|GRAPH| G[Graph / Cypher QA]
+  ST -->|VECTOR| V[Vector retrieval + answer]
+  ST -->|HYBRID| H1[Graph]
+  ST -->|HYBRID| H2[Vector]
+  H1 --> HF[Hybrid fusion LLM]
+  H2 --> HF
+  G --> A[Answer]
+  V --> A
+  HF --> A
+```
+
+---
+
+## API
+
+Router prefix: `/api/chat` (`graph_rag/api/router.py`). App-level routes in `graph_rag/main.py`.
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/api/chat/session` | Create session; returns `session_id`, welcome text, suggested prompts |
+| `POST` | `/api/chat` | Non-streaming JSON reply |
+| `POST` | `/api/chat/stream` | SSE: `status`, `routing`, `debug`, `final`, `error` |
+| `GET` | `/health` | Liveness |
+| `GET` | `/health/ready` | Neo4j up + non-zero nodes |
+
+**Quick test:** `POST /api/chat/session` → `POST /api/chat/stream` with `session_id` and `message`.
+
+---
+
+## Data & ingestion
+
+| Mode | Command / behaviour |
+|------|----------------------|
+| **CLI** | `python -m graph_rag.setup.setup` → `KnowledgeGraphIngestion.run_ingestion()` in `graph_rag/setup/ingestion.py` |
+| **Container** | `python -m graph_rag.setup.bootstrap_backend` before `uvicorn` (wait Neo4j → ingest → node count check) |
+
+Typical pipeline: connect → n10s constraint/config → import TTL(s) → session / embedding / index steps as configured → verification.
+
+Default TTL paths live under `graph_rag/setup/data/` (e.g. `data_SRM.ttl`, `enriched_SRM.ttl`). Compose can mount host `data` into Neo4j `import` and set `NEO4J_TTL_FILES` to match filenames there.
+
+---
+
+## Project structure
 
 ```text
-SR-GraphRAG/
-  graph_rag/
-    main.py                      # FastAPI app entrypoint
-    main_chainlit.py             # Chainlit standalone test runtime
-    prompts.py                   # Runtime prompts (router, Cypher generation, hybrid/spec/chat/follow-up)
-    api/
-      dto.py                     # API DTOs
-      router.py                  # FastAPI routes (/api/chat/*)
-      service.py                 # Chat orchestration + streaming events
-    vector_search.py             # Vector retrieval + traversal helper
-    router/
-      graph_strategy_router.py   # Strategy execution (GRAPH/VECTOR/HYBRID)
-      question_router.py         # Intent + plan classification + SPEC/CHAT QA helpers
-    traversal/
-      graph_traversal.py         # GraphCypherQAChain orchestration
-      retry/retry_loop.py        # Cypher repair retry logic
-    setup/
-      setup.py                   # Setup entrypoint
-      ingestion.py               # TTL import + embeddings/indexes
-      bootstrap_backend.py       # Docker startup bootstrap (wait -> ingest -> verify)
-      query.py                   # Standalone query test utility
-      params.py
-      prompts.py                 # Setup/query-only prompts (separate from runtime prompts)
-      data/
-        data_SRM.ttl
-        enriched_SRM.ttl
-  SRM.md                         # SRM spec reference used for SPEC answers
-  config.py
-  .env
+chatbot/
+├── README.md
+├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+├── config.py                 # Env: LLM, embeddings, Neo4j
+├── SRM.md                    # Reference for SPEC-style answers
+├── chainlit.md
+├── config.toml               # Chainlit UI config
+├── .env                      # Local secrets (not committed)
+├── .gitignore
+├── graph_rag/
+│   ├── __init__.py
+│   ├── main.py               # FastAPI app + /health, /health/ready
+│   ├── main_chainlit.py      # Chainlit UI entry
+│   ├── prompts.py            # Runtime prompts (router, Cypher, hybrid, etc.)
+│   ├── vector_search.py
+│   ├── api/
+│   │   ├── dto.py
+│   │   ├── router.py         # /api/chat/*
+│   │   └── service.py        # Orchestration + streaming
+│   ├── conversation/         # Memory, resolver, token budget
+│   ├── router/
+│   │   ├── graph_strategy_router.py   # GRAPH / VECTOR / HYBRID
+│   │   └── question_router.py         # classify_and_plan_route, SPEC/CHAT helpers
+│   ├── traversal/
+│   │   ├── graph_traversal.py
+│   │   └── retry/
+│   │       └── retry_loop.py
+│   └── setup/
+│       ├── bootstrap_backend.py   # Docker: wait → ingest → verify
+│       ├── setup.py               # CLI ingestion entry
+│       ├── ingestion.py           # Full pipeline implementation
+│       ├── params.py
+│       ├── prompts.py             # Setup-time prompts
+│       ├── query.py               # Query test utility
+│       └── data/
+│           ├── data_SRM.ttl
+│           └── enriched_SRM.ttl
+├── translations/             # i18n JSON for Chainlit
+└── data/                   # Optional local data / Neo4j import mount (compose)
 ```
+
+---
+
+## Key entrypoints
+
+| Concern | File |
+|---------|------|
+| HTTP app | `graph_rag/main.py` |
+| Chainlit | `graph_rag/main_chainlit.py` |
+| Routes | `graph_rag/api/router.py` |
+| Chat orchestration | `graph_rag/api/service.py` |
+| Strategy execution | `graph_rag/router/graph_strategy_router.py` |
+| Ingestion | `graph_rag/setup/setup.py`, `graph_rag/setup/ingestion.py` |
+| Docker bootstrap | `graph_rag/setup/bootstrap_backend.py` |

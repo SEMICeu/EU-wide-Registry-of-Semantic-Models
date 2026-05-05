@@ -1,0 +1,10 @@
+.git
+.gitignore
+venv
+__pycache__
+**/__pycache__
+*.pyc
+.chainlit
+.cursor
+.files
+

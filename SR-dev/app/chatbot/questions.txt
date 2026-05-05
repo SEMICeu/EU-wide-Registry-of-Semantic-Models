@@ -1,0 +1,49 @@
+# Graph traversal examples
+g1: How many assets are in the semantic registry?
+g2: How many assets are in the semantic registry an how many for each country?
+g3: How many assets does belgium have?
+g4: List 5 assets from Italy and list their publisher and creater.
+g5: List assets whose language is Italian and show their titles.
+g6: List 10 assets from Italy and show their title, status, and creator/publisher.
+g7: How many assets have status 'completed'?
+g8: How many application profiles are there?
+g9: How many application profiles and vocabularies does belgium have?
+g10: list all the distinct themes for which we have assets
+g11: For Italy, what are all the distinct themes for which we have assets?
+g12: For Italy list me all the assets within the domain of environment
+g13: How does Norway model a person?
+g14: which assets are reused the most show me the uri and rank
+g15: which assets are reused the most, give the uri
+g16: which assets in flanders are reused the most, give the uri
+g17: what are all the core vocs?
+g18: which data models are reusing https://data.vlaanderen.be/ns/financiele-rapportering/
+g19: Summarize the main themes covered by SRM assets in plain language.
+
+# Graph traversal examples - more complex
+eq1: I am looking to align my semantic model describing a person with Norway, which model are they using, give me the URI and title
+eq3: tell me how the core vocabularies are reused across member states
+eq4: which countries are reusing elements form the core vocabularies?
+eq5: which data models from italy are reusing elements form the core vocabularies? Just pass me titles and uri's and which vocs they are reusing
+eq6: which data models from Norway are reusing elements form the core vocabularies? Just pass me titles and uri's and which vocs they are reusing
+eq7: I am modeling organisation, which models are commonly reused by memberstates in europe to do so?
+eq8: How does norway model a person, can you point me the the documentation?
+eq9: Does italy use a model for within the domain of environment ? if so where can i find the link to the actual data? also atttach the descriptions
+
+# Vector-only examples
+v1: Are there models related to cross-border person data exchange? Give a short description of the most relevant ones.
+v2: Find assets related to business event reporting and briefly describe what each model is about.
+v3: Which models seem related to sustainability? Summarize them in plain language.
+v4: What assets are most related to semantic interoperability guidance?
+
+# Hybrid examples
+hb1: I am designing a cross-border person data model. Which SRM assets are most relevant to start from, and why?
+hb2: For cross-border public service onboarding, which assets should we shortlist first? Prioritize assets from Belgium, Italy, and Norway and explain the fit from their descriptions.
+hb3: Which assets are best candidates for reusable event and lifecycle data modeling? Include high-lovRank assets and explain relevance using their descriptions.
+hb4: I need practical adoption guidance for a business vocabulary: shortlist assets with available documentation links and explain, from descriptions, what each contributes.
+hb5: Give me a concise semantic overview of the SEMIC core vocabularies in this registry and what each is mainly for.
+hb6: For an interoperability project on person, organization, and location together, which assets form the best combined starting set? Use reuse signals and description semantics.
+hb7: Which assets from Italy are thematically close to SEMIC core vocabularies and also practical for implementation? Explain the match briefly using their descriptions and available distributions.
+
+# SRM questions
+srm1: Give me a high-level conceptual overview of how SRM is organized for newcomers.
+srm2: Explain, in simple terms, what makes an SRM asset reusable.
